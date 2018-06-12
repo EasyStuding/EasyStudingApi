@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyStudingApi\EasyStudingApi.csproj" />
+    <ProjectReference Include="..\EasyStudingInterfaces\EasyStudingInterfaces.csproj" />
+    <ProjectReference Include="..\EasyStudingModels\EasyStudingModels.csproj" />
+    <ProjectReference Include="..\EasyStudingRepositories\EasyStudingRepositories.csproj" />
+    <ProjectReference Include="..\EasyStudingServices\EasyStudingServices.csproj" />
+  </ItemGroup>
+
+</Project>

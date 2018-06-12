@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyStudingInterfaces\EasyStudingInterfaces.csproj" />
+    <ProjectReference Include="..\EasyStudingModels\EasyStudingModels.csproj" />
+    <ProjectReference Include="..\EasyStudingRepositories\EasyStudingRepositories.csproj" />
+  </ItemGroup>
+
+</Project>
