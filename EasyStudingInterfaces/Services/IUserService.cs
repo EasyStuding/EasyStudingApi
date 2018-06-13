@@ -1,30 +1,43 @@
 ﻿using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
+using System.Linq;
 
 namespace EasyStudingInterfaces.Services
 {
     public interface IUserService
     {
-        bool ChangePassword(string oldPassword, string newPassword);
+        IQueryable<ApiUserInformationModel> GetApiUserInformationModels(ApiEducationModel education, City city);
 
-        ApiUserDescriptionModel EditProfile(ApiUserDescriptionModel description);
+        ApiUserInformationModel GetApiUserInformationModel(long id);
 
-        UserPicture AddPictureProfile(ApiAddFile file);
+        IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels(long currentUserId);
 
-        UserPicture EditPictureProfile(ApiAddFile file);
+        ApiOrderDetailsModel GetApiOrderDetailsModel(long id, long currentUserId);
 
-        bool RemovePictureProfile(long id);
+        IQueryable<SubscriptionExecutor> GetSubscriptionExecutors(ApiEducationModel education, City city);
 
-        bool RequestToBuySubscription(Cost cost);
+        SubscriptionExecutor GetSubscriptionExecutor(long id);
 
-        bool CompleteBuySubcription(Cost cost);
+        bool ChangePassword(string oldPassword, string newPassword, long currentUserId);
 
-        bool AddFileToOpenSource(ApiAddFile file);
+        ApiUserDescriptionModel EditProfile(ApiUserDescriptionModel description, long currentUserId);
 
-        bool AddOrder(ApiOrderDetailsModel order);
+        ApiFileToReturnModel AddPictureProfile(ApiFileToAddModel file, long currentUserId);
 
-        bool CloseOrder(long id);
+        ApiFileToReturnModel EditPictureProfile(ApiFileToAddModel file, long currentUserId);
 
-        bool AddReview(ApiReviewModel review);
+        ApiFileToReturnModel RemovePictureProfile(long id, long currentUserId);
+
+        Cost RequestToBuySubscription(Cost cost, long currentUserId);
+
+        Cost CompleteBuySubcription(Cost cost, long currentUserId);
+
+        ApiFileToReturnModel AddFileToOpenSource(ApiFileToAddModel file, long currentUserId);
+
+        ApiOrderDetailsModel AddOrder(ApiOrderDetailsModel order, long currentUserId);
+
+        ApiOrderDetailsModel CloseOrder(long id, long currentUserId);
+
+        ApiReviewModel AddReview(ApiReviewModel review, long currentUserId);
     }
 }

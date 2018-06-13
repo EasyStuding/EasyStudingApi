@@ -1,18 +1,23 @@
 ﻿using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
+using System.Linq;
 
 namespace EasyStudingInterfaces.Controllers
 {
     public interface IExecutorController
     {
-        ApiOrderDetailsModel GetTheRightsToPerformOrder(long orderid);
+        IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels(ApiEducationModel education, City city);
 
-        ApiOrderDetailsModel StartExecuteOrder(long orderid);
+        ApiOrderDetailsModel GetApiOrderDetailsModel(long id);
 
-        ApiOrderDetailsModel CloseOrder(long orderid);
+        ApiOrderDetailsModel GetTheRightsToPerformOrder(long id);
 
-        Skill AddSkill(long skillid);
+        ApiOrderDetailsModel StartExecuteOrder(long id);
 
-        Skill RemoveSkill(long skillid);
+        ApiOrderDetailsModel CloseOrder(long id);
+
+        Skill AddSkill(long id);
+
+        Skill RemoveSkill(long id);
     }
 }

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace EasyStudingInterfaces.Repositories
 {
-    public interface IUserRepository
+    public interface IRepository
     {
+
     }
 }

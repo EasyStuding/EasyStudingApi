@@ -319,7 +319,9 @@ namespace EasyStudingRepositories.DbContext
                     .IsRequired()
                     .HasColumnName("title");
 
-                entity.Property(e => e.UserInformationId).HasColumnName("userinformationid");
+                entity.Property(e => e.ReviewOwnerId).HasColumnName("reviewownerid");
+
+                entity.Property(e => e.ReviewRecipientId).HasColumnName("reviewrecipientid");
             });
 
             modelBuilder.Entity<Role>(entity =>

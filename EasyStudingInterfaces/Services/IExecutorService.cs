@@ -1,15 +1,23 @@
-﻿namespace EasyStudingInterfaces.Services
+﻿using EasyStudingModels.ApiModels;
+using EasyStudingModels.DbContextModels;
+using System.Linq;
+
+namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        bool ObtainTheRightsToPerformOrder(long orderid);
+        IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels(ApiEducationModel education, City city);
 
-        bool StartExecuteOrder(long orderid);
+        ApiOrderDetailsModel GetApiOrderDetailsModel(long id);
 
-        bool CloseOrder(long orderid);
+        ApiOrderDetailsModel GetTheRightsToPerformOrder(long id, long currentUserId);
 
-        bool AddSkill(long skillid);
+        ApiOrderDetailsModel StartExecuteOrder(long id, long currentUserId);
 
-        bool RemoveSkill(long skillid);
+        ApiOrderDetailsModel CloseOrder(long id);
+
+        Skill AddSkill(long id, long currentUserId);
+
+        Skill RemoveSkill(long id, long currentUserId);
     }
 }
