@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
+using EasyStudingInterfaces.Services;
 using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 
@@ -14,6 +15,13 @@ namespace EasyStudingApi.Controllers
     [Route("api/Moderator")]
     public class ModeratorController : Controller, IModeratorController
     {
+        private IModeratorService Service;
+
+        public ModeratorController(IModeratorService service)
+        {
+            Service = service;
+        }
+
         [HttpPost]
         // * - host.
         // */api/moderator/BanUser

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
+using EasyStudingInterfaces.Services;
 using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 
@@ -14,6 +15,13 @@ namespace EasyStudingApi.Controllers
     [Route("api/User")]
     public class UserController : Controller, IUserController
     {
+        private IUserService Service;
+
+        public UserController(IUserService service)
+        {
+            Service = service;
+        }
+
         [HttpGet]
         // * - host.
         // */api/user/GetApiUserInformationModels
