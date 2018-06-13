@@ -6,7 +6,7 @@
 
         bool StartExecuteOrder(long orderid);
 
-		bool CloseOrder(long orderid);
+	bool CloseOrder(long orderid);
 
         bool AddSkill(long skillid);
 
