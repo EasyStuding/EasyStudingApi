@@ -1,4 +1,5 @@
 ﻿using EasyStudingInterfaces.Services;
+using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 using System;
@@ -11,6 +12,8 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request.
     public class UserService: IUserService
     {
+        //TODO: initialize repositories;
+
         public IQueryable<ApiUserInformationModel> GetApiUserInformationModels(ApiEducationModel education, City city)
         {
             throw new Exception();

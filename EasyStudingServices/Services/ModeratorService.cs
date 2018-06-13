@@ -1,4 +1,5 @@
 ﻿using EasyStudingInterfaces.Services;
+using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 using System;
@@ -10,6 +11,8 @@ namespace EasyStudingServices.Services
 {
     public class ModeratorService: IModeratorService
     {
+        //TODO: initialize repositories;
+
         public ApiUserInformationModel BanUser(long id)
         {
             throw new Exception();

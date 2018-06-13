@@ -1,4 +1,5 @@
 ﻿using EasyStudingInterfaces.Services;
+using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 using System;
@@ -9,6 +10,8 @@ namespace EasyStudingServices.Services
 {
     public class SessionService: ISessionService
     {
+        //TODO: initialize repositories;
+
         public UserRegistration StartRegistration(ApiUserRegistrationModel apiUserRegistration)
         {
             throw new Exception();
