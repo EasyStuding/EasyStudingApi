@@ -30,7 +30,7 @@ namespace EasyStudingInterfaces.Controllers
 
         ApiEducationModel AddEducation(ApiEducationModel education);
         ApiEducationModel EditEducation(ApiEducationModel education);
-        ApiEducationModel Removeeducation(long id);
+        ApiEducationModel RemoveEducation(long id);
 
         Cost AddCost(Cost cost);
         Cost EditCost(Cost cost);
