@@ -1,15 +1,18 @@
-﻿namespace EasyStudingInterfaces.Controllers
+﻿using EasyStudingModels.ApiModels;
+using EasyStudingModels.DbContextModels;
+
+namespace EasyStudingInterfaces.Controllers
 {
     public interface IExecutorController
     {
-        bool ObtainTheRightsToPerformOrder(long orderid);
+        ApiOrderDetails GetTheRightsToPerformOrder(long orderid);
 
-        bool StartExecuteOrder(long orderid);
+        ApiOrderDetails StartExecuteOrder(long orderid);
 
-		bool CloseOrder(long orderid);
+        ApiOrderDetails CloseOrder(long orderid);
 
-        bool AddSkill(long skillid);
+        Skill AddSkill(long skillid);
 
-        bool RemoveSkill(long skillid);
+        Skill RemoveSkill(long skillid);
     }
 }

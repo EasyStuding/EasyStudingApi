@@ -9,9 +9,9 @@ namespace EasyStudingInterfaces.Services
 
         ApiUserDescription EditProfile(ApiUserDescription description);
 
-        UserPicture AddPictureProfile(ApiFile file);
+        UserPicture AddPictureProfile(ApiAddFile file);
 
-        UserPicture EditPictureProfile(ApiFile file);
+        UserPicture EditPictureProfile(ApiAddFile file);
 
         bool RemovePictureProfile(long id);
 
@@ -19,7 +19,7 @@ namespace EasyStudingInterfaces.Services
 
         bool CompleteBuySubcription(Cost cost);
 
-        bool AddFileToOpenSource(ApiFile file);
+        bool AddFileToOpenSource(ApiAddFile file);
 
         bool AddOrder(ApiOrderDetails order);
 

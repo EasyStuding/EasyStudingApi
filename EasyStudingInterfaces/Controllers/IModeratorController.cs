@@ -1,11 +1,13 @@
-﻿namespace EasyStudingInterfaces.Controllers
+﻿using EasyStudingModels.ApiModels;
+
+namespace EasyStudingInterfaces.Controllers
 {
     public interface IModeratorController
     {
-        bool BanUser(long id);
+        ApiUserInformation BanUser(long id);
 
-        bool RemoveBanOfUser(long id);
+        ApiUserInformation RemoveBanOfUser(long id);
 
-        bool CloseOrder(long id);
+        ApiOrderDetails CloseOrder(long id);
     }
 }

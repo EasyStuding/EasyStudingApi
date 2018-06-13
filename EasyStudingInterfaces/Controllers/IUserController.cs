@@ -9,22 +9,22 @@ namespace EasyStudingInterfaces.Controllers
 
         ApiUserDescription EditProfile(ApiUserDescription description);
 
-        UserPicture AddPictureProfile(ApiFile file);
+        ApiFileToReturn AddPictureProfile(ApiFileToAdd file);
 
-        UserPicture EditPictureProfile(ApiFile file);
+        ApiFileToReturn EditPictureProfile(ApiFileToAdd file);
 
-        bool RemovePictureProfile(long id);
+        ApiFileToReturn RemovePictureProfile(long id);
 
-        bool RequestToBuySubscription(Cost cost);
+        Cost RequestToBuySubscription(Cost cost);
 
-        bool CompleteBuySubcription(Cost cost);
+        Cost CompleteBuySubcription(Cost cost);
 
-		bool AddFileToOpenSource(ApiFile file);
+        ApiFileToReturn AddFileToOpenSource(ApiFileToAdd file);
 
-        bool AddOrder(ApiOrderDetails order);
+        ApiOrderDetails AddOrder(ApiOrderDetails order);
 
-        bool CloseOrder(long id);
+        ApiOrderDetails CloseOrder(long id);
 
-        bool AddReview(ApiReview review);
+        ApiReview AddReview(ApiReview review);
     }
 }

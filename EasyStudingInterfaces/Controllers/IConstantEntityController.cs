@@ -5,28 +5,28 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IConstantEntityController
     {
-        bool AddCountry(Country country);
-        bool EditCountry(Country country);
-        bool RemoveCountry(long id);
+        Country AddCountry(Country country);
+        Country EditCountry(Country country);
+        Country RemoveCountry(long id);
 
-        bool AddCity(City city);
-        bool EditCity(City city);
-        bool RemoveCity(long id);
+        City AddCity(City city);
+        City EditCity(City city);
+        City RemoveCity(long id);
 
-        bool AddEducationType(EducationType educationType);
-        bool EditEducationtype(EducationType educationType);
-        bool RemoveEducationType(long id);
+        EducationType AddEducationType(EducationType educationType);
+        EducationType EditEducationtype(EducationType educationType);
+        EducationType RemoveEducationType(long id);
 
-        bool AddEducation(ApiEducation education);
-        bool EditEducation(ApiEducation education);
-        bool Removeeducation(long id);
+        ApiEducation AddEducation(ApiEducation education);
+        ApiEducation EditEducation(ApiEducation education);
+        ApiEducation Removeeducation(long id);
 
-        bool AddCost(Cost cost);
-        bool EditCost(Cost cost);
-        bool RemoveCost(long id);
+        Cost AddCost(Cost cost);
+        Cost EditCost(Cost cost);
+        Cost RemoveCost(long id);
 
-        bool AddSkill(Skill skill);
-        bool EditSkill(Skill skill);
-        bool RemoveSkill(long id);
+        Skill AddSkill(Skill skill);
+        Skill EditSkill(Skill skill);
+        Skill RemoveSkill(long id);
     }
 }
