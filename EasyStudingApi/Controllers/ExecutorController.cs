@@ -11,11 +11,12 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingApi.Controllers
 {
+    //TODO: add attributes from body.
     [Produces("application/json")]
-    [Route("api/Executor")]
+    [Route("api/Executor/[action]")]
     public class ExecutorController : Controller, IExecutorController
     {
-        private IExecutorService Service;
+        private readonly IExecutorService Service;
 
         public ExecutorController(IExecutorService service)
         {

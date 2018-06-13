@@ -11,11 +11,12 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingApi.Controllers
 {
+    //TODO: add attributes from body.
     [Produces("application/json")]
-    [Route("api/Moderator")]
+    [Route("api/Moderator/[action]")]
     public class ModeratorController : Controller, IModeratorController
     {
-        private IModeratorService Service;
+        private readonly IModeratorService Service;
 
         public ModeratorController(IModeratorService service)
         {

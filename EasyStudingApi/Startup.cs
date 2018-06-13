@@ -34,10 +34,7 @@ namespace EasyStudingApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=User}/{action=Login}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

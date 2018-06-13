@@ -11,11 +11,12 @@ using EasyStudingModels.ApiModels;
 
 namespace EasyStudingApi.Controllers
 {
+    //TODO: add attributes from body.
     [Produces("application/json")]
-    [Route("api/Session")]
+    [Route("api/Session/[action]")]
     public class SessionController : Controller, ISessionController
     {
-        private ISessionService Service;
+        private readonly ISessionService Service;
 
         public SessionController(ISessionService service)
         {

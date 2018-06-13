@@ -11,11 +11,12 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingApi.Controllers
 {
+    //TODO: add attributes from body.
     [Produces("application/json")]
-    [Route("api/User")]
+    [Route("api/User/[action]")]
     public class UserController : Controller, IUserController
     {
-        private IUserService Service;
+        private readonly IUserService Service;
 
         public UserController(IUserService service)
         {
