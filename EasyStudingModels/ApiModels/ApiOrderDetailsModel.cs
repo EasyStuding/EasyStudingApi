@@ -3,11 +3,11 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiOrderDetails
+    public partial class ApiOrderDetailsModel
     {
         public long Id { get; set; }
-        public ApiUserInformation Customer { get; set; }
-        public ApiUserInformation Executor { get; set; }
+        public ApiUserInformationModel Customer { get; set; }
+        public ApiUserInformationModel Executor { get; set; }
         public State State { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

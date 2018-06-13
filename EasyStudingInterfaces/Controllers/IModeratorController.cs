@@ -4,10 +4,10 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IModeratorController
     {
-        ApiUserInformation BanUser(long id);
+        ApiUserInformationModel BanUser(long id);
 
-        ApiUserInformation RemoveBanOfUser(long id);
+        ApiUserInformationModel RemoveBanOfUser(long id);
 
-        ApiOrderDetails CloseOrder(long id);
+        ApiOrderDetailsModel CloseOrder(long id);
     }
 }

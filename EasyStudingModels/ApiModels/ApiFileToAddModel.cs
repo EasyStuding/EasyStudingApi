@@ -1,6 +1,6 @@
 ﻿namespace EasyStudingModels.ApiModels
 {
-    public class ApiFile
+    public class ApiFileToAddModel
     {
         public string Name { get; set; }
 

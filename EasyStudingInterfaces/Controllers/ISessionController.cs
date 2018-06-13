@@ -5,13 +5,13 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface ISessionController
     {
-        UserRegistration StartRegistration(ApiUserRegistration apiUserRegistration);
+        UserRegistration StartRegistration(ApiUserRegistrationModel apiUserRegistration);
 
         UserRegistration ValidateRegistration(ValidationUser validationUser);
 
-        ApiUserInformation CompleteRegistration(ApiLogin apiLogin);
+        ApiUserInformationModel CompleteRegistration(ApiLoginModel apiLogin);
 
-        ApiUserInformation Login(ApiLogin apiLogin, bool isTelephone);
+        ApiUserInformationModel Login(ApiLoginModel apiLogin, bool isTelephone);
 
         bool LogOut();
     }

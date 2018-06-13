@@ -2,10 +2,10 @@
 
 namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiBanDescription
+    public partial class ApiBanDescriptionModel
     {
         public long Id { get; set; }
-        public ApiUserInformation UserInformation { get; set; }
+        public ApiUserInformationModel UserInformation { get; set; }
         public DateTime ExpiresDate { get; set; }
     }
 }

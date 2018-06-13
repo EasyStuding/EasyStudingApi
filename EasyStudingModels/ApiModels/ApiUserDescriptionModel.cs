@@ -2,11 +2,11 @@
 
 namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiUserDescription
+    public partial class ApiUserDescriptionModel
     {
         public long Id { get; set; }
-        public ApiUserInformation UserInformation { get; set; }
-        public ApiEducationUserDecription EducationUserDecription { get; set; }
+        public ApiUserInformationModel UserInformation { get; set; }
+        public ApiEducationUserDecriptionModel EducationUserDecription { get; set; }
         public EmailDescription EmailDescription { get; set; }
         public City City { get; set; }
         public Country Country { get; set; }

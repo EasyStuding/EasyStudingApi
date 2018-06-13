@@ -17,8 +17,8 @@ namespace EasyStudingInterfaces.Services
         bool EditEducationtype(EducationType educationType);
         bool RemoveEducationType(long id);
 
-        bool AddEducation(ApiEducation education);
-        bool EditEducation(ApiEducation education);
+        bool AddEducation(ApiEducationModel education);
+        bool EditEducation(ApiEducationModel education);
         bool Removeeducation(long id);
 
         bool AddCost(Cost cost);

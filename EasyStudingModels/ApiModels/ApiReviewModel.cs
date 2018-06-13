@@ -1,9 +1,9 @@
 ﻿namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiReview
+    public partial class ApiReviewModel
     {
         public long Id { get; set; }
-        public ApiUserInformation UserInformation { get; set; }
+        public ApiUserInformationModel UserInformation { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal? Raiting { get; set; }

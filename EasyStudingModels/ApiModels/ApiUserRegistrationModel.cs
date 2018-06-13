@@ -1,6 +1,6 @@
 ﻿namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiUserRegistration
+    public partial class ApiUserRegistrationModel
     {
         public string TelephoneNumber { get; set; }
     }

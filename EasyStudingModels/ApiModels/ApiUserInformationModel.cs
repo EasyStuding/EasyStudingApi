@@ -1,6 +1,6 @@
 ﻿namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiUserInformation
+    public partial class ApiUserInformationModel
     {
         public long Id { get; set; }
         public string TelephoneNumber { get; set; }

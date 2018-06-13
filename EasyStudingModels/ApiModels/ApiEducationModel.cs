@@ -2,7 +2,7 @@
 
 namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiEducation
+    public partial class ApiEducationModel
     {
         public long Id { get; set; }
         public EducationType Educationtype { get; set; }

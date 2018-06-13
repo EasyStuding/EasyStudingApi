@@ -5,11 +5,11 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IExecutorController
     {
-        ApiOrderDetails GetTheRightsToPerformOrder(long orderid);
+        ApiOrderDetailsModel GetTheRightsToPerformOrder(long orderid);
 
-        ApiOrderDetails StartExecuteOrder(long orderid);
+        ApiOrderDetailsModel StartExecuteOrder(long orderid);
 
-        ApiOrderDetails CloseOrder(long orderid);
+        ApiOrderDetailsModel CloseOrder(long orderid);
 
         Skill AddSkill(long skillid);
 

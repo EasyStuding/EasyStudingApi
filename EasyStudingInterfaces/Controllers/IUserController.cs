@@ -7,24 +7,24 @@ namespace EasyStudingInterfaces.Controllers
     {
         bool ChangePassword(string oldPassword, string newPassword);
 
-        ApiUserDescription EditProfile(ApiUserDescription description);
+        ApiUserDescriptionModel EditProfile(ApiUserDescriptionModel description);
 
-        ApiFileToReturn AddPictureProfile(ApiFileToAdd file);
+        ApiFileToReturnModel AddPictureProfile(ApiFileToAddModel file);
 
-        ApiFileToReturn EditPictureProfile(ApiFileToAdd file);
+        ApiFileToReturnModel EditPictureProfile(ApiFileToAddModel file);
 
-        ApiFileToReturn RemovePictureProfile(long id);
+        ApiFileToReturnModel RemovePictureProfile(long id);
 
         Cost RequestToBuySubscription(Cost cost);
 
         Cost CompleteBuySubcription(Cost cost);
 
-        ApiFileToReturn AddFileToOpenSource(ApiFileToAdd file);
+        ApiFileToReturnModel AddFileToOpenSource(ApiFileToAddModel file);
 
-        ApiOrderDetails AddOrder(ApiOrderDetails order);
+        ApiOrderDetailsModel AddOrder(ApiOrderDetailsModel order);
 
-        ApiOrderDetails CloseOrder(long id);
+        ApiOrderDetailsModel CloseOrder(long id);
 
-        ApiReview AddReview(ApiReview review);
+        ApiReviewModel AddReview(ApiReviewModel review);
     }
 }

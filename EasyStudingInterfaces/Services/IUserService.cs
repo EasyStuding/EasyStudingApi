@@ -7,7 +7,7 @@ namespace EasyStudingInterfaces.Services
     {
         bool ChangePassword(string oldPassword, string newPassword);
 
-        ApiUserDescription EditProfile(ApiUserDescription description);
+        ApiUserDescriptionModel EditProfile(ApiUserDescriptionModel description);
 
         UserPicture AddPictureProfile(ApiAddFile file);
 
@@ -21,10 +21,10 @@ namespace EasyStudingInterfaces.Services
 
         bool AddFileToOpenSource(ApiAddFile file);
 
-        bool AddOrder(ApiOrderDetails order);
+        bool AddOrder(ApiOrderDetailsModel order);
 
         bool CloseOrder(long id);
 
-        bool AddReview(ApiReview review);
+        bool AddReview(ApiReviewModel review);
     }
 }

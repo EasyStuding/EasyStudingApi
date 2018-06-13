@@ -17,9 +17,9 @@ namespace EasyStudingInterfaces.Controllers
         EducationType EditEducationtype(EducationType educationType);
         EducationType RemoveEducationType(long id);
 
-        ApiEducation AddEducation(ApiEducation education);
-        ApiEducation EditEducation(ApiEducation education);
-        ApiEducation Removeeducation(long id);
+        ApiEducationModel AddEducation(ApiEducationModel education);
+        ApiEducationModel EditEducation(ApiEducationModel education);
+        ApiEducationModel Removeeducation(long id);
 
         Cost AddCost(Cost cost);
         Cost EditCost(Cost cost);
