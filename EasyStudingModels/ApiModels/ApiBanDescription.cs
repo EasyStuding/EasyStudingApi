@@ -6,6 +6,6 @@ namespace EasyStudingModels.ApiModels
     {
         public long Id { get; set; }
         public ApiUserInformation UserInformation { get; set; }
-        public DateTime DateExpires { get; set; }
+        public DateTime ExpiresDate { get; set; }
     }
 }

@@ -6,6 +6,6 @@ namespace EasyStudingModels.DbContextModels
     {
         public long Id { get; set; }
         public long UserInformationId { get; set; }
-        public DateTime DateExpires { get; set; }
+        public DateTime ExpiresDate { get; set; }
     }
 }

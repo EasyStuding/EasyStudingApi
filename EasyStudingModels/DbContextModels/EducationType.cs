@@ -3,6 +3,6 @@
     public partial class EducationType
     {
         public long Id { get; set; }
-        public string TypeName { get; set; }
+        public string Name { get; set; }
     }
 }

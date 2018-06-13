@@ -3,8 +3,8 @@
     public partial class Education
     {
         public long Id { get; set; }
-        public long EducationtypeId { get; set; }
-        public string Nameofeducation { get; set; }
+        public long EducationTypeId { get; set; }
+        public string EducationName { get; set; }
         public long CityId { get; set; }
     }
 }

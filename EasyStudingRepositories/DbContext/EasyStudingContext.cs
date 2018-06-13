@@ -44,6 +44,7 @@ namespace EasyStudingRepositories.DbContext
         public virtual DbSet<UserRegistration> UserRegistrations { get; set; }
         public virtual DbSet<ValidationEmail> ValidationEmails { get; set; }
         public virtual DbSet<ValidationUser> ValidationUsers { get; set; }
+        public virtual DbSet<CloseTransaction> CloseTransactions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -64,7 +65,7 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
-                entity.Property(e => e.Href)
+                entity.Property(e => e.Ref)
                     .IsRequired()
                     .HasColumnName("href");
 
@@ -81,7 +82,7 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
-                entity.Property(e => e.DateExpires)
+                entity.Property(e => e.ExpiresDate)
                     .HasColumnName("dateexpires")
                     .HasColumnType("timestamp with time zone");
 
@@ -139,9 +140,9 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
-                entity.Property(e => e.EducationtypeId).HasColumnName("educationtypeid");
+                entity.Property(e => e.EducationTypeId).HasColumnName("educationtypeid");
 
-                entity.Property(e => e.Nameofeducation)
+                entity.Property(e => e.EducationName)
                     .IsRequired()
                     .HasColumnName("nameofeducation");
 
@@ -156,7 +157,7 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
-                entity.Property(e => e.TypeName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("typename");
             });
@@ -536,9 +537,7 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
-                entity.Property(e => e.CustomerId).HasColumnName("customerid");
-
-                entity.Property(e => e.ExecutorId).HasColumnName("executorid");
+                entity.Property(e => e.OrderDetailsId).HasColumnName("orderdetailsid");
 
                 entity.Property(e => e.IsClosedByCustomer)
                     .IsRequired()
