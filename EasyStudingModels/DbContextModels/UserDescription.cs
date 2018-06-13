@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EasyStudingModels.DbContextModels
+﻿namespace EasyStudingModels.DbContextModels
 {
     public partial class UserDescription
     {
@@ -13,10 +10,5 @@ namespace EasyStudingModels.DbContextModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
-
-        public City City { get; set; }
-        public EducationUserDecription EducationUserDecription { get; set; }
-        public EmailDescription EmailDescription { get; set; }
-        public UserInformation UserInformation { get; set; }
     }
 }

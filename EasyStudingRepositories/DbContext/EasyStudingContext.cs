@@ -5,6 +5,8 @@ namespace EasyStudingRepositories.DbContext
 {
     public partial class EasyStudingContext : Microsoft.EntityFrameworkCore.DbContext
     {
+        private const string ConnectionString = "Host=localhost;Port=5432;Database=easystuding;Username=postgres;Password=admin";
+
         public EasyStudingContext()
         {
         }
@@ -47,7 +49,7 @@ namespace EasyStudingRepositories.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=easystuding;Username=postgres;Password=admin");
+                optionsBuilder.UseNpgsql(ConnectionString);
             }
         }
 
@@ -56,7 +58,7 @@ namespace EasyStudingRepositories.DbContext
         {
             modelBuilder.Entity<Attachment>(entity =>
             {
-                entity.ToTable("attachment");
+                entity.ToTable("attachments");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -73,7 +75,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<BanDescription>(entity =>
             {
-                entity.ToTable("bandescription");
+                entity.ToTable("bandescriptions");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -84,17 +86,11 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnType("timestamp with time zone");
 
                 entity.Property(e => e.UserInformationId).HasColumnName("userinformationid");
-
-                entity.HasOne(d => d.UserInformation)
-                    .WithMany(p => p.BanDescriptions)
-                    .HasForeignKey(d => d.UserInformationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("bandescription_userinformationid_fkey");
             });
 
             modelBuilder.Entity<City>(entity =>
             {
-                entity.ToTable("city");
+                entity.ToTable("cities");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -105,17 +101,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name");
-
-                entity.HasOne(d => d.Country)
-                    .WithMany(p => p.Cities)
-                    .HasForeignKey(d => d.CountryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("city_countryid_fkey");
             });
 
             modelBuilder.Entity<Cost>(entity =>
             {
-                entity.ToTable("cost");
+                entity.ToTable("costs");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -130,7 +120,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<Country>(entity =>
             {
-                entity.ToTable("country");
+                entity.ToTable("countries");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -143,7 +133,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<Education>(entity =>
             {
-                entity.ToTable("education");
+                entity.ToTable("educations");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -156,23 +146,11 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("nameofeducation");
 
                 entity.Property(e => e.CityId).HasColumnName("cityid");
-
-                entity.HasOne(d => d.EducationType)
-                    .WithMany(p => p.Educations)
-                    .HasForeignKey(d => d.EducationtypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("education_educationtypeid_fkey");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.Educations)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("education_cityid_fkey");
             });
 
             modelBuilder.Entity<EducationType>(entity =>
             {
-                entity.ToTable("educationtype");
+                entity.ToTable("educationtypes");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -185,7 +163,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<EducationUserDecription>(entity =>
             {
-                entity.ToTable("educationuserdecription");
+                entity.ToTable("educationuserdecriptions");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -200,17 +178,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.GraduationDate)
                     .HasColumnName("graduationdate")
                     .HasColumnType("timestamp with time zone");
-
-                entity.HasOne(d => d.Education)
-                    .WithMany(p => p.EducationUserDecriptions)
-                    .HasForeignKey(d => d.EducationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("educationuserdecription_educationid_fkey");
             });
 
             modelBuilder.Entity<EmailDescription>(entity =>
             {
-                entity.ToTable("emaildescription");
+                entity.ToTable("emaildescriptions");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -227,7 +199,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<ExecutorSkill>(entity =>
             {
-                entity.ToTable("executorskill");
+                entity.ToTable("executorskills");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -236,40 +208,22 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.SkillId).HasColumnName("skillid");
 
                 entity.Property(e => e.SubscriptionExecutorId).HasColumnName("subscriptionexecutorid");
-
-                entity.HasOne(d => d.Skill)
-                    .WithMany(p => p.ExecutorSkills)
-                    .HasForeignKey(d => d.SkillId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("executorskill_skillid_fkey");
-
-                entity.HasOne(d => d.SubscriptionExecutor)
-                    .WithMany(p => p.ExecutorSkills)
-                    .HasForeignKey(d => d.SubscriptionExecutorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("executorskill_subscriptionexecutorid_fkey");
             });
 
             modelBuilder.Entity<OpenSource>(entity =>
             {
-                entity.ToTable("opensource");
+                entity.ToTable("opensources");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
                 entity.Property(e => e.OpenSourceSubscriptionId).HasColumnName("opensourcesubscriptionid");
-
-                entity.HasOne(d => d.OpenSourceSubscription)
-                    .WithMany(p => p.OpenSource)
-                    .HasForeignKey(d => d.OpenSourceSubscriptionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("opensource_opensourcesubscriptionid_fkey");
             });
 
             modelBuilder.Entity<OpenSourceAttachment>(entity =>
             {
-                entity.ToTable("opensourceattachment");
+                entity.ToTable("opensourceattachments");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -278,23 +232,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.AttachmentId).HasColumnName("attachmentid");
 
                 entity.Property(e => e.OpenSourceId).HasColumnName("opensourceid");
-
-                entity.HasOne(d => d.Attachment)
-                    .WithMany(p => p.OpenSourceAttachments)
-                    .HasForeignKey(d => d.AttachmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("opensourceattachment_attachmentid_fkey");
-
-                entity.HasOne(d => d.OpenSource)
-                    .WithMany(p => p.OpenSourceAttachments)
-                    .HasForeignKey(d => d.OpenSourceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("opensourceattachment_opensourceid_fkey");
             });
 
             modelBuilder.Entity<OrderAttachment>(entity =>
             {
-                entity.ToTable("orderattachment");
+                entity.ToTable("orderattachments");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -303,18 +245,6 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.AttachmentId).HasColumnName("attachmentid");
 
                 entity.Property(e => e.OrderId).HasColumnName("orderid");
-
-                entity.HasOne(d => d.Attachment)
-                    .WithMany(p => p.OrderAttachments)
-                    .HasForeignKey(d => d.AttachmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("orderattachment_attachmentid_fkey");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderAttachments)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("orderattachment_orderid_fkey");
             });
 
             modelBuilder.Entity<OrderDetails>(entity =>
@@ -338,28 +268,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnName("title");
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.OrderDetailsCustomers)
-                    .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("orderdetails_customerid_fkey");
-
-                entity.HasOne(d => d.Executor)
-                    .WithMany(p => p.OrderDetailsExecutors)
-                    .HasForeignKey(d => d.ExecutorId)
-                    .HasConstraintName("orderdetails_executorid_fkey");
-
-                entity.HasOne(d => d.State)
-                    .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.StateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("orderdetails_stateid_fkey");
             });
 
             modelBuilder.Entity<OrderSkill>(entity =>
             {
-                entity.ToTable("orderskill");
+                entity.ToTable("orderskills");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -368,23 +281,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.OrderId).HasColumnName("orderid");
 
                 entity.Property(e => e.SkillId).HasColumnName("skillid");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderSkills)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("orderskill_orderid_fkey");
-
-                entity.HasOne(d => d.Skill)
-                    .WithMany(p => p.OrderSkills)
-                    .HasForeignKey(d => d.SkillId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("orderskill_skillid_fkey");
             });
 
             modelBuilder.Entity<PaymentTransaction>(entity =>
             {
-                entity.ToTable("paymenttransaction");
+                entity.ToTable("paymenttransactions");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -397,23 +298,11 @@ namespace EasyStudingRepositories.DbContext
                     .HasDefaultValueSql("false");
 
                 entity.Property(e => e.UserinformationId).HasColumnName("userinformationid");
-
-                entity.HasOne(d => d.Cost)
-                    .WithMany(p => p.PaymentTransactions)
-                    .HasForeignKey(d => d.CostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("paymenttransaction_costid_fkey");
-
-                entity.HasOne(d => d.UserInformation)
-                    .WithMany(p => p.PaymentTransactions)
-                    .HasForeignKey(d => d.UserinformationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("paymenttransaction_userinformationid_fkey");
             });
 
             modelBuilder.Entity<Review>(entity =>
             {
-                entity.ToTable("review");
+                entity.ToTable("reviews");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -430,17 +319,11 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("title");
 
                 entity.Property(e => e.UserInformationId).HasColumnName("userinformationid");
-
-                entity.HasOne(d => d.UserInformation)
-                    .WithMany(p => p.Reviews)
-                    .HasForeignKey(d => d.UserInformationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("review_userinformationid_fkey");
             });
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.ToTable("role");
+                entity.ToTable("roles");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -453,7 +336,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<Skill>(entity =>
             {
-                entity.ToTable("skill");
+                entity.ToTable("skills");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -466,7 +349,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<State>(entity =>
             {
-                entity.ToTable("state");
+                entity.ToTable("states");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -483,7 +366,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<SubscriptionExecutor>(entity =>
             {
-                entity.ToTable("subscriptionexecutor");
+                entity.ToTable("subscriptionexecutors");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -498,17 +381,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.IsActive)
                     .HasColumnName("isactive")
                     .HasDefaultValueSql("false");
-
-                entity.HasOne(d => d.Cost)
-                    .WithMany(p => p.SubscriptionExecutors)
-                    .HasForeignKey(d => d.CostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("subscriptionexecutor_costid_fkey");
             });
 
             modelBuilder.Entity<SubscriptionOpenSource>(entity =>
             {
-                entity.ToTable("subscriptionopensource");
+                entity.ToTable("subscriptionopensources");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -523,17 +400,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.IsActive)
                     .HasColumnName("isactive")
                     .HasDefaultValueSql("false");
-
-                entity.HasOne(d => d.Cost)
-                    .WithMany(p => p.SubscriptionOpenSources)
-                    .HasForeignKey(d => d.CostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("subscriptionopensource_costid_fkey");
             });
 
             modelBuilder.Entity<UserDescription>(entity =>
             {
-                entity.ToTable("userdescription");
+                entity.ToTable("userdescriptions");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -552,32 +423,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.LastName).HasColumnName("lastname");
 
                 entity.Property(e => e.UserInformationId).HasColumnName("userinformationid");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.UserDescriptions)
-                    .HasForeignKey(d => d.CityId)
-                    .HasConstraintName("userdescription_cityid_fkey");
-
-                entity.HasOne(d => d.EducationUserDecription)
-                    .WithMany(p => p.UserDescriptions)
-                    .HasForeignKey(d => d.EducationUserDecriptionId)
-                    .HasConstraintName("userdescription_educationuserdecriptionid_fkey");
-
-                entity.HasOne(d => d.EmailDescription)
-                    .WithMany(p => p.UserDescriptions)
-                    .HasForeignKey(d => d.EmailDescriptionId)
-                    .HasConstraintName("userdescription_emaildescriptionid_fkey");
-
-                entity.HasOne(d => d.UserInformation)
-                    .WithMany(p => p.UserDescriptions)
-                    .HasForeignKey(d => d.UserInformationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("userdescription_userinformationid_fkey");
             });
 
             modelBuilder.Entity<UserInformation>(entity =>
             {
-                entity.ToTable("userinformation");
+                entity.ToTable("userinformations");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -610,33 +460,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.SubscriptionExecutorId).HasColumnName("subscriptionexecutorid");
 
                 entity.Property(e => e.UserRegistrationId).HasColumnName("userregistrationid");
-
-                entity.HasOne(d => d.OpenSource)
-                    .WithMany(p => p.UserInformations)
-                    .HasForeignKey(d => d.OpenSourceId)
-                    .HasConstraintName("userinformation_opensourceid_fkey");
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.UserInformation)
-                    .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("userinformation_roleid_fkey");
-
-                entity.HasOne(d => d.SubscriptionExecutor)
-                    .WithMany(p => p.UserInformations)
-                    .HasForeignKey(d => d.SubscriptionExecutorId)
-                    .HasConstraintName("userinformation_subscriptionexecutorid_fkey");
-
-                entity.HasOne(d => d.UserRegistration)
-                    .WithMany(p => p.UserInformations)
-                    .HasForeignKey(d => d.UserRegistrationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("userinformation_userregistrationid_fkey");
             });
 
             modelBuilder.Entity<UserPicture>(entity =>
             {
-                entity.ToTable("userpicture");
+                entity.ToTable("userpictures");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -647,17 +475,11 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("ref");
 
                 entity.Property(e => e.UserInformationId).HasColumnName("userinformationid");
-
-                entity.HasOne(d => d.UserInformation)
-                    .WithMany(p => p.UserPictures)
-                    .HasForeignKey(d => d.UserInformationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("userpicture_userinformationid_fkey");
             });
 
             modelBuilder.Entity<UserRegistration>(entity =>
             {
-                entity.ToTable("userregistration");
+                entity.ToTable("userregistrations");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -678,7 +500,7 @@ namespace EasyStudingRepositories.DbContext
 
             modelBuilder.Entity<ValidationEmail>(entity =>
             {
-                entity.ToTable("validationemail");
+                entity.ToTable("validationemails");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -689,17 +511,11 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.ValidateCode)
                     .IsRequired()
                     .HasColumnName("validatecode");
-
-                entity.HasOne(d => d.EmailDescription)
-                    .WithMany(p => p.ValidationEmails)
-                    .HasForeignKey(d => d.EmailDescriptionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("validationemail_emaildescriptionid_fkey");
             });
 
             modelBuilder.Entity<ValidationUser>(entity =>
             {
-                entity.ToTable("validationuser");
+                entity.ToTable("validationusers");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -710,12 +526,27 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.ValidationCode)
                     .IsRequired()
                     .HasColumnName("validationcode");
+            });
 
-                entity.HasOne(d => d.UserRegistration)
-                    .WithMany(p => p.ValidationUsers)
-                    .HasForeignKey(d => d.UserRegistrationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("validationuser_userregistrationid_fkey");
+            modelBuilder.Entity<CloseTransaction>(entity =>
+            {
+                entity.ToTable("closetransactions");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseNpgsqlIdentityByDefaultColumn();
+
+                entity.Property(e => e.CustomerId).HasColumnName("customerid");
+
+                entity.Property(e => e.ExecutorId).HasColumnName("executorid");
+
+                entity.Property(e => e.IsClosedByCustomer)
+                    .IsRequired()
+                    .HasColumnName("isclosedbycustomer");
+
+                entity.Property(e => e.IsClosedByExecutor)
+                    .IsRequired()
+                    .HasColumnName("isclosedbyexecutor");
             });
         }
         #endregion

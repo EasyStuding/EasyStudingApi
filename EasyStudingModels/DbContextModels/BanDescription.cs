@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace EasyStudingModels.DbContextModels
 {
@@ -8,7 +7,5 @@ namespace EasyStudingModels.DbContextModels
         public long Id { get; set; }
         public long UserInformationId { get; set; }
         public DateTime DateExpires { get; set; }
-
-        public UserInformation UserInformation { get; set; }
     }
 }
