@@ -2,7 +2,7 @@
 
 namespace EasyStudingModels.DbContextModels
 {
-    public partial class EducationUserDecription
+    public partial class EducationUserDescription
     {
         public long Id { get; set; }
         public long EducationId { get; set; }
