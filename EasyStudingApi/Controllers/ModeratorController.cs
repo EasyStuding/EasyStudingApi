@@ -25,56 +25,56 @@ namespace EasyStudingApi.Controllers
         [HttpPost]
         // * - host.
         // */api/moderator/BanUser
-        public ApiUserInformationModel BanUser(long id)
+        public async Task<ApiUserInformationModel> BanUser(long id)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveBanOfUser
-        public ApiUserInformationModel RemoveBanOfUser(long id)
+        public async Task<ApiUserInformationModel> RemoveBanOfUser(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/moderator/CloseOrder
-        public ApiOrderDetailsModel CloseOrder(long id)
+        public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/moderator/GetApiOrderDetailsModels
-        public IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/moderator/GetApiOrderDetailsModel
-        public ApiOrderDetailsModel GetApiOrderDetailsModel(long id)
+        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/moderator/AddCountry
-        public Country AddCountry([FromBody]Country country)
+        public async Task<Country> AddCountry([FromBody]Country country)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditCountry
-        public Country EditCountry([FromBody]Country country)
+        public async Task<Country> EditCountry([FromBody]Country country)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveCountry
-        public Country RemoveCountry(long id)
+        public async Task<Country> RemoveCountry(long id)
 
         {
             throw new Exception();
@@ -82,105 +82,105 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddCity
-        public City AddCity([FromBody]City city)
+        public async Task<City> AddCity([FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditCity
-        public City EditCity([FromBody]City city)
+        public async Task<City> EditCity([FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveCity
-        public City RemoveCity(long id)
+        public async Task<City> RemoveCity(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/moderator/AddEducationType
-        public EducationType AddEducationType([FromBody]EducationType educationType)
+        public async Task<EducationType> AddEducationType([FromBody]EducationType educationType)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditEducationtype
-        public EducationType EditEducationtype([FromBody]EducationType educationType)
+        public async Task<EducationType> EditEducationtype([FromBody]EducationType educationType)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveEducationType
-        public EducationType RemoveEducationType(long id)
+        public async Task<EducationType> RemoveEducationType(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/moderator/AddEducation
-        public ApiEducationModel AddEducation([FromBody]ApiEducationModel education)
+        public async Task<ApiEducationModel> AddEducation([FromBody]ApiEducationModel education)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditEducation
-        public ApiEducationModel EditEducation([FromBody]ApiEducationModel education)
+        public async Task<ApiEducationModel> EditEducation([FromBody]ApiEducationModel education)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveEducation
-        public ApiEducationModel RemoveEducation(long id)
+        public async Task<ApiEducationModel> RemoveEducation(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/moderator/AddCost
-        public Cost AddCost([FromBody]Cost cost)
+        public async Task<Cost> AddCost([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditCost
-        public Cost EditCost([FromBody]Cost cost)
+        public async Task<Cost> EditCost([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveCost
-        public Cost RemoveCost(long id)
+        public async Task<Cost> RemoveCost(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/moderator/AddSkill
-        public Skill AddSkill([FromBody]Skill skill)
+        public async Task<Skill> AddSkill([FromBody]Skill skill)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditSkill
-        public Skill EditSkill([FromBody]Skill skill)
+        public async Task<Skill> EditSkill([FromBody]Skill skill)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveSkill
-        public Skill RemoveSkill(long id)
+        public async Task<Skill> RemoveSkill(long id)
         {
             throw new Exception();
         }

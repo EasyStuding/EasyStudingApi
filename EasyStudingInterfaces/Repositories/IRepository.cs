@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyStudingInterfaces.Repositories
 {
     public interface IRepository<T>
     {
-        IQueryable<T> GetAll();
+        Task<IQueryable<T>> GetAll();
 
-        T Get(long id);
+        Task<T> Get(long id);
 
-        T Add(T param);
+        Task<T> Add(T param);
 
-        T Edit(T param);
+        Task<T> Edit(T param);
 
-        T Remove(T param);
+        Task<T> Remove(T param);
     }
 }

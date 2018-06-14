@@ -25,119 +25,119 @@ namespace EasyStudingApi.Controllers
         [HttpGet]
         // * - host.
         // */api/user/GetApiUserInformationModels
-        public IQueryable<ApiUserInformationModel> GetApiUserInformationModels([FromBody]ApiEducationModel education, [FromBody]City city)
+        public async Task<IQueryable<ApiUserInformationModel>> GetApiUserInformationModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetApiUserInformationModel
-        public ApiUserInformationModel GetApiUserInformationModel(long id)
+        public async Task<ApiUserInformationModel> GetApiUserInformationModel(long id)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetApiOrderDetailsModels
-        public IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels()
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels()
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetApiOrderDetailsModel
-        public ApiOrderDetailsModel GetApiOrderDetailsModel(long id)
+        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetSubscriptionExecutors
-        public IQueryable<SubscriptionExecutor> GetSubscriptionExecutors([FromBody]ApiEducationModel education, City city)
+        public async Task<IQueryable<SubscriptionExecutor>> GetSubscriptionExecutors([FromBody]ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetSubscriptionExecutor
-        public SubscriptionExecutor GetSubscriptionExecutor(long id)
+        public async Task<SubscriptionExecutor> GetSubscriptionExecutor(long id)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/user/ChangePassword
-        public bool ChangePassword(string oldPassword, string newPassword)
+        public async Task<bool> ChangePassword(string oldPassword, string newPassword)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/user/EditProfile
-        public ApiUserDescriptionModel EditProfile([FromBody]ApiUserDescriptionModel description)
+        public async Task<ApiUserDescriptionModel> EditProfile([FromBody]ApiUserDescriptionModel description)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddPictureProfile
-        public ApiFileToReturnModel AddPictureProfile([FromBody]ApiFileToAddModel file)
+        public async Task<ApiFileToReturnModel> AddPictureProfile([FromBody]ApiFileToAddModel file)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/user/EditPictureProfile
-        public ApiFileToReturnModel EditPictureProfile([FromBody]ApiFileToAddModel file)
+        public async Task<ApiFileToReturnModel> EditPictureProfile([FromBody]ApiFileToAddModel file)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/user/RemovePictureProfile
-        public ApiFileToReturnModel RemovePictureProfile(long id)
+        public async Task<ApiFileToReturnModel> RemovePictureProfile(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/RequestToBuySubscription
-        public Cost RequestToBuySubscription([FromBody]Cost cost)
+        public async Task<Cost> RequestToBuySubscription([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/CompleteBuySubcription
-        public Cost CompleteBuySubcription([FromBody]Cost cost)
+        public async Task<Cost> CompleteBuySubcription([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddFileToOpenSource
-        public ApiFileToReturnModel AddFileToOpenSource([FromBody]ApiFileToAddModel file)
+        public async Task<ApiFileToReturnModel> AddFileToOpenSource([FromBody]ApiFileToAddModel file)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddOrder
-        public ApiOrderDetailsModel AddOrder([FromBody]ApiOrderDetailsModel order)
+        public async Task<ApiOrderDetailsModel> AddOrder([FromBody]ApiOrderDetailsModel order)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/CloseOrder
-        public ApiOrderDetailsModel CloseOrder(long id)
+        public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddReview
-        public ApiReviewModel AddReview([FromBody]ApiReviewModel review)
+        public async Task<ApiReviewModel> AddReview([FromBody]ApiReviewModel review)
         {
             throw new Exception();
         }

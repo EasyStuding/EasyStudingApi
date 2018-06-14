@@ -1,23 +1,24 @@
 ﻿using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels(ApiEducationModel education, City city);
+        Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city);
 
-        ApiOrderDetailsModel GetApiOrderDetailsModel(long id);
+        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id);
 
-        ApiOrderDetailsModel GetTheRightsToPerformOrder(long id, long currentUserId);
+        Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id, long currentUserId);
 
-        ApiOrderDetailsModel StartExecuteOrder(long id, long currentUserId);
+        Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId);
 
-        ApiOrderDetailsModel CloseOrder(long id);
+        Task<ApiOrderDetailsModel> CloseOrder(long id);
 
-        Skill AddSkill(long id, long currentUserId);
+        Task<Skill> AddSkill(long id, long currentUserId);
 
-        Skill RemoveSkill(long id, long currentUserId);
+        Task<Skill> RemoveSkill(long id, long currentUserId);
     }
 }

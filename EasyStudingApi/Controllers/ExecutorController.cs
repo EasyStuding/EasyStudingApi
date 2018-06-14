@@ -25,49 +25,49 @@ namespace EasyStudingApi.Controllers
         [HttpGet]
         // * - host.
         // */api/executor/GetOrderDetailsModels
-        public IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/executor/GetApiOrderDetailsModel
-        public ApiOrderDetailsModel GetApiOrderDetailsModel(long id)
+        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/executor/GetTheRightsToPerformOrder
-        public ApiOrderDetailsModel GetTheRightsToPerformOrder(long id)
+        public async Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/executor/StartExecuteOrder
-        public ApiOrderDetailsModel StartExecuteOrder(long id)
+        public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/executor/CloseOrder
-        public ApiOrderDetailsModel CloseOrder(long id)
+        public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/executor/AddSkill
-        public Skill AddSkill(long id)
+        public async Task<Skill> AddSkill(long id)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/executor/RemoveSkill
-        public Skill RemoveSkill(long id)
+        public async Task<Skill> RemoveSkill(long id)
         {
             throw new Exception();
         }

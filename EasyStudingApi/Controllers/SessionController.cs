@@ -25,35 +25,35 @@ namespace EasyStudingApi.Controllers
         [HttpPost]
         // * - host.
         // */api/session/StartRegistration
-        public UserRegistration StartRegistration([FromBody]ApiUserRegistrationModel apiUserRegistration)
+        public async Task<UserRegistration> StartRegistration([FromBody]ApiUserRegistrationModel apiUserRegistration)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/ValidateRegistration
-        public UserRegistration ValidateRegistration([FromBody]ValidationUser validationUser)
+        public async Task<UserRegistration> ValidateRegistration([FromBody]ValidationUser validationUser)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/CompleteRegistration
-        public ApiUserInformationModel CompleteRegistration([FromBody]ApiLoginModel apiLogin)
+        public async Task<ApiUserInformationModel> CompleteRegistration([FromBody]ApiLoginModel apiLogin)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/Login
-        public ApiUserInformationModel Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
+        public async Task<ApiUserInformationModel> Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/LogOut
-        public bool LogOut()
+        public async Task<bool> LogOut()
         {
             throw new Exception();
         }

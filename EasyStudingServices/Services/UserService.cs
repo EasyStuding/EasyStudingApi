@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyStudingServices.Services
 {
@@ -14,87 +15,87 @@ namespace EasyStudingServices.Services
     {
         //TODO: initialize repositories;
 
-        public IQueryable<ApiUserInformationModel> GetApiUserInformationModels(ApiEducationModel education, City city)
+        public async Task<IQueryable<ApiUserInformationModel>> GetApiUserInformationModels(ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
-        public ApiUserInformationModel GetApiUserInformationModel(long id)
+        public async Task<ApiUserInformationModel> GetApiUserInformationModel(long id)
         {
             throw new Exception();
         }
 
-        public IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels(long currentUserId)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel GetApiOrderDetailsModel(long id, long currentUserId)
+        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public IQueryable<SubscriptionExecutor> GetSubscriptionExecutors(ApiEducationModel education, City city)
+        public async Task<IQueryable<SubscriptionExecutor>> GetSubscriptionExecutors(ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
-        public SubscriptionExecutor GetSubscriptionExecutor(long id)
+        public async Task<SubscriptionExecutor> GetSubscriptionExecutor(long id)
         {
             throw new Exception();
         }
 
-        public bool ChangePassword(string oldPassword, string newPassword, long currentUserId)
+        public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiUserDescriptionModel EditProfile(ApiUserDescriptionModel description, long currentUserId)
+        public async Task<ApiUserDescriptionModel> EditProfile(ApiUserDescriptionModel description, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiFileToReturnModel AddPictureProfile(ApiFileToAddModel file, long currentUserId)
+        public async Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiFileToReturnModel EditPictureProfile(ApiFileToAddModel file, long currentUserId)
+        public async Task<ApiFileToReturnModel> EditPictureProfile(ApiFileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiFileToReturnModel RemovePictureProfile(long id, long currentUserId)
+        public async Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public Cost RequestToBuySubscription(Cost cost, long currentUserId)
+        public async Task<Cost> RequestToBuySubscription(Cost cost, long currentUserId)
         {
             throw new Exception();
         }
 
-        public Cost CompleteBuySubcription(Cost cost, long currentUserId)
+        public async Task<Cost> CompleteBuySubcription(Cost cost, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiFileToReturnModel AddFileToOpenSource(ApiFileToAddModel file, long currentUserId)
+        public async Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel AddOrder(ApiOrderDetailsModel order, long currentUserId)
+        public async Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel CloseOrder(long id, long currentUserId)
+        public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiReviewModel AddReview(ApiReviewModel review, long currentUserId)
+        public async Task<ApiReviewModel> AddReview(ApiReviewModel review, long currentUserId)
         {
             throw new Exception();
         }

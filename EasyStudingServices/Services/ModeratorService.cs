@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyStudingServices.Services
 {
@@ -13,117 +14,117 @@ namespace EasyStudingServices.Services
     {
         //TODO: initialize repositories;
 
-        public ApiUserInformationModel BanUser(long id)
+        public async Task<ApiUserInformationModel> BanUser(long id)
         {
             throw new Exception();
         }
 
-        public ApiUserInformationModel RemoveBanOfUser(long id)
+        public async Task<ApiUserInformationModel> RemoveBanOfUser(long id)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel CloseOrder(long id)
+        public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {
             throw new Exception();
         }
 
-        public IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels(ApiEducationModel education, City city)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel GetApiOrderDetailsModel(long id)
+        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id)
         {
             throw new Exception();
         }
 
-        public Country AddCountry(Country country)
+        public async Task<Country> AddCountry(Country country)
         {
             throw new Exception();
         }
 
-        public Country EditCountry(Country country)
+        public async Task<Country> EditCountry(Country country)
         {
             throw new Exception();
         }
 
-        public Country RemoveCountry(long id)
+        public async Task<Country> RemoveCountry(long id)
         {
             throw new Exception();
         }
 
-        public City AddCity(City city)
+        public async Task<City> AddCity(City city)
         {
             throw new Exception();
         }
 
-        public City EditCity(City city)
+        public async Task<City> EditCity(City city)
         {
             throw new Exception();
         }
 
-        public City RemoveCity(long id)
+        public async Task<City> RemoveCity(long id)
         {
             throw new Exception();
         }
 
-        public EducationType AddEducationType(EducationType educationType)
+        public async Task<EducationType> AddEducationType(EducationType educationType)
         {
             throw new Exception();
         }
 
-        public EducationType EditEducationtype(EducationType educationType)
+        public async Task<EducationType> EditEducationtype(EducationType educationType)
         {
             throw new Exception();
         }
 
-        public EducationType RemoveEducationType(long id)
+        public async Task<EducationType> RemoveEducationType(long id)
         {
             throw new Exception();
         }
 
-        public ApiEducationModel AddEducation(ApiEducationModel education)
+        public async Task<ApiEducationModel> AddEducation(ApiEducationModel education)
         {
             throw new Exception();
         }
 
-        public ApiEducationModel EditEducation(ApiEducationModel education)
+        public async Task<ApiEducationModel> EditEducation(ApiEducationModel education)
         {
             throw new Exception();
         }
 
-        public ApiEducationModel RemoveEducation(long id)
+        public async Task<ApiEducationModel> RemoveEducation(long id)
         {
             throw new Exception();
         }
 
-        public Cost AddCost(Cost cost)
+        public async Task<Cost> AddCost(Cost cost)
         {
             throw new Exception();
         }
 
-        public Cost EditCost(Cost cost)
+        public async Task<Cost> EditCost(Cost cost)
         {
             throw new Exception();
         }
 
-        public Cost RemoveCost(long id)
+        public async Task<Cost> RemoveCost(long id)
         {
             throw new Exception();
         }
 
-        public Skill AddSkill(Skill skill)
+        public async Task<Skill> AddSkill(Skill skill)
         {
             throw new Exception();
         }
 
-        public Skill EditSkill(Skill skill)
+        public async Task<Skill> EditSkill(Skill skill)
         {
             throw new Exception();
         }
 
-        public Skill RemoveSkill(long id)
+        public async Task<Skill> RemoveSkill(long id)
         {
             throw new Exception();
         }

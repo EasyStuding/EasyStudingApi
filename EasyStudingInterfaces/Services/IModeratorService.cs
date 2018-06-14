@@ -1,43 +1,44 @@
 ﻿using EasyStudingModels.ApiModels;
 using EasyStudingModels.DbContextModels;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyStudingInterfaces.Services
 {
     public interface IModeratorService
     {
-        ApiUserInformationModel BanUser(long id);
+        Task<ApiUserInformationModel> BanUser(long id);
 
-        ApiUserInformationModel RemoveBanOfUser(long id);
+        Task<ApiUserInformationModel> RemoveBanOfUser(long id);
 
-        ApiOrderDetailsModel CloseOrder(long id);
+        Task<ApiOrderDetailsModel> CloseOrder(long id);
 
-        IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels(ApiEducationModel education, City city);
+        Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(ApiEducationModel education, City city);
 
-        ApiOrderDetailsModel GetApiOrderDetailsModel(long id);
+        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id);
 
-        Country AddCountry(Country country);
-        Country EditCountry(Country country);
-        Country RemoveCountry(long id);
+        Task<Country> AddCountry(Country country);
+        Task<Country> EditCountry(Country country);
+        Task<Country> RemoveCountry(long id);
 
-        City AddCity(City city);
-        City EditCity(City city);
-        City RemoveCity(long id);
+        Task<City> AddCity(City city);
+        Task<City> EditCity(City city);
+        Task<City> RemoveCity(long id);
 
-        EducationType AddEducationType(EducationType educationType);
-        EducationType EditEducationtype(EducationType educationType);
-        EducationType RemoveEducationType(long id);
+        Task<EducationType> AddEducationType(EducationType educationType);
+        Task<EducationType> EditEducationtype(EducationType educationType);
+        Task<EducationType> RemoveEducationType(long id);
 
-        ApiEducationModel AddEducation(ApiEducationModel education);
-        ApiEducationModel EditEducation(ApiEducationModel education);
-        ApiEducationModel RemoveEducation(long id);
+        Task<ApiEducationModel> AddEducation(ApiEducationModel education);
+        Task<ApiEducationModel> EditEducation(ApiEducationModel education);
+        Task<ApiEducationModel> RemoveEducation(long id);
 
-        Cost AddCost(Cost cost);
-        Cost EditCost(Cost cost);
-        Cost RemoveCost(long id);
+        Task<Cost> AddCost(Cost cost);
+        Task<Cost> EditCost(Cost cost);
+        Task<Cost> RemoveCost(long id);
 
-        Skill AddSkill(Skill skill);
-        Skill EditSkill(Skill skill);
-        Skill RemoveSkill(long id);
+        Task<Skill> AddSkill(Skill skill);
+        Task<Skill> EditSkill(Skill skill);
+        Task<Skill> RemoveSkill(long id);
     }
 }

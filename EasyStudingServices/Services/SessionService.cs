@@ -5,6 +5,7 @@ using EasyStudingModels.DbContextModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyStudingServices.Services
 {
@@ -12,22 +13,22 @@ namespace EasyStudingServices.Services
     {
         //TODO: initialize repositories;
 
-        public UserRegistration StartRegistration(ApiUserRegistrationModel apiUserRegistration)
+        public async Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration)
         {
             throw new Exception();
         }
 
-        public UserRegistration ValidateRegistration(ValidationUser validationUser)
+        public async Task<UserRegistration> ValidateRegistration(ValidationUser validationUser)
         {
             throw new Exception();
         }
 
-        public ApiUserInformationModel CompleteRegistration(ApiLoginModel apiLogin)
+        public async Task<ApiUserInformationModel> CompleteRegistration(ApiLoginModel apiLogin)
         {
             throw new Exception();
         }
 
-        public ApiUserInformationModel Login(ApiLoginModel apiLogin, bool isTelephone)
+        public async Task<ApiUserInformationModel> Login(ApiLoginModel apiLogin, bool isTelephone)
         {
             throw new Exception();
         }

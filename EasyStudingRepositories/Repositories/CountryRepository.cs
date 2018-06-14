@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyStudingRepositories.Repositories
 {
@@ -17,27 +18,27 @@ namespace EasyStudingRepositories.Repositories
             Context = context;
         }
 
-        public IQueryable<Country> GetAll()
+        public async Task<IQueryable<Country>> GetAll()
         {
             throw new Exception();
         }
 
-        public Country Get(long id)
+        public async Task<Country> Get(long id)
         {
             throw new Exception();
         }
 
-        public Country Add(Country param)
+        public async Task<Country> Add(Country param)
         {
             throw new Exception();
         }
 
-        public Country Edit(Country param)
+        public async Task<Country> Edit(Country param)
         {
             throw new Exception();
         }
 
-        public Country Remove(Country param)
+        public async Task<Country> Remove(Country param)
         {
             throw new Exception();
         }

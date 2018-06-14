@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyStudingRepositories.Repositories
 {
@@ -17,27 +18,27 @@ namespace EasyStudingRepositories.Repositories
             Context = context;
         }
 
-        public IQueryable<SubscriptionExecutor> GetAll()
+        public async Task<IQueryable<SubscriptionExecutor>> GetAll()
         {
             throw new Exception();
         }
 
-        public SubscriptionExecutor Get(long id)
+        public async Task<SubscriptionExecutor> Get(long id)
         {
             throw new Exception();
         }
 
-        public SubscriptionExecutor Add(SubscriptionExecutor param)
+        public async Task<SubscriptionExecutor> Add(SubscriptionExecutor param)
         {
             throw new Exception();
         }
 
-        public SubscriptionExecutor Edit(SubscriptionExecutor param)
+        public async Task<SubscriptionExecutor> Edit(SubscriptionExecutor param)
         {
             throw new Exception();
         }
 
-        public SubscriptionExecutor Remove(SubscriptionExecutor param)
+        public async Task<SubscriptionExecutor> Remove(SubscriptionExecutor param)
         {
             throw new Exception();
         }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyStudingServices.Services
 {
@@ -14,37 +15,37 @@ namespace EasyStudingServices.Services
     {
         //TODO: initialize repositories;
 
-        public IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels(ApiEducationModel education, City city)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel GetApiOrderDetailsModel(long id)
+        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel GetTheRightsToPerformOrder(long id, long currentUserId)
+        public async Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel StartExecuteOrder(long id, long currentUserId)
+        public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public ApiOrderDetailsModel CloseOrder(long id)
+        public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {
             throw new Exception();
         }
 
-        public Skill AddSkill(long id, long currentUserId)
+        public async Task<Skill> AddSkill(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public Skill RemoveSkill(long id, long currentUserId)
+        public async Task<Skill> RemoveSkill(long id, long currentUserId)
         {
             throw new Exception();
         }

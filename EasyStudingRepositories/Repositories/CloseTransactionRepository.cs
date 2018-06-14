@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyStudingRepositories.Repositories
 {
@@ -17,27 +18,27 @@ namespace EasyStudingRepositories.Repositories
             Context = context;
         }
 
-        public IQueryable<CloseTransaction> GetAll()
+        public async Task<IQueryable<CloseTransaction>> GetAll()
         {
             throw new Exception();
         }
 
-        public CloseTransaction Get(long id)
+        public async Task<CloseTransaction> Get(long id)
         {
             throw new Exception();
         }
 
-        public CloseTransaction Add(CloseTransaction param)
+        public async Task<CloseTransaction> Add(CloseTransaction param)
         {
             throw new Exception();
         }
 
-        public CloseTransaction Edit(CloseTransaction param)
+        public async Task<CloseTransaction> Edit(CloseTransaction param)
         {
             throw new Exception();
         }
 
-        public CloseTransaction Remove(CloseTransaction param)
+        public async Task<CloseTransaction> Remove(CloseTransaction param)
         {
             throw new Exception();
         }
