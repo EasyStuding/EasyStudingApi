@@ -171,30 +171,35 @@ namespace EasyStudingUnitTests.TestData
                 RoleId = 1, LoginName = "login1",
                 Password = "password1", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false});
+
             Context.UserInformations.Add(new UserInformation() {
                 Id = 2, UserRegistrationId = 2,
                 SubscriptionExecutorId = 2, OpenSourceId = 2,
                 RoleId = 1, LoginName = "login2",
                 Password = "password2", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false });
+
             Context.UserInformations.Add(new UserInformation() {
                 Id = 3, UserRegistrationId = 3,
                 SubscriptionExecutorId = 3, OpenSourceId = 3,
                 RoleId = 1, LoginName = "login3",
                 Password = "password3", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false });
+
             Context.UserInformations.Add(new UserInformation() {
                 Id = 4, UserRegistrationId = 4,
                 SubscriptionExecutorId = 4, OpenSourceId = 4,
                 RoleId = 1, LoginName = "login4",
                 Password = "password4", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false });
+
             Context.UserInformations.Add(new UserInformation() {
                 Id = 5, UserRegistrationId = 5,
                 SubscriptionExecutorId = 5, OpenSourceId = 5,
                 RoleId = 1, LoginName = "login5",
                 Password = "password5", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false });
+
             Context.SaveChanges();
         }
 
@@ -292,26 +297,31 @@ namespace EasyStudingUnitTests.TestData
                 EmailDescriptionId = 1, CityId = 1,
                 UserInformationId = 1, Description = "description1",
                 FirstName = "fname1", LastName = "lname1" });
+
             Context.UserDescriptions.Add(new UserDescription() {
                 Id = 2, EducationUserDecriptionId = 2,
                 EmailDescriptionId = 2, CityId = 2,
                 UserInformationId = 2, Description = "description2",
                 FirstName = "fname2", LastName = "lname2" });
+
             Context.UserDescriptions.Add(new UserDescription() {
                 Id = 3, EducationUserDecriptionId = 3,
                 EmailDescriptionId = 3, CityId = 3,
                 UserInformationId = 3, Description = "description3",
                 FirstName = "fname3", LastName = "lname3" });
+
             Context.UserDescriptions.Add(new UserDescription() {
                 Id = 4, EducationUserDecriptionId = 4,
                 EmailDescriptionId = 4, CityId = 4,
                 UserInformationId = 4, Description = "description4",
                 FirstName = "fname4", LastName = "lname4" });
+
             Context.UserDescriptions.Add(new UserDescription() {
                 Id = 5, EducationUserDecriptionId = 5,
                 EmailDescriptionId = 5, CityId = 5,
                 UserInformationId = 5, Description = "description5",
                 FirstName = "fname5", LastName = "lname5" });
+
             Context.SaveChanges();
         }
 
