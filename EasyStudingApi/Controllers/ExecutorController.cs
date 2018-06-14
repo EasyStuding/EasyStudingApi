@@ -11,7 +11,6 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingApi.Controllers
 {
-    //TODO: add attributes from body.
     [Produces("application/json")]
     [Route("api/Executor/[action]")]
     public class ExecutorController : Controller, IExecutorController
@@ -26,7 +25,7 @@ namespace EasyStudingApi.Controllers
         [HttpGet]
         // * - host.
         // */api/executor/GetOrderDetailsModels
-        public IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels(ApiEducationModel education, City city)
+        public IQueryable<ApiOrderDetailsModel> GetOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }

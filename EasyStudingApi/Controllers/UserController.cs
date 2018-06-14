@@ -11,7 +11,6 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingApi.Controllers
 {
-    //TODO: add attributes from body.
     [Produces("application/json")]
     [Route("api/User/[action]")]
     public class UserController : Controller, IUserController
@@ -26,7 +25,7 @@ namespace EasyStudingApi.Controllers
         [HttpGet]
         // * - host.
         // */api/user/GetApiUserInformationModels
-        public IQueryable<ApiUserInformationModel> GetApiUserInformationModels(ApiEducationModel education, City city)
+        public IQueryable<ApiUserInformationModel> GetApiUserInformationModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }
@@ -54,7 +53,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // */api/user/GetSubscriptionExecutors
-        public IQueryable<SubscriptionExecutor> GetSubscriptionExecutors(ApiEducationModel education, City city)
+        public IQueryable<SubscriptionExecutor> GetSubscriptionExecutors([FromBody]ApiEducationModel education, City city)
         {
             throw new Exception();
         }
@@ -75,21 +74,21 @@ namespace EasyStudingApi.Controllers
 
         [HttpPut]
         // */api/user/EditProfile
-        public ApiUserDescriptionModel EditProfile(ApiUserDescriptionModel description)
+        public ApiUserDescriptionModel EditProfile([FromBody]ApiUserDescriptionModel description)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddPictureProfile
-        public ApiFileToReturnModel AddPictureProfile(ApiFileToAddModel file)
+        public ApiFileToReturnModel AddPictureProfile([FromBody]ApiFileToAddModel file)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/user/EditPictureProfile
-        public ApiFileToReturnModel EditPictureProfile(ApiFileToAddModel file)
+        public ApiFileToReturnModel EditPictureProfile([FromBody]ApiFileToAddModel file)
         {
             throw new Exception();
         }
@@ -103,28 +102,28 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/user/RequestToBuySubscription
-        public Cost RequestToBuySubscription(Cost cost)
+        public Cost RequestToBuySubscription([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/CompleteBuySubcription
-        public Cost CompleteBuySubcription(Cost cost)
+        public Cost CompleteBuySubcription([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddFileToOpenSource
-        public ApiFileToReturnModel AddFileToOpenSource(ApiFileToAddModel file)
+        public ApiFileToReturnModel AddFileToOpenSource([FromBody]ApiFileToAddModel file)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/user/AddOrder
-        public ApiOrderDetailsModel AddOrder(ApiOrderDetailsModel order)
+        public ApiOrderDetailsModel AddOrder([FromBody]ApiOrderDetailsModel order)
         {
             throw new Exception();
         }
@@ -138,7 +137,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/user/AddReview
-        public ApiReviewModel AddReview(ApiReviewModel review)
+        public ApiReviewModel AddReview([FromBody]ApiReviewModel review)
         {
             throw new Exception();
         }

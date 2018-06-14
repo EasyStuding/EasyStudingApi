@@ -11,7 +11,6 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingApi.Controllers
 {
-    //TODO: add attributes from body.
     [Produces("application/json")]
     [Route("api/Moderator/[action]")]
     public class ModeratorController : Controller, IModeratorController
@@ -47,7 +46,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // */api/moderator/GetApiOrderDetailsModels
-        public IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels(ApiEducationModel education, City city)
+        public IQueryable<ApiOrderDetailsModel> GetApiOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }
@@ -61,14 +60,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddCountry
-        public Country AddCountry(Country country)
+        public Country AddCountry([FromBody]Country country)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditCountry
-        public Country EditCountry(Country country)
+        public Country EditCountry([FromBody]Country country)
         {
             throw new Exception();
         }
@@ -83,14 +82,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddCity
-        public City AddCity(City city)
+        public City AddCity([FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditCity
-        public City EditCity(City city)
+        public City EditCity([FromBody]City city)
         {
             throw new Exception();
         }
@@ -104,14 +103,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddEducationType
-        public EducationType AddEducationType(EducationType educationType)
+        public EducationType AddEducationType([FromBody]EducationType educationType)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditEducationtype
-        public EducationType EditEducationtype(EducationType educationType)
+        public EducationType EditEducationtype([FromBody]EducationType educationType)
         {
             throw new Exception();
         }
@@ -125,14 +124,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddEducation
-        public ApiEducationModel AddEducation(ApiEducationModel education)
+        public ApiEducationModel AddEducation([FromBody]ApiEducationModel education)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditEducation
-        public ApiEducationModel EditEducation(ApiEducationModel education)
+        public ApiEducationModel EditEducation([FromBody]ApiEducationModel education)
         {
             throw new Exception();
         }
@@ -146,14 +145,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddCost
-        public Cost AddCost(Cost cost)
+        public Cost AddCost([FromBody]Cost cost)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditCost
-        public Cost EditCost(Cost cost)
+        public Cost EditCost([FromBody]Cost cost)
         {
             throw new Exception();
         }
@@ -167,14 +166,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/moderator/AddSkill
-        public Skill AddSkill(Skill skill)
+        public Skill AddSkill([FromBody]Skill skill)
         {
             throw new Exception();
         }
 
         [HttpPut]
         // */api/moderator/EditSkill
-        public Skill EditSkill(Skill skill)
+        public Skill EditSkill([FromBody]Skill skill)
         {
             throw new Exception();
         }

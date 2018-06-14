@@ -11,7 +11,6 @@ using EasyStudingModels.ApiModels;
 
 namespace EasyStudingApi.Controllers
 {
-    //TODO: add attributes from body.
     [Produces("application/json")]
     [Route("api/Session/[action]")]
     public class SessionController : Controller, ISessionController
@@ -26,28 +25,28 @@ namespace EasyStudingApi.Controllers
         [HttpPost]
         // * - host.
         // */api/session/StartRegistration
-        public UserRegistration StartRegistration(ApiUserRegistrationModel apiUserRegistration)
+        public UserRegistration StartRegistration([FromBody]ApiUserRegistrationModel apiUserRegistration)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/ValidateRegistration
-        public UserRegistration ValidateRegistration(ValidationUser validationUser)
+        public UserRegistration ValidateRegistration([FromBody]ValidationUser validationUser)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/CompleteRegistration
-        public ApiUserInformationModel CompleteRegistration(ApiLoginModel apiLogin)
+        public ApiUserInformationModel CompleteRegistration([FromBody]ApiLoginModel apiLogin)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/Login
-        public ApiUserInformationModel Login(ApiLoginModel apiLogin, bool isTelephone)
+        public ApiUserInformationModel Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
         {
             throw new Exception();
         }
