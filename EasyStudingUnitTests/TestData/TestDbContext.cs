@@ -105,6 +105,7 @@ namespace EasyStudingUnitTests.TestData
             Context.ValidationUsers.Add(new ValidationUser() { Id = 3, UserRegistrationId = 3, ValidationCode = "333333" });
             Context.ValidationUsers.Add(new ValidationUser() { Id = 4, UserRegistrationId = 4, ValidationCode = "444444" });
             Context.ValidationUsers.Add(new ValidationUser() { Id = 5, UserRegistrationId = 5, ValidationCode = "555555" });
+
             Context.SaveChanges();
         }
 
@@ -113,6 +114,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Roles.Add(new Role() { Id = 1, Name = "user" });
             Context.Roles.Add(new Role() { Id = 2, Name = "moderator" });
             Context.Roles.Add(new Role() { Id = 3, Name = "admin" });
+
             Context.SaveChanges();
         }
 
@@ -120,6 +122,7 @@ namespace EasyStudingUnitTests.TestData
         {
             Context.Costs.Add(new Cost() { Id = 1, Money = 5, Product = "OpenSource" });
             Context.Costs.Add(new Cost() { Id = 2, Money = 10, Product = "Executor" });
+
             Context.SaveChanges();
         }
 
@@ -130,6 +133,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Attachments.Add(new Attachment() { Id = 3, Type = "png", Ref = "https://example.com/3" });
             Context.Attachments.Add(new Attachment() { Id = 4, Type = "txt", Ref = "https://example.com/4" });
             Context.Attachments.Add(new Attachment() { Id = 5, Type = "doc", Ref = "https://example.com/5" });
+
             Context.SaveChanges();
         }
 
@@ -140,6 +144,7 @@ namespace EasyStudingUnitTests.TestData
             Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 3, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
             Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 4, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
             Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 5, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
+
             Context.SaveChanges();
         }
 
@@ -150,6 +155,7 @@ namespace EasyStudingUnitTests.TestData
             Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 3, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
             Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 4, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
             Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 5, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
+
             Context.SaveChanges();
         }
 
@@ -160,6 +166,7 @@ namespace EasyStudingUnitTests.TestData
             Context.OpenSources.Add(new OpenSource() { Id = 3, OpenSourceSubscriptionId = 3 });
             Context.OpenSources.Add(new OpenSource() { Id = 4, OpenSourceSubscriptionId = 4 });
             Context.OpenSources.Add(new OpenSource() { Id = 5, OpenSourceSubscriptionId = 5 });
+
             Context.SaveChanges();
         }
 
@@ -210,6 +217,7 @@ namespace EasyStudingUnitTests.TestData
             Context.BanDescriptions.Add(new BanDescription() { Id = 3, UserInformationId = 3, ExpiresDate = DateTime.Now });
             Context.BanDescriptions.Add(new BanDescription() { Id = 4, UserInformationId = 4, ExpiresDate = DateTime.Now });
             Context.BanDescriptions.Add(new BanDescription() { Id = 5, UserInformationId = 5, ExpiresDate = DateTime.Now });
+
             Context.SaveChanges();
         }
 
@@ -220,6 +228,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Reviews.Add(new Review() { Id = 3, ReviewOwnerId = 3, ReviewRecipientId = 4, Title = "title3", Description = "Description3", Raiting = 5 });
             Context.Reviews.Add(new Review() { Id = 4, ReviewOwnerId = 4, ReviewRecipientId = 5, Title = "title4", Description = "Description4", Raiting = 5 });
             Context.Reviews.Add(new Review() { Id = 5, ReviewOwnerId = 5, ReviewRecipientId = 1, Title = "title5", Description = "Description5", Raiting = 5 });
+
             Context.SaveChanges();
         }
 
@@ -230,6 +239,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Countries.Add(new Country() { Id = 3, Name = "Russia" });
             Context.Countries.Add(new Country() { Id = 4, Name = "China" });
             Context.Countries.Add(new Country() { Id = 5, Name = "UK" });
+
             Context.SaveChanges();
         }
 
@@ -240,6 +250,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Cities.Add(new City() { Id = 3, CountryId = 3, Name = "Vladivostok" });
             Context.Cities.Add(new City() { Id = 4, CountryId = 4, Name = "Gonkong" });
             Context.Cities.Add(new City() { Id = 5, CountryId = 5, Name = "London" });
+
             Context.SaveChanges();
         }
 
@@ -247,6 +258,7 @@ namespace EasyStudingUnitTests.TestData
         {
             Context.EducationTypes.Add(new EducationType() { Id = 1, Name = "school" });
             Context.EducationTypes.Add(new EducationType() { Id = 2, Name = "university" });
+
             Context.SaveChanges();
         }
 
@@ -257,6 +269,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Educations.Add(new Education() { Id = 3, EducationTypeId = 1, CityId = 3, EducationName = "S3" });
             Context.Educations.Add(new Education() { Id = 4, EducationTypeId = 2, CityId = 4, EducationName = "U4" });
             Context.Educations.Add(new Education() { Id = 5, EducationTypeId = 1, CityId = 5, EducationName = "S5" });
+
             Context.SaveChanges();
         }
 
@@ -267,6 +280,7 @@ namespace EasyStudingUnitTests.TestData
             Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 3, EducationId = 3, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
             Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 4, EducationId = 4, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
             Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 5, EducationId = 5, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
+
             Context.SaveChanges();
         }
 
@@ -277,6 +291,7 @@ namespace EasyStudingUnitTests.TestData
             Context.EmailDescriptions.Add(new EmailDescription() { Id = 3, Email = "email3", IsValidated = true });
             Context.EmailDescriptions.Add(new EmailDescription() { Id = 4, Email = "email4", IsValidated = true });
             Context.EmailDescriptions.Add(new EmailDescription() { Id = 5, Email = "email5", IsValidated = true });
+
             Context.SaveChanges();
         }
 
@@ -287,6 +302,7 @@ namespace EasyStudingUnitTests.TestData
             Context.ValidationEmails.Add(new ValidationEmail() { Id = 3, EmailDescriptionId = 3, ValidateCode = "333333" });
             Context.ValidationEmails.Add(new ValidationEmail() { Id = 4, EmailDescriptionId = 4, ValidateCode = "444444" });
             Context.ValidationEmails.Add(new ValidationEmail() { Id = 5, EmailDescriptionId = 5, ValidateCode = "555555" });
+
             Context.SaveChanges();
         }
 
@@ -332,6 +348,7 @@ namespace EasyStudingUnitTests.TestData
             Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/3" });
             Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/4" });
             Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/5" });
+
             Context.SaveChanges();
         }
 
@@ -342,6 +359,7 @@ namespace EasyStudingUnitTests.TestData
             Context.Skills.Add(new Skill() { Id = 3, Name = "skill3" });
             Context.Skills.Add(new Skill() { Id = 4, Name = "skill4" });
             Context.Skills.Add(new Skill() { Id = 5, Name = "skill5" });
+
             Context.SaveChanges();
         }
 
@@ -352,6 +370,7 @@ namespace EasyStudingUnitTests.TestData
             Context.ExecutorSkills.Add(new ExecutorSkill() { Id = 3, SubscriptionExecutorId = 3, SkillId = 3 });
             Context.ExecutorSkills.Add(new ExecutorSkill() { Id = 4, SubscriptionExecutorId = 4, SkillId = 4 });
             Context.ExecutorSkills.Add(new ExecutorSkill() { Id = 5, SubscriptionExecutorId = 5, SkillId = 5 });
+
             Context.SaveChanges();
         }
 
@@ -362,6 +381,7 @@ namespace EasyStudingUnitTests.TestData
             Context.States.Add(new State() { Id = 3, InProgress = false, IsCompleted = true });
             Context.States.Add(new State() { Id = 4, InProgress = false, IsCompleted = true });
             Context.States.Add(new State() { Id = 5, InProgress = false, IsCompleted = true });
+
             Context.SaveChanges();
         }
 
@@ -372,6 +392,7 @@ namespace EasyStudingUnitTests.TestData
             Context.OrderDetails.Add(new OrderDetails() { Id = 3, CustomerId = 3, ExecutorId = 4, StateId = 3, Description = "description3", Title = "title3" });
             Context.OrderDetails.Add(new OrderDetails() { Id = 4, CustomerId = 4, ExecutorId = 5, StateId = 4, Description = "description4", Title = "title4" });
             Context.OrderDetails.Add(new OrderDetails() { Id = 5, CustomerId = 5, ExecutorId = 1, StateId = 5, Description = "description5", Title = "title5" });
+
             Context.SaveChanges();
         }
 
@@ -382,6 +403,7 @@ namespace EasyStudingUnitTests.TestData
             Context.OrderSkills.Add(new OrderSkill() { Id = 3, OrderId = 3, SkillId = 3 });
             Context.OrderSkills.Add(new OrderSkill() { Id = 4, OrderId = 4, SkillId = 4 });
             Context.OrderSkills.Add(new OrderSkill() { Id = 5, OrderId = 5, SkillId = 5 });
+
             Context.SaveChanges();
         }
 
@@ -392,6 +414,7 @@ namespace EasyStudingUnitTests.TestData
             Context.OrderAttachments.Add(new OrderAttachment() { Id = 3, OrderId = 3, AttachmentId = 3 });
             Context.OrderAttachments.Add(new OrderAttachment() { Id = 4, OrderId = 4, AttachmentId = 4 });
             Context.OrderAttachments.Add(new OrderAttachment() { Id = 5, OrderId = 5, AttachmentId = 5 });
+
             Context.SaveChanges();
         }
 
@@ -402,6 +425,7 @@ namespace EasyStudingUnitTests.TestData
             Context.OpenSourceAttachments.Add(new OpenSourceAttachment() { Id = 3, OpenSourceId = 3, AttachmentId = 3 });
             Context.OpenSourceAttachments.Add(new OpenSourceAttachment() { Id = 4, OpenSourceId = 4, AttachmentId = 4 });
             Context.OpenSourceAttachments.Add(new OpenSourceAttachment() { Id = 5, OpenSourceId = 5, AttachmentId = 5 });
+
             Context.SaveChanges();
         }
 
@@ -412,6 +436,7 @@ namespace EasyStudingUnitTests.TestData
             Context.PaymentTransactions.Add(new PaymentTransaction() { Id = 3, UserinformationId = 3, CostId = 1, IsPaid = true });
             Context.PaymentTransactions.Add(new PaymentTransaction() { Id = 4, UserinformationId = 4, CostId = 2, IsPaid = true });
             Context.PaymentTransactions.Add(new PaymentTransaction() { Id = 5, UserinformationId = 5, CostId = 1, IsPaid = true });
+
             Context.SaveChanges();
         }
 
@@ -422,6 +447,7 @@ namespace EasyStudingUnitTests.TestData
             Context.CloseTransactions.Add(new CloseTransaction() { Id = 3, OrderDetailsId = 3, IsClosedByCustomer = true, IsClosedByExecutor = true });
             Context.CloseTransactions.Add(new CloseTransaction() { Id = 4, OrderDetailsId = 4, IsClosedByCustomer = true, IsClosedByExecutor = true });
             Context.CloseTransactions.Add(new CloseTransaction() { Id = 5, OrderDetailsId = 5, IsClosedByCustomer = true, IsClosedByExecutor = true });
+
             Context.SaveChanges();
         }
     }
