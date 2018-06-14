@@ -28,7 +28,7 @@ namespace EasyStudingRepositories.DbContext
         public virtual DbSet<ExecutorSkill> ExecutorSkills { get; set; }
         public virtual DbSet<OpenSource> OpenSources { get; set; }
         public virtual DbSet<OpenSourceAttachment> OpenSourceAttachments { get; set; }
-        public virtual DbSet<OrderAttachment> OrderAttachment { get; set; }
+        public virtual DbSet<OrderAttachment> OrderAttachments { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderSkill> OrderSkills { get; set; }
         public virtual DbSet<PaymentTransaction> PaymentTransactions { get; set; }
