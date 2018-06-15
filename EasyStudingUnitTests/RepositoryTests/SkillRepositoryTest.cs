@@ -14,18 +14,13 @@ namespace EasyStudingUnitTests.RepositoryTests
     {
         private EasyStudingContext Context;
 
-        public SkillRepositoryTest()
-        {
-            Context = new TestDbContext().Context;
-        }
-
         [Fact(DisplayName = "SkillRepository.GetAll() should return 5 objects.")]
-        public async void SkillRepository_GetAll_should_return_5_objects()
+        public void SkillRepository_GetAll_should_return_5_objects()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new SkillRepository(Context);
-                var result = await rep.GetAll();
+                var result = rep.GetAll();
 
                 Assert.Equal(5, result.Count());
             }

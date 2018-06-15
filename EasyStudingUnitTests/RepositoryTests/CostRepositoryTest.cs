@@ -14,18 +14,13 @@ namespace EasyStudingUnitTests.RepositoryTests
     {
         private EasyStudingContext Context;
 
-        public CostRepositoryTest()
-        {
-            Context = new TestDbContext().Context;
-        }
-
         [Fact(DisplayName = "CostRepository.GetAll() should return 2 objects.")]
-        public async void CostRepository_GetAll_should_return_2_objects()
+        public void CostRepository_GetAll_should_return_2_objects()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new CostRepository(Context);
-                var result = await rep.GetAll();
+                var result = rep.GetAll();
 
                 Assert.Equal(2, result.Count());
             }

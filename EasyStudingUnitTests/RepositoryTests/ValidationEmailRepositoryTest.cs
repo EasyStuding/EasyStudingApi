@@ -14,18 +14,13 @@ namespace EasyStudingUnitTests.RepositoryTests
     {
         private EasyStudingContext Context;
 
-        public ValidationEmailRepositoryTest()
-        {
-            Context = new TestDbContext().Context;
-        }
-
         [Fact(DisplayName = "ValidationEmailRepository.GetAll() should return 5 objects.")]
-        public async void ValidationEmailRepository_GetAll_should_return_5_objects()
+        public void ValidationEmailRepository_GetAll_should_return_5_objects()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new ValidationEmailRepository(Context);
-                var result = await rep.GetAll();
+                var result = rep.GetAll();
 
                 Assert.Equal(5, result.Count());
             }

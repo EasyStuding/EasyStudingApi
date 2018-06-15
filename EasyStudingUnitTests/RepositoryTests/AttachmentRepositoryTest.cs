@@ -15,18 +15,13 @@ namespace EasyStudingUnitTests.RepositoryTests
     {
         private EasyStudingContext Context;
 
-        public AttachmentRepositoryTest()
-        {
-            Context = new TestDbContext().Context;
-        }
-
         [Fact(DisplayName = "AttachmentRepository.GetAll() should return 5 objects.")]
-        public async void AttachmentRepository_GetAll_should_return_5_objects()
+        public void AttachmentRepository_GetAll_should_return_5_objects()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new AttachmentRepository(Context);
-                var result = await rep.GetAll();
+                var result = rep.GetAll();
 
                 Assert.Equal(5, result.Count());
             }

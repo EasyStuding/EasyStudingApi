@@ -18,7 +18,7 @@ namespace EasyStudingRepositories.Repositories
             Context = context;
         }
 
-        public async Task<IQueryable<CloseTransaction>> GetAll()
+        public IQueryable<CloseTransaction> GetAll()
         {
             throw new Exception();
         }

@@ -8,7 +8,7 @@ namespace EasyStudingInterfaces.Repositories
 {
     public interface IRepository<T>
     {
-        Task<IQueryable<T>> GetAll();
+        IQueryable<T> GetAll();
 
         Task<T> Get(long id);
 

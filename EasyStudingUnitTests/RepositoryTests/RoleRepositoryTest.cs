@@ -14,18 +14,13 @@ namespace EasyStudingUnitTests.RepositoryTests
     {
         private EasyStudingContext Context;
 
-        public RoleRepositoryTest()
-        {
-            Context = new TestDbContext().Context;
-        }
-
         [Fact(DisplayName = "RoleRepository.GetAll() should return 3 objects.")]
-        public async void RoleRepository_GetAll_should_return_3_objects()
+        public void RoleRepository_GetAll_should_return_3_objects()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var result = await rep.GetAll();
+                var result = rep.GetAll();
 
                 Assert.Equal(3, result.Count());
             }

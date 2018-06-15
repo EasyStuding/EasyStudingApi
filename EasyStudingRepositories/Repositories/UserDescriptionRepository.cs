@@ -18,7 +18,7 @@ namespace EasyStudingRepositories.Repositories
             Context = context;
         }
 
-        public async Task<IQueryable<UserDescription>> GetAll()
+        public IQueryable<UserDescription> GetAll()
         {
             throw new Exception();
         }

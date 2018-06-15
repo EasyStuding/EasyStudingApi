@@ -18,7 +18,7 @@ namespace EasyStudingRepositories.Repositories
             Context = context;
         }
 
-        public async Task<IQueryable<OpenSourceAttachment>> GetAll()
+        public IQueryable<OpenSourceAttachment> GetAll()
         {
             throw new Exception();
         }

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\EasyStudingServices\EasyStudingServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ServiceTests\" />
+  </ItemGroup>
+
 </Project>
