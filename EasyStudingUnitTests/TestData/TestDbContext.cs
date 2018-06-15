@@ -275,11 +275,11 @@ namespace EasyStudingUnitTests.TestData
 
         private void CreateEducationUserDescriptions()
         {
-            Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 1, EducationId = 1, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
-            Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 2, EducationId = 2, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
-            Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 3, EducationId = 3, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
-            Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 4, EducationId = 4, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
-            Context.EducationUserDecriptions.Add(new EducationUserDescription() { Id = 5, EducationId = 5, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
+            Context.EducationUserDescriptions.Add(new EducationUserDescription() { Id = 1, EducationId = 1, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
+            Context.EducationUserDescriptions.Add(new EducationUserDescription() { Id = 2, EducationId = 2, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
+            Context.EducationUserDescriptions.Add(new EducationUserDescription() { Id = 3, EducationId = 3, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
+            Context.EducationUserDescriptions.Add(new EducationUserDescription() { Id = 4, EducationId = 4, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
+            Context.EducationUserDescriptions.Add(new EducationUserDescription() { Id = 5, EducationId = 5, AdmissionDate = DateTime.Now, GraduationDate = DateTime.Now });
 
             Context.SaveChanges();
         }
