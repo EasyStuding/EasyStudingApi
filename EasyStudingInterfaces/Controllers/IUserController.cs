@@ -37,6 +37,8 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order);
 
+        Task<ApiOrderDetailsModel> StartExecuteOrder(long id);
+
         Task<ApiOrderDetailsModel> CloseOrder(long id);
 
         Task<ApiReviewModel> AddReview(ApiReviewModel review);

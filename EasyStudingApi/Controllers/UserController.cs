@@ -136,6 +136,13 @@ namespace EasyStudingApi.Controllers
         }
 
         [HttpPost]
+        // */api/user/StartExecuteOrder
+        public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id)
+        {
+            throw new Exception();
+        }
+
+        [HttpPost]
         // */api/user/AddReview
         public async Task<ApiReviewModel> AddReview([FromBody]ApiReviewModel review)
         {

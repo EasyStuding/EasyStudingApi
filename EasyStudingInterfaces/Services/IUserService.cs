@@ -37,6 +37,8 @@ namespace EasyStudingInterfaces.Services
 
         Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId);
 
+        Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId, long executorUserId);
+
         Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId);
 
         Task<ApiReviewModel> AddReview(ApiReviewModel review, long currentUserId);

@@ -90,6 +90,11 @@ namespace EasyStudingServices.Services
             throw new Exception();
         }
 
+        public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId, long executorUserId)
+        {
+            throw new Exception();
+        }
+
         public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
         {
             throw new Exception();
