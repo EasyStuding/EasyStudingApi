@@ -16,6 +16,6 @@ namespace EasyStudingInterfaces.Repositories
 
         Task<T> Edit(T param);
 
-        Task<T> Remove(T param);
+        Task<T> Remove(long id);
     }
 }
