@@ -23,7 +23,7 @@ namespace EasyStudingRepositories.DbContext
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<EducationType> EducationTypes { get; set; }
-        public virtual DbSet<EducationUserDescription> EducationUserDecriptions { get; set; }
+        public virtual DbSet<EducationUserDescription> EducationUserDescriptions { get; set; }
         public virtual DbSet<EmailDescription> EmailDescriptions { get; set; }
         public virtual DbSet<ExecutorSkill> ExecutorSkills { get; set; }
         public virtual DbSet<OpenSource> OpenSources { get; set; }
