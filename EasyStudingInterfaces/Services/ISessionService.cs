@@ -10,8 +10,8 @@ namespace EasyStudingInterfaces.Services
 
         Task<UserRegistration> ValidateRegistration(ValidationUser validationUser);
 
-        Task<ApiUserInformationModel> CompleteRegistration(ApiLoginModel apiLogin);
+        Task<ApiLoginToken> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin);
 
-        Task<ApiUserInformationModel> Login(ApiLoginModel apiLogin, bool isTelephone);
+        Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone);
     }
 }

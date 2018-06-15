@@ -39,14 +39,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // */api/session/CompleteRegistration
-        public async Task<ApiUserInformationModel> CompleteRegistration([FromBody]ApiLoginModel apiLogin)
+        public async Task<ApiLoginToken> CompleteRegistration([FromBody]ApiRegisrtationLoginModel apiRegistrationLogin)
         {
             throw new Exception();
         }
 
         [HttpPost]
         // */api/session/Login
-        public async Task<ApiUserInformationModel> Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
+        public async Task<ApiLoginToken> Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
         {
             throw new Exception();
         }
