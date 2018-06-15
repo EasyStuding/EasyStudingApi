@@ -7,15 +7,13 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city);
+        Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city, long currentUserId);
 
-        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id);
+        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId);
 
         Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id, long currentUserId);
 
-        Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId);
-
-        Task<ApiOrderDetailsModel> CloseOrder(long id);
+        Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId);
 
         Task<Skill> AddSkill(long id, long currentUserId);
 

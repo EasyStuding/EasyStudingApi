@@ -45,13 +45,6 @@ namespace EasyStudingApi.Controllers
         }
 
         [HttpPost]
-        // */api/executor/StartExecuteOrder
-        public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id)
-        {
-            throw new Exception();
-        }
-
-        [HttpPost]
         // */api/executor/CloseOrder
         public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {

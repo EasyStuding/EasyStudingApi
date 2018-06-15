@@ -13,8 +13,6 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id);
 
-        Task<ApiOrderDetailsModel> StartExecuteOrder(long id);
-
         Task<ApiOrderDetailsModel> CloseOrder(long id);
 
         Task<Skill> AddSkill(long id);
