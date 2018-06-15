@@ -76,6 +76,8 @@ namespace EasyStudingUnitTests.TestData
             CreatePaymentTransactions();
 
             CreateCloseTransactions();
+
+            CreateOpenTransactions();
         }
 
         private void CreateUserRegistrations()
