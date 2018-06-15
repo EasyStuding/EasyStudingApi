@@ -344,10 +344,10 @@ namespace EasyStudingUnitTests.TestData
         private void CreateUserPictures()
         {
             Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/1" });
-            Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/2" });
-            Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/3" });
-            Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/4" });
-            Context.UserPictures.Add(new UserPicture() { Id = 1, UserInformationId = 1, Ref = "https://example.com/picture/5" });
+            Context.UserPictures.Add(new UserPicture() { Id = 2, UserInformationId = 1, Ref = "https://example.com/picture/2" });
+            Context.UserPictures.Add(new UserPicture() { Id = 3, UserInformationId = 1, Ref = "https://example.com/picture/3" });
+            Context.UserPictures.Add(new UserPicture() { Id = 4, UserInformationId = 1, Ref = "https://example.com/picture/4" });
+            Context.UserPictures.Add(new UserPicture() { Id = 5, UserInformationId = 1, Ref = "https://example.com/picture/5" });
 
             Context.SaveChanges();
         }
