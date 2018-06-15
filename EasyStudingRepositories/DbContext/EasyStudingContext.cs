@@ -45,6 +45,7 @@ namespace EasyStudingRepositories.DbContext
         public virtual DbSet<ValidationEmail> ValidationEmails { get; set; }
         public virtual DbSet<ValidationUser> ValidationUsers { get; set; }
         public virtual DbSet<CloseTransaction> CloseTransactions { get; set; }
+        public virtual DbSet<OpenTransaction> OpenTransactions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -98,6 +99,9 @@ namespace EasyStudingRepositories.DbContext
                     .UseNpgsqlIdentityByDefaultColumn();
 
                 entity.Property(e => e.CountryId).HasColumnName("countryid");
+
+                entity.Property(e => e.Region)
+                    .HasColumnName("region");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -548,6 +552,25 @@ namespace EasyStudingRepositories.DbContext
                 entity.Property(e => e.IsClosedByExecutor)
                     .IsRequired()
                     .HasColumnName("isclosedbyexecutor");
+            });
+
+            modelBuilder.Entity<OpenTransaction>(entity =>
+            {
+                entity.ToTable("opentransactions");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseNpgsqlIdentityByDefaultColumn();
+
+                entity.Property(e => e.OrderDetailsId).HasColumnName("orderdetailsid");
+
+                entity.Property(e => e.IsOpenedByCustomer)
+                    .IsRequired()
+                    .HasColumnName("isopenedbycustomer");
+
+                entity.Property(e => e.IsOpenedByExecutor)
+                    .IsRequired()
+                    .HasColumnName("isopenedbyexecutor");
             });
         }
         #endregion

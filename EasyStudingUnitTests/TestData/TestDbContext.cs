@@ -450,5 +450,16 @@ namespace EasyStudingUnitTests.TestData
 
             Context.SaveChanges();
         }
+
+        private void CreateOpenTransactions()
+        {
+            Context.OpenTransactions.Add(new OpenTransaction() { Id = 1, OrderDetailsId = 1, IsOpenedByCustomer = true, IsOpenedByExecutor = true });
+            Context.OpenTransactions.Add(new OpenTransaction() { Id = 2, OrderDetailsId = 2, IsOpenedByCustomer = true, IsOpenedByExecutor = true });
+            Context.OpenTransactions.Add(new OpenTransaction() { Id = 3, OrderDetailsId = 3, IsOpenedByCustomer = true, IsOpenedByExecutor = true });
+            Context.OpenTransactions.Add(new OpenTransaction() { Id = 4, OrderDetailsId = 4, IsOpenedByCustomer = true, IsOpenedByExecutor = true });
+            Context.OpenTransactions.Add(new OpenTransaction() { Id = 5, OrderDetailsId = 5, IsOpenedByCustomer = true, IsOpenedByExecutor = true });
+
+            Context.SaveChanges();
+        }
     }
 }
