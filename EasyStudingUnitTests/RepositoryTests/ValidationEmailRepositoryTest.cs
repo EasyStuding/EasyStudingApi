@@ -104,21 +104,9 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new ValidationEmailRepository(Context);
-                var model = await rep.Remove(new ValidationEmail() { Id = 5 });
+                var model = await rep.Remove(5);
 
                 Assert.Equal(5, model.Id);
-            }
-        }
-
-        [Fact(DisplayName = "ValidationEmailRepository.Remove(null) should return argument null exception.")]
-        public async void ValidationEmailRepository_Remove_null_should_return_argument_null_exception()
-        {
-            using (Context = new TestDbContext().Context)
-            {
-                var rep = new ValidationEmailRepository(Context);
-                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Remove(null));
-
-                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
         }
 
@@ -128,7 +116,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new ValidationEmailRepository(Context);
-                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(new ValidationEmail() { Id = 7 }));
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(7));
 
                 Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }

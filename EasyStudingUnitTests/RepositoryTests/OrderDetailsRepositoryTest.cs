@@ -104,21 +104,9 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new OrderDetailsRepository(Context);
-                var model = await rep.Remove(new OrderDetails() { Id = 5 });
+                var model = await rep.Remove(5);
 
                 Assert.Equal(5, model.Id);
-            }
-        }
-
-        [Fact(DisplayName = "OrderDetailsRepository.Remove(null) should return argument null exception.")]
-        public async void OrderDetailsRepository_Remove_null_should_return_argument_null_exception()
-        {
-            using (Context = new TestDbContext().Context)
-            {
-                var rep = new OrderDetailsRepository(Context);
-                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Remove(null));
-
-                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
         }
 
@@ -128,7 +116,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new OrderDetailsRepository(Context);
-                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(new OrderDetails() { Id = 7 }));
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(7));
 
                 Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }
