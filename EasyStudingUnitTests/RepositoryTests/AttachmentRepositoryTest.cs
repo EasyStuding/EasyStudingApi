@@ -46,6 +46,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             {
                 var rep = new AttachmentRepository(Context);
                 var model = await rep.Add(new Attachment() { Id = 6 });
+
                 Assert.Equal(6, model.Id);
             }
         }
@@ -56,15 +57,9 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new AttachmentRepository(Context);
-                try
-                {
-                    var model = await rep.Add(null);
-                    Assert.True(false);
-                }
-                catch(ArgumentNullException)
-                {
-                    Assert.True(true);
-                }
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Add(null));
+
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
         }
 
@@ -75,6 +70,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             {
                 var rep = new AttachmentRepository(Context);
                 var model = await rep.Edit(new Attachment() { Id = 5 });
+
                 Assert.Equal(5, model.Id);
             }
         }
@@ -85,15 +81,21 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new AttachmentRepository(Context);
-                try
-                {
-                    var model = await rep.Edit(null);
-                    Assert.True(false);
-                }
-                catch (ArgumentNullException)
-                {
-                    Assert.True(true);
-                }
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Edit(null));
+
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "AttachmentRepository.Edit(7) should return index out of range exception.")]
+        public async void AttachmentRepository_Edit_7_should_return_index_out_of_range_exception()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var rep = new AttachmentRepository(Context);
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Edit(new Attachment() { Id = 7 }));
+
+                Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }
         }
 
@@ -104,6 +106,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             {
                 var rep = new AttachmentRepository(Context);
                 var model = await rep.Remove(new Attachment() { Id = 5 });
+
                 Assert.Equal(5, model.Id);
             }
         }
@@ -114,15 +117,21 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new AttachmentRepository(Context);
-                try
-                {
-                    var model = await rep.Remove(null);
-                    Assert.True(false);
-                }
-                catch (ArgumentNullException)
-                {
-                    Assert.True(true);
-                }
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Remove(null));
+
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "AttachmentRepository.Remove(7) should return index out of range exception.")]
+        public async void AttachmentRepository_Remove_7_should_return_index_out_of_range_exception()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var rep = new AttachmentRepository(Context);
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(new Attachment() { Id = 7 }));
+
+                Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }
         }
     }

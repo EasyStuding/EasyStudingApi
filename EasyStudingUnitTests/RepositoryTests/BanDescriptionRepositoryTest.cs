@@ -45,6 +45,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             {
                 var rep = new BanDescriptionRepository(Context);
                 var model = await rep.Add(new BanDescription() { Id = 6 });
+
                 Assert.Equal(6, model.Id);
             }
         }
@@ -55,15 +56,9 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new BanDescriptionRepository(Context);
-                try
-                {
-                    var model = await rep.Add(null);
-                    Assert.True(false);
-                }
-                catch (ArgumentNullException)
-                {
-                    Assert.True(true);
-                }
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Add(null));
+
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
         }
 
@@ -74,6 +69,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             {
                 var rep = new BanDescriptionRepository(Context);
                 var model = await rep.Edit(new BanDescription() { Id = 5 });
+
                 Assert.Equal(5, model.Id);
             }
         }
@@ -84,15 +80,21 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new BanDescriptionRepository(Context);
-                try
-                {
-                    var model = await rep.Edit(null);
-                    Assert.True(false);
-                }
-                catch (ArgumentNullException)
-                {
-                    Assert.True(true);
-                }
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Edit(null));
+
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "BanDescriptionRepository.Edit(7) should return index out of range exception.")]
+        public async void BanDescriptionRepository_Edit_7_should_return_index_out_of_range_exception()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var rep = new BanDescriptionRepository(Context);
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Edit(new BanDescription() { Id = 7 }));
+
+                Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }
         }
 
@@ -103,6 +105,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             {
                 var rep = new BanDescriptionRepository(Context);
                 var model = await rep.Remove(new BanDescription() { Id = 5 });
+
                 Assert.Equal(5, model.Id);
             }
         }
@@ -113,15 +116,21 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new BanDescriptionRepository(Context);
-                try
-                {
-                    var model = await rep.Remove(null);
-                    Assert.True(false);
-                }
-                catch (ArgumentNullException)
-                {
-                    Assert.True(true);
-                }
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Remove(null));
+
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "BanDescriptionRepository.Remove(7) should return index out of range exception.")]
+        public async void BanDescriptionRepository_Remove_7_should_return_index_out_of_range_exception()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var rep = new BanDescriptionRepository(Context);
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(new BanDescription() { Id = 7 }));
+
+                Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }
         }
     }
