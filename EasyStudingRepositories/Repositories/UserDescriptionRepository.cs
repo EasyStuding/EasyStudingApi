@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<UserDescription> Remove(UserDescription param)
+        public async Task<UserDescription> Remove(long id)
         {
             throw new Exception();
         }

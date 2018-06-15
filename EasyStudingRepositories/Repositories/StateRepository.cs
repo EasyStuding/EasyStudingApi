@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<State> Remove(State param)
+        public async Task<State> Remove(long id)
         {
             throw new Exception();
         }

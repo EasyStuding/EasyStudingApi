@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<ExecutorSkill> Remove(ExecutorSkill param)
+        public async Task<ExecutorSkill> Remove(long id)
         {
             throw new Exception();
         }

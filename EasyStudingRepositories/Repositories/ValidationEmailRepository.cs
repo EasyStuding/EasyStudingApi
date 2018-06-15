@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<ValidationEmail> Remove(ValidationEmail param)
+        public async Task<ValidationEmail> Remove(long id)
         {
             throw new Exception();
         }

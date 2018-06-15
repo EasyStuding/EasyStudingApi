@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<Role> Remove(Role param)
+        public async Task<Role> Remove(long id)
         {
             throw new Exception();
         }

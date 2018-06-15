@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<Attachment> Remove(Attachment param)
+        public async Task<Attachment> Remove(long id)
         {
             throw new Exception();
         }

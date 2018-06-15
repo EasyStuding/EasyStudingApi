@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<SubscriptionExecutor> Remove(SubscriptionExecutor param)
+        public async Task<SubscriptionExecutor> Remove(long id)
         {
             throw new Exception();
         }

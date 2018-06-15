@@ -38,7 +38,7 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<OpenSourceAttachment> Remove(OpenSourceAttachment param)
+        public async Task<OpenSourceAttachment> Remove(long id)
         {
             throw new Exception();
         }
