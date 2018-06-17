@@ -19,66 +19,75 @@ namespace EasyStudingUnitTests.TestData
 
             Context = new EasyStudingContext(options);
 
-            CreateUserRegistrations();
-
-            CreateValidationUsers();
-
-            CreateRoles();
-
-            CreateCosts();
-
-            CreateAttachments();
-
-            CreateSubscriptionExecutors();
-
-            CreateSubscriptionOpenSources();
-
-            CreateOpenSources();
-
-            CreateUserInformations();
-
-            CreateBanDescriptions();
-
-            CreateReviews();
-
-            CreateCountries();
-
-            CreateCities();
-
-            CreateEducationTypes();
-
-            CreateEducations();
-
-            CreateEducationUserDescriptions();
-
-            CreateEmailDescriptions();
-
-            CreateValidationEmails();
-
-            CreateUserDescriptions();
-
-            CreateUserPictures();
-
-            CreateSkills();
-
-            CreateExecutorSkills();
-
-            CreateStates();
-
-            CreateOrderDetails();
-
-            CreateOrderSkills();
-
-            CreateOrderAttachments();
-
-            CreateOpenSourceAttachments();
-
-            CreatePaymentTransactions();
-
-            CreateCloseTransactions();
-
-            CreateOpenTransactions();
+			CreateTestDataInDatabase();
         }
+
+		private void CreateTestDataInDatabase()
+		{
+			#region Call all methods to create test data in DB
+
+			CreateUserRegistrations();
+
+			CreateValidationUsers();
+
+			CreateRoles();
+
+			CreateCosts();
+
+			CreateAttachments();
+
+			CreateSubscriptionExecutors();
+
+			CreateSubscriptionOpenSources();
+
+			CreateOpenSources();
+
+			CreateUserInformations();
+
+			CreateBanDescriptions();
+
+			CreateReviews();
+
+			CreateCountries();
+
+			CreateCities();
+
+			CreateEducationTypes();
+
+			CreateEducations();
+
+			CreateEducationUserDescriptions();
+
+			CreateEmailDescriptions();
+
+			CreateValidationEmails();
+
+			CreateUserDescriptions();
+
+			CreateUserPictures();
+
+			CreateSkills();
+
+			CreateExecutorSkills();
+
+			CreateStates();
+
+			CreateOrderDetails();
+
+			CreateOrderSkills();
+
+			CreateOrderAttachments();
+
+			CreateOpenSourceAttachments();
+
+			CreatePaymentTransactions();
+
+			CreateCloseTransactions();
+
+			CreateOpenTransactions();
+
+            #endregion
+		}
 
         private void CreateUserRegistrations()
         {
