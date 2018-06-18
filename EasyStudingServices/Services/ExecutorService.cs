@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EasyStudingServices.Services
 {
-    //currentUserId - current user, who send request.
+    //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
         //TODO: initialize repositories;
@@ -60,6 +60,7 @@ namespace EasyStudingServices.Services
         ///    Requsted order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.InvalidOperationException">When order have executor.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
@@ -77,6 +78,7 @@ namespace EasyStudingServices.Services
         ///   Requested order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
@@ -93,7 +95,7 @@ namespace EasyStudingServices.Services
         ///    Added skill.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When skill not found.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Skill> AddSkill(long id, long currentUserId)
@@ -110,7 +112,7 @@ namespace EasyStudingServices.Services
         ///    Removed skill.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When skill not found.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Skill> RemoveSkill(long id, long currentUserId)

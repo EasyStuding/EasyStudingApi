@@ -7,17 +7,15 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IUserService
     {
-        Task<IQueryable<ApiUserInformationModel>> GetApiUserInformationModels(ApiEducationModel education, City city);
+        Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels(ApiEducationModel education, City city);
 
-        Task<ApiUserInformationModel> GetApiUserInformationModel(long id);
+        Task<ApiUserDescriptionModel> GetApiUserDescriptionModel(long id);
 
         Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(long currentUserId);
 
         Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId);
 
-        Task<IQueryable<SubscriptionExecutor>> GetSubscriptionExecutors(ApiEducationModel education, City city);
-
-        Task<SubscriptionExecutor> GetSubscriptionExecutor(long id);
+        Task<IQueryable<ApiUserDescriptionModel>> GetSubscriptionExecutors(ApiEducationModel education, City city);
 
         Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId);
 
@@ -34,6 +32,8 @@ namespace EasyStudingInterfaces.Services
         Task<Cost> CompleteBuySubcription(Cost cost, long currentUserId);
 
         Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file, long currentUserId);
+
+        Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId);
 
         Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId);
 

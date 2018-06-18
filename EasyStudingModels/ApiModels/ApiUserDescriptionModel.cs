@@ -8,6 +8,7 @@ namespace EasyStudingModels.ApiModels
         public ApiUserInformationModel UserInformation { get; set; }
         public ApiEducationUserDecriptionModel EducationUserDecription { get; set; }
         public EmailDescription EmailDescription { get; set; }
+        public UserPicture Picture { get; set; }
         public City City { get; set; }
         public Country Country { get; set; }
         public string FirstName { get; set; }

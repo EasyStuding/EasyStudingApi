@@ -15,90 +15,302 @@ namespace EasyStudingServices.Services
     {
         //TODO: initialize repositories;
 
-        public async Task<IQueryable<ApiUserInformationModel>> GetApiUserInformationModels(ApiEducationModel education, City city)
+        /// <summary>
+        ///   Get users, classified by education and city. 
+        /// </summary>
+        /// <param name="education">Education of user.</param>
+        /// <param name="city">City of user.</param>
+        /// <returns>
+        ///    Users sorted by city and education.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
+
+        public async Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels(ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
-        public async Task<ApiUserInformationModel> GetApiUserInformationModel(long id)
+        /// <summary>
+        ///   Get information about user. 
+        /// </summary>
+        /// <param name="id">Id of user to return.</param>
+        /// <returns>
+        ///    Requsted user.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+
+        public async Task<ApiUserDescriptionModel> GetApiUserDescriptionModel(long id)
         {
             throw new Exception();
         }
+
+        /// <summary>
+        ///   Get orders of current user. 
+        /// </summary>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Orders.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">When user not found.</exception>
 
         public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(long currentUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Get order of current user by id. 
+        /// </summary>
+        /// <param name="id">Id of current user order.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Order.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When order not found.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer of order != current user.</exception>
+
         public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId)
         {
             throw new Exception();
         }
 
-        public async Task<IQueryable<SubscriptionExecutor>> GetSubscriptionExecutors(ApiEducationModel education, City city)
+        /// <summary>
+        ///   Get executors. 
+        /// </summary>
+        /// <param name="education">Education of executore.</param>
+        /// <param name="city">City of executor.</param>
+        /// <returns>
+        ///    Executors.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
+
+        public async Task<IQueryable<ApiUserDescriptionModel>> GetSubscriptionExecutors(ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
-        public async Task<SubscriptionExecutor> GetSubscriptionExecutor(long id)
-        {
-            throw new Exception();
-        }
+        /// <summary>
+        ///   Change password of current user. 
+        /// </summary>
+        /// <param name="oldPassword">Old password of user.</param>
+        /// <param name="newPassword">New password of user.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    true - password changed, false - oldpassword incorrect
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Change description of user. 
+        /// </summary>
+        /// <param name="description">Description model of user.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Changed model of current user.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When user id of description != current user id.</exception>
+
         public async Task<ApiUserDescriptionModel> EditProfile(ApiUserDescriptionModel description, long currentUserId)
         {
             throw new Exception();
         }
+
+        /// <summary>
+        ///   Add picture of user profile. 
+        /// </summary>
+        /// <param name="file">Picture to add.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Added image.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Edit picture of user profile. 
+        /// </summary>
+        /// <param name="file">Picture to edit.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Edited image.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+
         public async Task<ApiFileToReturnModel> EditPictureProfile(ApiFileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
+
+        /// <summary>
+        ///   Remove picture of user profile. 
+        /// </summary>
+        /// <param name="id">Id of picture to remove.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Removed image.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user or picture not found.</exception>
 
         public async Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Add request to buy subscription(executor/opensource validate by cost). 
+        /// </summary>
+        /// <param name="cost">Cost of subscription.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Cost of subscription.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+
         public async Task<Cost> RequestToBuySubscription(Cost cost, long currentUserId)
         {
             throw new Exception();
         }
+
+        /// <summary>
+        ///   Close to buy subscription(executor/opensource validate by cost) and add subscription to user. 
+        /// </summary>
+        /// <param name="cost">Cost of subscription.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Cost of subscription.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<Cost> CompleteBuySubcription(Cost cost, long currentUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Add file to open source area of user. 
+        /// </summary>
+        /// <param name="file">File to add.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Added file.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+
         public async Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
+
+        /// <summary>
+        ///   Remove file to open source area of user. 
+        /// </summary>
+        /// <param name="file">File to remove.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Removed file.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user or file not found.</exception>
+
+        public async Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
+        {
+            throw new Exception();
+        }
+
+        /// <summary>
+        ///   Add order to area. 
+        /// </summary>
+        /// <param name="file">Order to add.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Added order.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Add executor to order. 
+        /// </summary>
+        /// <param name="id">Id of order.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <param name="executorUserId">Id of executor.</param>
+        /// <returns>
+        ///    Updated order.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When one of users or order not found.</exception>
+
         public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId, long executorUserId)
         {
             throw new Exception();
         }
 
+        /// <summary>
+        ///   Close execute of order from Executor.
+        /// </summary>
+        /// <param name="id">Id of order to close.</param>
+        /// <param name="currentUserId">Id of user who request data.</param>
+        /// <returns>
+        ///   Requested order.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result or user not found.</exception>
+
         public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
         {
             throw new Exception();
         }
+
+        /// <summary>
+        ///   Add review to executor. 
+        /// </summary>
+        /// <param name="review">Review to add.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Added review.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user or order not found.</exception>
 
         public async Task<ApiReviewModel> AddReview(ApiReviewModel review, long currentUserId)
         {

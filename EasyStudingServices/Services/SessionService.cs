@@ -37,6 +37,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.InvalidOperationException">When validation code from model not equal validation code from db.</exception>
 
         public async Task<UserRegistration> ValidateRegistration(ValidationUser validationUser)
@@ -53,6 +54,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.InvalidOperationException">When user with this login contains in db.</exception>
 
         public async Task<ApiLoginToken> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin)
@@ -70,6 +72,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone)
         {
