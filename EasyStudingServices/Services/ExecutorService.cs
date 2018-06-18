@@ -17,6 +17,7 @@ namespace EasyStudingServices.Services
         private readonly IRepository<EducationType> EducationTypeRepository;
         private readonly IRepository<City> CityRepository;
         private readonly IRepository<Country> CountryRepository;
+        private readonly IRepository<Role> RoleRepository;
         private readonly IRepository<UserRegistration> UserRegistrationRepository;
         private readonly IRepository<UserInformation> UserInformationRepository;
         private readonly IRepository<UserDescription> UserDescriptionRepository;
@@ -31,6 +32,7 @@ namespace EasyStudingServices.Services
             IRepository<EducationType> educationTypeRepository,
             IRepository<City> cityRepository,
             IRepository<Country> coutryRepository,
+            IRepository<Role> roleRepository,
             IRepository<UserRegistration> userRegistrationRepository,
             IRepository<UserInformation> userInformationRepository,
             IRepository<UserDescription> userDescriptionRepository,
@@ -45,6 +47,7 @@ namespace EasyStudingServices.Services
             EducationTypeRepository = educationTypeRepository;
             CityRepository = cityRepository;
             CountryRepository = coutryRepository;
+            RoleRepository = roleRepository;
             UserRegistrationRepository = userRegistrationRepository;
             UserInformationRepository = userInformationRepository;
             UserDescriptionRepository = userDescriptionRepository;
