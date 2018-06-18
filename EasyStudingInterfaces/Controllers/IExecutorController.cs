@@ -7,7 +7,7 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IExecutorController
     {
-        Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city);
+        Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(ApiEducationModel education, City city);
 
         Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id);
 

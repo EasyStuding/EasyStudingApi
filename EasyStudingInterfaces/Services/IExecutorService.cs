@@ -7,7 +7,7 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city, long currentUserId);
+        Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(ApiEducationModel education, City city, long currentUserId);
 
         Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId);
 

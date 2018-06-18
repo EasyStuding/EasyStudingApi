@@ -154,7 +154,6 @@ namespace EasyStudingUnitTests.TestData
             Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 2, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
             Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 3, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
             Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 4, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 5, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
 
             Context.SaveChanges();
         }
@@ -206,17 +205,17 @@ namespace EasyStudingUnitTests.TestData
 
             Context.UserInformations.Add(new UserInformation() {
                 Id = 4, UserRegistrationId = 4,
-                SubscriptionExecutorId = 4, OpenSourceId = 4,
+                SubscriptionExecutorId = null, OpenSourceId = null,
                 RoleId = 1, LoginName = "login4",
                 Password = "password4", IsGaranted = false,
-                IsFreeTrial = false, IsBanned = false });
+                IsFreeTrial = true, IsBanned = false });
 
             Context.UserInformations.Add(new UserInformation() {
                 Id = 5, UserRegistrationId = 5,
-                SubscriptionExecutorId = 5, OpenSourceId = 5,
+                SubscriptionExecutorId = null, OpenSourceId = null,
                 RoleId = 1, LoginName = "login5",
                 Password = "password5", IsGaranted = false,
-                IsFreeTrial = false, IsBanned = false });
+                IsFreeTrial = false, IsBanned = true });
 
             Context.SaveChanges();
         }

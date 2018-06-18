@@ -25,7 +25,7 @@ namespace EasyStudingApi.Controllers
         [HttpGet]
         // * - host.
         // */api/executor/GetOrderDetailsModels
-        public async Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }

@@ -13,7 +13,48 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
-        //TODO: initialize repositories;
+        private readonly IRepository<Education> EducationRepository;
+        private readonly IRepository<EducationType> EducationTypeRepository;
+        private readonly IRepository<City> CityRepository;
+        private readonly IRepository<Country> CountryRepository;
+        private readonly IRepository<UserRegistration> UserRegistrationRepository;
+        private readonly IRepository<UserInformation> UserInformationRepository;
+        private readonly IRepository<UserDescription> UserDescriptionRepository;
+        private readonly IRepository<OrderDetails> OrderDetailsRepository;
+        private readonly IRepository<State> StateRepository;
+        private readonly IRepository<Skill> SkillRepository;
+        private readonly IRepository<Attachment> AttachmentRepository;
+        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
+        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
+
+        public ExecutorService(IRepository<Education> educationRepository,
+            IRepository<EducationType> educationTypeRepository,
+            IRepository<City> cityRepository,
+            IRepository<Country> coutryRepository,
+            IRepository<UserRegistration> userRegistrationRepository,
+            IRepository<UserInformation> userInformationRepository,
+            IRepository<UserDescription> userDescriptionRepository,
+            IRepository<OrderDetails> orderDetailsRepository,
+            IRepository<State> stateRepository,
+            IRepository<Skill> skillRepository,
+            IRepository<Attachment> attachmentRepository,
+            IRepository<OpenTransaction> openTransactionRepository,
+            IRepository<CloseTransaction> closeTransactionRepository)
+        {
+            EducationRepository = educationRepository;
+            EducationTypeRepository = educationTypeRepository;
+            CityRepository = cityRepository;
+            CountryRepository = coutryRepository;
+            UserRegistrationRepository = userRegistrationRepository;
+            UserInformationRepository = userInformationRepository;
+            UserDescriptionRepository = userDescriptionRepository;
+            OrderDetailsRepository = orderDetailsRepository;
+            StateRepository = stateRepository;
+            SkillRepository = skillRepository;
+            AttachmentRepository = attachmentRepository;
+            OpenTransactionRepository = openTransactionRepository;
+            CloseTransactionRepository = closeTransactionRepository;
+        }
 
         /// <summary>
         ///   Get orders, classified by CustomerEducation and CustomerCity. 
@@ -26,11 +67,10 @@ namespace EasyStudingServices.Services
         ///    Orders sorted by city and education.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
-        public async Task<IQueryable<ApiOrderDetailsModel>> GetOrderDetailsModels(ApiEducationModel education, City city, long currentUserId)
+        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(ApiEducationModel education, City city, long currentUserId)
         {
             throw new Exception();
         }
@@ -60,7 +100,6 @@ namespace EasyStudingServices.Services
         ///    Requsted order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.InvalidOperationException">When order have executor.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
@@ -78,7 +117,6 @@ namespace EasyStudingServices.Services
         ///   Requested order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
@@ -95,7 +133,6 @@ namespace EasyStudingServices.Services
         ///    Added skill.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Skill> AddSkill(long id, long currentUserId)
@@ -112,7 +149,6 @@ namespace EasyStudingServices.Services
         ///    Removed skill.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Skill> RemoveSkill(long id, long currentUserId)

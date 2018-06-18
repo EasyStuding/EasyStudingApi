@@ -25,14 +25,14 @@ namespace EasyStudingApi.Controllers
         [HttpGet]
         // * - host.
         // */api/user/GetApiUserInformationModels
-        public async Task<IQueryable<ApiUserInformationModel>> GetApiUserInformationModels([FromBody]ApiEducationModel education, [FromBody]City city)
+        public async Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels([FromBody]ApiEducationModel education, [FromBody]City city)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetApiUserInformationModel
-        public async Task<ApiUserInformationModel> GetApiUserInformationModel(long id)
+        public async Task<ApiUserDescriptionModel> GetApiUserDescriptionModel(long id)
         {
             throw new Exception();
         }
@@ -117,6 +117,13 @@ namespace EasyStudingApi.Controllers
         [HttpPost]
         // */api/user/AddFileToOpenSource
         public async Task<ApiFileToReturnModel> AddFileToOpenSource([FromBody]ApiFileToAddModel file)
+        {
+            throw new Exception();
+        }
+
+        [HttpPost]
+        // */api/user/AddFileToOpenSource
+        public async Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id)
         {
             throw new Exception();
         }
