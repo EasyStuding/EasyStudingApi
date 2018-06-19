@@ -119,7 +119,6 @@ namespace EasyStudingServices.Services
         ///    Users sorted by city and education.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
 
         public async Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels(ApiEducationModel education, City city)
@@ -149,7 +148,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.UnauthorizedAccessException">When user not found.</exception>
 
         public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(long currentUserId)
@@ -166,7 +164,6 @@ namespace EasyStudingServices.Services
         ///    Order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When order not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer of order != current user.</exception>
 
         public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId)
@@ -183,7 +180,6 @@ namespace EasyStudingServices.Services
         ///    Executors.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
 
         public async Task<IQueryable<ApiUserDescriptionModel>> GetSubscriptionExecutors(ApiEducationModel education, City city)
@@ -201,7 +197,6 @@ namespace EasyStudingServices.Services
         ///    true - password changed, false - oldpassword incorrect
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
@@ -218,7 +213,6 @@ namespace EasyStudingServices.Services
         ///    Changed model of current user.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
         /// <exception cref="System.InvalidOperationException">When user id of description != current user id.</exception>
 
@@ -236,7 +230,6 @@ namespace EasyStudingServices.Services
         ///    Added image.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file, long currentUserId)
@@ -253,7 +246,6 @@ namespace EasyStudingServices.Services
         ///    Edited image.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiFileToReturnModel> EditPictureProfile(ApiFileToAddModel file, long currentUserId)
@@ -270,7 +262,6 @@ namespace EasyStudingServices.Services
         ///    Removed image.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user or picture not found.</exception>
 
         public async Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId)
@@ -287,7 +278,6 @@ namespace EasyStudingServices.Services
         ///    Cost of subscription.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<Cost> RequestToBuySubscription(Cost cost, long currentUserId)
@@ -304,7 +294,6 @@ namespace EasyStudingServices.Services
         ///    Cost of subscription.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<Cost> CompleteBuySubcription(Cost cost, long currentUserId)
@@ -321,7 +310,6 @@ namespace EasyStudingServices.Services
         ///    Added file.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file, long currentUserId)
@@ -354,7 +342,6 @@ namespace EasyStudingServices.Services
         ///    Added order.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId)
@@ -404,7 +391,6 @@ namespace EasyStudingServices.Services
         ///    Added review.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user or order not found.</exception>
 
         public async Task<ApiReviewModel> AddReview(ApiReviewModel review, long currentUserId)
