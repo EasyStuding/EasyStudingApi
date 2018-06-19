@@ -13,32 +13,36 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
+        private readonly IRepository<UserPicture> UserPictureRepository;
+        private readonly IRepository<UserRegistration> UserRegistrationRepository;
+        private readonly IRepository<UserInformation> UserInformationRepository;
+        private readonly IRepository<UserDescription> UserDescriptionRepository;
+        private readonly IRepository<OrderDetails> OrderDetailsRepository;
+        private readonly IRepository<Attachment> AttachmentRepository;
+        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
+        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
+        private readonly IRepository<State> StateRepository;
+        private readonly IRepository<Skill> SkillRepository;
+        private readonly IRepository<Cost> CostRepository;
         private readonly IRepository<Education> EducationRepository;
         private readonly IRepository<EducationType> EducationTypeRepository;
         private readonly IRepository<City> CityRepository;
         private readonly IRepository<Country> CountryRepository;
         private readonly IRepository<Role> RoleRepository;
-        private readonly IRepository<UserRegistration> UserRegistrationRepository;
-        private readonly IRepository<UserInformation> UserInformationRepository;
-        private readonly IRepository<UserDescription> UserDescriptionRepository;
-        private readonly IRepository<OrderDetails> OrderDetailsRepository;
-        private readonly IRepository<State> StateRepository;
-        private readonly IRepository<Skill> SkillRepository;
-        private readonly IRepository<Attachment> AttachmentRepository;
-        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
-        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
 
         public ExecutorService(IRepository<Education> educationRepository,
             IRepository<EducationType> educationTypeRepository,
             IRepository<City> cityRepository,
             IRepository<Country> coutryRepository,
             IRepository<Role> roleRepository,
+            IRepository<UserPicture> userPictureRepository,
             IRepository<UserRegistration> userRegistrationRepository,
             IRepository<UserInformation> userInformationRepository,
             IRepository<UserDescription> userDescriptionRepository,
             IRepository<OrderDetails> orderDetailsRepository,
             IRepository<State> stateRepository,
             IRepository<Skill> skillRepository,
+            IRepository<Cost> costRepository,
             IRepository<Attachment> attachmentRepository,
             IRepository<OpenTransaction> openTransactionRepository,
             IRepository<CloseTransaction> closeTransactionRepository)
@@ -48,12 +52,14 @@ namespace EasyStudingServices.Services
             CityRepository = cityRepository;
             CountryRepository = coutryRepository;
             RoleRepository = roleRepository;
+            UserPictureRepository = userPictureRepository;
             UserRegistrationRepository = userRegistrationRepository;
             UserInformationRepository = userInformationRepository;
             UserDescriptionRepository = userDescriptionRepository;
             OrderDetailsRepository = orderDetailsRepository;
             StateRepository = stateRepository;
             SkillRepository = skillRepository;
+            CostRepository = costRepository;
             AttachmentRepository = attachmentRepository;
             OpenTransactionRepository = openTransactionRepository;
             CloseTransactionRepository = closeTransactionRepository;

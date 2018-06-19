@@ -13,9 +13,51 @@ namespace EasyStudingServices.Services
     //In this service you don't need currentUserId to check permissons, role of user contains in identity.
     public class ModeratorService: IModeratorService
     {
-        //TODO: initialize repositories;
+        private readonly IRepository<UserPicture> UserPictureRepository;
+        private readonly IRepository<UserRegistration> UserRegistrationRepository;
+        private readonly IRepository<UserInformation> UserInformationRepository;
+        private readonly IRepository<UserDescription> UserDescriptionRepository;
+        private readonly IRepository<OrderDetails> OrderDetailsRepository;
+        private readonly IRepository<Attachment> AttachmentRepository;
+        private readonly IRepository<State> StateRepository;
+        private readonly IRepository<Skill> SkillRepository;
+        private readonly IRepository<Cost> CostRepository;
+        private readonly IRepository<Education> EducationRepository;
+        private readonly IRepository<EducationType> EducationTypeRepository;
+        private readonly IRepository<City> CityRepository;
+        private readonly IRepository<Country> CountryRepository;
+        private readonly IRepository<Role> RoleRepository;
 
-
+        public ModeratorService(IRepository<Education> educationRepository,
+            IRepository<EducationType> educationTypeRepository,
+            IRepository<City> cityRepository,
+            IRepository<Country> coutryRepository,
+            IRepository<Role> roleRepository,
+            IRepository<UserPicture> userPictureRepository,
+            IRepository<UserRegistration> userRegistrationRepository,
+            IRepository<UserInformation> userInformationRepository,
+            IRepository<UserDescription> userDescriptionRepository,
+            IRepository<OrderDetails> orderDetailsRepository,
+            IRepository<State> stateRepository,
+            IRepository<Skill> skillRepository,
+            IRepository<Cost> costRepository,
+            IRepository<Attachment> attachmentRepository)
+        {
+            EducationRepository = educationRepository;
+            EducationTypeRepository = educationTypeRepository;
+            CityRepository = cityRepository;
+            CountryRepository = coutryRepository;
+            RoleRepository = roleRepository;
+            UserPictureRepository = userPictureRepository;
+            UserRegistrationRepository = userRegistrationRepository;
+            UserInformationRepository = userInformationRepository;
+            UserDescriptionRepository = userDescriptionRepository;
+            OrderDetailsRepository = orderDetailsRepository;
+            StateRepository = stateRepository;
+            SkillRepository = skillRepository;
+            CostRepository = costRepository;
+            AttachmentRepository = attachmentRepository;
+        }
 
         /// <summary>
         ///   Restrict access to data.
@@ -25,9 +67,8 @@ namespace EasyStudingServices.Services
         ///    Banned user.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
-        public async Task<ApiUserInformationModel> BanUser(long id)
+        public async Task<ApiUserDescriptionModel> BanUser(long id)
         {
             throw new Exception();
         }
@@ -40,9 +81,8 @@ namespace EasyStudingServices.Services
         ///    Unbanned user.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
-        public async Task<ApiUserInformationModel> RemoveBanOfUser(long id)
+        public async Task<ApiUserDescriptionModel> RemoveBanOfUser(long id)
         {
             throw new Exception();
         }
@@ -55,7 +95,6 @@ namespace EasyStudingServices.Services
         ///    Closed order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When order not found.</exception>
 
         public async Task<ApiOrderDetailsModel> CloseOrder(long id)
         {
@@ -102,8 +141,6 @@ namespace EasyStudingServices.Services
         ///    Added country.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When country contains in db.</exception>
 
         public async Task<Country> AddCountry(Country country)
         {
@@ -133,7 +170,6 @@ namespace EasyStudingServices.Services
         ///    Removed country.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<Country> RemoveCountry(long id)
         {
@@ -148,8 +184,6 @@ namespace EasyStudingServices.Services
         ///    Added city.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When city contains in db.</exception>
 
         public async Task<City> AddCity(City city)
         {
@@ -179,7 +213,6 @@ namespace EasyStudingServices.Services
         ///    Removed city.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<City> RemoveCity(long id)
         {
@@ -194,8 +227,6 @@ namespace EasyStudingServices.Services
         ///    Added education type.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When education type contains in db.</exception>
 
         public async Task<EducationType> AddEducationType(EducationType educationType)
         {
@@ -225,7 +256,6 @@ namespace EasyStudingServices.Services
         ///    Removed education type.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<EducationType> RemoveEducationType(long id)
         {
@@ -240,8 +270,6 @@ namespace EasyStudingServices.Services
         ///    Added education.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When education contains in db.</exception>
 
         public async Task<ApiEducationModel> AddEducation(ApiEducationModel education)
         {
@@ -271,7 +299,6 @@ namespace EasyStudingServices.Services
         ///    Removed education.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<ApiEducationModel> RemoveEducation(long id)
         {
@@ -286,8 +313,6 @@ namespace EasyStudingServices.Services
         ///    Added cost.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When cost contains in db.</exception>
 
         public async Task<Cost> AddCost(Cost cost)
         {
@@ -317,7 +342,6 @@ namespace EasyStudingServices.Services
         ///    Removed cost.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<Cost> RemoveCost(long id)
         {
@@ -332,8 +356,6 @@ namespace EasyStudingServices.Services
         ///    Added skill.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When skill contains in db.</exception>
 
         public async Task<Skill> AddSkill(Skill skill)
         {
@@ -363,7 +385,6 @@ namespace EasyStudingServices.Services
         ///    Removed skill.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result not found.</exception>
 
         public async Task<Skill> RemoveSkill(long id)
         {

@@ -25,14 +25,14 @@ namespace EasyStudingApi.Controllers
         [HttpPost]
         // * - host.
         // */api/moderator/BanUser
-        public async Task<ApiUserInformationModel> BanUser(long id)
+        public async Task<ApiUserDescriptionModel> BanUser(long id)
         {
             throw new Exception();
         }
 
         [HttpDelete]
         // */api/moderator/RemoveBanOfUser
-        public async Task<ApiUserInformationModel> RemoveBanOfUser(long id)
+        public async Task<ApiUserDescriptionModel> RemoveBanOfUser(long id)
         {
             throw new Exception();
         }

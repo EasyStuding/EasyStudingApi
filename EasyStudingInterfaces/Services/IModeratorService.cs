@@ -7,9 +7,9 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IModeratorService
     {
-        Task<ApiUserInformationModel> BanUser(long id);
+        Task<ApiUserDescriptionModel> BanUser(long id);
 
-        Task<ApiUserInformationModel> RemoveBanOfUser(long id);
+        Task<ApiUserDescriptionModel> RemoveBanOfUser(long id);
 
         Task<ApiOrderDetailsModel> CloseOrder(long id);
 
