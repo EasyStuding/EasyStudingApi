@@ -391,8 +391,6 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-
-
         [Fact(DisplayName = "ExecutorService.GetTheRightsToPerformOrder(6, 1) should return requested order with id 6.")]
         public async void ExecutorService_GetTheRightsToPerformOrder_6_1_should_return_requested_order_6()
         {
