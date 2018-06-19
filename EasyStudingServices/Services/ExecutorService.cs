@@ -13,56 +13,99 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
-        private readonly IRepository<UserPicture> UserPictureRepository;
-        private readonly IRepository<UserRegistration> UserRegistrationRepository;
-        private readonly IRepository<UserInformation> UserInformationRepository;
-        private readonly IRepository<UserDescription> UserDescriptionRepository;
-        private readonly IRepository<OrderDetails> OrderDetailsRepository;
         private readonly IRepository<Attachment> AttachmentRepository;
-        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
-        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
-        private readonly IRepository<State> StateRepository;
-        private readonly IRepository<Skill> SkillRepository;
+        private readonly IRepository<BanDescription> BanDescriptionRepository;
+        private readonly IRepository<City> CityRepository;
         private readonly IRepository<Cost> CostRepository;
+        private readonly IRepository<Country> CountryRepository;
         private readonly IRepository<Education> EducationRepository;
         private readonly IRepository<EducationType> EducationTypeRepository;
-        private readonly IRepository<City> CityRepository;
-        private readonly IRepository<Country> CountryRepository;
+        private readonly IRepository<EducationUserDescription> EducationUserDescriptionRepository;
+        private readonly IRepository<EmailDescription> EmailDescriptionRepository;
+        private readonly IRepository<ExecutorSkill> ExecutorSkillRepository;
+        private readonly IRepository<OpenSource> OpenSourceRepository;
+        private readonly IRepository<OpenSourceAttachment> OpenSourceAttachmentRepository;
+        private readonly IRepository<OrderAttachment> OrderAttachmentRepository;
+        private readonly IRepository<OrderDetails> OrderDetailsRepository;
+        private readonly IRepository<OrderSkill> OrderSkillRepository;
+        private readonly IRepository<PaymentTransaction> PaymentTransactionRepository;
+        private readonly IRepository<Review> ReviewRepository;
         private readonly IRepository<Role> RoleRepository;
+        private readonly IRepository<Skill> SkillRepository;
+        private readonly IRepository<State> StateRepository;
+        private readonly IRepository<SubscriptionExecutor> SubscriptionExecutorRepository;
+        private readonly IRepository<SubscriptionOpenSource> SubscriptionOpenSourceRepository;
+        private readonly IRepository<UserDescription> UserDescriptionRepository;
+        private readonly IRepository<UserInformation> UserInformationRepository;
+        private readonly IRepository<UserPicture> UserPictureRepository;
+        private readonly IRepository<UserRegistration> UserRegistrationRepository;
+        private readonly IRepository<ValidationEmail> ValidationEmailRepository;
+        private readonly IRepository<ValidationUser> ValidationUserRepository;
+        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
+        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
 
-        public ExecutorService(IRepository<Education> educationRepository,
-            IRepository<EducationType> educationTypeRepository,
-            IRepository<City> cityRepository,
-            IRepository<Country> coutryRepository,
-            IRepository<Role> roleRepository,
-            IRepository<UserPicture> userPictureRepository,
-            IRepository<UserRegistration> userRegistrationRepository,
-            IRepository<UserInformation> userInformationRepository,
-            IRepository<UserDescription> userDescriptionRepository,
-            IRepository<OrderDetails> orderDetailsRepository,
-            IRepository<State> stateRepository,
-            IRepository<Skill> skillRepository,
-            IRepository<Cost> costRepository,
-            IRepository<Attachment> attachmentRepository,
-            IRepository<OpenTransaction> openTransactionRepository,
-            IRepository<CloseTransaction> closeTransactionRepository)
+        public ExecutorService(
+        IRepository<Attachment> AttachmentRepository,
+        IRepository<BanDescription> BanDescriptionRepository,
+        IRepository<City> CityRepository,
+        IRepository<Cost> CostRepository,
+        IRepository<Country> CountryRepository,
+        IRepository<Education> EducationRepository,
+        IRepository<EducationType> EducationTypeRepository,
+        IRepository<EducationUserDescription> EducationUserDescriptionRepository,
+        IRepository<EmailDescription> EmailDescriptionRepository,
+        IRepository<ExecutorSkill> ExecutorSkillRepository,
+        IRepository<OpenSource> OpenSourceRepository,
+        IRepository<OpenSourceAttachment> OpenSourceAttachmentRepository,
+        IRepository<OrderAttachment> OrderAttachmentRepository,
+        IRepository<OrderDetails> OrderDetailsRepository,
+        IRepository<OrderSkill> OrderSkillRepository,
+        IRepository<PaymentTransaction> PaymentTransactionRepository,
+        IRepository<Review> ReviewRepository,
+        IRepository<Role> RoleRepository,
+        IRepository<Skill> SkillRepository,
+        IRepository<State> StateRepository,
+        IRepository<SubscriptionExecutor> SubscriptionExecutorRepository,
+        IRepository<SubscriptionOpenSource> SubscriptionOpenSourceRepository,
+        IRepository<UserDescription> UserDescriptionRepository,
+        IRepository<UserInformation> UserInformationRepository,
+        IRepository<UserPicture> UserPictureRepository,
+        IRepository<UserRegistration> UserRegistrationRepository,
+        IRepository<ValidationEmail> ValidationEmailRepository,
+        IRepository<ValidationUser> ValidationUserRepository,
+        IRepository<CloseTransaction> CloseTransactionRepository,
+        IRepository<OpenTransaction> OpenTransactionRepository)
         {
-            EducationRepository = educationRepository;
-            EducationTypeRepository = educationTypeRepository;
-            CityRepository = cityRepository;
-            CountryRepository = coutryRepository;
-            RoleRepository = roleRepository;
-            UserPictureRepository = userPictureRepository;
-            UserRegistrationRepository = userRegistrationRepository;
-            UserInformationRepository = userInformationRepository;
-            UserDescriptionRepository = userDescriptionRepository;
-            OrderDetailsRepository = orderDetailsRepository;
-            StateRepository = stateRepository;
-            SkillRepository = skillRepository;
-            CostRepository = costRepository;
-            AttachmentRepository = attachmentRepository;
-            OpenTransactionRepository = openTransactionRepository;
-            CloseTransactionRepository = closeTransactionRepository;
+            this.AttachmentRepository = AttachmentRepository;
+            this.BanDescriptionRepository = BanDescriptionRepository;
+            this.CityRepository = CityRepository;
+            this.CostRepository = CostRepository;
+            this.CountryRepository = CountryRepository;
+            this.EducationRepository = EducationRepository;
+            this.EducationTypeRepository = EducationTypeRepository;
+            this.EducationUserDescriptionRepository = EducationUserDescriptionRepository;
+            this.EmailDescriptionRepository = EmailDescriptionRepository;
+            this.ExecutorSkillRepository = ExecutorSkillRepository;
+            this.OpenSourceRepository = OpenSourceRepository;
+            this.OpenSourceAttachmentRepository = OpenSourceAttachmentRepository;
+            this.OrderAttachmentRepository = OrderAttachmentRepository;
+            this.OrderDetailsRepository = OrderDetailsRepository;
+            this.OrderSkillRepository = OrderSkillRepository;
+            this.PaymentTransactionRepository = PaymentTransactionRepository;
+            this.ReviewRepository = ReviewRepository;
+            this.RoleRepository = RoleRepository;
+            this.SkillRepository = SkillRepository;
+            this.StateRepository = StateRepository;
+            this.SubscriptionExecutorRepository = SubscriptionExecutorRepository;
+            this.SubscriptionOpenSourceRepository = SubscriptionOpenSourceRepository;
+            this.UserDescriptionRepository = UserDescriptionRepository;
+            this.UserInformationRepository = UserInformationRepository;
+            this.UserPictureRepository = UserPictureRepository;
+            this.UserRegistrationRepository = UserRegistrationRepository;
+            this.ValidationEmailRepository = ValidationEmailRepository;
+            this.ValidationUserRepository = ValidationUserRepository;
+            this.CloseTransactionRepository = CloseTransactionRepository;
+            this.OpenTransactionRepository = OpenTransactionRepository;
         }
 
         /// <summary>

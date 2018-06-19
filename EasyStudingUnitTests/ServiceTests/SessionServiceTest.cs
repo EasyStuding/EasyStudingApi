@@ -22,10 +22,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = await service.StartRegistration(new ApiUserRegistrationModel() { TelephoneNumber = "+375339999999" });
@@ -40,10 +66,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<FormatException>(async () => await service.StartRegistration(new ApiUserRegistrationModel() { TelephoneNumber = "+37533" }));
@@ -58,10 +110,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = await service.ValidateRegistration(new ValidationUser() { Id = 1, UserRegistrationId = 1, ValidationCode = "111111" });
@@ -76,10 +154,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<FormatException>(async () => await service.ValidateRegistration(new ValidationUser() { Id = 1, UserRegistrationId = 1, ValidationCode = "" }));
@@ -94,10 +198,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<ArgumentNullException>(async () => await service.ValidateRegistration(new ValidationUser() { Id = 6, UserRegistrationId = 6, ValidationCode = "111111" }));
@@ -112,10 +242,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<InvalidOperationException>(async () => await service.ValidateRegistration(new ValidationUser() { Id = 1, UserRegistrationId = 1, ValidationCode = "112121" }));
@@ -134,10 +290,36 @@ namespace EasyStudingUnitTests.ServiceTests
                 await usrRegRep.Add(new UserRegistration() { Id = 6, IsValidated = true, RegistrationDate = DateTime.Now, TelephoneNumber = "+375339999999" });
 
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    usrRegRep,
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    usrRegRep,
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 6, Login = "login6", Password = "password6" });
@@ -152,10 +334,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<FormatException>(async () => await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 1, Login = "", Password = "" }));
@@ -170,10 +378,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<ArgumentNullException>(async () => await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 6, Login = "asdfsadf", Password = "asdfsadf" }));
@@ -188,10 +422,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<InvalidOperationException>(async () => await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 1, Login = "login1", Password = "password1" }));
@@ -206,10 +466,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = await service.Login(new ApiLoginModel() { Login = "login1", Password = "password1" }, false);
@@ -224,10 +510,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<FormatException>(async () => await service.Login(new ApiLoginModel() { Login = "", Password = "" }, false));
@@ -242,10 +554,36 @@ namespace EasyStudingUnitTests.ServiceTests
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(
+                    new AttachmentRepository(Context),
+                    new BanDescriptionRepository(Context),
+                    new CityRepository(Context),
+                    new CostRepository(Context),
+                    new CountryRepository(Context),
+                    new EducationRepository(Context),
+                    new EducationTypeRepository(Context),
+                    new EducationUserDescriptionRepository(Context),
+                    new EmailDescriptionRepository(Context),
+                    new ExecutorSkillRepository(Context),
+                    new OpenSourceRepository(Context),
+                    new OpenSourceAttachmentRepository(Context),
+                    new OrderAttachmentRepository(Context),
+                    new OrderDetailsRepository(Context),
+                    new OrderSkillRepository(Context),
+                    new PaymentTransactionRepository(Context),
+                    new ReviewRepository(Context),
                     new RoleRepository(Context),
-                    new UserRegistrationRepository(Context),
+                    new SkillRepository(Context),
+                    new StateRepository(Context),
+                    new SubscriptionExecutorRepository(Context),
+                    new SubscriptionOpenSourceRepository(Context),
+                    new UserDescriptionRepository(Context),
                     new UserInformationRepository(Context),
-                    new ValidationUserRepository(Context)
+                    new UserPictureRepository(Context),
+                    new UserRegistrationRepository(Context),
+                    new ValidationEmailRepository(Context),
+                    new ValidationUserRepository(Context),
+                    new CloseTransactionRepository(Context),
+                    new OpenTransactionRepository(Context)
                     );
 
                 var result = Assert.ThrowsAsync<ArgumentNullException>(async () => await service.Login(new ApiLoginModel() { Login = "asdfsadf", Password = "sadfsadf" }, false));
