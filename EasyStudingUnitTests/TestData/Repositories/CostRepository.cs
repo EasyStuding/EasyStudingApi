@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Costs;
         }
 
-        public async Task<Cost> Get(long id)
+        public async Task<Cost> GetAsync(long id)
         {
             return await Context.Costs.FindAsync(id);
         }
 
-        public async Task<Cost> Add(Cost param)
+        public async Task<Cost> AddAsync(Cost param)
         {
             await Context.Costs.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<Cost> Edit(Cost param)
+        public async Task<Cost> EditAsync(Cost param)
         {
             var model = await Context.Costs.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<Cost> Remove(long id)
+        public async Task<Cost> RemoveAsync(long id)
         {
             var model = await Context.Costs.FindAsync(id);
 

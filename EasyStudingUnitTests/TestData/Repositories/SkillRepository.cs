@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Skills;
         }
 
-        public async Task<Skill> Get(long id)
+        public async Task<Skill> GetAsync(long id)
         {
             return await Context.Skills.FindAsync(id);
         }
 
-        public async Task<Skill> Add(Skill param)
+        public async Task<Skill> AddAsync(Skill param)
         {
             await Context.Skills.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<Skill> Edit(Skill param)
+        public async Task<Skill> EditAsync(Skill param)
         {
             var model = await Context.Skills.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<Skill> Remove(long id)
+        public async Task<Skill> RemoveAsync(long id)
         {
             var model = await Context.Skills.FindAsync(id);
 

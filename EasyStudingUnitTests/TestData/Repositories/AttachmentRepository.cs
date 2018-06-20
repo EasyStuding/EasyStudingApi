@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Attachments;
         }
 
-        public async Task<Attachment> Get(long id)
+        public async Task<Attachment> GetAsync(long id)
         {
             return await Context.Attachments.FindAsync(id);
         }
 
-        public async Task<Attachment> Add(Attachment param)
+        public async Task<Attachment> AddAsync(Attachment param)
         {
             await Context.Attachments.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<Attachment> Edit(Attachment param)
+        public async Task<Attachment> EditAsync(Attachment param)
         {
             var model = await Context.Attachments.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<Attachment> Remove(long id)
+        public async Task<Attachment> RemoveAsync(long id)
         {
             var model = await Context.Attachments.FindAsync(id);
 

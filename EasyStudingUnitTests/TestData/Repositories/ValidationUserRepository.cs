@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.ValidationUsers;
         }
 
-        public async Task<ValidationUser> Get(long id)
+        public async Task<ValidationUser> GetAsync(long id)
         {
             return await Context.ValidationUsers.FindAsync(id);
         }
 
-        public async Task<ValidationUser> Add(ValidationUser param)
+        public async Task<ValidationUser> AddAsync(ValidationUser param)
         {
             await Context.ValidationUsers.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<ValidationUser> Edit(ValidationUser param)
+        public async Task<ValidationUser> EditAsync(ValidationUser param)
         {
             var model = await Context.ValidationUsers.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<ValidationUser> Remove(long id)
+        public async Task<ValidationUser> RemoveAsync(long id)
         {
             var model = await Context.ValidationUsers.FindAsync(id);
 

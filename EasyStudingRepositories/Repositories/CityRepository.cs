@@ -27,7 +27,7 @@ namespace EasyStudingRepositories.Repositories
             return context.Cities;
         }
 
-        public async Task<City> Get(long id)
+        public async Task<City> GetAsync(long id)
         {
             var cityModel = await context.Cities.FirstOrDefaultAsync(city => city.Id == id);
 
@@ -36,7 +36,7 @@ namespace EasyStudingRepositories.Repositories
             return cityModel;
         }
 
-        public async Task<City> Add(City city)
+        public async Task<City> AddAsync(City city)
         {
             _errorHandler.CheckObjectOfNull(city);
 
@@ -47,11 +47,11 @@ namespace EasyStudingRepositories.Repositories
             return context.Cities.LastOrDefault();
         }
 
-        public async Task<City> Edit(City cityModel)
+        public async Task<City> EditAsync(City cityModel)
         {
             _errorHandler.CheckObjectOfNull(cityModel);
 
-            var city = await Get(cityModel.Id);
+            var city = await GetAsync(cityModel.Id);
 
 
             city.Name = cityModel.Name;
@@ -63,9 +63,9 @@ namespace EasyStudingRepositories.Repositories
             return city;
         }
 
-        public async Task<City> Remove(long id)
+        public async Task<City> RemoveAsync(long id)
         {
-            var city = await Get(id);
+            var city = await GetAsync(id);
 
             context.Cities.Remove(city);
 

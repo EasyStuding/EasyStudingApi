@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.BanDescriptions;
         }
 
-        public async Task<BanDescription> Get(long id)
+        public async Task<BanDescription> GetAsync(long id)
         {
             return await Context.BanDescriptions.FindAsync(id);
         }
 
-        public async Task<BanDescription> Add(BanDescription param)
+        public async Task<BanDescription> AddAsync(BanDescription param)
         {
             await Context.BanDescriptions.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<BanDescription> Edit(BanDescription param)
+        public async Task<BanDescription> EditAsync(BanDescription param)
         {
             var model = await Context.BanDescriptions.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<BanDescription> Remove(long id)
+        public async Task<BanDescription> RemoveAsync(long id)
         {
             var model = await Context.BanDescriptions.FindAsync(id);
 

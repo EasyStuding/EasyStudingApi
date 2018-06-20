@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Cities;
         }
 
-        public async Task<City> Get(long id)
+        public async Task<City> GetAsync(long id)
         {
             return await Context.Cities.FindAsync(id);
         }
 
-        public async Task<City> Add(City param)
+        public async Task<City> AddAsync(City param)
         {
             await Context.Cities.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<City> Edit(City param)
+        public async Task<City> EditAsync(City param)
         {
             var model = await Context.Cities.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<City> Remove(long id)
+        public async Task<City> RemoveAsync(long id)
         {
             var model = await Context.Cities.FindAsync(id);
 

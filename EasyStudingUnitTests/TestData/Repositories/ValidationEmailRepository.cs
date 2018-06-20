@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.ValidationEmails;
         }
 
-        public async Task<ValidationEmail> Get(long id)
+        public async Task<ValidationEmail> GetAsync(long id)
         {
             return await Context.ValidationEmails.FindAsync(id);
         }
 
-        public async Task<ValidationEmail> Add(ValidationEmail param)
+        public async Task<ValidationEmail> AddAsync(ValidationEmail param)
         {
             await Context.ValidationEmails.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<ValidationEmail> Edit(ValidationEmail param)
+        public async Task<ValidationEmail> EditAsync(ValidationEmail param)
         {
             var model = await Context.ValidationEmails.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<ValidationEmail> Remove(long id)
+        public async Task<ValidationEmail> RemoveAsync(long id)
         {
             var model = await Context.ValidationEmails.FindAsync(id);
 

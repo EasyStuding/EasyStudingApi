@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.CloseTransactions;
         }
 
-        public async Task<CloseTransaction> Get(long id)
+        public async Task<CloseTransaction> GetAsync(long id)
         {
             return await Context.CloseTransactions.FindAsync(id);
         }
 
-        public async Task<CloseTransaction> Add(CloseTransaction param)
+        public async Task<CloseTransaction> AddAsync(CloseTransaction param)
         {
             await Context.CloseTransactions.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<CloseTransaction> Edit(CloseTransaction param)
+        public async Task<CloseTransaction> EditAsync(CloseTransaction param)
         {
             var model = await Context.CloseTransactions.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<CloseTransaction> Remove(long id)
+        public async Task<CloseTransaction> RemoveAsync(long id)
         {
             var model = await Context.CloseTransactions.FindAsync(id);
 

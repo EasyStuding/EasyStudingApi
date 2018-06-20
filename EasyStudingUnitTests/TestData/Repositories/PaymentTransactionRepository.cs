@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.PaymentTransactions;
         }
 
-        public async Task<PaymentTransaction> Get(long id)
+        public async Task<PaymentTransaction> GetAsync(long id)
         {
             return await Context.PaymentTransactions.FindAsync(id);
         }
 
-        public async Task<PaymentTransaction> Add(PaymentTransaction param)
+        public async Task<PaymentTransaction> AddAsync(PaymentTransaction param)
         {
             await Context.PaymentTransactions.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<PaymentTransaction> Edit(PaymentTransaction param)
+        public async Task<PaymentTransaction> EditAsync(PaymentTransaction param)
         {
             var model = await Context.PaymentTransactions.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<PaymentTransaction> Remove(long id)
+        public async Task<PaymentTransaction> RemoveAsync(long id)
         {
             var model = await Context.PaymentTransactions.FindAsync(id);
 

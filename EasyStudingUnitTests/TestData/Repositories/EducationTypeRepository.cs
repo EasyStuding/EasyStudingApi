@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.EducationTypes;
         }
 
-        public async Task<EducationType> Get(long id)
+        public async Task<EducationType> GetAsync(long id)
         {
             return await Context.EducationTypes.FindAsync(id);
         }
 
-        public async Task<EducationType> Add(EducationType param)
+        public async Task<EducationType> AddAsync(EducationType param)
         {
             await Context.EducationTypes.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<EducationType> Edit(EducationType param)
+        public async Task<EducationType> EditAsync(EducationType param)
         {
             var model = await Context.EducationTypes.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<EducationType> Remove(long id)
+        public async Task<EducationType> RemoveAsync(long id)
         {
             var model = await Context.EducationTypes.FindAsync(id);
 

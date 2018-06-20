@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.UserPictures;
         }
 
-        public async Task<UserPicture> Get(long id)
+        public async Task<UserPicture> GetAsync(long id)
         {
             return await Context.UserPictures.FindAsync(id);
         }
 
-        public async Task<UserPicture> Add(UserPicture param)
+        public async Task<UserPicture> AddAsync(UserPicture param)
         {
             await Context.UserPictures.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<UserPicture> Edit(UserPicture param)
+        public async Task<UserPicture> EditAsync(UserPicture param)
         {
             var model = await Context.UserPictures.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<UserPicture> Remove(long id)
+        public async Task<UserPicture> RemoveAsync(long id)
         {
             var model = await Context.UserPictures.FindAsync(id);
 

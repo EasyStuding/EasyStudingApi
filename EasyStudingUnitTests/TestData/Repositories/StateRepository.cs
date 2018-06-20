@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.States;
         }
 
-        public async Task<State> Get(long id)
+        public async Task<State> GetAsync(long id)
         {
             return await Context.States.FindAsync(id);
         }
 
-        public async Task<State> Add(State param)
+        public async Task<State> AddAsync(State param)
         {
             await Context.States.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<State> Edit(State param)
+        public async Task<State> EditAsync(State param)
         {
             var model = await Context.States.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<State> Remove(long id)
+        public async Task<State> RemoveAsync(long id)
         {
             var model = await Context.States.FindAsync(id);
 

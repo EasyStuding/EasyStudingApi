@@ -23,22 +23,22 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<CloseTransaction> Get(long id)
+        public async Task<CloseTransaction> GetAsync(long id)
         {
             throw new Exception();
         }
 
-        public async Task<CloseTransaction> Add(CloseTransaction param)
+        public async Task<CloseTransaction> AddAsync(CloseTransaction param)
         {
             throw new Exception();
         }
 
-        public async Task<CloseTransaction> Edit(CloseTransaction param)
+        public async Task<CloseTransaction> EditAsync(CloseTransaction param)
         {
             throw new Exception();
         }
 
-        public async Task<CloseTransaction> Remove(long id)
+        public async Task<CloseTransaction> RemoveAsync(long id)
         {
             throw new Exception();
         }

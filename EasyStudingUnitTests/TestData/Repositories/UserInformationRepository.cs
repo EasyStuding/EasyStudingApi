@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.UserInformations;
         }
 
-        public async Task<UserInformation> Get(long id)
+        public async Task<UserInformation> GetAsync(long id)
         {
             return await Context.UserInformations.FindAsync(id);
         }
 
-        public async Task<UserInformation> Add(UserInformation param)
+        public async Task<UserInformation> AddAsync(UserInformation param)
         {
             await Context.UserInformations.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<UserInformation> Edit(UserInformation param)
+        public async Task<UserInformation> EditAsync(UserInformation param)
         {
             var model = await Context.UserInformations.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<UserInformation> Remove(long id)
+        public async Task<UserInformation> RemoveAsync(long id)
         {
             var model = await Context.UserInformations.FindAsync(id);
 

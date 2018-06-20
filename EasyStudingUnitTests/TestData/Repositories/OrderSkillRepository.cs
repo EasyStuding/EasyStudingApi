@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.OrderSkills;
         }
 
-        public async Task<OrderSkill> Get(long id)
+        public async Task<OrderSkill> GetAsync(long id)
         {
             return await Context.OrderSkills.FindAsync(id);
         }
 
-        public async Task<OrderSkill> Add(OrderSkill param)
+        public async Task<OrderSkill> AddAsync(OrderSkill param)
         {
             await Context.OrderSkills.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<OrderSkill> Edit(OrderSkill param)
+        public async Task<OrderSkill> EditAsync(OrderSkill param)
         {
             var model = await Context.OrderSkills.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<OrderSkill> Remove(long id)
+        public async Task<OrderSkill> RemoveAsync(long id)
         {
             var model = await Context.OrderSkills.FindAsync(id);
 

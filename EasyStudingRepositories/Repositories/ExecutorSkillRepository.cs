@@ -23,22 +23,22 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<ExecutorSkill> Get(long id)
+        public async Task<ExecutorSkill> GetAsync(long id)
         {
             throw new Exception();
         }
 
-        public async Task<ExecutorSkill> Add(ExecutorSkill param)
+        public async Task<ExecutorSkill> AddAsync(ExecutorSkill param)
         {
             throw new Exception();
         }
 
-        public async Task<ExecutorSkill> Edit(ExecutorSkill param)
+        public async Task<ExecutorSkill> EditAsync(ExecutorSkill param)
         {
             throw new Exception();
         }
 
-        public async Task<ExecutorSkill> Remove(long id)
+        public async Task<ExecutorSkill> RemoveAsync(long id)
         {
             throw new Exception();
         }

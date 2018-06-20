@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Reviews;
         }
 
-        public async Task<Review> Get(long id)
+        public async Task<Review> GetAsync(long id)
         {
             return await Context.Reviews.FindAsync(id);
         }
 
-        public async Task<Review> Add(Review param)
+        public async Task<Review> AddAsync(Review param)
         {
             await Context.Reviews.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<Review> Edit(Review param)
+        public async Task<Review> EditAsync(Review param)
         {
             var model = await Context.Reviews.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<Review> Remove(long id)
+        public async Task<Review> RemoveAsync(long id)
         {
             var model = await Context.Reviews.FindAsync(id);
 

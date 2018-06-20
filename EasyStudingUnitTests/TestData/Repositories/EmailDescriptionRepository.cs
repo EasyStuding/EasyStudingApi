@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.EmailDescriptions;
         }
 
-        public async Task<EmailDescription> Get(long id)
+        public async Task<EmailDescription> GetAsync(long id)
         {
             return await Context.EmailDescriptions.FindAsync(id);
         }
 
-        public async Task<EmailDescription> Add(EmailDescription param)
+        public async Task<EmailDescription> AddAsync(EmailDescription param)
         {
             await Context.EmailDescriptions.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<EmailDescription> Edit(EmailDescription param)
+        public async Task<EmailDescription> EditAsync(EmailDescription param)
         {
             var model = await Context.EmailDescriptions.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<EmailDescription> Remove(long id)
+        public async Task<EmailDescription> RemoveAsync(long id)
         {
             var model = await Context.EmailDescriptions.FindAsync(id);
 

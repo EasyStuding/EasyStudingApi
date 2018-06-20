@@ -23,22 +23,22 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<ValidationEmail> Get(long id)
+        public async Task<ValidationEmail> GetAsync(long id)
         {
             throw new Exception();
         }
 
-        public async Task<ValidationEmail> Add(ValidationEmail param)
+        public async Task<ValidationEmail> AddAsync(ValidationEmail param)
         {
             throw new Exception();
         }
 
-        public async Task<ValidationEmail> Edit(ValidationEmail param)
+        public async Task<ValidationEmail> EditAsync(ValidationEmail param)
         {
             throw new Exception();
         }
 
-        public async Task<ValidationEmail> Remove(long id)
+        public async Task<ValidationEmail> RemoveAsync(long id)
         {
             throw new Exception();
         }

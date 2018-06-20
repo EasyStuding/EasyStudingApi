@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.ExecutorSkills;
         }
 
-        public async Task<ExecutorSkill> Get(long id)
+        public async Task<ExecutorSkill> GetAsync(long id)
         {
             return await Context.ExecutorSkills.FindAsync(id);
         }
 
-        public async Task<ExecutorSkill> Add(ExecutorSkill param)
+        public async Task<ExecutorSkill> AddAsync(ExecutorSkill param)
         {
             await Context.ExecutorSkills.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<ExecutorSkill> Edit(ExecutorSkill param)
+        public async Task<ExecutorSkill> EditAsync(ExecutorSkill param)
         {
             var model = await Context.ExecutorSkills.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<ExecutorSkill> Remove(long id)
+        public async Task<ExecutorSkill> RemoveAsync(long id)
         {
             var model = await Context.ExecutorSkills.FindAsync(id);
 

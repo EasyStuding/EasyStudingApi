@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Countries;
         }
 
-        public async Task<Country> Get(long id)
+        public async Task<Country> GetAsync(long id)
         {
             return await Context.Countries.FindAsync(id);
         }
 
-        public async Task<Country> Add(Country param)
+        public async Task<Country> AddAsync(Country param)
         {
             await Context.Countries.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<Country> Edit(Country param)
+        public async Task<Country> EditAsync(Country param)
         {
             var model = await Context.Countries.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<Country> Remove(long id)
+        public async Task<Country> RemoveAsync(long id)
         {
             var model = await Context.Countries.FindAsync(id);
 

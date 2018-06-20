@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.OpenSourceAttachments;
         }
 
-        public async Task<OpenSourceAttachment> Get(long id)
+        public async Task<OpenSourceAttachment> GetAsync(long id)
         {
             return await Context.OpenSourceAttachments.FindAsync(id);
         }
 
-        public async Task<OpenSourceAttachment> Add(OpenSourceAttachment param)
+        public async Task<OpenSourceAttachment> AddAsync(OpenSourceAttachment param)
         {
             await Context.OpenSourceAttachments.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<OpenSourceAttachment> Edit(OpenSourceAttachment param)
+        public async Task<OpenSourceAttachment> EditAsync(OpenSourceAttachment param)
         {
             var model = await Context.OpenSourceAttachments.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<OpenSourceAttachment> Remove(long id)
+        public async Task<OpenSourceAttachment> RemoveAsync(long id)
         {
             var model = await Context.OpenSourceAttachments.FindAsync(id);
 

@@ -2035,8 +2035,8 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var orderDetRep = new OrderDetailsRepository(Context);
                 var stateRep = new StateRepository(Context);
-                await stateRep.Add(new State() { Id = 6, InProgress = false, IsCompleted = false });
-                await orderDetRep.Add(new OrderDetails() { Id = 1, Description = "desc", Title = "desc", StateId = 6, CustomerId = 1, ExecutorId = null });
+                await stateRep.AddAsync(new State() { Id = 6, InProgress = false, IsCompleted = false });
+                await orderDetRep.AddAsync(new OrderDetails() { Id = 1, Description = "desc", Title = "desc", StateId = 6, CustomerId = 1, ExecutorId = null });
 
                 var service = new UserService(
                     new AttachmentRepository(Context),

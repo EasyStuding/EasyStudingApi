@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.OpenTransactions;
         }
 
-        public async Task<OpenTransaction> Get(long id)
+        public async Task<OpenTransaction> GetAsync(long id)
         {
             return await Context.OpenTransactions.FindAsync(id);
         }
 
-        public async Task<OpenTransaction> Add(OpenTransaction param)
+        public async Task<OpenTransaction> AddAsync(OpenTransaction param)
         {
             await Context.OpenTransactions.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<OpenTransaction> Edit(OpenTransaction param)
+        public async Task<OpenTransaction> EditAsync(OpenTransaction param)
         {
             var model = await Context.OpenTransactions.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<OpenTransaction> Remove(long id)
+        public async Task<OpenTransaction> RemoveAsync(long id)
         {
             var model = await Context.OpenTransactions.FindAsync(id);
 

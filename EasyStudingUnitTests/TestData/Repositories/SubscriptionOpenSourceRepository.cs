@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.SubscriptionOpenSources;
         }
 
-        public async Task<SubscriptionOpenSource> Get(long id)
+        public async Task<SubscriptionOpenSource> GetAsync(long id)
         {
             return await Context.SubscriptionOpenSources.FindAsync(id);
         }
 
-        public async Task<SubscriptionOpenSource> Add(SubscriptionOpenSource param)
+        public async Task<SubscriptionOpenSource> AddAsync(SubscriptionOpenSource param)
         {
             await Context.SubscriptionOpenSources.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<SubscriptionOpenSource> Edit(SubscriptionOpenSource param)
+        public async Task<SubscriptionOpenSource> EditAsync(SubscriptionOpenSource param)
         {
             var model = await Context.SubscriptionOpenSources.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<SubscriptionOpenSource> Remove(long id)
+        public async Task<SubscriptionOpenSource> RemoveAsync(long id)
         {
             var model = await Context.SubscriptionOpenSources.FindAsync(id);
 

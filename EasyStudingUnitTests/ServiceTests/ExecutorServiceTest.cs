@@ -400,9 +400,9 @@ namespace EasyStudingUnitTests.ServiceTests
 
                 var stateRep = new StateRepository(Context);
 
-                await stateRep.Add(new State() { Id = 6, InProgress = false, IsCompleted = false });
+                await stateRep.AddAsync(new State() { Id = 6, InProgress = false, IsCompleted = false });
 
-                await orderRep.Add(new OrderDetails() { Id = 6, CustomerId = 2, ExecutorId = null, Description = "description6", Title = "title6", StateId = 6 });
+                await orderRep.AddAsync(new OrderDetails() { Id = 6, CustomerId = 2, ExecutorId = null, Description = "description6", Title = "title6", StateId = 6 });
 
                 var service = new ExecutorService(
                     new AttachmentRepository(Context),
@@ -540,9 +540,9 @@ namespace EasyStudingUnitTests.ServiceTests
 
                 var stateRep = new StateRepository(Context);
 
-                await stateRep.Add(new State() { Id = 6, InProgress = false, IsCompleted = false });
+                await stateRep.AddAsync(new State() { Id = 6, InProgress = false, IsCompleted = false });
 
-                await orderRep.Add(new OrderDetails() { Id = 6, CustomerId = 2, ExecutorId = null, Description = "description6", Title = "title6", StateId = 6 });
+                await orderRep.AddAsync(new OrderDetails() { Id = 6, CustomerId = 2, ExecutorId = null, Description = "description6", Title = "title6", StateId = 6 });
 
                 var service = new ExecutorService(
                     new AttachmentRepository(Context),

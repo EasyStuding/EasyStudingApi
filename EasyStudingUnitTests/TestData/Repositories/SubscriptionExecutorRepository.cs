@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.SubscriptionExecutors;
         }
 
-        public async Task<SubscriptionExecutor> Get(long id)
+        public async Task<SubscriptionExecutor> GetAsync(long id)
         {
             return await Context.SubscriptionExecutors.FindAsync(id);
         }
 
-        public async Task<SubscriptionExecutor> Add(SubscriptionExecutor param)
+        public async Task<SubscriptionExecutor> AddAsync(SubscriptionExecutor param)
         {
             await Context.SubscriptionExecutors.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<SubscriptionExecutor> Edit(SubscriptionExecutor param)
+        public async Task<SubscriptionExecutor> EditAsync(SubscriptionExecutor param)
         {
             var model = await Context.SubscriptionExecutors.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<SubscriptionExecutor> Remove(long id)
+        public async Task<SubscriptionExecutor> RemoveAsync(long id)
         {
             var model = await Context.SubscriptionExecutors.FindAsync(id);
 

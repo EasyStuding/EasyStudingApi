@@ -23,22 +23,22 @@ namespace EasyStudingRepositories.Repositories
             throw new Exception();
         }
 
-        public async Task<UserRegistration> Get(long id)
+        public async Task<UserRegistration> GetAsync(long id)
         {
             throw new Exception();
         }
 
-        public async Task<UserRegistration> Add(UserRegistration param)
+        public async Task<UserRegistration> AddAsync(UserRegistration param)
         {
             throw new Exception();
         }
 
-        public async Task<UserRegistration> Edit(UserRegistration param)
+        public async Task<UserRegistration> EditAsync(UserRegistration param)
         {
             throw new Exception();
         }
 
-        public async Task<UserRegistration> Remove(long id)
+        public async Task<UserRegistration> RemoveAsync(long id)
         {
             throw new Exception();
         }

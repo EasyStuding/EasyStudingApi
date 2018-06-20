@@ -10,12 +10,12 @@ namespace EasyStudingInterfaces.Repositories
     {
         IQueryable<T> GetAll();
 
-        Task<T> Get(long id);
+        Task<T> GetAsync(long id);
 
-        Task<T> Add(T param);
+        Task<T> AddAsync(T param);
 
-        Task<T> Edit(T param);
+        Task<T> EditAsync(T param);
 
-        Task<T> Remove(long id);
+        Task<T> RemoveAsync(long id);
     }
 }

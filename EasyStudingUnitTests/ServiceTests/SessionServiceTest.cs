@@ -287,7 +287,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var usrRegRep = new UserRegistrationRepository(Context);
 
-                await usrRegRep.Add(new UserRegistration() { Id = 6, IsValidated = true, RegistrationDate = DateTime.Now, TelephoneNumber = "+375339999999" });
+                await usrRegRep.AddAsync(new UserRegistration() { Id = 6, IsValidated = true, RegistrationDate = DateTime.Now, TelephoneNumber = "+375339999999" });
 
                 var service = new SessionService(
                     new AttachmentRepository(Context),

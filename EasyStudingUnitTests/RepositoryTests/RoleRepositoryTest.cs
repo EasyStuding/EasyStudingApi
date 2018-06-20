@@ -32,7 +32,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var result = await rep.Get(1);
+                var result = await rep.GetAsync(1);
 
                 Assert.Equal(1, result.Id);
             }
@@ -44,7 +44,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var model = await rep.Add(new Role() { Id = 4 });
+                var model = await rep.AddAsync(new Role() { Id = 4 });
 
                 Assert.Equal(4, model.Id);
             }
@@ -56,7 +56,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Add(null));
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.AddAsync(null));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
@@ -68,7 +68,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var model = await rep.Edit(new Role() { Id = 3 });
+                var model = await rep.EditAsync(new Role() { Id = 3 });
 
                 Assert.Equal(3, model.Id);
             }
@@ -80,7 +80,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Edit(null));
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.EditAsync(null));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
@@ -92,7 +92,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Edit(new Role() { Id = 7 }));
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.EditAsync(new Role() { Id = 7 }));
 
                 Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }
@@ -104,7 +104,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var model = await rep.Remove(3);
+                var model = await rep.RemoveAsync(3);
 
                 Assert.Equal(3, model.Id);
             }
@@ -116,7 +116,7 @@ namespace EasyStudingUnitTests.RepositoryTests
             using (Context = new TestDbContext().Context)
             {
                 var rep = new RoleRepository(Context);
-                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(7));
+                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.RemoveAsync(7));
 
                 Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
             }

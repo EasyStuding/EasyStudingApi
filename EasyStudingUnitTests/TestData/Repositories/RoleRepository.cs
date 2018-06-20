@@ -23,12 +23,12 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return Context.Roles;
         }
 
-        public async Task<Role> Get(long id)
+        public async Task<Role> GetAsync(long id)
         {
             return await Context.Roles.FindAsync(id);
         }
 
-        public async Task<Role> Add(Role param)
+        public async Task<Role> AddAsync(Role param)
         {
             await Context.Roles.AddAsync(param);
 
@@ -39,7 +39,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return param;
         }
 
-        public async Task<Role> Edit(Role param)
+        public async Task<Role> EditAsync(Role param)
         {
             var model = await Context.Roles.FindAsync(param.Id);
 
@@ -51,7 +51,7 @@ namespace EasyStudingUnitTests.TestData.Repositories
             return model;
         }
 
-        public async Task<Role> Remove(long id)
+        public async Task<Role> RemoveAsync(long id)
         {
             var model = await Context.Roles.FindAsync(id);
 
