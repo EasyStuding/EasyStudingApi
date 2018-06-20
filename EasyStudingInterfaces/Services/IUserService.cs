@@ -17,13 +17,17 @@ namespace EasyStudingInterfaces.Services
 
         Task<IQueryable<ApiUserDescriptionModel>> GetSubscriptionExecutors(ApiEducationModel education, City city);
 
+        Task<IQueryable<ApiFileToReturnModel>> GetOpenSourceAttachments(long openSourceId, long currentUserId);
+
+        Task<ApiFileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId);
+
+        Task<bool> ValidateEmail(string validationCode, long currentUserId);
+
         Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId);
 
         Task<ApiUserDescriptionModel> EditProfile(ApiUserDescriptionModel description, long currentUserId);
 
         Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file, long currentUserId);
-
-        Task<ApiFileToReturnModel> EditPictureProfile(ApiFileToAddModel file, long currentUserId);
 
         Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId);
 

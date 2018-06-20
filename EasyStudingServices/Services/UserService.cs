@@ -188,6 +188,54 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
+        ///   Get files from open source by id. 
+        /// </summary>
+        /// <param name="openSourceId">Id of open source.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Files from open source.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When openSource not founded.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">User have not permissions to get files.</exception>
+
+        public Task<IQueryable<ApiFileToReturnModel>> GetOpenSourceAttachments(long openSourceId, long currentUserId)
+        {
+            throw new Exception();
+        }
+
+        /// <summary>
+        ///   Download file by id. 
+        /// </summary>
+        /// <param name="fileId">Id of file to download.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    File to download.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When file not founded.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">User have not permissions to get file.</exception>
+
+        public Task<ApiFileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId)
+        {
+            throw new Exception();
+        }
+
+        /// <summary>
+        ///   Validate email address. 
+        /// </summary>
+        /// <param name="validationCode">Validation code of email.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    True - if validation code right, else - false.
+        /// </returns>
+        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When current user not founded.</exception>
+
+        public Task<bool> ValidateEmail(string validationCode, long currentUserId)
+        {
+            throw new Exception();
+        }
+
+        /// <summary>
         ///   Change password of current user. 
         /// </summary>
         /// <param name="oldPassword">Old password of user.</param>
@@ -238,22 +286,6 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
-        ///   Edit picture of user profile. 
-        /// </summary>
-        /// <param name="file">Picture to edit.</param>
-        /// <param name="currentUserId">Id of current user.</param>
-        /// <returns>
-        ///    Edited image.
-        /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
-
-        public async Task<ApiFileToReturnModel> EditPictureProfile(ApiFileToAddModel file, long currentUserId)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
         ///   Remove picture of user profile. 
         /// </summary>
         /// <param name="id">Id of picture to remove.</param>
@@ -261,8 +293,8 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed image.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When user or picture not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When user id of photo != current user id.</exception>
 
         public async Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId)
         {
@@ -325,8 +357,8 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed file.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user or file not found.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user or picture not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When user id of photo != current user id.</exception>
 
         public async Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
         {
@@ -358,7 +390,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Updated order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.IndexOutOfRangeException">When one of users or order not found.</exception>
 
         public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId, long executorUserId)
@@ -375,7 +406,7 @@ namespace EasyStudingServices.Services
         ///   Requested order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When result or user not found.</exception>
+        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
         public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
         {
