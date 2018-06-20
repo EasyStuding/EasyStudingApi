@@ -19,7 +19,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var result = rep.GetAll();
 
                 Assert.Equal(5, result.Count());
@@ -31,7 +31,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var result = await rep.Get(1);
 
                 Assert.Equal(1, result.Id);
@@ -43,7 +43,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var model = await rep.Add(new City() { Id = 6 });
 
                 Assert.Equal(6, model.Id);
@@ -55,7 +55,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Add(null));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
@@ -67,7 +67,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var model = await rep.Edit(new City() { Id = 5 });
 
                 Assert.Equal(5, model.Id);
@@ -79,7 +79,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.Edit(null));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
@@ -91,7 +91,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Edit(new City() { Id = 7 }));
 
                 Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
@@ -103,7 +103,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var model = await rep.Remove(5);
 
                 Assert.Equal(5, model.Id);
@@ -115,7 +115,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new CityRepository(Context);
+                var rep = new CityRepository(Context, null);
                 var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.Remove(7));
 
                 Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());

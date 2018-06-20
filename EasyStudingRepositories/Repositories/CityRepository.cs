@@ -6,41 +6,72 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using EasyStudingInterfaces.Services;
 
 namespace EasyStudingRepositories.Repositories
 {
-    public class CityRepository: IRepository<City>
+    public class CityRepository : IRepository<City>
     {
-        private readonly EasyStudingContext Context;
+        private readonly EasyStudingContext context;
+        private readonly IErrorHandler _errorHandler;
 
-        public CityRepository(EasyStudingContext context)
+        public CityRepository(EasyStudingContext context, IErrorHandler errorHandler)
         {
-            Context = context;
+            this.context = context;
+            _errorHandler = errorHandler;
         }
 
         public IQueryable<City> GetAll()
         {
-            throw new Exception();
+            return context.Cities;
         }
 
         public async Task<City> Get(long id)
         {
-            throw new Exception();
+            var cityModel = await context.Cities.FirstOrDefaultAsync(city => city.Id == id);
+
+            _errorHandler.CheckIndexOutOfRangeException(cityModel);
+
+            return cityModel;
         }
 
-        public async Task<City> Add(City param)
+        public async Task<City> Add(City city)
         {
-            throw new Exception();
+            _errorHandler.CheckObjectOfNull(city);
+
+            await context.Cities.AddAsync(city);
+
+            await context.SaveChangesAsync();
+
+            return context.Cities.LastOrDefault();
         }
 
-        public async Task<City> Edit(City param)
+        public async Task<City> Edit(City cityModel)
         {
-            throw new Exception();
+            _errorHandler.CheckObjectOfNull(cityModel);
+
+            var city = await Get(cityModel.Id);
+
+
+            city.Name = cityModel.Name;
+            city.CountryId = cityModel.CountryId;
+            city.Region = cityModel.Region;
+
+            await context.SaveChangesAsync();
+
+            return city;
         }
 
         public async Task<City> Remove(long id)
         {
-            throw new Exception();
+            var city = await Get(id);
+
+            context.Cities.Remove(city);
+
+            await context.SaveChangesAsync();
+
+            return city;
         }
     }
 }
