@@ -8,18 +8,25 @@ using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
 using EasyStudingModels.DbContextModels;
 using EasyStudingModels.ApiModels;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EasyStudingApi.Controllers
 {
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/Session/[action]")]
     public class SessionController : Controller, ISessionController
     {
-        private readonly ISessionService Service;
+        private readonly ISessionService _service;
 
         public SessionController(ISessionService service)
         {
-            Service = service;
+            _service = service;
         }
 
         [HttpPost]
@@ -27,35 +34,45 @@ namespace EasyStudingApi.Controllers
         // */api/session/StartRegistration
         public async Task<UserRegistration> StartRegistration([FromBody]ApiUserRegistrationModel apiUserRegistration)
         {
-            throw new Exception();
+            return await _service.StartRegistration(apiUserRegistration);
         }
 
         [HttpPost]
         // */api/session/ValidateRegistration
         public async Task<UserRegistration> ValidateRegistration([FromBody]ValidationUser validationUser)
         {
-            throw new Exception();
+            return await _service.ValidateRegistration(validationUser);
         }
 
         [HttpPost]
         // */api/session/CompleteRegistration
         public async Task<ApiLoginToken> CompleteRegistration([FromBody]ApiRegisrtationLoginModel apiRegistrationLogin)
         {
-            throw new Exception();
+            return await _service.CompleteRegistration(apiRegistrationLogin);
         }
 
         [HttpPost]
         // */api/session/Login
         public async Task<ApiLoginToken> Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
         {
-            throw new Exception();
+            return await _service.Login(apiLogin, isTelephone);
+        }
+
+        [Authorize]
+        [HttpPost]
+        // */api/session/UpdateToken
+        public async Task<ApiLoginToken> UpdateToken()
+        {
+            return await _service.UpdateToken(long.Parse(User.Claims.ElementAt(0).Value));
         }
 
         [HttpPost]
         // */api/session/LogOut
         public async Task<bool> LogOut()
         {
-            throw new Exception();
+            await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+
+            return true;
         }
     }
 }

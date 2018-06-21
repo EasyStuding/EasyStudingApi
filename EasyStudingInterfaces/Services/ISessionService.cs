@@ -13,5 +13,7 @@ namespace EasyStudingInterfaces.Services
         Task<ApiLoginToken> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin);
 
         Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone);
+
+        Task<ApiLoginToken> UpdateToken(long currentUserId);
     }
 }

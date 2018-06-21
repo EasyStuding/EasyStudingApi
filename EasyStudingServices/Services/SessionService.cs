@@ -6,104 +6,43 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using EasyStudingModels;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EasyStudingServices.Services
 {
-    public class SessionService: ISessionService
+    public class SessionService : ISessionService
     {
-        private readonly IRepository<Attachment> AttachmentRepository;
-        private readonly IRepository<BanDescription> BanDescriptionRepository;
-        private readonly IRepository<City> CityRepository;
         private readonly IRepository<Cost> CostRepository;
-        private readonly IRepository<Country> CountryRepository;
-        private readonly IRepository<Education> EducationRepository;
-        private readonly IRepository<EducationType> EducationTypeRepository;
-        private readonly IRepository<EducationUserDescription> EducationUserDescriptionRepository;
-        private readonly IRepository<EmailDescription> EmailDescriptionRepository;
-        private readonly IRepository<ExecutorSkill> ExecutorSkillRepository;
         private readonly IRepository<OpenSource> OpenSourceRepository;
-        private readonly IRepository<OpenSourceAttachment> OpenSourceAttachmentRepository;
-        private readonly IRepository<OrderAttachment> OrderAttachmentRepository;
-        private readonly IRepository<OrderDetails> OrderDetailsRepository;
-        private readonly IRepository<OrderSkill> OrderSkillRepository;
-        private readonly IRepository<PaymentTransaction> PaymentTransactionRepository;
-        private readonly IRepository<Review> ReviewRepository;
         private readonly IRepository<Role> RoleRepository;
-        private readonly IRepository<Skill> SkillRepository;
-        private readonly IRepository<State> StateRepository;
         private readonly IRepository<SubscriptionExecutor> SubscriptionExecutorRepository;
         private readonly IRepository<SubscriptionOpenSource> SubscriptionOpenSourceRepository;
-        private readonly IRepository<UserDescription> UserDescriptionRepository;
         private readonly IRepository<UserInformation> UserInformationRepository;
-        private readonly IRepository<UserPicture> UserPictureRepository;
         private readonly IRepository<UserRegistration> UserRegistrationRepository;
-        private readonly IRepository<ValidationEmail> ValidationEmailRepository;
         private readonly IRepository<ValidationUser> ValidationUserRepository;
-        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
-        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
 
         public SessionService(
-        IRepository<Attachment> AttachmentRepository,
-        IRepository<BanDescription> BanDescriptionRepository,
-        IRepository<City> CityRepository,
         IRepository<Cost> CostRepository,
-        IRepository<Country> CountryRepository,
-        IRepository<Education> EducationRepository,
-        IRepository<EducationType> EducationTypeRepository,
-        IRepository<EducationUserDescription> EducationUserDescriptionRepository,
-        IRepository<EmailDescription> EmailDescriptionRepository,
-        IRepository<ExecutorSkill> ExecutorSkillRepository,
         IRepository<OpenSource> OpenSourceRepository,
-        IRepository<OpenSourceAttachment> OpenSourceAttachmentRepository,
-        IRepository<OrderAttachment> OrderAttachmentRepository,
-        IRepository<OrderDetails> OrderDetailsRepository,
-        IRepository<OrderSkill> OrderSkillRepository,
-        IRepository<PaymentTransaction> PaymentTransactionRepository,
-        IRepository<Review> ReviewRepository,
         IRepository<Role> RoleRepository,
-        IRepository<Skill> SkillRepository,
-        IRepository<State> StateRepository,
         IRepository<SubscriptionExecutor> SubscriptionExecutorRepository,
         IRepository<SubscriptionOpenSource> SubscriptionOpenSourceRepository,
-        IRepository<UserDescription> UserDescriptionRepository,
         IRepository<UserInformation> UserInformationRepository,
-        IRepository<UserPicture> UserPictureRepository,
         IRepository<UserRegistration> UserRegistrationRepository,
-        IRepository<ValidationEmail> ValidationEmailRepository,
-        IRepository<ValidationUser> ValidationUserRepository,
-        IRepository<CloseTransaction> CloseTransactionRepository,
-        IRepository<OpenTransaction> OpenTransactionRepository)
+        IRepository<ValidationUser> ValidationUserRepository)
         {
-            this.AttachmentRepository = AttachmentRepository;
-            this.BanDescriptionRepository = BanDescriptionRepository;
-            this.CityRepository = CityRepository;
             this.CostRepository = CostRepository;
-            this.CountryRepository = CountryRepository;
-            this.EducationRepository = EducationRepository;
-            this.EducationTypeRepository = EducationTypeRepository;
-            this.EducationUserDescriptionRepository = EducationUserDescriptionRepository;
-            this.EmailDescriptionRepository = EmailDescriptionRepository;
-            this.ExecutorSkillRepository = ExecutorSkillRepository;
             this.OpenSourceRepository = OpenSourceRepository;
-            this.OpenSourceAttachmentRepository = OpenSourceAttachmentRepository;
-            this.OrderAttachmentRepository = OrderAttachmentRepository;
-            this.OrderDetailsRepository = OrderDetailsRepository;
-            this.OrderSkillRepository = OrderSkillRepository;
-            this.PaymentTransactionRepository = PaymentTransactionRepository;
-            this.ReviewRepository = ReviewRepository;
             this.RoleRepository = RoleRepository;
-            this.SkillRepository = SkillRepository;
-            this.StateRepository = StateRepository;
             this.SubscriptionExecutorRepository = SubscriptionExecutorRepository;
             this.SubscriptionOpenSourceRepository = SubscriptionOpenSourceRepository;
-            this.UserDescriptionRepository = UserDescriptionRepository;
             this.UserInformationRepository = UserInformationRepository;
-            this.UserPictureRepository = UserPictureRepository;
             this.UserRegistrationRepository = UserRegistrationRepository;
-            this.ValidationEmailRepository = ValidationEmailRepository;
             this.ValidationUserRepository = ValidationUserRepository;
-            this.CloseTransactionRepository = CloseTransactionRepository;
-            this.OpenTransactionRepository = OpenTransactionRepository;
         }
 
         /// <summary>
@@ -117,7 +56,22 @@ namespace EasyStudingServices.Services
 
         public async Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration)
         {
-            throw new Exception();
+            var userReg = await UserRegistrationRepository.AddAsync(new UserRegistration
+            {
+                Id = 0,
+                IsValidated = false,
+                RegistrationDate = DateTime.Now,
+                TelephoneNumber = apiUserRegistration.TelephoneNumber
+            });
+
+            var userValidation = await ValidationUserRepository.AddAsync(new ValidationUser()
+            {
+                Id = 0,
+                UserRegistrationId = userReg.Id,
+                ValidationCode = "111111"
+            });
+
+            return userReg;
         }
 
         /// <summary>
@@ -133,7 +87,22 @@ namespace EasyStudingServices.Services
 
         public async Task<UserRegistration> ValidateRegistration(ValidationUser validationUser)
         {
-            throw new Exception();
+            var validationEntity = ValidationUserRepository.GetAll().FirstOrDefault(vr => vr.UserRegistrationId == validationUser.UserRegistrationId);
+
+            if (!validationUser.ValidationCode.Equals(validationEntity.ValidationCode))
+            {
+                throw new InvalidOperationException();
+            }
+
+            var userReg = await UserRegistrationRepository.GetAsync(validationUser.UserRegistrationId);
+
+            userReg.IsValidated = true;
+
+            userReg = await UserRegistrationRepository.EditAsync(userReg);
+
+            var removeValidationEntityResult = await ValidationUserRepository.RemoveAsync(validationEntity.Id);
+
+            return userReg;
         }
 
         /// <summary>
@@ -149,7 +118,62 @@ namespace EasyStudingServices.Services
 
         public async Task<ApiLoginToken> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin)
         {
-            throw new Exception();
+            var costs = CostRepository.GetAll().ToList();
+
+            var openSourceCost = costs.LastOrDefault(c => c.Product.ToLower().Contains("open source subscription"));
+
+            var executorCost = costs.LastOrDefault(c => c.Product.ToLower().Contains("executor subscription"));
+
+            var openSourceSubscription = await SubscriptionOpenSourceRepository.AddAsync(new SubscriptionOpenSource()
+            {
+                Id = 0,
+                CostId = openSourceCost.Id,
+                IsActive = true,
+                DateExpires = DateTime.Now.AddMonths(3)
+            });
+
+            var openSource = await OpenSourceRepository.AddAsync(new OpenSource()
+            {
+                Id = 0,
+                OpenSourceSubscriptionId = openSourceSubscription.Id
+            });
+
+            var executorSubscription = await SubscriptionExecutorRepository.AddAsync(new SubscriptionExecutor()
+            {
+                Id = 0,
+                CostId = executorCost.Id,
+                IsActive = true,
+                DateExpires = DateTime.Now.AddMonths(3)
+            });
+
+            var userInfo = await UserInformationRepository.AddAsync(new UserInformation()
+            {
+                Id = 0,
+                IsBanned = false,
+                IsFreeTrial = true,
+                IsGaranted = false,
+                LoginName = apiRegistrationLogin.Login,
+                Password = apiRegistrationLogin.Password,
+                UserRegistrationId = apiRegistrationLogin.UserRegistrationId,
+                RoleId = 1,
+                OpenSourceId = openSource.Id,
+                SubscriptionExecutorId = executorSubscription.Id
+            });
+
+            var apiUserInfoModel = new ApiUserInformationModel()
+            {
+                Id = userInfo.Id,
+                LoginName = userInfo.LoginName,
+                Role = (await RoleRepository.GetAsync(userInfo.RoleId)).Name
+            };
+
+            return new ApiLoginToken()
+            {
+                Id = apiUserInfoModel.Id,
+                Login = apiUserInfoModel.LoginName,
+                Role = apiUserInfoModel.Role,
+                Token = GetToken(apiUserInfoModel)
+            };
         }
 
         /// <summary>
@@ -165,7 +189,90 @@ namespace EasyStudingServices.Services
 
         public async Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone)
         {
-            throw new Exception();
+            var userInfo = UserInformationRepository.GetAll().FirstOrDefault(u => 
+                u.LoginName.ToLower().Equals(apiLogin.Login.ToLower()) && u.Password.Equals(apiLogin.Password));
+
+            if (userInfo == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var apiUserInfoModel = new ApiUserInformationModel()
+            {
+                Id = userInfo.Id,
+                LoginName = userInfo.LoginName,
+                Role = (await RoleRepository.GetAsync(userInfo.RoleId)).Name
+            };
+
+            return new ApiLoginToken()
+            {
+                Id = apiUserInfoModel.Id,
+                Login = apiUserInfoModel.LoginName,
+                Role = apiUserInfoModel.Role,
+                Token = GetToken(apiUserInfoModel)
+            };
+        }
+
+        /// <summary>
+        ///   Get connection token to server.
+        /// </summary>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Connection token to server.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
+
+        public async Task<ApiLoginToken> UpdateToken(long currentUserId)
+        {
+            var userInfo = await UserInformationRepository.GetAsync(currentUserId);
+
+            if (userInfo == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var apiUserInfoModel = new ApiUserInformationModel()
+            {
+                Id = userInfo.Id,
+                LoginName = userInfo.LoginName,
+                Role = (await RoleRepository.GetAsync(userInfo.RoleId)).Name
+            };
+
+            return new ApiLoginToken()
+            {
+                Id = apiUserInfoModel.Id,
+                Login = apiUserInfoModel.LoginName,
+                Role = apiUserInfoModel.Role,
+                Token = GetToken(apiUserInfoModel)
+            };
+        }
+
+        private string GetToken(ApiUserInformationModel param)
+        {
+            if (param != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim("Id", param.Id.ToString()),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, param.LoginName),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, param.Role)
+                };
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
+
+                var now = DateTime.UtcNow;
+                var jwt = new JwtSecurityToken(
+                        notBefore: now,
+                        claims: claimsIdentity.Claims,
+                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFE_TIME)),
+                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+                        );
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                return encodedJwt;
+            }
+
+            throw new ArgumentNullException();
         }
     }
 }

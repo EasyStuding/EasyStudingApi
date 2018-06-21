@@ -14,6 +14,8 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone);
 
+        Task<ApiLoginToken> UpdateToken();
+
         Task<bool> LogOut();
     }
 }
