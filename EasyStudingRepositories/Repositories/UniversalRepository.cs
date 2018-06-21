@@ -50,7 +50,7 @@ namespace EasyStudingRepositories.Repositories
 
             await _context.SaveChangesAsync();
 
-            return _dbSet.LastOrDefault();
+            return await GetAll().LastOrDefaultAsync();
         }
 
         public async Task<TEntity> EditAsync(TEntity param)
@@ -66,7 +66,7 @@ namespace EasyStudingRepositories.Repositories
 
             await _context.SaveChangesAsync();
 
-            return _dbSet.FirstOrDefault(e => e.Id == param.Id);
+            return await GetAsync(param.Id);
         }
 
         public async Task<TEntity> RemoveAsync(long id)
