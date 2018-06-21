@@ -1,6 +1,6 @@
 ﻿namespace EasyStudingModels.DbContextModels
 {
-    public partial class UserInformation
+    public partial class UserInformation: IEntity<UserInformation>
     {
         public long Id { get; set; }
         public long UserRegistrationId { get; set; }
@@ -12,5 +12,18 @@
         public bool? IsBanned { get; set; }
         public bool? IsFreeTrial { get; set; }
         public bool? IsGaranted { get; set; }
+
+        public void Edit(UserInformation userInformation)
+        {
+            UserRegistrationId = userInformation.UserRegistrationId;
+            RoleId = userInformation.RoleId;
+            SubscriptionExecutorId = userInformation.SubscriptionExecutorId;
+            OpenSourceId = userInformation.OpenSourceId;
+            LoginName = userInformation.LoginName;
+            Password = userInformation.Password;
+            IsBanned = userInformation.IsBanned;
+            IsFreeTrial = userInformation.IsFreeTrial;
+            IsGaranted = userInformation.IsGaranted;
+        }
     }
 }
