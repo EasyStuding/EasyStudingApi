@@ -1,6 +1,6 @@
 ﻿namespace EasyStudingModels.DbContextModels
 {
-    public partial class City
+    public partial class City : IEntity
     {
         public long Id { get; set; }
         public long CountryId { get; set; }

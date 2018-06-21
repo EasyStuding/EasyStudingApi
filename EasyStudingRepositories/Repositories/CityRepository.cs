@@ -1,9 +1,6 @@
 ﻿using EasyStudingModels.DbContextModels;
 using EasyStudingRepositories.DbContext;
 using EasyStudingInterfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -13,38 +10,41 @@ namespace EasyStudingRepositories.Repositories
 {
     public class CityRepository : IRepository<City>
     {
-        private readonly EasyStudingContext context;
+        private readonly EasyStudingContext _context;
         private readonly IErrorHandler _errorHandler;
-
+        private readonly UnivesalRepository<City> _univesalRepository;
         public CityRepository(EasyStudingContext context, IErrorHandler errorHandler)
         {
-            this.context = context;
+            _context = context;
             _errorHandler = errorHandler;
+            _univesalRepository =new UnivesalRepository<City>(_context.Cities, _context, _errorHandler);
         }
 
         public IQueryable<City> GetAll()
         {
-            return context.Cities;
+            return _context.Cities;
         }
 
         public async Task<City> GetAsync(long id)
         {
-            var cityModel = await context.Cities.FirstOrDefaultAsync(city => city.Id == id);
+           return await _univesalRepository.GetAsync(id);
+            //var cityModel = await _context.Cities.FirstOrDefaultAsync(city => city.Id == id);
 
-            _errorHandler.CheckIndexOutOfRangeException(cityModel);
+            //_errorHandler.CheckIndexOutOfRangeException(cityModel);
 
-            return cityModel;
+            //return cityModel;
         }
 
         public async Task<City> AddAsync(City city)
         {
-            _errorHandler.CheckObjectOfNull(city);
+            return await _univesalRepository.AddAsync(city);
+            //_errorHandler.CheckObjectOfNull(city);
 
-            await context.Cities.AddAsync(city);
+            //await _context.Cities.AddAsync(city);
 
-            await context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
-            return context.Cities.LastOrDefault();
+            //return _context.Cities.LastOrDefault();
         }
 
         public async Task<City> EditAsync(City cityModel)
@@ -58,20 +58,21 @@ namespace EasyStudingRepositories.Repositories
             city.CountryId = cityModel.CountryId;
             city.Region = cityModel.Region;
 
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return city;
         }
 
         public async Task<City> RemoveAsync(long id)
         {
-            var city = await GetAsync(id);
+            //var city = await GetAsync(id);
 
-            context.Cities.Remove(city);
+            //_context.Cities.Remove(city);
 
-            await context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
-            return city;
+            //return city;
+            return await _univesalRepository.RemoveAsync(id);
         }
     }
 }
