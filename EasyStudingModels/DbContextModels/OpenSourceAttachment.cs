@@ -11,5 +11,12 @@
             OpenSourceId = openSourceAttachment.OpenSourceId;
             AttachmentId = openSourceAttachment.AttachmentId;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && OpenSourceId >= 0
+                && AttachmentId >= 0;
+        }
     }
 }

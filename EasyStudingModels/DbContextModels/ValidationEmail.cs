@@ -11,5 +11,12 @@
             EmailDescriptionId = validationEmail.EmailDescriptionId;
             ValidateCode = validationEmail.ValidateCode;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && EmailDescriptionId >= 0
+                && !string.IsNullOrWhiteSpace(ValidateCode);
+        }
     }
 }

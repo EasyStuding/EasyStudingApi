@@ -11,5 +11,12 @@
             OrderId = orderSkill.OrderId;
             SkillId = orderSkill.SkillId;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && OrderId >= 0
+                && SkillId >= 0;
+        }
     }
 }

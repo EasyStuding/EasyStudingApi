@@ -11,5 +11,12 @@
             Money = cost.Money;
             Product = cost.Product;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && Money >= 0
+                && !string.IsNullOrWhiteSpace(Product);
+        }
     }
 }

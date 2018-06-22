@@ -13,5 +13,12 @@ namespace EasyStudingModels.DbContextModels
             UserInformationId = banDescription.UserInformationId;
             ExpiresDate = ExpiresDate.Date;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && UserInformationId >= 0
+                && ExpiresDate != null;
+        }
     }
 }

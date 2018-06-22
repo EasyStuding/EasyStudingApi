@@ -15,5 +15,12 @@ namespace EasyStudingModels.DbContextModels
             RegistrationDate = userRegistration.RegistrationDate;
             IsValidated = userRegistration.IsValidated;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && !string.IsNullOrWhiteSpace(TelephoneNumber)
+                && RegistrationDate != null;
+        }
     }
 }

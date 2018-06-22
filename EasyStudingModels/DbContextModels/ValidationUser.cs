@@ -11,5 +11,12 @@
             UserRegistrationId = validationUser.UserRegistrationId;
             ValidationCode = validationUser.ValidationCode;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && UserRegistrationId >= 0
+                && !string.IsNullOrWhiteSpace(ValidationCode);
+        }
     }
 }

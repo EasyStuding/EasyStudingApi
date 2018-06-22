@@ -11,5 +11,12 @@
             Type = attachment.Type;
             Ref = attachment.Ref;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && !string.IsNullOrWhiteSpace(Type)
+                && !string.IsNullOrWhiteSpace(Ref);
+        }
     }
 }

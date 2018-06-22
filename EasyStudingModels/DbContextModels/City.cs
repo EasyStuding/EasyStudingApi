@@ -13,5 +13,13 @@
             Region = city.Region;
             Name = city.Name;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && CountryId >= 0
+                && Region == null ? true : !string.IsNullOrWhiteSpace(Region)
+                && !string.IsNullOrWhiteSpace(Name);
+        }
     }
 }

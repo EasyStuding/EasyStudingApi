@@ -11,5 +11,12 @@
             OrderId = orderAttachment.OrderId;
             AttachmentId = orderAttachment.AttachmentId;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && OrderId >= 0
+                && AttachmentId >= 0;
+        }
     }
 }

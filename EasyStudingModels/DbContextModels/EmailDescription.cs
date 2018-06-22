@@ -4,12 +4,18 @@
     {
         public long Id { get; set; }
         public string Email { get; set; }
-        public bool? IsValidated { get; set; }
+        public bool? IsValidated { get; set; } = false;
 
         public void Edit(EmailDescription emailDescription)
         {
             Email = emailDescription.Email;
             IsValidated = emailDescription.IsValidated;
+        }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && !string.IsNullOrWhiteSpace(Email);
         }
     }
 }

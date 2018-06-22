@@ -11,5 +11,12 @@
             SubscriptionExecutorId = executorSkill.SubscriptionExecutorId;
             SkillId = executorSkill.SkillId;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && SubscriptionExecutorId >= 0
+                && SkillId >= 0;
+        }
     }
 }

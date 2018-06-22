@@ -17,5 +17,15 @@
             Title = orderDetails.Title;
             Description = orderDetails.Description;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && CustomerId >= 0
+                && ExecutorId == null ? true : ExecutorId >= 0
+                && StateId >= 0
+                && !string.IsNullOrWhiteSpace(Title)
+                && !string.IsNullOrWhiteSpace(Description);
+        }
     }
 }

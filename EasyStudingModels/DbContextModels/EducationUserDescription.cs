@@ -15,5 +15,13 @@ namespace EasyStudingModels.DbContextModels
             AdmissionDate = educationUserDescription.AdmissionDate;
             GraduationDate = educationUserDescription.GraduationDate;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && EducationId >= 0
+                && AdmissionDate != null
+                && GraduationDate != null;
+        }
     }
 }

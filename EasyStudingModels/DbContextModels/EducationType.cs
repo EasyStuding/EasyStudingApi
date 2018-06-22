@@ -9,5 +9,11 @@
         {
             Name = educationType.Name;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && !string.IsNullOrWhiteSpace(Name);
+        }
     }
 }

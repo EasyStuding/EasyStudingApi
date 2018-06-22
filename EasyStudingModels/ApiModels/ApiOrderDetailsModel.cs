@@ -3,7 +3,7 @@ using EasyStudingModels.DbContextModels;
 
 namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiOrderDetailsModel
+    public partial class ApiOrderDetailsModel : IValidatedEntity
     {
         public long Id { get; set; }
         public ApiUserDescriptionModel Customer { get; set; }
@@ -13,5 +13,15 @@ namespace EasyStudingModels.ApiModels
         public string Description { get; set; }
         public IEnumerable<Attachment> Attachments { get; set; }
         public IEnumerable<Skill> Skills { get; set; }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && Customer.Validate()
+                && Executor.Validate()
+                && State.Validate()
+                && !string.IsNullOrWhiteSpace(Title)
+                && !string.IsNullOrWhiteSpace(Description);
+        }
     }
 }

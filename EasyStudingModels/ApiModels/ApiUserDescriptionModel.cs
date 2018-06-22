@@ -2,7 +2,7 @@
 
 namespace EasyStudingModels.ApiModels
 {
-    public partial class ApiUserDescriptionModel
+    public partial class ApiUserDescriptionModel : IValidatedEntity
     {
         public long Id { get; set; }
         public ApiUserInformationModel UserInformation { get; set; }
@@ -14,5 +14,19 @@ namespace EasyStudingModels.ApiModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && UserInformation.Validate()
+                && EducationUserDecription.Validate()
+                && EmailDescription.Validate()
+                && Picture.Validate()
+                && City.Validate()
+                && Country.Validate()
+                && !string.IsNullOrWhiteSpace(FirstName)
+                && !string.IsNullOrWhiteSpace(LastName)
+                && !string.IsNullOrWhiteSpace(Description);
+        }
     }
 }

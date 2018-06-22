@@ -11,5 +11,12 @@
             UserInformationId = userPicture.UserInformationId;
             Ref = userPicture.Ref;
         }
+
+        public bool Validate()
+        {
+            return Id >= 0
+                && UserInformationId >= 0
+                && !string.IsNullOrWhiteSpace(Ref);
+        }
     }
 }
