@@ -36,8 +36,7 @@ namespace EasyStudingRepositories.DbContext
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<SubscriptionExecutor> SubscriptionExecutors { get; set; }
-        public virtual DbSet<SubscriptionOpenSource> SubscriptionOpenSources { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<UserDescription> UserDescriptions { get; set; }
         public virtual DbSet<UserInformation> UserInformations { get; set; }
         public virtual DbSet<UserPicture> UserPictures { get; set; }
@@ -223,7 +222,7 @@ namespace EasyStudingRepositories.DbContext
                     .HasColumnName("id")
                     .UseNpgsqlIdentityByDefaultColumn();
 
-                entity.Property(e => e.OpenSourceSubscriptionId).HasColumnName("opensourcesubscriptionid");
+                entity.Property(e => e.SubscriptionId).HasColumnName("opensourcesubscriptionid");
             });
 
             modelBuilder.Entity<OpenSourceAttachment>(entity =>
@@ -371,28 +370,9 @@ namespace EasyStudingRepositories.DbContext
                     .HasDefaultValueSql("false");
             });
 
-            modelBuilder.Entity<SubscriptionExecutor>(entity =>
+            modelBuilder.Entity<Subscription>(entity =>
             {
-                entity.ToTable("subscriptionexecutors");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .UseNpgsqlIdentityByDefaultColumn();
-
-                entity.Property(e => e.CostId).HasColumnName("costid");
-
-                entity.Property(e => e.DateExpires)
-                    .HasColumnName("dateexpires")
-                    .HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.IsActive)
-                    .HasColumnName("isactive")
-                    .HasDefaultValueSql("false");
-            });
-
-            modelBuilder.Entity<SubscriptionOpenSource>(entity =>
-            {
-                entity.ToTable("subscriptionopensources");
+                entity.ToTable("subscriptions");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -464,7 +444,7 @@ namespace EasyStudingRepositories.DbContext
 
                 entity.Property(e => e.RoleId).HasColumnName("roleid");
 
-                entity.Property(e => e.SubscriptionExecutorId).HasColumnName("subscriptionexecutorid");
+                entity.Property(e => e.SubscriptionId).HasColumnName("subscriptionexecutorid");
 
                 entity.Property(e => e.UserRegistrationId).HasColumnName("userregistrationid");
             });

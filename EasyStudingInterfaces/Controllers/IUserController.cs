@@ -15,7 +15,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id);
 
-        Task<IQueryable<SubscriptionExecutor>> GetSubscriptionExecutors(ApiEducationModel education, City city);
+        Task<IQueryable<Subscription>> GetSubscriptionExecutors(ApiEducationModel education, City city);
 
         Task<bool> ChangePassword(string oldPassword, string newPassword);
 

@@ -10,28 +10,30 @@ using System.Threading.Tasks;
 
 namespace EasyStudingRepositories.Repositories
 {
-    public class SessionRepository
+    public class SessionRepository: ISessionRepository
     {
+        #region Repositories from db
+
         private readonly IRepository<Cost> _costRepository;
         private readonly IRepository<OpenSource> _openSourceRepository;
         private readonly IRepository<Role> _roleRepository;
-        private readonly IRepository<SubscriptionExecutor> _subscriptionExecutorRepository;
-        private readonly IRepository<SubscriptionOpenSource> _subscriptionOpenSourceRepository;
+        private readonly IRepository<Subscription> _subscriptionRepository;
         private readonly IRepository<UserInformation> _userInformationRepository;
         private readonly IRepository<UserRegistration> _userRegistrationRepository;
         private readonly IRepository<ValidationUser> _validationUserRepository;
 
+        #endregion
+
         private readonly EasyStudingContext _context;
 
-        private readonly IMapper _mapper;
+        private readonly Mapper _mapper;
 
         public SessionRepository(EasyStudingContext context)
         {
             _context = context;
             _costRepository = new UniversalRepository<Cost>(_context);
             _openSourceRepository = new UniversalRepository<OpenSource>(_context);
-            _subscriptionExecutorRepository = new UniversalRepository<SubscriptionExecutor>(_context);
-            _subscriptionOpenSourceRepository = new UniversalRepository<SubscriptionOpenSource>(_context);
+            _subscriptionRepository = new UniversalRepository<Subscription>(_context);
             _userInformationRepository = new UniversalRepository<UserInformation>(_context);
             _userRegistrationRepository = new UniversalRepository<UserRegistration>(_context);
             _validationUserRepository = new UniversalRepository<ValidationUser>(_context);
@@ -85,7 +87,7 @@ namespace EasyStudingRepositories.Repositories
 
             var executorCost = GetSubstractionCost(costs,Defines.Subscription.EXECUTOR);
 
-            var openSourceSubscription = await _subscriptionOpenSourceRepository.AddAsync(new SubscriptionOpenSource()
+            var openSourceSubscription = await _subscriptionRepository.AddAsync(new Subscription()
             {
                 CostId = openSourceCost.Id,
                 IsActive = true,
@@ -94,10 +96,10 @@ namespace EasyStudingRepositories.Repositories
 
             var openSource = await _openSourceRepository.AddAsync(new OpenSource()
             {
-                OpenSourceSubscriptionId = openSourceSubscription.Id
+                SubscriptionId = openSourceSubscription.Id
             });
 
-            var executorSubscription = await _subscriptionExecutorRepository.AddAsync(new SubscriptionExecutor()
+            var executorSubscription = await _subscriptionRepository.AddAsync(new Subscription()
             {
                 CostId = executorCost.Id,
                 IsActive = true,
@@ -114,7 +116,7 @@ namespace EasyStudingRepositories.Repositories
                 UserRegistrationId = apiRegistrationLogin.UserRegistrationId,
                 RoleId = 1,
                 OpenSourceId = openSource.Id,
-                SubscriptionExecutorId = executorSubscription.Id
+                SubscriptionId = executorSubscription.Id
             });
 
             return new ApiUserInformationModel()
@@ -124,6 +126,41 @@ namespace EasyStudingRepositories.Repositories
                 Role = (await _roleRepository.GetAsync(userInfo.RoleId)).Name
             };
 
+        }
+
+        public async Task<ApiUserInformationModel> GetApiUserInformationFromApiLoginAsync(ApiLoginModel apiLogin)
+        {
+            var userInfo = _userInformationRepository.GetAll().FirstOrDefault(u =>
+                u.LoginName.ToLower().Equals(apiLogin.Login.ToLower()) && u.Password.Equals(apiLogin.Password));
+
+            if (userInfo == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return new ApiUserInformationModel()
+            {
+                Id = userInfo.Id,
+                LoginName = userInfo.LoginName,
+                Role = (await _roleRepository.GetAsync(userInfo.RoleId)).Name
+            };
+        }
+
+        public async Task<ApiUserInformationModel> GetApiUserInformationByIdAsync(long userId)
+        {
+            var userInfo = await _userInformationRepository.GetAsync(userId);
+
+            if (userInfo == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return new ApiUserInformationModel()
+            {
+                Id = userInfo.Id,
+                LoginName = userInfo.LoginName,
+                Role = (await _roleRepository.GetAsync(userInfo.RoleId)).Name
+            };
         }
 
         private Cost GetSubstractionCost(IEnumerable<Cost> costs, string substraction)

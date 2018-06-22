@@ -53,14 +53,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // */api/user/GetSubscriptionExecutors
-        public async Task<IQueryable<SubscriptionExecutor>> GetSubscriptionExecutors([FromBody]ApiEducationModel education, City city)
+        public async Task<IQueryable<Subscription>> GetSubscriptionExecutors([FromBody]ApiEducationModel education, City city)
         {
             throw new Exception();
         }
 
         [HttpGet]
         // */api/user/GetSubscriptionExecutor
-        public async Task<SubscriptionExecutor> GetSubscriptionExecutor(long id)
+        public async Task<Subscription> GetSubscriptionExecutor(long id)
         {
             throw new Exception();
         }

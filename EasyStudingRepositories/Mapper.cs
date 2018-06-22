@@ -42,7 +42,7 @@ namespace EasyStudingRepositories
                 UserRegistrationId = apiRegistrationLogin.UserRegistrationId,
                 RoleId = 1,
                 OpenSourceId = openSourceId,
-                SubscriptionExecutorId = executorSubscriptionId
+                SubscriptionId = executorSubscriptionId
             };
         }
 

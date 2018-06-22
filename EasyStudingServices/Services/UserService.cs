@@ -33,8 +33,7 @@ namespace EasyStudingServices.Services
         private readonly IRepository<Role> RoleRepository;
         private readonly IRepository<Skill> SkillRepository;
         private readonly IRepository<State> StateRepository;
-        private readonly IRepository<SubscriptionExecutor> SubscriptionExecutorRepository;
-        private readonly IRepository<SubscriptionOpenSource> SubscriptionOpenSourceRepository;
+        private readonly IRepository<Subscription> SubscriptionRepository;
         private readonly IRepository<UserDescription> UserDescriptionRepository;
         private readonly IRepository<UserInformation> UserInformationRepository;
         private readonly IRepository<UserPicture> UserPictureRepository;
@@ -65,8 +64,7 @@ namespace EasyStudingServices.Services
         IRepository<Role> RoleRepository,
         IRepository<Skill> SkillRepository,
         IRepository<State> StateRepository,
-        IRepository<SubscriptionExecutor> SubscriptionExecutorRepository,
-        IRepository<SubscriptionOpenSource> SubscriptionOpenSourceRepository,
+        IRepository<Subscription> SubscriptionRepository,
         IRepository<UserDescription> UserDescriptionRepository,
         IRepository<UserInformation> UserInformationRepository,
         IRepository<UserPicture> UserPictureRepository,
@@ -96,8 +94,7 @@ namespace EasyStudingServices.Services
             this.RoleRepository = RoleRepository;
             this.SkillRepository = SkillRepository;
             this.StateRepository = StateRepository;
-            this.SubscriptionExecutorRepository = SubscriptionExecutorRepository;
-            this.SubscriptionOpenSourceRepository = SubscriptionOpenSourceRepository;
+            this.SubscriptionRepository = SubscriptionRepository;
             this.UserDescriptionRepository = UserDescriptionRepository;
             this.UserInformationRepository = UserInformationRepository;
             this.UserPictureRepository = UserPictureRepository;
