@@ -36,9 +36,7 @@ namespace EasyStudingUnitTests.TestData
 
 			CreateAttachments();
 
-			CreateSubscriptionExecutors();
-
-			CreateSubscriptionOpenSources();
+			CreateSubscriptions();
 
 			CreateOpenSources();
 
@@ -148,34 +146,28 @@ namespace EasyStudingUnitTests.TestData
             Context.SaveChanges();
         }
 
-        private void CreateSubscriptionExecutors()
+        private void CreateSubscriptions()
         {
-            Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 1, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 2, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 3, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionExecutors.Add(new SubscriptionExecutor() { Id = 4, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
-
-            Context.SaveChanges();
-        }
-
-        private void CreateSubscriptionOpenSources()
-        {
-            Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 1, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 2, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 3, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 4, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
-            Context.SubscriptionOpenSources.Add(new SubscriptionOpenSource() { Id = 5, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 1, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 2, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 3, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 4, CostId = 2, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 5, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 6, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 7, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 8, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
+            Context.Subscriptions.Add(new Subscription() { Id = 9, CostId = 1, DateExpires = DateTime.Now, IsActive = true });
 
             Context.SaveChanges();
         }
 
         private void CreateOpenSources()
         {
-            Context.OpenSources.Add(new OpenSource() { Id = 1, OpenSourceSubscriptionId = 1 });
-            Context.OpenSources.Add(new OpenSource() { Id = 2, OpenSourceSubscriptionId = 2 });
-            Context.OpenSources.Add(new OpenSource() { Id = 3, OpenSourceSubscriptionId = 3 });
-            Context.OpenSources.Add(new OpenSource() { Id = 4, OpenSourceSubscriptionId = 4 });
-            Context.OpenSources.Add(new OpenSource() { Id = 5, OpenSourceSubscriptionId = 5 });
+            Context.OpenSources.Add(new OpenSource() { Id = 1, SubscriptionId = 1 });
+            Context.OpenSources.Add(new OpenSource() { Id = 2, SubscriptionId = 2 });
+            Context.OpenSources.Add(new OpenSource() { Id = 3, SubscriptionId = 3 });
+            Context.OpenSources.Add(new OpenSource() { Id = 4, SubscriptionId = 4 });
+            Context.OpenSources.Add(new OpenSource() { Id = 5, SubscriptionId = 5 });
 
             Context.SaveChanges();
         }
@@ -184,35 +176,35 @@ namespace EasyStudingUnitTests.TestData
         {
             Context.UserInformations.Add(new UserInformation() {
                 Id = 1, UserRegistrationId = 1,
-                SubscriptionExecutorId = 1, OpenSourceId = 1,
+                SubscriptionId = 1, OpenSourceId = 1,
                 RoleId = 1, LoginName = "login1",
                 Password = "password1", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false});
 
             Context.UserInformations.Add(new UserInformation() {
                 Id = 2, UserRegistrationId = 2,
-                SubscriptionExecutorId = 2, OpenSourceId = 2,
+                SubscriptionId = 2, OpenSourceId = 2,
                 RoleId = 1, LoginName = "login2",
                 Password = "password2", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false });
 
             Context.UserInformations.Add(new UserInformation() {
                 Id = 3, UserRegistrationId = 3,
-                SubscriptionExecutorId = 3, OpenSourceId = 3,
+                SubscriptionId = 3, OpenSourceId = 3,
                 RoleId = 1, LoginName = "login3",
                 Password = "password3", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = false });
 
             Context.UserInformations.Add(new UserInformation() {
                 Id = 4, UserRegistrationId = 4,
-                SubscriptionExecutorId = null, OpenSourceId = null,
+                SubscriptionId = null, OpenSourceId = null,
                 RoleId = 1, LoginName = "login4",
                 Password = "password4", IsGaranted = false,
                 IsFreeTrial = true, IsBanned = false });
 
             Context.UserInformations.Add(new UserInformation() {
                 Id = 5, UserRegistrationId = 5,
-                SubscriptionExecutorId = null, OpenSourceId = null,
+                SubscriptionId = null, OpenSourceId = null,
                 RoleId = 1, LoginName = "login5",
                 Password = "password5", IsGaranted = false,
                 IsFreeTrial = false, IsBanned = true });
