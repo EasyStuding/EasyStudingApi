@@ -2,7 +2,7 @@
 
 namespace EasyStudingModels.DbContextModels
 {
-    public partial class SubscriptionOpenSource: IEntity<SubscriptionOpenSource>
+    public partial class SubscriptionOpenSource: IEntity<SubscriptionOpenSource>, ISubstraction
     {
         public long Id { get; set; }
         public bool? IsActive { get; set; }

@@ -2,7 +2,7 @@
 
 namespace EasyStudingModels.DbContextModels
 {
-    public partial class SubscriptionExecutor: IEntity<SubscriptionExecutor>
+    public partial class SubscriptionExecutor: IEntity<SubscriptionExecutor>, ISubstraction
     {
         public long Id { get; set; }
         public bool? IsActive { get; set; }
