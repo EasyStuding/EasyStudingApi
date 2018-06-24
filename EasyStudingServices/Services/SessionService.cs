@@ -46,7 +46,7 @@ namespace EasyStudingServices.Services
         /// <summary>
         ///   Validate validation code of user.
         /// </summary>
-        /// <param name="apiUserRegistration">Model of registration user.</param>
+		/// <param name="validationUser">Model of validation user.</param>
         /// <returns>
         ///    Validated user registration profile.
         /// </returns>
