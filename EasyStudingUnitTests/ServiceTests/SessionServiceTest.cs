@@ -1,7 +1,6 @@
 ﻿using EasyStudingRepositories.DbContext;
 using EasyStudingServices.Services;
-using EasyStudingModels.DbContextModels;
-using EasyStudingModels.ApiModels;
+using EasyStudingModels.Models;
 using EasyStudingUnitTests.TestData;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await service.StartRegistration(new ApiUserRegistrationModel() { TelephoneNumber = "+375339999999" });
+                var result = await service.StartRegistration(new RegistrationModel() { TelephoneNumber = "+375331111111" });
 
                 Assert.Equal(1, result.Id);
             }
@@ -35,7 +34,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.StartRegistration(new ApiUserRegistrationModel() { TelephoneNumber = "" }));
+                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.StartRegistration(new RegistrationModel() {  TelephoneNumber = "" }));
 
                 Assert.Equal(typeof(FormatException), result.GetType());
             }
@@ -48,7 +47,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await service.ValidateRegistration(new ValidationUser() { Id = 1, UserRegistrationId = 1, ValidationCode = "111111" });
+                var result = await service.ValidateRegistration(new ValidateModel() { UserId = 1, ValidationCode = "111111" });
 
                 Assert.Equal(1, result.Id);
             }
@@ -61,7 +60,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.ValidateRegistration(new ValidationUser() { Id = 1, UserRegistrationId = 1, ValidationCode = "" }));
+                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.ValidateRegistration(new ValidateModel() { UserId = 1, ValidationCode = "" }));
 
                 Assert.Equal(typeof(FormatException), result.GetType());
             }
@@ -74,7 +73,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.ValidateRegistration(new ValidationUser() { Id = 6, UserRegistrationId = 6, ValidationCode = "111111" }));
+                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.ValidateRegistration(new ValidateModel() { UserId = 6, ValidationCode = "111111" }));
 
                 Assert.Equal(typeof(ArgumentNullException), result.GetType());
             }
@@ -87,9 +86,9 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 1, Login = "login1", Password = "password1" });
+                var result = await service.CompleteRegistration(new LoginModel() { TelephoneNumber = "+375331111111", Password = "Password123!" });
 
-                Assert.Equal(typeof(ApiLoginToken), result.GetType());
+                Assert.Equal(typeof(LoginToken), result.GetType());
             }
         }
 
@@ -100,7 +99,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 1, Login = "", Password = "" }));
+                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.CompleteRegistration(new LoginModel() { TelephoneNumber = "", Password = "password" }));
 
                 Assert.Equal(typeof(FormatException), result.GetType());
             }
@@ -113,7 +112,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.CompleteRegistration(new ApiRegisrtationLoginModel() { UserRegistrationId = 6, Login = "asdfsadf", Password = "asdfsadf" }));
+                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.CompleteRegistration(new LoginModel() { TelephoneNumber = "+375331231231", Password = "Password123!" }));
 
                 Assert.Equal(typeof(ArgumentNullException), result.GetType());
             }
@@ -126,9 +125,9 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await service.Login(new ApiLoginModel() { Login = "login1", Password = "password1" }, false);
+                var result = await service.Login(new LoginModel() { TelephoneNumber = "+375331111111", Password = "Password123!" });
 
-                Assert.Equal(typeof(ApiLoginToken), result.GetType());
+                Assert.Equal(typeof(LoginToken), result.GetType());
             }
         }
 
@@ -139,7 +138,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.Login(new ApiLoginModel() { Login = "", Password = "" }, false));
+                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "", Password = "password" }));
 
                 Assert.Equal(typeof(FormatException), result.GetType());
             }
@@ -152,7 +151,7 @@ namespace EasyStudingUnitTests.ServiceTests
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.Login(new ApiLoginModel() { Login = "asdfsadf", Password = "sadfsadf" }, false));
+                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "+375331231231", Password = "Password123!" }));
 
                 Assert.Equal(typeof(ArgumentNullException), result.GetType());
             }

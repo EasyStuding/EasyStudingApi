@@ -1,19 +1,18 @@
-﻿using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+﻿using EasyStudingModels.Models;
 using System.Threading.Tasks;
 
 namespace EasyStudingInterfaces.Services
 {
     public interface ISessionService
     {
-        Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration);
+        Task<User> StartRegistration(RegistrationModel registrationModel);
 
-        Task<UserRegistration> ValidateRegistration(ValidationUser validationUser);
+        Task<User> ValidateRegistration(ValidateModel validateModel);
 
-        Task<ApiLoginToken> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin);
+        Task<LoginToken> CompleteRegistration(LoginModel loginModel);
 
-        Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone);
+        Task<LoginToken> Login(LoginModel loginModel);
 
-        Task<ApiLoginToken> UpdateToken(long currentUserId);
+        Task<LoginToken> UpdateToken(long currentUserId);
     }
 }

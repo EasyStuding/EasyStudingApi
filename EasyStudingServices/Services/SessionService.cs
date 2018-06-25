@@ -1,7 +1,6 @@
 ﻿using EasyStudingInterfaces.Services;
 using EasyStudingInterfaces.Repositories;
-using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+using EasyStudingModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,14 +32,14 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
 
-        public async Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration)
+        public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            if (!apiUserRegistration.Validate())
+            if (!registrationModel.Validate())
             {
                 throw new FormatException();
             }
 
-            return await _sessionRepository.StartRegistration(apiUserRegistration);
+            return await _sessionRepository.StartRegistration(registrationModel);
         }
 
         /// <summary>
@@ -53,14 +52,14 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<UserRegistration> ValidateRegistration(ValidationUser validationUser)
+        public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            if (!validationUser.Validate())
+            if (!validateModel.Validate())
             {
                 throw new FormatException();
             }
 
-            var userEntity = await _sessionRepository.ValidateRegistration(validationUser);
+            var userEntity = await _sessionRepository.ValidateRegistration(validateModel);
 
             if(userEntity == null)
             {
@@ -80,27 +79,21 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<ApiLoginToken> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin)
+        public async Task<LoginToken> CompleteRegistration(LoginModel loginModel)
         {
-            if (!apiRegistrationLogin.Validate())
+            if (!loginModel.Validate())
             {
                 throw new FormatException();
             }
 
-            var userEntity = await _sessionRepository.CompleteRegistration(apiRegistrationLogin);
+            var userEntity = await _sessionRepository.CompleteRegistration(loginModel);
 
             if (userEntity == null)
             {
                 throw new ArgumentNullException();
             }
 
-            return new ApiLoginToken()
-            {
-                Id = userEntity.Id,
-                Login = userEntity.LoginName,
-                Role = userEntity.Role,
-                Token = GetToken(userEntity)
-            };
+            return GetToken(userEntity);
         }
 
         /// <summary>
@@ -114,27 +107,21 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<ApiLoginToken> Login(ApiLoginModel apiLogin, bool isTelephone)
+        public async Task<LoginToken> Login(LoginModel loginModel)
         {
-            if (!apiLogin.Validate())
+            if (!loginModel.Validate())
             {
                 throw new FormatException();
             }
 
-            var userEntity = await _sessionRepository.GetApiUserInformationFromApiLoginAsync(apiLogin);
+            var userEntity = await _sessionRepository.GetUserByLoginModel(loginModel);
 
             if (userEntity == null)
             {
                 throw new ArgumentNullException();
             }
 
-            return new ApiLoginToken()
-            {
-                Id = userEntity.Id,
-                Login = userEntity.LoginName,
-                Role = userEntity.Role,
-                Token = GetToken(userEntity)
-            };
+            return GetToken(userEntity);
         }
 
         /// <summary>
@@ -146,33 +133,27 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<ApiLoginToken> UpdateToken(long currentUserId)
+        public async Task<LoginToken> UpdateToken(long currentUserId)
         {
-            var userEntity = await _sessionRepository.GetApiUserInformationByIdAsync(currentUserId);
+            var userEntity = await _sessionRepository.GetUserById(currentUserId);
 
             if (userEntity == null)
             {
                 throw new ArgumentNullException();
             }
 
-            return new ApiLoginToken()
-            {
-                Id = userEntity.Id,
-                Login = userEntity.LoginName,
-                Role = userEntity.Role,
-                Token = GetToken(userEntity)
-            };
+            return GetToken(userEntity);
         }
 
-        private string GetToken(ApiUserInformationModel param)
+        private LoginToken GetToken(User user)
         {
-            if (param != null)
+            if (user != null)
             {
                 var claims = new List<Claim>
                 {
-                    new Claim("Id", param.Id.ToString()),
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, param.LoginName),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, param.Role)
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.TelephoneNumber),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
@@ -186,7 +167,13 @@ namespace EasyStudingServices.Services
                         );
                 var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-                return encodedJwt;
+                return new LoginToken()
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Role = user.Role,
+                    BearerToken = "Bearer " + encodedJwt
+                }; ;
             }
 
             throw new ArgumentNullException();

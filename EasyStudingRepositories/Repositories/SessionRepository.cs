@@ -1,6 +1,5 @@
 ﻿using EasyStudingInterfaces.Repositories;
-using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+using EasyStudingModels.Models;
 using EasyStudingRepositories.DbContext;
 using System;
 using System.Collections;
@@ -14,158 +13,112 @@ namespace EasyStudingRepositories.Repositories
     {
         #region Repositories from db
 
-        private readonly IRepository<Cost> _costRepository;
-        private readonly IRepository<OpenSource> _openSourceRepository;
-        private readonly IRepository<Role> _roleRepository;
-        private readonly IRepository<Subscription> _subscriptionRepository;
-        private readonly IRepository<UserInformation> _userInformationRepository;
-        private readonly IRepository<UserRegistration> _userRegistrationRepository;
-        private readonly IRepository<ValidationUser> _validationUserRepository;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserPassword> _userPasswordRepository;
 
         #endregion
 
         private readonly EasyStudingContext _context;
 
-        private readonly Mapper _mapper;
-
         public SessionRepository(EasyStudingContext context)
         {
             _context = context;
-            _costRepository = new UniversalRepository<Cost>(_context);
-            _openSourceRepository = new UniversalRepository<OpenSource>(_context);
-            _subscriptionRepository = new UniversalRepository<Subscription>(_context);
-            _userInformationRepository = new UniversalRepository<UserInformation>(_context);
-            _userRegistrationRepository = new UniversalRepository<UserRegistration>(_context);
-            _validationUserRepository = new UniversalRepository<ValidationUser>(_context);
+            _userRepository = new UniversalRepository<User>(_context);
+            _userPasswordRepository = new UniversalRepository<UserPassword>(_context);
         }
 
-        public async Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration)
+        public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            var userReg = await _userRegistrationRepository.AddAsync(new UserRegistration
+            var userReg = await _userRepository.AddAsync(new User
             {
-                Id = 0,
-                IsValidated = false,
-                RegistrationDate = DateTime.Now,
-                TelephoneNumber = apiUserRegistration.TelephoneNumber
-            });
-
-            var userValidation = await _validationUserRepository.AddAsync(new ValidationUser()
-            {
-                Id = 0,
-                UserRegistrationId = userReg.Id,
-                ValidationCode = "111111"
+                TelephoneNumber = registrationModel.TelephoneNumber
             });
 
             return userReg;
         }
 
-        public async Task<UserRegistration> ValidateRegistration(ValidationUser validationUser)
+        public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            var validationEntity = _validationUserRepository.GetAll().FirstOrDefault(vr => vr.UserRegistrationId == validationUser.UserRegistrationId);
+            var validationEntity = await _userRepository.GetAsync(validateModel.UserId);
 
-            if (!validationUser.ValidationCode.Equals(validationEntity.ValidationCode))
+            if (validationEntity == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (!"111111".Equals(validateModel.ValidationCode))
             {
                 throw new InvalidOperationException();
             }
 
-            var userReg = await _userRegistrationRepository.GetAsync(validationUser.UserRegistrationId);
+            validationEntity.TelephoneNumberIsValidated = true;
 
-            userReg.IsValidated = true;
+            await _userRepository.EditAsync(validationEntity);
 
-            await _userRegistrationRepository.EditAsync(userReg);
-
-            await _validationUserRepository.RemoveAsync(validationEntity.Id);
-
-            return userReg;
+            return validationEntity;
         }
 
-        public async Task<ApiUserInformationModel> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin)
+        public async Task<User> CompleteRegistration(LoginModel loginModel)
         {
-            var costs = _costRepository.GetAll().ToList();
+            var user = _userRepository.GetAll().FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber));
 
-            var openSourceCost = GetSubstractionCost(costs,Defines.Subscription.OPEN_SOURSE);
-
-            var executorCost = GetSubstractionCost(costs,Defines.Subscription.EXECUTOR);
-
-            var openSourceSubscription = await _subscriptionRepository.AddAsync(new Subscription()
+            if (user == null)
             {
-                CostId = openSourceCost.Id,
-                IsActive = true,
-                DateExpires = DateTime.Now.AddMonths(Defines.Subscription.COUNT_MONTH)
+                throw new ArgumentNullException();
+            }
+
+            var userPassword = await _userPasswordRepository.AddAsync(new UserPassword()
+            {
+                UserId = user.Id,
+                Password = loginModel.Password
             });
 
-            var openSource = await _openSourceRepository.AddAsync(new OpenSource()
+            if (userPassword == null)
             {
-                SubscriptionId = openSourceSubscription.Id
-            });
+                throw new InvalidOperationException();
+            }
 
-            var executorSubscription = await _subscriptionRepository.AddAsync(new Subscription()
-            {
-                CostId = executorCost.Id,
-                IsActive = true,
-                DateExpires = DateTime.Now.AddMonths(Defines.Subscription.COUNT_MONTH)
-            });
-
-            var userInfo = await _userInformationRepository.AddAsync(new UserInformation()
-            {
-                IsBanned = false,
-                IsFreeTrial = true,
-                IsGaranted = false,
-                LoginName = apiRegistrationLogin.Login,
-                Password = apiRegistrationLogin.Password,
-                UserRegistrationId = apiRegistrationLogin.UserRegistrationId,
-                RoleId = 1,
-                OpenSourceId = openSource.Id,
-                SubscriptionId = executorSubscription.Id
-            });
-
-            return new ApiUserInformationModel()
-            {
-                Id = userInfo.Id,
-                LoginName = userInfo.LoginName,
-                Role = (await _roleRepository.GetAsync(userInfo.RoleId)).Name
-            };
-
+            return user;
         }
 
-        public async Task<ApiUserInformationModel> GetApiUserInformationFromApiLoginAsync(ApiLoginModel apiLogin)
+        public async Task<User> GetUserById(long currentUserId)
         {
-            var userInfo = _userInformationRepository.GetAll().FirstOrDefault(u =>
-                u.LoginName.ToLower().Equals(apiLogin.Login.ToLower()) && u.Password.Equals(apiLogin.Password));
+            var userInfo = await _userRepository.GetAsync(currentUserId);
 
             if (userInfo == null)
             {
                 throw new ArgumentNullException();
             }
 
-            return new ApiUserInformationModel()
-            {
-                Id = userInfo.Id,
-                LoginName = userInfo.LoginName,
-                Role = (await _roleRepository.GetAsync(userInfo.RoleId)).Name
-            };
+            return userInfo;
         }
 
-        public async Task<ApiUserInformationModel> GetApiUserInformationByIdAsync(long userId)
+        public async Task<User> GetUserByLoginModel(LoginModel loginModel)
         {
-            var userInfo = await _userInformationRepository.GetAsync(userId);
+            var user = _userRepository
+                .GetAll()
+                .Join(_context.UserPasswords,
+                u => u.Id,
+                up => up.UserId,
+                (u, up) => new
+                {
+                    u.Id,
+                    u.TelephoneNumber,
+                    up.Password
+                })
+                .FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber));
 
-            if (userInfo == null)
+            if (user == null)
             {
                 throw new ArgumentNullException();
             }
 
-            return new ApiUserInformationModel()
+            if (!user.Password.Equals(loginModel.Password))
             {
-                Id = userInfo.Id,
-                LoginName = userInfo.LoginName,
-                Role = (await _roleRepository.GetAsync(userInfo.RoleId)).Name
-            };
-        }
+                throw new InvalidOperationException();
+            }
 
-        private Cost GetSubstractionCost(IEnumerable<Cost> costs, string substraction)
-        {
-           return costs.LastOrDefault(c => c.Product.ToLower().Contains(substraction));
+            return await _userRepository.GetAsync(user.Id);
         }
     }
 }

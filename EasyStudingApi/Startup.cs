@@ -12,6 +12,15 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using EasyStudingModels;
+using EasyStudingInterfaces.Controllers;
+using EasyStudingInterfaces.Services;
+using EasyStudingInterfaces.Repositories;
+using EasyStudingApi.Controllers;
+using EasyStudingServices.Services;
+using EasyStudingRepositories.Repositories;
+using EasyStudingRepositories.DbContext;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace EasyStudingApi
 {
@@ -33,24 +42,22 @@ namespace EasyStudingApi
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        // укзывает, будет ли валидироваться издатель при валидации токена
+                        // Specifies whether the publisher will validate when validating the token.
                         ValidateIssuer = false,
-
-                        // будет ли валидироваться потребитель токена
+                        // Will the token consumer be validated.
                         ValidateAudience = false,
-
-                        // будет ли валидироваться время существования
+                        // Will the lifetime be validated.
                         ValidateLifetime = true,
-
-                        // установка ключа безопасности
+                        // Set the security key.
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-
-                        // валидация ключа безопасности
-                        ValidateIssuerSigningKey = true,
+                        // Validate the security key.
+                        ValidateIssuerSigningKey = true
                     };
                 });
 
             services.AddMvc();
+
+            RegisterDependencyInjection(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +69,16 @@ namespace EasyStudingApi
             }
 
             app.UseMvc();
+        }
+
+        private void RegisterDependencyInjection(IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddDbContext<EasyStudingContext>(options => options.UseNpgsql(EasyStudingContext.CONNECTION_STRING));
+            services.AddScoped<ISessionController, SessionController>();
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
         }
     }
 }

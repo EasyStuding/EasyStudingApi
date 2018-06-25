@@ -1,6 +1,5 @@
 ﻿using EasyStudingInterfaces.Repositories;
-using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+using EasyStudingModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,77 +8,93 @@ using System.Threading.Tasks;
 
 namespace EasyStudingUnitTests.TestData
 {
-    public class TestSessionRepository: ISessionRepository
+    public class TestSessionRepository : ISessionRepository
     {
-        public async Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration)
+        public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            return new UserRegistration()
+            return new User()
             {
                 Id = 1,
-                IsValidated = false,
+                TelephoneNumber = "+375331111111",
                 RegistrationDate = DateTime.Now,
-                TelephoneNumber = "+375331111111"
+                Role = "user",
+                TelephoneNumberIsValidated = false
             };
         }
 
-        public async Task<UserRegistration> ValidateRegistration(ValidationUser validationUser)
+        public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            if (validationUser.UserRegistrationId > 1)
+            if (validateModel.UserId > 1)
             {
                 return null;
             }
 
-            return new UserRegistration()
-            { 
+            if (!validateModel.ValidationCode.Equals("111111"))
+            {
+                return null;
+            }
+
+            return new User()
+            {
                 Id = 1,
-                IsValidated = true,
+                TelephoneNumber = "+375331111111",
                 RegistrationDate = DateTime.Now,
-                TelephoneNumber = "+375331111111"
+                Role = "user",
+                TelephoneNumberIsValidated = true
             };
         }
 
-        public async Task<ApiUserInformationModel> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin)
+        public async Task<User> CompleteRegistration(LoginModel loginModel)
         {
-            if (apiRegistrationLogin.UserRegistrationId > 1)
+            if (!loginModel.TelephoneNumber.Equals("+375331111111"))
             {
                 return null;
             }
 
-            return  new ApiUserInformationModel()
+            return new User()
             {
                 Id = 1,
-                LoginName = "login1",
-                Role = "user"
+                TelephoneNumber = "+375331111111",
+                RegistrationDate = DateTime.Now,
+                Role = "user",
+                TelephoneNumberIsValidated = true,
+                FullName = "Full name of user"
             };
         }
 
-        public async Task<ApiUserInformationModel> GetApiUserInformationFromApiLoginAsync(ApiLoginModel apiLogin)
+        public async Task<User> GetUserById(long currentUserId)
         {
-            if (!apiLogin.Login.Equals("login1"))
+            if (currentUserId > 1)
             {
                 return null;
             }
 
-            return new ApiUserInformationModel()
+            return new User()
             {
                 Id = 1,
-                LoginName = "login1",
-                Role = "user"
+                TelephoneNumber = "+375331111111",
+                RegistrationDate = DateTime.Now,
+                Role = "user",
+                TelephoneNumberIsValidated = true,
+                FullName = "Full name of user"
             };
         }
 
-        public async Task<ApiUserInformationModel> GetApiUserInformationByIdAsync(long userId)
+        public async Task<User> GetUserByLoginModel(LoginModel loginModel)
         {
-            if (userId > 1)
+            if (!loginModel.TelephoneNumber.Equals("+375331111111"))
             {
                 return null;
             }
 
-            return new ApiUserInformationModel()
+            return new User()
             {
                 Id = 1,
-                LoginName = "login1",
-                Role = "user"
+                TelephoneNumber = "+375331111111",
+                RegistrationDate = DateTime.Now,
+                Role = "user",
+                TelephoneNumberIsValidated = true,
+                FullName = "Full name of user"
             };
         }
     }

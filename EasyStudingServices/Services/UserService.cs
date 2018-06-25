@@ -1,7 +1,6 @@
 ﻿using EasyStudingInterfaces.Services;
 using EasyStudingInterfaces.Repositories;
-using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+using EasyStudingModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,112 +12,25 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request.
     public class UserService: IUserService
     {
-        private readonly IRepository<Attachment> AttachmentRepository;
-        private readonly IRepository<BanDescription> BanDescriptionRepository;
-        private readonly IRepository<City> CityRepository;
-        private readonly IRepository<Cost> CostRepository;
-        private readonly IRepository<Country> CountryRepository;
-        private readonly IRepository<Education> EducationRepository;
-        private readonly IRepository<EducationType> EducationTypeRepository;
-        private readonly IRepository<EducationUserDescription> EducationUserDescriptionRepository;
-        private readonly IRepository<EmailDescription> EmailDescriptionRepository;
-        private readonly IRepository<ExecutorSkill> ExecutorSkillRepository;
-        private readonly IRepository<OpenSource> OpenSourceRepository;
-        private readonly IRepository<OpenSourceAttachment> OpenSourceAttachmentRepository;
-        private readonly IRepository<OrderAttachment> OrderAttachmentRepository;
-        private readonly IRepository<OrderDetails> OrderDetailsRepository;
-        private readonly IRepository<OrderSkill> OrderSkillRepository;
-        private readonly IRepository<PaymentTransaction> PaymentTransactionRepository;
-        private readonly IRepository<Review> ReviewRepository;
-        private readonly IRepository<Role> RoleRepository;
-        private readonly IRepository<Skill> SkillRepository;
-        private readonly IRepository<State> StateRepository;
-        private readonly IRepository<Subscription> SubscriptionRepository;
-        private readonly IRepository<UserDescription> UserDescriptionRepository;
-        private readonly IRepository<UserInformation> UserInformationRepository;
-        private readonly IRepository<UserPicture> UserPictureRepository;
-        private readonly IRepository<UserRegistration> UserRegistrationRepository;
-        private readonly IRepository<ValidationEmail> ValidationEmailRepository;
-        private readonly IRepository<ValidationUser> ValidationUserRepository;
-        private readonly IRepository<CloseTransaction> CloseTransactionRepository;
-        private readonly IRepository<OpenTransaction> OpenTransactionRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(
-        IRepository<Attachment> AttachmentRepository,
-        IRepository<BanDescription> BanDescriptionRepository,
-        IRepository<City> CityRepository,
-        IRepository<Cost> CostRepository,
-        IRepository<Country> CountryRepository,
-        IRepository<Education> EducationRepository,
-        IRepository<EducationType> EducationTypeRepository,
-        IRepository<EducationUserDescription> EducationUserDescriptionRepository,
-        IRepository<EmailDescription> EmailDescriptionRepository,
-        IRepository<ExecutorSkill> ExecutorSkillRepository,
-        IRepository<OpenSource> OpenSourceRepository,
-        IRepository<OpenSourceAttachment> OpenSourceAttachmentRepository,
-        IRepository<OrderAttachment> OrderAttachmentRepository,
-        IRepository<OrderDetails> OrderDetailsRepository,
-        IRepository<OrderSkill> OrderSkillRepository,
-        IRepository<PaymentTransaction> PaymentTransactionRepository,
-        IRepository<Review> ReviewRepository,
-        IRepository<Role> RoleRepository,
-        IRepository<Skill> SkillRepository,
-        IRepository<State> StateRepository,
-        IRepository<Subscription> SubscriptionRepository,
-        IRepository<UserDescription> UserDescriptionRepository,
-        IRepository<UserInformation> UserInformationRepository,
-        IRepository<UserPicture> UserPictureRepository,
-        IRepository<UserRegistration> UserRegistrationRepository,
-        IRepository<ValidationEmail> ValidationEmailRepository,
-        IRepository<ValidationUser> ValidationUserRepository,
-        IRepository<CloseTransaction> CloseTransactionRepository,
-        IRepository<OpenTransaction> OpenTransactionRepository)
+        public UserService(IUserRepository userRepository)
         {
-            this.AttachmentRepository = AttachmentRepository;
-            this.BanDescriptionRepository = BanDescriptionRepository;
-            this.CityRepository = CityRepository;
-            this.CostRepository = CostRepository;
-            this.CountryRepository = CountryRepository;
-            this.EducationRepository = EducationRepository;
-            this.EducationTypeRepository = EducationTypeRepository;
-            this.EducationUserDescriptionRepository = EducationUserDescriptionRepository;
-            this.EmailDescriptionRepository = EmailDescriptionRepository;
-            this.ExecutorSkillRepository = ExecutorSkillRepository;
-            this.OpenSourceRepository = OpenSourceRepository;
-            this.OpenSourceAttachmentRepository = OpenSourceAttachmentRepository;
-            this.OrderAttachmentRepository = OrderAttachmentRepository;
-            this.OrderDetailsRepository = OrderDetailsRepository;
-            this.OrderSkillRepository = OrderSkillRepository;
-            this.PaymentTransactionRepository = PaymentTransactionRepository;
-            this.ReviewRepository = ReviewRepository;
-            this.RoleRepository = RoleRepository;
-            this.SkillRepository = SkillRepository;
-            this.StateRepository = StateRepository;
-            this.SubscriptionRepository = SubscriptionRepository;
-            this.UserDescriptionRepository = UserDescriptionRepository;
-            this.UserInformationRepository = UserInformationRepository;
-            this.UserPictureRepository = UserPictureRepository;
-            this.UserRegistrationRepository = UserRegistrationRepository;
-            this.ValidationEmailRepository = ValidationEmailRepository;
-            this.ValidationUserRepository = ValidationUserRepository;
-            this.CloseTransactionRepository = CloseTransactionRepository;
-            this.OpenTransactionRepository = OpenTransactionRepository;
+            _userRepository = userRepository;
         }
-
-
 
         /// <summary>
         ///   Get users, classified by education and city. 
         /// </summary>
         /// <param name="education">Education of user.</param>
+        /// <param name="country">Country of user.</param>
         /// <param name="city">City of user.</param>
         /// <returns>
         ///    Users sorted by city and education.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
 
-        public async Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels(ApiEducationModel education, City city)
+        public async Task<IQueryable<User>> GetUsers(string education, string country, string city)
         {
             throw new Exception();
         }
@@ -131,9 +43,8 @@ namespace EasyStudingServices.Services
         ///    Requsted user.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
 
-        public async Task<ApiUserDescriptionModel> GetApiUserDescriptionModel(long id)
+        public async Task<User> GetUser(long id)
         {
             throw new Exception();
         }
@@ -145,9 +56,9 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders.
         /// </returns>
-        /// <exception cref="System.UnauthorizedAccessException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(long currentUserId)
+        public async Task<IQueryable<Order>> GetOrders(long currentUserId)
         {
             throw new Exception();
         }
@@ -163,7 +74,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
         /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer of order != current user.</exception>
 
-        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId)
+        public async Task<Order> GetOrder(long id, long currentUserId)
         {
             throw new Exception();
         }
@@ -172,14 +83,14 @@ namespace EasyStudingServices.Services
         ///   Get executors. 
         /// </summary>
         /// <param name="education">Education of executore.</param>
+        /// <param name="country">Country of executore.</param>
         /// <param name="city">City of executor.</param>
         /// <returns>
         ///    Executors.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When education or city not found.</exception>
 
-        public async Task<IQueryable<ApiUserDescriptionModel>> GetSubscriptionExecutors(ApiEducationModel education, City city)
+        public async Task<IQueryable<User>> GetExecutors(string education, string country, string city)
         {
             throw new Exception();
         }
@@ -187,7 +98,7 @@ namespace EasyStudingServices.Services
         /// <summary>
         ///   Get files from open source by id. 
         /// </summary>
-        /// <param name="openSourceId">Id of open source.</param>
+        /// <param name="ownerOpenSourceId">Id of owner of openSource.</param>
         /// <param name="currentUserId">Id of current user.</param>
         /// <returns>
         ///    Files from open source.
@@ -195,7 +106,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.ArgumentNullException">When openSource not founded.</exception>
         /// <exception cref="System.UnauthorizedAccessException">User have not permissions to get files.</exception>
 
-        public Task<IQueryable<ApiFileToReturnModel>> GetOpenSourceAttachments(long openSourceId, long currentUserId)
+        public async Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId)
         {
             throw new Exception();
         }
@@ -211,7 +122,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.ArgumentNullException">When file not founded.</exception>
         /// <exception cref="System.UnauthorizedAccessException">User have not permissions to get file.</exception>
 
-        public Task<ApiFileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId)
+        public async Task<FileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId)
         {
             throw new Exception();
         }
@@ -225,9 +136,9 @@ namespace EasyStudingServices.Services
         ///    True - if validation code right, else - false.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When current user not founded.</exception>
+        /// <exception cref="System.ArgumentNullException">When current user not founded.</exception>
 
-        public Task<bool> ValidateEmail(string validationCode, long currentUserId)
+        public async Task<bool> ValidateEmail(string validationCode, long currentUserId)
         {
             throw new Exception();
         }
@@ -242,7 +153,7 @@ namespace EasyStudingServices.Services
         ///    true - password changed, false - oldpassword incorrect
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
         {
@@ -258,10 +169,10 @@ namespace EasyStudingServices.Services
         ///    Changed model of current user.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
         /// <exception cref="System.InvalidOperationException">When user id of description != current user id.</exception>
 
-        public async Task<ApiUserDescriptionModel> EditProfile(ApiUserDescriptionModel description, long currentUserId)
+        public async Task<User> EditProfile(User user, long currentUserId)
         {
             throw new Exception();
         }
@@ -275,9 +186,9 @@ namespace EasyStudingServices.Services
         ///    Added image.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
-        public async Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file, long currentUserId)
+        public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
@@ -290,10 +201,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed image.
         /// </returns>
-        /// <exception cref="System.IndexOutOfRangeException">When user or picture not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user or picture not found.</exception>
         /// <exception cref="System.InvalidOperationException">When user id of photo != current user id.</exception>
 
-        public async Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId)
+        public async Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId)
         {
             throw new Exception();
         }
@@ -307,25 +218,9 @@ namespace EasyStudingServices.Services
         ///    Cost of subscription.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
-        public async Task<Cost> RequestToBuySubscription(Cost cost, long currentUserId)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Close to buy subscription(executor/opensource validate by cost) and add subscription to user. 
-        /// </summary>
-        /// <param name="cost">Cost of subscription.</param>
-        /// <param name="currentUserId">Id of current user.</param>
-        /// <returns>
-        ///    Cost of subscription.
-        /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
-
-        public async Task<Cost> CompleteBuySubcription(Cost cost, long currentUserId)
+        public async Task<User> BuySubscription(string name, long currentUserId)
         {
             throw new Exception();
         }
@@ -339,9 +234,9 @@ namespace EasyStudingServices.Services
         ///    Added file.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
-        public async Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file, long currentUserId)
+        public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId)
         {
             throw new Exception();
         }
@@ -354,10 +249,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed file.
         /// </returns>
-        /// <exception cref="System.IndexOutOfRangeException">When user or picture not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user or picture not found.</exception>
         /// <exception cref="System.InvalidOperationException">When user id of photo != current user id.</exception>
 
-        public async Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
+        public async Task<FileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
         {
             throw new Exception();
         }
@@ -371,9 +266,9 @@ namespace EasyStudingServices.Services
         ///    Added order.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
-        public async Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId)
+        public async Task<Order> AddOrder(Order order, long currentUserId)
         {
             throw new Exception();
         }
@@ -387,9 +282,9 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Updated order.
         /// </returns>
-        /// <exception cref="System.IndexOutOfRangeException">When one of users or order not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When one of users or order not found.</exception>
 
-        public async Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId, long executorUserId)
+        public async Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId)
         {
             throw new Exception();
         }
@@ -403,9 +298,9 @@ namespace EasyStudingServices.Services
         ///   Requested order.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user not found.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">When user not found or not permissions.</exception>
 
-        public async Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId)
+        public async Task<Order> CloseOrder(long id, long currentUserId)
         {
             throw new Exception();
         }
@@ -419,9 +314,10 @@ namespace EasyStudingServices.Services
         ///    Added review.
         /// </returns>
         /// <exception cref="System.FormatException">When one of params invalid.</exception>
-        /// <exception cref="System.IndexOutOfRangeException">When user or order not found.</exception>
+        /// <exception cref="System.ArgumentNullException">When user or order not found.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">User not permissions.</exception>
 
-        public async Task<ApiReviewModel> AddReview(ApiReviewModel review, long currentUserId)
+        public async Task<Review> AddReview(Review review, long currentUserId)
         {
             throw new Exception();
         }

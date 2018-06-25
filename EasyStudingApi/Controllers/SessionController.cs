@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
-using EasyStudingModels.DbContextModels;
-using EasyStudingModels.ApiModels;
+using EasyStudingModels.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -30,44 +29,43 @@ namespace EasyStudingApi.Controllers
         }
 
         [HttpPost]
-        // * - host.
-        // */api/session/StartRegistration
-        public async Task<UserRegistration> StartRegistration([FromBody]ApiUserRegistrationModel apiUserRegistration)
+        // /api/session/StartRegistration
+        public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            return await _service.StartRegistration(apiUserRegistration);
+            return await _service.StartRegistration(registrationModel);
         }
 
         [HttpPost]
-        // */api/session/ValidateRegistration
-        public async Task<UserRegistration> ValidateRegistration([FromBody]ValidationUser validationUser)
+        // /api/session/ValidateRegistration
+        public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            return await _service.ValidateRegistration(validationUser);
+            return await _service.ValidateRegistration(validateModel);
         }
 
         [HttpPost]
-        // */api/session/CompleteRegistration
-        public async Task<ApiLoginToken> CompleteRegistration([FromBody]ApiRegisrtationLoginModel apiRegistrationLogin)
+        // /api/session/CompleteRegistration
+        public async Task<LoginToken> CompleteRegistration(LoginModel loginModel)
         {
-            return await _service.CompleteRegistration(apiRegistrationLogin);
+            return await _service.CompleteRegistration(loginModel);
         }
 
         [HttpPost]
-        // */api/session/Login
-        public async Task<ApiLoginToken> Login([FromBody]ApiLoginModel apiLogin, bool isTelephone)
+        // /api/session/Login
+        public async Task<LoginToken> Login(LoginModel loginModel)
         {
-            return await _service.Login(apiLogin, isTelephone);
+            return await _service.Login(loginModel);
         }
 
         [Authorize]
         [HttpPost]
-        // */api/session/UpdateToken
-        public async Task<ApiLoginToken> UpdateToken()
+        // /api/session/UpdateToken
+        public async Task<LoginToken> UpdateToken()
         {
             return await _service.UpdateToken(long.Parse(User.Claims.ElementAt(0).Value));
         }
 
         [HttpPost]
-        // */api/session/LogOut
+        // /api/session/LogOut
         public async Task<bool> LogOut()
         {
             await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);

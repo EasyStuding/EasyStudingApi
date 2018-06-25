@@ -1,5 +1,4 @@
-﻿using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+﻿using EasyStudingModels.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,40 +6,42 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IUserController
     {
-        Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels(ApiEducationModel education, City city);
+        Task<IQueryable<User>> GetUsers(string education, string country, string city);
 
-        Task<ApiUserDescriptionModel> GetApiUserDescriptionModel(long id);
+        Task<User> GetUser(long id);
 
-        Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels();
+        Task<IQueryable<Order>> GetOrders();
 
-        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id);
+        Task<Order> GetOrder(long id);
 
-        Task<IQueryable<Subscription>> GetSubscriptionExecutors(ApiEducationModel education, City city);
+        Task<IQueryable<User>> GetExecutors(string education, string country, string city);
+
+        Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId);
+
+        Task<FileToReturnModel> OpenSourceDownloadFile(long fileId);
+
+        Task<bool> ValidateEmail(string validationCode);
 
         Task<bool> ChangePassword(string oldPassword, string newPassword);
 
-        Task<ApiUserDescriptionModel> EditProfile(ApiUserDescriptionModel description);
+        Task<User> EditProfile(User user);
 
-        Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file);
+        Task<FileToReturnModel> AddPictureProfile(FileToAddModel file);
 
-        Task<ApiFileToReturnModel> EditPictureProfile(ApiFileToAddModel file);
+        Task<FileToReturnModel> RemovePictureProfile(long id);
 
-        Task<ApiFileToReturnModel> RemovePictureProfile(long id);
+        Task<User> BuySubscription(string name);
 
-        Task<Cost> RequestToBuySubscription(Cost cost);
+        Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file);
 
-        Task<Cost> CompleteBuySubcription(Cost cost);
+        Task<FileToReturnModel> RemoveFileFromOpenSource(long id);
 
-        Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file);
+        Task<Order> AddOrder(Order order);
 
-        Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id);
+        Task<Order> StartExecuteOrder(long id, long executorUserId);
 
-        Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order);
+        Task<Order> CloseOrder(long id);
 
-        Task<ApiOrderDetailsModel> StartExecuteOrder(long id);
-
-        Task<ApiOrderDetailsModel> CloseOrder(long id);
-
-        Task<ApiReviewModel> AddReview(ApiReviewModel review);
+        Task<Review> AddReview(Review review);
     }
 }

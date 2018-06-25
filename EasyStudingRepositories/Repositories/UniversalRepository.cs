@@ -12,8 +12,8 @@ namespace EasyStudingRepositories.Repositories
     public class UniversalRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity<TEntity>
     {
-        private DbSet<TEntity> _dbSet;
-        private EasyStudingContext _context;
+        private readonly DbSet<TEntity> _dbSet;
+        private readonly EasyStudingContext _context;
 
         public UniversalRepository(EasyStudingContext context)
         {

@@ -1,5 +1,4 @@
-﻿using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+﻿using EasyStudingModels.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,44 +6,42 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IUserService
     {
-        Task<IQueryable<ApiUserDescriptionModel>> GetApiUserDescriptionModels(ApiEducationModel education, City city);
+        Task<IQueryable<User>> GetUsers(string education, string country, string city);
 
-        Task<ApiUserDescriptionModel> GetApiUserDescriptionModel(long id);
+        Task<User> GetUser(long id);
 
-        Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(long currentUserId);
+        Task<IQueryable<Order>> GetOrders(long currentUserId);
 
-        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId);
+        Task<Order> GetOrder(long id, long currentUserId);
 
-        Task<IQueryable<ApiUserDescriptionModel>> GetSubscriptionExecutors(ApiEducationModel education, City city);
+        Task<IQueryable<User>> GetExecutors(string education, string country, string city);
 
-        Task<IQueryable<ApiFileToReturnModel>> GetOpenSourceAttachments(long openSourceId, long currentUserId);
+        Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId);
 
-        Task<ApiFileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId);
+        Task<FileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId);
 
         Task<bool> ValidateEmail(string validationCode, long currentUserId);
 
         Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId);
 
-        Task<ApiUserDescriptionModel> EditProfile(ApiUserDescriptionModel description, long currentUserId);
+        Task<User> EditProfile(User user, long currentUserId);
 
-        Task<ApiFileToReturnModel> AddPictureProfile(ApiFileToAddModel file, long currentUserId);
+        Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId);
 
-        Task<ApiFileToReturnModel> RemovePictureProfile(long id, long currentUserId);
+        Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId);
 
-        Task<Cost> RequestToBuySubscription(Cost cost, long currentUserId);
+        Task<User> BuySubscription(string name, long currentUserId);
 
-        Task<Cost> CompleteBuySubcription(Cost cost, long currentUserId);
+        Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId);
 
-        Task<ApiFileToReturnModel> AddFileToOpenSource(ApiFileToAddModel file, long currentUserId);
+        Task<FileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId);
 
-        Task<ApiFileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId);
+        Task<Order> AddOrder(Order order, long currentUserId);
 
-        Task<ApiOrderDetailsModel> AddOrder(ApiOrderDetailsModel order, long currentUserId);
+        Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId);
 
-        Task<ApiOrderDetailsModel> StartExecuteOrder(long id, long currentUserId, long executorUserId);
+        Task<Order> CloseOrder(long id, long currentUserId);
 
-        Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId);
-
-        Task<ApiReviewModel> AddReview(ApiReviewModel review, long currentUserId);
+        Task<Review> AddReview(Review review, long currentUserId);
     }
 }

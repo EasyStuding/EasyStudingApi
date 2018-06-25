@@ -1,5 +1,4 @@
-﻿using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+﻿using EasyStudingModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,14 +8,14 @@ namespace EasyStudingInterfaces.Repositories
 {
     public interface ISessionRepository
     {
-        Task<UserRegistration> StartRegistration(ApiUserRegistrationModel apiUserRegistration);
+        Task<User> StartRegistration(RegistrationModel registrationModel);
 
-        Task<UserRegistration> ValidateRegistration(ValidationUser validationUser);
+        Task<User> ValidateRegistration(ValidateModel validateModel);
 
-        Task<ApiUserInformationModel> CompleteRegistration(ApiRegisrtationLoginModel apiRegistrationLogin);
+        Task<User> CompleteRegistration(LoginModel loginModel);
 
-        Task<ApiUserInformationModel> GetApiUserInformationFromApiLoginAsync(ApiLoginModel apiLogin);
+        Task<User> GetUserById(long currentUserId);
 
-        Task<ApiUserInformationModel> GetApiUserInformationByIdAsync(long userId);
+        Task<User> GetUserByLoginModel(LoginModel loginModel);
     }
 }

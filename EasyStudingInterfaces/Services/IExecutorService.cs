@@ -1,5 +1,4 @@
-﻿using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+﻿using EasyStudingModels.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,13 +6,13 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels(ApiEducationModel education, City city, long currentUserId);
+        Task<IQueryable<Order>> GetOrders(string education, string country, string city, long currentUserId);
 
-        Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id, long currentUserId);
+        Task<Order> GetOrder(long id, long currentUserId);
 
-        Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id, long currentUserId);
+        Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId);
 
-        Task<ApiOrderDetailsModel> CloseOrder(long id, long currentUserId);
+        Task<Order> CloseOrder(long id, long currentUserId);
 
         Task<Skill> AddSkill(long id, long currentUserId);
 

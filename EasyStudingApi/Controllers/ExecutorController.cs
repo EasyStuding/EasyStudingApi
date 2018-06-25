@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
-using EasyStudingModels.ApiModels;
-using EasyStudingModels.DbContextModels;
+using EasyStudingModels.Models;
 
 namespace EasyStudingApi.Controllers
 {
@@ -23,43 +22,42 @@ namespace EasyStudingApi.Controllers
         }
 
         [HttpGet]
-        // * - host.
-        // */api/executor/GetOrderDetailsModels
-        public async Task<IQueryable<ApiOrderDetailsModel>> GetApiOrderDetailsModels([FromBody]ApiEducationModel education, [FromBody]City city)
+        // /api/executor/GetOrders
+        public async Task<IQueryable<Order>> GetOrders(string education, string country, string city)
         {
             throw new Exception();
         }
 
         [HttpGet]
-        // */api/executor/GetApiOrderDetailsModel
-        public async Task<ApiOrderDetailsModel> GetApiOrderDetailsModel(long id)
+        // /api/executor/GetOrder
+        public async Task<Order> GetOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpGet]
-        // */api/executor/GetTheRightsToPerformOrder
-        public async Task<ApiOrderDetailsModel> GetTheRightsToPerformOrder(long id)
+        // /api/executor/GetTheRightsToPerformOrder
+        public async Task<Order> GetTheRightsToPerformOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
-        // */api/executor/CloseOrder
-        public async Task<ApiOrderDetailsModel> CloseOrder(long id)
+        // /api/executor/CloseOrder
+        public async Task<Order> CloseOrder(long id)
         {
             throw new Exception();
         }
 
         [HttpPost]
-        // */api/executor/AddSkill
+        // /api/executor/AddSkill
         public async Task<Skill> AddSkill(long id)
         {
             throw new Exception();
         }
 
         [HttpDelete]
-        // */api/executor/RemoveSkill
+        // /api/executor/RemoveSkill
         public async Task<Skill> RemoveSkill(long id)
         {
             throw new Exception();
