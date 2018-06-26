@@ -34,7 +34,18 @@ namespace EasyStudingRepositories.Repositories
             if (containsUser != null
                 && containsUser.TelephoneNumberIsValidated == true)
             {
-                throw new InvalidOperationException();
+                var passwordOfUser = _userPasswordRepository.GetAll().FirstOrDefault(up => up.UserId == containsUser.Id);
+
+                if (passwordOfUser != null)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                return await _userRepository.EditAsync(new User()
+                {
+                    Id = containsUser.Id,
+                    TelephoneNumber = containsUser.TelephoneNumber
+                });
             }
             else if (containsUser != null
                 && containsUser.TelephoneNumberIsValidated == false)
@@ -82,6 +93,11 @@ namespace EasyStudingRepositories.Repositories
             if (user == null)
             {
                 throw new ArgumentNullException();
+            }
+
+            if (_userPasswordRepository.GetAll().FirstOrDefault(up => up.UserId == user.Id) != null)
+            {
+                throw new InvalidOperationException();
             }
 
             var userPassword = await _userPasswordRepository.AddAsync(new UserPassword()
