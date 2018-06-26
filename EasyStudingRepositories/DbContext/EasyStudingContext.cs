@@ -5,7 +5,7 @@ namespace EasyStudingRepositories.DbContext
 {
     public partial class EasyStudingContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public const string CONNECTION_STRING = "Host=localhost;Port=5432;Database=EasyStuding;Username=postgres;Password=admin";
+        public const string CONNECTION_STRING = "Host=dumbo.db.elephantsql.com;Port=5432;Database=kwfehnpn;Username=kwfehnpn;Password=8RC_CBGo_hTfrC0XDPOlJBqCmQPbM4oi";
 
         public EasyStudingContext()
         {

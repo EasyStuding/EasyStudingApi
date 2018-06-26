@@ -29,6 +29,23 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
+            var containsUser = _userRepository.GetAll().FirstOrDefault(u => u.TelephoneNumber.Equals(registrationModel.TelephoneNumber));
+
+            if (containsUser != null
+                && containsUser.TelephoneNumberIsValidated == true)
+            {
+                throw new InvalidOperationException();
+            }
+            else if (containsUser != null
+                && containsUser.TelephoneNumberIsValidated == false)
+            {
+                return await _userRepository.EditAsync(new User()
+                {
+                    Id = containsUser.Id,
+                    TelephoneNumber = containsUser.TelephoneNumber
+                });
+            }
+
             var userReg = await _userRepository.AddAsync(new User
             {
                 TelephoneNumber = registrationModel.TelephoneNumber

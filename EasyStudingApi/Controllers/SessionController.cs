@@ -13,10 +13,12 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace EasyStudingApi.Controllers
 {
     [AllowAnonymous]
+    [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/Session/[action]")]
     public class SessionController : Controller, ISessionController

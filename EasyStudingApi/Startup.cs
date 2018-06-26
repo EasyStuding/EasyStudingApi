@@ -21,6 +21,8 @@ using EasyStudingRepositories.Repositories;
 using EasyStudingRepositories.DbContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace EasyStudingApi
 {
@@ -36,6 +38,13 @@ namespace EasyStudingApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -57,6 +66,11 @@ namespace EasyStudingApi
 
             services.AddMvc();
 
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
+            });
+
             RegisterDependencyInjection(services);
         }
 
@@ -67,6 +81,8 @@ namespace EasyStudingApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("MyPolicy");
 
             app.UseMvc();
         }
