@@ -80,7 +80,7 @@ namespace EasyStudingUnitTests.TestData
             };
         }
 
-        public async Task<User> GetUserByLoginModel(LoginModel loginModel)
+        public async Task<User> Login(LoginModel loginModel)
         {
             if (!loginModel.TelephoneNumber.Equals("+375331111111"))
             {
