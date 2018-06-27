@@ -8,7 +8,7 @@ namespace EasyStudingModels.Models
     {
         public long Id { get; set; }
 
-        public string FullName { get; set; }
+        public string TelephoneNumber { get; set; }
 
         public string Role { get; set; }
 
@@ -17,7 +17,7 @@ namespace EasyStudingModels.Models
         public bool Validate()
         {
             return Id >= 0
-                && !string.IsNullOrWhiteSpace(FullName)
+                && !string.IsNullOrWhiteSpace(TelephoneNumber)
                 && !string.IsNullOrWhiteSpace(Role)
                 && !string.IsNullOrWhiteSpace(BearerToken);
         }
