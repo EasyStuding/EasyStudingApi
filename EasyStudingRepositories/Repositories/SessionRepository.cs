@@ -110,7 +110,7 @@ namespace EasyStudingRepositories.Repositories
                 throw new InvalidOperationException();
             }
 
-            return await _userRepository.GetAsync(user.Id);
+            return await GetUserById(user.Id);
         }
 
         public async Task<User> GetUserById(long currentUserId)

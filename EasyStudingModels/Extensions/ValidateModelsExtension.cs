@@ -9,7 +9,7 @@ namespace EasyStudingModels.Extensions
         public static void CheckArgumentException(this IValidatedEntity entity)
         {
             if (entity == null
-                || !entity?.Validate() == true)
+                || !entity.Validate())
             {
                 throw new ArgumentException();
             }
