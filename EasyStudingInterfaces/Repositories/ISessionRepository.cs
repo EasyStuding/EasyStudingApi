@@ -14,8 +14,8 @@ namespace EasyStudingInterfaces.Repositories
 
         Task<User> CompleteRegistration(LoginModel loginModel);
 
-        Task<User> GetUserById(long currentUserId);
+        Task<User> Login(LoginModel loginModel);
 
-        Task<User> GetUserByLoginModel(LoginModel loginModel);
+        Task<User> GetUserById(long currentUserId);
     }
 }
