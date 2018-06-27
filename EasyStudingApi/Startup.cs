@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using EasyStudingApi.Filters;
 
 namespace EasyStudingApi
 {
@@ -65,7 +66,8 @@ namespace EasyStudingApi
                     };
                 });
 
-            services.AddMvc();
+            services.AddMvc(options =>
+                options.Filters.Add(new ControllerExceptionFilterAttribute()));
 
             services.Configure<MvcOptions>(options =>
             {
