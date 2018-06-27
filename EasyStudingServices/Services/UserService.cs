@@ -28,7 +28,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Users sorted by city and education.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<IQueryable<User>> GetUsers(string education, string country, string city)
         {
@@ -88,7 +88,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Executors.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<IQueryable<User>> GetExecutors(string education, string country, string city)
         {
@@ -135,7 +135,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    True - if validation code right, else - false.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When current user not founded.</exception>
 
         public async Task<bool> ValidateEmail(string validationCode, long currentUserId)
@@ -152,7 +152,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    true - password changed, false - oldpassword incorrect
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
@@ -168,7 +168,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Changed model of current user.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user not found.</exception>
         /// <exception cref="System.InvalidOperationException">When user id of description != current user id.</exception>
 
@@ -185,7 +185,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added image.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
@@ -217,7 +217,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Cost of subscription.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<User> BuySubscription(string name, long currentUserId)
@@ -233,7 +233,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added file.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId)
@@ -265,7 +265,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added order.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<Order> AddOrder(Order order, long currentUserId)
@@ -313,7 +313,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added review.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When user or order not found.</exception>
         /// <exception cref="System.UnauthorizedAccessException">User not permissions.</exception>
 

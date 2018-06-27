@@ -27,16 +27,16 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.StartRegistration(invalid_model) should return FormatException.")]
-        public async void SessionService_StartRegistration_invalid_model_should_FormatException()
+        [Fact(DisplayName = "SessionService.StartRegistration(invalid_model) should return ArgumentException.")]
+        public async void SessionService_StartRegistration_invalid_model_should_ArgumentException()
         {
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.StartRegistration(new RegistrationModel() {  TelephoneNumber = "" }));
+                var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.StartRegistration(new RegistrationModel() {  TelephoneNumber = "" }));
 
-                Assert.Equal(typeof(FormatException), result.GetType());
+                Assert.Equal(typeof(ArgumentException), result.GetType());
             }
         }
 
@@ -53,16 +53,16 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.ValidateRegistration(invalid_model) should return FormatException.")]
-        public async void SessionService_ValidateRegistration_invalid_model_should_FormatException()
+        [Fact(DisplayName = "SessionService.ValidateRegistration(invalid_model) should return ArgumentException.")]
+        public async void SessionService_ValidateRegistration_invalid_model_should_ArgumentException()
         {
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.ValidateRegistration(new ValidateModel() { UserId = 1, ValidationCode = "" }));
+                var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.ValidateRegistration(new ValidateModel() { UserId = 1, ValidationCode = "" }));
 
-                Assert.Equal(typeof(FormatException), result.GetType());
+                Assert.Equal(typeof(ArgumentException), result.GetType());
             }
         }
 
@@ -92,16 +92,16 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.CompleteRegistration(invalid_model) should return FormatException.")]
-        public async void SessionService_CompleteRegistration_invalid_model_should_FormatException()
+        [Fact(DisplayName = "SessionService.CompleteRegistration(invalid_model) should return ArgumentException.")]
+        public async void SessionService_CompleteRegistration_invalid_model_should_ArgumentException()
         {
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.CompleteRegistration(new LoginModel() { TelephoneNumber = "", Password = "password" }));
+                var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.CompleteRegistration(new LoginModel() { TelephoneNumber = "", Password = "password" }));
 
-                Assert.Equal(typeof(FormatException), result.GetType());
+                Assert.Equal(typeof(ArgumentException), result.GetType());
             }
         }
 
@@ -131,16 +131,16 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.Login(invalid_model) should return FormatException.")]
-        public async void SessionService_Login_invalid_model_should_FormatException()
+        [Fact(DisplayName = "SessionService.Login(invalid_model) should return ArgumentException.")]
+        public async void SessionService_Login_invalid_model_should_ArgumentException()
         {
             using (Context = new TestDbContext().Context)
             {
                 var service = new SessionService(new TestSessionRepository());
 
-                var result = await Assert.ThrowsAsync<FormatException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "", Password = "password" }));
+                var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "", Password = "password" }));
 
-                Assert.Equal(typeof(FormatException), result.GetType());
+                Assert.Equal(typeof(ArgumentException), result.GetType());
             }
         }
 

@@ -70,7 +70,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders sorted by city and education.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<IQueryable<Order>> GetApiOrderDetailsModels(string education, string country, string city)
@@ -99,7 +99,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added country.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<Country> AddCountry(Country country)
         {
@@ -113,7 +113,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Edited country.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<Country> EditCountry(Country country)
@@ -142,7 +142,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added city.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<City> AddCity(City city)
         {
@@ -156,7 +156,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Edited city.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<City> EditCity(City city)
@@ -185,7 +185,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added skill.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<Skill> AddSkill(Skill skill)
         {
@@ -199,7 +199,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Edited skill.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<Skill> EditSkill(Skill skill)
