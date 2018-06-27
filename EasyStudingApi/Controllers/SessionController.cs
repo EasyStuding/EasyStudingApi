@@ -62,9 +62,10 @@ namespace EasyStudingApi.Controllers
         // /api/session/UpdateToken
         public async Task<LoginToken> UpdateToken()
         {
-            return await _service.UpdateToken(long.Parse(User.Claims.ElementAt(0).Value));
+            return await _service.UpdateToken(long.Parse(User.Claims.FirstOrDefault().Value));
         }
 
+        [Authorize]
         [HttpPost]
         // /api/session/LogOut
         public async Task<bool> LogOut()
