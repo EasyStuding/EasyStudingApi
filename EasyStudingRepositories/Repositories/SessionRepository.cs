@@ -11,7 +11,7 @@ namespace EasyStudingRepositories.Repositories
 {
     public class SessionRepository: ISessionRepository
     {
-        #region Repositories from db
+        #region Repositories from db.
 
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<UserPassword> _userPasswordRepository;
@@ -29,122 +29,81 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            var containsUser = _userRepository.GetAll().FirstOrDefault(u => u.TelephoneNumber.Equals(registrationModel.TelephoneNumber));
+            var containsUser = _userRepository
+                .GetAll()
+                .FirstOrDefault(u =>
+                    u.TelephoneNumber.Equals(registrationModel.TelephoneNumber));
 
-            if (containsUser != null
-                && containsUser.TelephoneNumberIsValidated == true)
+            if (containsUser == null)
             {
-                var passwordOfUser = _userPasswordRepository.GetAll().FirstOrDefault(up => up.UserId == containsUser.Id);
-
-                if (passwordOfUser != null)
+                return await _userRepository.AddAsync(new User
                 {
-                    throw new InvalidOperationException();
-                }
-
-                return await _userRepository.EditAsync(new User()
-                {
-                    Id = containsUser.Id,
-                    TelephoneNumber = containsUser.TelephoneNumber
-                });
-            }
-            else if (containsUser != null
-                && containsUser.TelephoneNumberIsValidated == false)
-            {
-                return await _userRepository.EditAsync(new User()
-                {
-                    Id = containsUser.Id,
-                    TelephoneNumber = containsUser.TelephoneNumber
+                    TelephoneNumber = registrationModel.TelephoneNumber
                 });
             }
 
-            var userReg = await _userRepository.AddAsync(new User
+            var passwordOfUser = _userPasswordRepository
+                .GetAll()
+                .FirstOrDefault(up => up.UserId == containsUser.Id)
+                ?? throw new InvalidOperationException();
+
+            return await _userRepository.EditAsync(new User()
             {
-                TelephoneNumber = registrationModel.TelephoneNumber
+                Id = containsUser.Id,
+                TelephoneNumber = containsUser.TelephoneNumber
             });
-
-            return userReg;
         }
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            var validationEntity = await _userRepository.GetAsync(validateModel.UserId);
+            var user = await _userRepository
+                .GetAsync(validateModel.UserId)
+                ?? throw new ArgumentNullException();
 
-            if (validationEntity == null)
-            {
-                throw new ArgumentNullException();
-            }
+            user.TelephoneNumberIsValidated = 
+                ConfirmValidationCode(user, validateModel.ValidationCode);
 
-            if (!"111111".Equals(validateModel.ValidationCode))
-            {
-                throw new InvalidOperationException();
-            }
-
-            validationEntity.TelephoneNumberIsValidated = true;
-
-            await _userRepository.EditAsync(validationEntity);
-
-            return validationEntity;
+            return await _userRepository.EditAsync(user);
         }
 
         public async Task<User> CompleteRegistration(LoginModel loginModel)
         {
-            var user = _userRepository.GetAll().FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber));
+            var user = _userRepository
+                .GetAll()
+                .FirstOrDefault(u => 
+                    u.TelephoneNumber.Equals(loginModel.TelephoneNumber))
+                ?? throw new ArgumentNullException();
 
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
+            var userPassword = _userPasswordRepository
+                .GetAll()
+                .FirstOrDefault(up => up.UserId == user.Id) == null
+                ? new UserPassword()
+                : throw new InvalidOperationException();
 
-            if (_userPasswordRepository.GetAll().FirstOrDefault(up => up.UserId == user.Id) != null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            var userPassword = await _userPasswordRepository.AddAsync(new UserPassword()
+            userPassword = await _userPasswordRepository.AddAsync(new UserPassword()
             {
                 UserId = user.Id,
                 Password = loginModel.Password
-            });
-
-            if (userPassword == null)
-            {
-                throw new InvalidOperationException();
-            }
+            }) ?? throw new InvalidOperationException();
 
             return user;
         }
 
-        public async Task<User> GetUserById(long currentUserId)
-        {
-            var userInfo = await _userRepository.GetAsync(currentUserId);
-
-            if (userInfo == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return userInfo;
-        }
-
-        public async Task<User> GetUserByLoginModel(LoginModel loginModel)
+        public async Task<User> Login(LoginModel loginModel)
         {
             var user = _userRepository
                 .GetAll()
                 .Join(_context.UserPasswords,
-                u => u.Id,
-                up => up.UserId,
-                (u, up) => new
-                {
-                    u.Id,
-                    u.TelephoneNumber,
-                    up.Password
-                })
-                .FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber));
-
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
+                    u => u.Id,
+                    up => up.UserId,
+                    (u, up) => new
+                    {
+                        u.Id,
+                        u.TelephoneNumber,
+                        up.Password
+                    })
+                .FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber))
+                ?? throw new ArgumentNullException();
 
             if (!user.Password.Equals(loginModel.Password))
             {
@@ -152,6 +111,21 @@ namespace EasyStudingRepositories.Repositories
             }
 
             return await _userRepository.GetAsync(user.Id);
+        }
+
+        public async Task<User> GetUserById(long currentUserId)
+        {
+            return await _userRepository
+                .GetAsync(currentUserId)
+                ?? throw new ArgumentNullException();
+        }
+
+        // Edit in production.
+        private bool ConfirmValidationCode(User user, string code)
+        {
+            var currentValidationCode = "111111";
+
+            return currentValidationCode.Equals(code);
         }
     }
 }

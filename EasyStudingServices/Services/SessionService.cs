@@ -1,16 +1,14 @@
 ﻿using EasyStudingInterfaces.Services;
 using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.Models;
+using EasyStudingModels.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using EasyStudingModels;
 using Microsoft.IdentityModel.Tokens;
-using EasyStudingRepositories.Repositories;
 
 namespace EasyStudingServices.Services
 {
@@ -30,14 +28,11 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Not validated user registration profile.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            if (!registrationModel.Validate())
-            {
-                throw new FormatException();
-            }
+            registrationModel.CheckArgumentException();
 
             return await _sessionRepository.StartRegistration(registrationModel);
         }
@@ -49,22 +44,15 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Validated user registration profile.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            if (!validateModel.Validate())
-            {
-                throw new FormatException();
-            }
+            validateModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.ValidateRegistration(validateModel);
-
-            if(userEntity == null)
-            {
-                throw new ArgumentNullException();
-            }
+            var userEntity = await _sessionRepository.ValidateRegistration(validateModel)
+                ?? throw new ArgumentNullException();
 
             return userEntity;
         }
@@ -76,22 +64,15 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Connection token to server.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<LoginToken> CompleteRegistration(LoginModel loginModel)
         {
-            if (!loginModel.Validate())
-            {
-                throw new FormatException();
-            }
+            loginModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.CompleteRegistration(loginModel);
-
-            if (userEntity == null)
-            {
-                throw new ArgumentNullException();
-            }
+            var userEntity = await _sessionRepository.CompleteRegistration(loginModel) 
+                ?? throw new ArgumentNullException();
 
             return GetToken(userEntity);
         }
@@ -104,22 +85,15 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Connection token to server.
         /// </returns>
-        /// <exception cref="System.FormatException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<LoginToken> Login(LoginModel loginModel)
         {
-            if (!loginModel.Validate())
-            {
-                throw new FormatException();
-            }
+            loginModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.GetUserByLoginModel(loginModel);
-
-            if (userEntity == null)
-            {
-                throw new ArgumentNullException();
-            }
+            var userEntity = await _sessionRepository.Login(loginModel)
+                ?? throw new ArgumentNullException();
 
             return GetToken(userEntity);
         }
@@ -135,48 +109,46 @@ namespace EasyStudingServices.Services
 
         public async Task<LoginToken> UpdateToken(long currentUserId)
         {
-            var userEntity = await _sessionRepository.GetUserById(currentUserId);
-
-            if (userEntity == null)
-            {
-                throw new ArgumentNullException();
-            }
+            var userEntity = await _sessionRepository.GetUserById(currentUserId)
+                ?? throw new ArgumentNullException();
 
             return GetToken(userEntity);
         }
 
+        #region Generate jwt token.
+
         private LoginToken GetToken(User user)
-        {
-            if (user != null)
-            {
-                var claims = new List<Claim>
+        {            
+            var claims = new List<Claim>
                 {
                     new Claim("Id", user.Id.ToString()),
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.TelephoneNumber),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
 
-                var now = DateTime.UtcNow;
-                var jwt = new JwtSecurityToken(
-                        notBefore: now,
-                        claims: claimsIdentity.Claims,
-                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFE_TIME)),
-                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
-                        );
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
 
-                return new LoginToken()
-                {
-                    Id = user.Id,
-                    FullName = user.FullName,
-                    Role = user.Role,
-                    BearerToken = "Bearer " + encodedJwt
-                }; ;
-            }
+            var now = DateTime.UtcNow;
 
-            throw new ArgumentNullException();
+            var jwt = new JwtSecurityToken(
+                    notBefore: now,
+                    claims: claimsIdentity.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFE_TIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+                    );
+
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return new LoginToken()
+            {
+                Id = user.Id,
+                TelephoneNumber = user.TelephoneNumber,
+                Role = user.Role,
+                BearerToken = "Bearer " + encodedJwt
+            }; 
         }
+
+        #endregion
     }
 }
