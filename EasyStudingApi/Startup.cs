@@ -42,7 +42,8 @@ namespace EasyStudingApi
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       .AllowCredentials();
             }));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -81,6 +82,8 @@ namespace EasyStudingApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseCors("MyPolicy");
 

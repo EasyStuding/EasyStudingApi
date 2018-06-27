@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Cors;
 
 namespace EasyStudingApi.Controllers
 {
-    [AllowAnonymous]
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/Session/[action]")]
