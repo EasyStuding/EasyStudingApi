@@ -31,28 +31,28 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/session/StartRegistration
-        public async Task<User> StartRegistration(RegistrationModel registrationModel)
+        public async Task<User> StartRegistration([FromBody]RegistrationModel registrationModel)
         {
             return await _service.StartRegistration(registrationModel);
         }
 
         [HttpPost]
         // /api/session/ValidateRegistration
-        public async Task<User> ValidateRegistration(ValidateModel validateModel)
+        public async Task<User> ValidateRegistration([FromBody]ValidateModel validateModel)
         {
             return await _service.ValidateRegistration(validateModel);
         }
 
         [HttpPost]
         // /api/session/CompleteRegistration
-        public async Task<LoginToken> CompleteRegistration(LoginModel loginModel)
+        public async Task<LoginToken> CompleteRegistration([FromBody]LoginModel loginModel)
         {
             return await _service.CompleteRegistration(loginModel);
         }
 
         [HttpPost]
         // /api/session/Login
-        public async Task<LoginToken> Login(LoginModel loginModel)
+        public async Task<LoginToken> Login([FromBody]LoginModel loginModel)
         {
             return await _service.Login(loginModel);
         }
