@@ -5,6 +5,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyStudingRepositories.Repositories
@@ -44,8 +46,9 @@ namespace EasyStudingRepositories.Repositories
 
             var passwordOfUser = _userPasswordRepository
                 .GetAll()
-                .FirstOrDefault(up => up.UserId == containsUser.Id)
-                ?? throw new InvalidOperationException();
+                .FirstOrDefault(up => up.UserId == containsUser.Id) == null
+                ? new UserPassword()
+                : throw new InvalidOperationException();
 
             return await _userRepository.EditAsync(new User()
             {
@@ -61,7 +64,7 @@ namespace EasyStudingRepositories.Repositories
                 ?? throw new ArgumentNullException();
 
             user.TelephoneNumberIsValidated = 
-                ConfirmValidationCode(user, validateModel.ValidationCode);
+                ValidateCode(validateModel.ValidationCode, user.TelephoneNumber);
 
             return await _userRepository.EditAsync(user);
         }
@@ -120,12 +123,37 @@ namespace EasyStudingRepositories.Repositories
                 ?? throw new ArgumentNullException();
         }
 
-        // Edit in production.
-        private bool ConfirmValidationCode(User user, string code)
+        // Get from MD5 hash 6 characters.
+        public string GetValidationCode(string key)
         {
-            var currentValidationCode = "111111";
+            var strToRet = "";
 
-            return currentValidationCode.Equals(code);
+            using (MD5 md5Hash = MD5.Create())
+            {
+                var data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(key));
+
+                var strArr = data.Select(b => b.ToString("x2")).Skip(10).Take(3);
+
+                foreach (var ch in strArr)
+                {
+                    strToRet += ch;
+                }
+            }
+
+            return strToRet.ToUpper();
+        }
+
+        // Verify a hash against a string.
+        private bool ValidateCode(string code, string telephone)
+        {
+            for (var i = 0; i <= 3; i++)
+            {
+                if (code.ToUpper().Equals(GetValidationCode(telephone + DateTime.Now.AddMinutes(i).Minute)))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -17,5 +17,7 @@ namespace EasyStudingInterfaces.Repositories
         Task<User> Login(LoginModel loginModel);
 
         Task<User> GetUserById(long currentUserId);
+
+        string GetValidationCode(string key);
     }
 }
