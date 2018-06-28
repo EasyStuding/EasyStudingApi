@@ -36,7 +36,8 @@ namespace EasyStudingServices.Services
 
             var userEntity = await _sessionRepository.StartRegistration(registrationModel);
 
-            var result = SmsService.Send(userEntity.TelephoneNumber, _sessionRepository.GetValidationCode(userEntity.TelephoneNumber + DateTime.Now.AddMinutes(3).Minute));
+            SmsService.Send(userEntity.TelephoneNumber, _sessionRepository.GetValidationCode(userEntity.TelephoneNumber 
+                + DateTime.Now.AddMinutes(3).ToString("dd/MM/yy HH:mm")));
 
             return userEntity;
         }
@@ -49,7 +50,6 @@ namespace EasyStudingServices.Services
         ///    Validated user registration profile.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
@@ -69,7 +69,6 @@ namespace EasyStudingServices.Services
         ///    Connection token to server.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<LoginToken> CompleteRegistration(LoginModel loginModel)
         {
@@ -90,7 +89,6 @@ namespace EasyStudingServices.Services
         ///    Connection token to server.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<LoginToken> Login(LoginModel loginModel)
         {
@@ -103,13 +101,49 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
+        ///   Get validation code to phone number.
+        /// </summary>
+        /// <param name="registrationModel">Registration model.</param>
+        /// <returns>
+        ///    True or exception.
+        /// </returns>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+
+        public bool GetValidationCode(RegistrationModel registrationModel)
+        {
+            registrationModel.CheckArgumentException();
+
+            SmsService.Send(registrationModel.TelephoneNumber, _sessionRepository.GetValidationCode(registrationModel.TelephoneNumber
+                + DateTime.Now.AddMinutes(3).ToString("dd/MM/yy HH:mm")));
+
+            return true;
+        }
+
+        /// <summary>
+        ///   Restore password by telephone number.
+        /// </summary>
+        /// <param name="restorePasswordModel">Restore password model.</param>
+        /// <returns>
+        ///    Connection token to server.
+        /// </returns>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+
+        public async Task<LoginToken> RestorePassword(RestorePasswordModel restorePasswordModel)
+        {
+            restorePasswordModel.CheckArgumentException();
+
+            var user = await _sessionRepository.RestorePassword(restorePasswordModel);
+
+            return GetToken(user);
+        }
+
+        /// <summary>
         ///   Get connection token to server.
         /// </summary>
         /// <param name="currentUserId">Id of current user.</param>
         /// <returns>
         ///    Connection token to server.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<LoginToken> UpdateToken(long currentUserId)
         {
@@ -117,6 +151,16 @@ namespace EasyStudingServices.Services
                 ?? throw new ArgumentNullException();
 
             return GetToken(userEntity);
+        }
+
+
+        /// <summary>
+        ///   For dev.
+        ///   Delete in production.
+        /// </summary>
+        public async Task<bool> DeleteUserDev(string telNumber)
+        {
+            return await _sessionRepository.DeleteUserDev(telNumber);
         }
 
         #region Generate jwt token.
