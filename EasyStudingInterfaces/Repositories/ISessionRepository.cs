@@ -19,5 +19,10 @@ namespace EasyStudingInterfaces.Repositories
         Task<User> GetUserById(long currentUserId);
 
         string GetValidationCode(string key);
+
+        Task<User> RestorePassword(RestorePasswordModel restorePasswordModel);
+
+        //For dev.
+        Task<bool> DeleteUserDev(string telNumber);
     }
 }

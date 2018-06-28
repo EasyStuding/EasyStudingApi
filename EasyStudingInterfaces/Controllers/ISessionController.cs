@@ -13,8 +13,15 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<LoginToken> Login(LoginModel loginModel);
 
+        bool GetValidationCode(RegistrationModel registrationModel);
+
+        Task<LoginToken> RestorePassword(RestorePasswordModel restorePasswordModel);
+
         Task<LoginToken> UpdateToken();
 
         Task<bool> LogOut();
+
+        //For dev.
+        Task<bool> DeleteUserDev(string telNumber);
     }
 }

@@ -31,10 +31,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
-            var containsUser = _userRepository
-                .GetAll()
-                .FirstOrDefault(u =>
-                    u.TelephoneNumber.Equals(registrationModel.TelephoneNumber));
+            var containsUser = GetUserByTelephoneNumber(registrationModel.TelephoneNumber);
 
             if (containsUser == null)
             {
@@ -44,9 +41,7 @@ namespace EasyStudingRepositories.Repositories
                 });
             }
 
-            var passwordOfUser = _userPasswordRepository
-                .GetAll()
-                .FirstOrDefault(up => up.UserId == containsUser.Id) == null
+            var passwordOfUser = GetUserPasswordByUserId(containsUser.Id) == null
                 ? new UserPassword()
                 : throw new InvalidOperationException();
 
@@ -59,8 +54,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            var user = await _userRepository
-                .GetAsync(validateModel.UserId)
+            var user = await GetUserById(validateModel.UserId)
                 ?? throw new ArgumentNullException();
 
             user.TelephoneNumberIsValidated = 
@@ -71,15 +65,10 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> CompleteRegistration(LoginModel loginModel)
         {
-            var user = _userRepository
-                .GetAll()
-                .FirstOrDefault(u => 
-                    u.TelephoneNumber.Equals(loginModel.TelephoneNumber))
+            var user = GetUserByTelephoneNumber(loginModel.TelephoneNumber)
                 ?? throw new ArgumentNullException();
 
-            var userPassword = _userPasswordRepository
-                .GetAll()
-                .FirstOrDefault(up => up.UserId == user.Id) == null
+            var userPassword = GetUserPasswordByUserId(user.Id) == null
                 ? new UserPassword()
                 : throw new InvalidOperationException();
 
@@ -123,7 +112,6 @@ namespace EasyStudingRepositories.Repositories
                 ?? throw new ArgumentNullException();
         }
 
-        // Get from MD5 hash 6 characters.
         public string GetValidationCode(string key)
         {
             var strToRet = "";
@@ -143,17 +131,79 @@ namespace EasyStudingRepositories.Repositories
             return strToRet.ToUpper();
         }
 
-        // Verify a hash against a string.
+        public async Task<User> RestorePassword(RestorePasswordModel restorePasswordModel)
+        {
+            if (!ValidateCode(restorePasswordModel.ValidationCode, restorePasswordModel.TelephoneNumber))
+            {
+                throw new InvalidOperationException();
+            }
+
+            var user = GetUserByTelephoneNumber(restorePasswordModel.TelephoneNumber)
+                ?? throw new ArgumentNullException();
+
+            var password = GetUserPasswordByUserId(user.Id)
+                ?? throw new ArgumentNullException();
+
+            password.Password = restorePasswordModel.Password;
+
+            var editedPassword = await _userPasswordRepository.EditAsync(password)
+                ?? throw new InvalidOperationException();
+
+            return user;
+        }
+
+        // For dev.
+        public async Task<bool> DeleteUserDev(string telNumber)
+        {
+            try
+            {
+                var user = GetUserByTelephoneNumber(telNumber) 
+                    ?? throw new ArgumentNullException();
+
+                var password = GetUserPasswordByUserId(user.Id)
+                    ?? throw new ArgumentException();
+
+                var deletedPassword = await _userPasswordRepository.RemoveAsync(password.Id)
+                    ?? throw new InvalidOperationException();
+
+                var deletedUser = await _userRepository.RemoveAsync(user.Id)
+                    ?? throw new InvalidOperationException();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private bool ValidateCode(string code, string telephone)
         {
             for (var i = 0; i <= 3; i++)
             {
-                if (code.ToUpper().Equals(GetValidationCode(telephone + DateTime.Now.AddMinutes(i).Minute)))
+                if (code.ToUpper().Equals(GetValidationCode(telephone 
+                    + DateTime.Now.AddMinutes(i).ToString("dd/MM/yy HH:mm"))))
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        private User GetUserByTelephoneNumber(string telephoneNumber)
+        {
+            return _userRepository
+                .GetAll()
+                .FirstOrDefault(u =>
+                    u.TelephoneNumber.Equals(telephoneNumber));
+        }
+
+        private UserPassword GetUserPasswordByUserId(long id)
+        {
+            return _userPasswordRepository
+                .GetAll()
+                .FirstOrDefault(up =>
+                    up.UserId == id);
         }
     }
 }

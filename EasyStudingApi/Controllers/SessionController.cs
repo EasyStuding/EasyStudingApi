@@ -57,6 +57,20 @@ namespace EasyStudingApi.Controllers
             return await _service.Login(loginModel);
         }
 
+        [HttpGet]
+        // /api/session/GetValidationCode
+        public bool GetValidationCode([FromBody]RegistrationModel registrationModel)
+        {
+            return _service.GetValidationCode(registrationModel);
+        }
+
+        [HttpPost]
+        // /api/session/RestorePassword
+        public async Task<LoginToken> RestorePassword([FromBody]RestorePasswordModel restorePasswordModel)
+        {
+            return await _service.RestorePassword(restorePasswordModel);
+        }
+
         [Authorize]
         [HttpPost]
         // /api/session/UpdateToken
@@ -73,6 +87,14 @@ namespace EasyStudingApi.Controllers
             await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
 
             return true;
+        }
+
+        //For dev.
+        [HttpDelete]
+        // /api/session/DeleteUserDev
+        public async Task<bool> DeleteUserDev(string telNumber)
+        {
+            return await _service.DeleteUserDev(telNumber);
         }
     }
 }
