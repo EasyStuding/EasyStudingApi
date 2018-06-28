@@ -66,19 +66,6 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.ValidateRegistration(index_out_of_range_model) should return ArgumentNullException.")]
-        public async void SessionService_ValidateRegistration_index_out_of_range_model_should_ArgumentNullException()
-        {
-            using (Context = new TestDbContext().Context)
-            {
-                var service = new SessionService(new TestSessionRepository());
-
-                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.ValidateRegistration(new ValidateModel() { UserId = 6, ValidationCode = "111111" }));
-
-                Assert.Equal(typeof(ArgumentNullException), result.GetType());
-            }
-        }
-
         [Fact(DisplayName = "SessionService.CompleteRegistration(valid_model) should return object.")]
         public async void SessionService_CompleteRegistration_valid_model_should_return_object()
         {
@@ -105,19 +92,6 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.CompleteRegistration(index_out_of_range_model) should return ArgumentNullException.")]
-        public async void SessionService_CompleteRegistration_index_out_of_range_model_should_ArgumentNullException()
-        {
-            using (Context = new TestDbContext().Context)
-            {
-                var service = new SessionService(new TestSessionRepository());
-
-                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.CompleteRegistration(new LoginModel() { TelephoneNumber = "+375331231231", Password = "Password123!" }));
-
-                Assert.Equal(typeof(ArgumentNullException), result.GetType());
-            }
-        }
-
         [Fact(DisplayName = "SessionService.Login(valid_model) should return object.")]
         public async void SessionService_Login_valid_model_should_return_object()
         {
@@ -141,19 +115,6 @@ namespace EasyStudingUnitTests.ServiceTests
                 var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "", Password = "password" }));
 
                 Assert.Equal(typeof(ArgumentException), result.GetType());
-            }
-        }
-
-        [Fact(DisplayName = "SessionService.Login(not_contain) should return ArgumentNullException.")]
-        public async void SessionService_Login_not_contain_should_ArgumentNullException()
-        {
-            using (Context = new TestDbContext().Context)
-            {
-                var service = new SessionService(new TestSessionRepository());
-
-                var result = await Assert.ThrowsAsync<ArgumentNullException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "+375331231231", Password = "Password123!" }));
-
-                Assert.Equal(typeof(ArgumentNullException), result.GetType());
             }
         }
     }

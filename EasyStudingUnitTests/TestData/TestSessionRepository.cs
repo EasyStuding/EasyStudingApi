@@ -97,5 +97,30 @@ namespace EasyStudingUnitTests.TestData
                 FullName = "Full name of user"
             };
         }
+
+        // Get from MD5 hash 6 characters.
+        public string GetValidationCode(string key)
+        {
+            return "111111";
+        }
+
+        public async Task<User> RestorePassword(RestorePasswordModel restorePasswordModel)
+        {
+            return new User()
+            {
+                Id = 1,
+                TelephoneNumber = "+375331111111",
+                RegistrationDate = DateTime.Now,
+                Role = "user",
+                TelephoneNumberIsValidated = true,
+                FullName = "Full name of user"
+            };
+        }
+
+        // For dev.
+        public async Task<bool> DeleteUserDev(string telNumber)
+        {
+            return true;
+        }
     }
 }
