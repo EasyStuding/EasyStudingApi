@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using EasyStudingServices;
 
 namespace EasyStudingApi.Filters
 {
@@ -29,16 +30,23 @@ namespace EasyStudingApi.Filters
                 {
                     typeof(UnauthorizedAccessException),
                     new StatusCodeResult(401)
-                },
-                {
-                    typeof(Exception),
-                    new StatusCodeResult(500)
-                },
+                }
             };
 
         public override void OnException(ExceptionContext context)
         {
-            context.Result = _exceptionFilter[context.Exception.GetType()];
+            try
+            {
+                context.Result = _exceptionFilter[context.Exception.GetType()];
+            }
+            catch
+            {
+                context.Result = new StatusCodeResult(500);
+            }
+            finally
+            {
+                LogService.UpdateLogFile(context.Exception);
+            }
 
             base.OnException(context);
         }
