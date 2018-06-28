@@ -1,0 +1,217 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-06-28T12:02:06.960Z",
+	"__export_source": "insomnia.desktop.app:v5.16.6",
+	"resources": [
+		{
+			"_id": "wrk_534c42a66b4b4b3bbd8cf83edd916c55",
+			"created": 1530112441197,
+			"description": "",
+			"modified": 1530112441197,
+			"name": "EasyStuding",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_abf5ec16e5cf45e98f0bbfa7d8fef039",
+			"color": null,
+			"created": 1530112442303,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1530112442303,
+			"name": "New Environment",
+			"parentId": "wrk_534c42a66b4b4b3bbd8cf83edd916c55",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_e7c7ab1491d24f2d8c135db4606f6964",
+			"cookies": [
+				{
+					"creation": "2018-06-27T15:15:00.196Z",
+					"domain": "easystudingapi20180626065507.azurewebsites.net",
+					"hostOnly": false,
+					"httpOnly": true,
+					"id": "10019202982208908",
+					"key": "ARRAffinity",
+					"lastAccessed": "2018-06-27T15:15:00.196Z",
+					"path": "/",
+					"value": "b6c882a5e013db277ef434fb044e8255f520bbdc70059876373bab098d534452"
+				}
+			],
+			"created": 1530112442308,
+			"modified": 1530112500224,
+			"name": "Default Jar",
+			"parentId": "wrk_534c42a66b4b4b3bbd8cf83edd916c55",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_c7f405b4bf5847fd94a2657e78d655a7",
+			"created": 1530112449160,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1530112449160,
+			"modified": 1530112449160,
+			"name": "Auth",
+			"parentId": "wrk_534c42a66b4b4b3bbd8cf83edd916c55",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_45f54006b29f45aca89cd53deebc9e83",
+			"authentication": {},
+			"body": {
+				"mimeType": "multipart/form-data",
+				"params": [
+					{
+						"id": "pair_55d64e3fecd64755bfa74e417a76156e",
+						"name": "telephoneNumber",
+						"value": "+123123123"
+					}
+				]
+			},
+			"created": 1530112463950,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_85c17331d7064900873d7be89f82d562",
+					"name": "Content-Type",
+					"value": "multipart/form-data"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1530112463950,
+			"method": "POST",
+			"modified": 1530175792898,
+			"name": "StartRegistration",
+			"parameters": [],
+			"parentId": "fld_c7f405b4bf5847fd94a2657e78d655a7",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://easystudingapi20180626065507.azurewebsites.net/api/session/StartRegistration",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3257445f83ee43ea828bbaaca1a28890",
+			"authentication": {},
+			"body": {
+				"mimeType": "multipart/form-data",
+				"params": [
+					{
+						"id": "pair_99ef9921a61f442c9b5863385f10e52e",
+						"name": "userId",
+						"value": "5"
+					},
+					{
+						"id": "pair_54af5a2c08014ea4bed677473009a4ba",
+						"name": "validationCode",
+						"value": "111111"
+					}
+				]
+			},
+			"created": 1530112768667,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_200bfcac7ab14d8d9364686407f8a28e",
+					"name": "Content-Type",
+					"value": "multipart/form-data"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1530112768667,
+			"method": "POST",
+			"modified": 1530175817234,
+			"name": "ValidateRegistration",
+			"parameters": [],
+			"parentId": "fld_c7f405b4bf5847fd94a2657e78d655a7",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://easystudingapi20180626065507.azurewebsites.net/api/session/ValidateRegistration",
+			"_type": "request"
+		},
+		{
+			"_id": "req_6d3692d80d0d4a0382f5634710ec60d2",
+			"authentication": {},
+			"body": {
+				"mimeType": "multipart/form-data",
+				"params": [
+					{
+						"id": "pair_46c51d7a52c1426abb66ee3a25c8e722",
+						"name": "telephoneNumber",
+						"value": "+123123123"
+					},
+					{
+						"id": "pair_f861ba6f68c0400797e194cfe1ce8f4b",
+						"name": "password",
+						"value": "asdfasdfasdfasfd"
+					}
+				]
+			},
+			"created": 1530112854475,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_beba16fc24ed403a882c4162d316da6d",
+					"name": "Content-Type",
+					"value": "multipart/form-data"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1530112854475,
+			"method": "POST",
+			"modified": 1530175823835,
+			"name": "AcceptAuth",
+			"parameters": [],
+			"parentId": "fld_c7f405b4bf5847fd94a2657e78d655a7",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://easystudingapi20180626065507.azurewebsites.net/api/session/CompleteRegistration",
+			"_type": "request"
+		},
+		{
+			"_id": "req_4fc74b2ad88c417ab1bc7ac804beee22",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1530113100455,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_b11d26666d364429a657e76b4e0f8933",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_69181a0c73db4e609c1946b46062d28d",
+					"name": "Authorization",
+					"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiKzEyMzEyMzEyMyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE1MzAxNzU4MjUsImV4cCI6MTUzMjU5NTAyNX0.CDrNH3kOOcmXMm2D7GHceh2Cvb9pI4MCV_Fhmsk47Bw"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1530113100455,
+			"method": "POST",
+			"modified": 1530175835855,
+			"name": "UpdateToken",
+			"parameters": [],
+			"parentId": "fld_c7f405b4bf5847fd94a2657e78d655a7",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://easystudingapi20180626065507.azurewebsites.net/api/session/UpdateToken",
+			"_type": "request"
+		}
+	]
+}
