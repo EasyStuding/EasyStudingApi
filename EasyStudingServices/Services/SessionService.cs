@@ -34,7 +34,11 @@ namespace EasyStudingServices.Services
         {
             registrationModel.CheckArgumentException();
 
-            return await _sessionRepository.StartRegistration(registrationModel);
+            var userEntity = await _sessionRepository.StartRegistration(registrationModel);
+
+            var result = SmsService.Send(userEntity.TelephoneNumber, _sessionRepository.GetValidationCode(userEntity.TelephoneNumber + DateTime.Now.AddMinutes(3).Minute));
+
+            return userEntity;
         }
 
         /// <summary>
