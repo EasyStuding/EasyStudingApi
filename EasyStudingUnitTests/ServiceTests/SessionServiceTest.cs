@@ -66,7 +66,7 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.CompleteRegistration(valid_model) should return object.")]
+        [Fact(DisplayName = "SessionService.CompleteRegistration(valid_model) should return LoginToken.")]
         public async void SessionService_CompleteRegistration_valid_model_should_return_object()
         {
             using (Context = new TestDbContext().Context)
@@ -92,7 +92,7 @@ namespace EasyStudingUnitTests.ServiceTests
             }
         }
 
-        [Fact(DisplayName = "SessionService.Login(valid_model) should return object.")]
+        [Fact(DisplayName = "SessionService.Login(valid_model) should return LoginToken.")]
         public async void SessionService_Login_valid_model_should_return_object()
         {
             using (Context = new TestDbContext().Context)
@@ -115,6 +115,58 @@ namespace EasyStudingUnitTests.ServiceTests
                 var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.Login(new LoginModel() { TelephoneNumber = "", Password = "password" }));
 
                 Assert.Equal(typeof(ArgumentException), result.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "SessionService.GetValidationCode() should return true.")]
+        public void SessionService_GetValidationCode_should_return_true()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var service = new SessionService(new TestSessionRepository());
+
+                var result = service.GetValidationCode(new RegistrationModel() { TelephoneNumber = "+375331111111" });
+
+                Assert.True(result);
+            }
+        }
+
+        [Fact(DisplayName = "SessionService.RestorePassword(valid_model) should return LoginToken.")]
+        public async void SessionService_RestorePassword_valid_model_should_return_object()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var service = new SessionService(new TestSessionRepository());
+
+                var result = await service.RestorePassword(new RestorePasswordModel() { TelephoneNumber = "+375331111111", ValidationCode = "111111", Password = "Password123!" });
+
+                Assert.Equal(typeof(LoginToken), result.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "SessionService.RestorePassword(invalid_model) should return ArgumentException.")]
+        public async void SessionService_RestorePassword_invalid_model_should_ArgumentException()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var service = new SessionService(new TestSessionRepository());
+
+                var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.RestorePassword(new RestorePasswordModel() { TelephoneNumber = "", Password = "password" }));
+
+                Assert.Equal(typeof(ArgumentException), result.GetType());
+            }
+        }
+
+        [Fact(DisplayName = "SessionService.RestorePassword(1) should return LoginToken.")]
+        public async void SessionService_UpdateToken_valid_model_should_return_object()
+        {
+            using (Context = new TestDbContext().Context)
+            {
+                var service = new SessionService(new TestSessionRepository());
+
+                var result = await service.UpdateToken(1);
+
+                Assert.Equal(typeof(LoginToken), result.GetType());
             }
         }
     }
