@@ -29,6 +29,15 @@ namespace EasyStudingRepositories.Repositories
             _userPasswordRepository = new UniversalRepository<UserPassword>(_context);
         }
 
+        /// <summary>
+        ///   Start registration by phone number.
+        /// </summary>
+        /// <param name="registrationModel">Model of registration user.</param>
+        /// <returns>
+        ///    Not validated user registration profile.
+        /// </returns>
+        /// <exception cref="System.InvalidOperationException">When the user is registered.</exception>
+
         public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
             var containsUser = GetUserByTelephoneNumber(registrationModel.TelephoneNumber);
@@ -52,6 +61,15 @@ namespace EasyStudingRepositories.Repositories
             });
         }
 
+        /// <summary>
+        ///   Validate registration by user id and validation code.
+        /// </summary>
+        /// <param name="validateModel">Model of validation user.</param>
+        /// <returns>
+        ///    Validated user profile.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
+
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
             var user = await GetUserById(validateModel.UserId)
@@ -62,6 +80,16 @@ namespace EasyStudingRepositories.Repositories
 
             return await _userRepository.EditAsync(user);
         }
+
+        /// <summary>
+        ///   Complete registration by user telephone and password.
+        /// </summary>
+        /// <param name="loginModel">Model of login user.</param>
+        /// <returns>
+        ///     Registraited user.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When user registred.</exception>
 
         public async Task<User> CompleteRegistration(LoginModel loginModel)
         {
@@ -80,6 +108,16 @@ namespace EasyStudingRepositories.Repositories
 
             return user;
         }
+
+        /// <summary>
+        ///   Login by user telephone and password.
+        /// </summary>
+        /// <param name="loginModel">Model of login user.</param>
+        /// <returns>
+        ///     Registraited user.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When passwords not the same.</exception>
 
         public async Task<User> Login(LoginModel loginModel)
         {
@@ -105,12 +143,29 @@ namespace EasyStudingRepositories.Repositories
             return await GetUserById(user.Id);
         }
 
+        /// <summary>
+        ///   Get user by ID.
+        /// </summary>
+        /// <param name="currentUserId">Id of user to return.</param>
+        /// <returns>
+        ///     User.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
+
         public async Task<User> GetUserById(long currentUserId)
         {
             return await _userRepository
                 .GetAsync(currentUserId)
                 ?? throw new ArgumentNullException();
         }
+
+        /// <summary>
+        ///   Get validation code by key.
+        /// </summary>
+        /// <param name="key">Key to generate validation code.</param>
+        /// <returns>
+        ///     Validation code.
+        /// </returns>
 
         public string GetValidationCode(string key)
         {
@@ -130,6 +185,16 @@ namespace EasyStudingRepositories.Repositories
 
             return strToRet.ToUpper();
         }
+
+        /// <summary>
+        ///   Restore password by telephone number and validation code.
+        /// </summary>
+        /// <param name="restorePasswordModel">Model to restore password.</param>
+        /// <returns>
+        ///     User.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">When user not found or not registraited.</exception>
+        /// <exception cref="System.InvalidOperationException">When validation code not the same.</exception>
 
         public async Task<User> RestorePassword(RestorePasswordModel restorePasswordModel)
         {
