@@ -155,8 +155,7 @@ namespace EasyStudingRepositories.Repositories
         public async Task<User> GetUserById(long currentUserId)
         {
             return await _userRepository
-                .GetAsync(currentUserId)
-                ?? throw new ArgumentNullException();
+                .GetAsync(currentUserId);
         }
 
         /// <summary>
@@ -211,8 +210,7 @@ namespace EasyStudingRepositories.Repositories
 
             password.Password = restorePasswordModel.Password;
 
-            var editedPassword = await _userPasswordRepository.EditAsync(password)
-                ?? throw new InvalidOperationException();
+            var editedPassword = await _userPasswordRepository.EditAsync(password);
 
             return user;
         }
@@ -226,13 +224,11 @@ namespace EasyStudingRepositories.Repositories
                     ?? throw new ArgumentNullException();
 
                 var password = GetUserPasswordByUserId(user.Id)
-                    ?? throw new ArgumentException();
+                    ?? throw new ArgumentNullException();
 
-                var deletedPassword = await _userPasswordRepository.RemoveAsync(password.Id)
-                    ?? throw new InvalidOperationException();
+                var deletedPassword = await _userPasswordRepository.RemoveAsync(password.Id);
 
-                var deletedUser = await _userRepository.RemoveAsync(user.Id)
-                    ?? throw new InvalidOperationException();
+                var deletedUser = await _userRepository.RemoveAsync(user.Id);
 
                 return true;
             }

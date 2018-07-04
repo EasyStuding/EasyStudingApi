@@ -28,23 +28,14 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<TEntity> GetAsync(long id)
         {
-            var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
-
-
-            if(entity == null)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            return entity;
+            return await _dbSet.FirstOrDefaultAsync(e => e.Id == id)
+                ?? throw new ArgumentNullException(); ;
         }
 
         public async Task<TEntity> AddAsync(TEntity param)
         {
-            if (param == null)
-            {
-                throw new ArgumentNullException();
-            }
+            param = param
+                ?? throw new ArgumentNullException();
 
             await _dbSet.AddAsync(param);
 
@@ -55,23 +46,24 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<TEntity> EditAsync(TEntity param)
         {
-            if (param == null)
-            {
-                throw new ArgumentNullException();
-            }
+            param = param
+                ?? throw new ArgumentNullException();
 
-            var entity = await GetAsync(param.Id);
+            var entity = await GetAsync(param.Id)
+                ?? throw new ArgumentNullException();
 
             entity.Edit(param);
 
             await _context.SaveChangesAsync();
 
-            return await GetAsync(param.Id);
+            return await GetAsync(param.Id)
+                ?? throw new ArgumentNullException();
         }
 
         public async Task<TEntity> RemoveAsync(long id)
         {
-            var entity = await GetAsync(id);
+            var entity = await GetAsync(id)
+                ?? throw new ArgumentNullException();
 
             _dbSet.Remove(entity);
 

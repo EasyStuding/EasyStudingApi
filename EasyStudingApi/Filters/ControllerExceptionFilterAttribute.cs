@@ -53,7 +53,18 @@ namespace EasyStudingApi.Filters
 
         public override Task OnExceptionAsync(ExceptionContext context)
         {
-            context.Result = _exceptionFilter[context.Exception.GetType()];
+            try
+            {
+                context.Result = _exceptionFilter[context.Exception.GetType()];
+            }
+            catch
+            {
+                context.Result = new StatusCodeResult(500);
+            }
+            finally
+            {
+                LogService.UpdateLogFile(context.Exception);
+            }
 
             return base.OnExceptionAsync(context);
         }

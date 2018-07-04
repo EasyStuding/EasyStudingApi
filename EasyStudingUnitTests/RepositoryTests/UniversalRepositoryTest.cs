@@ -87,15 +87,15 @@ namespace EasyStudingUnitTests.RepositoryTests
             }
         }
 
-        [Fact(DisplayName = "UniversalRepository.Edit(7) should return index out of range exception.")]
-        public async void UniversalRepository_Edit_7_should_return_index_out_of_range_exception()
+        [Fact(DisplayName = "UniversalRepository.Edit(7) should return ArgumentNullException.")]
+        public async void UniversalRepository_Edit_7_should_return_ArgumentNullExceptionn()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new UniversalRepository<Country>(Context);
-                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.EditAsync(new Country() { Id = 7 }));
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.EditAsync(new Country() { Id = 7 }));
 
-                Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
         }
 
@@ -111,15 +111,15 @@ namespace EasyStudingUnitTests.RepositoryTests
             }
         }
 
-        [Fact(DisplayName = "UniversalRepository.Remove(7) should return index out of range exception.")]
-        public async void UniversalRepository_Remove_7_should_return_index_out_of_range_exception()
+        [Fact(DisplayName = "UniversalRepository.Remove(7) should return ArgumentNullException.")]
+        public async void UniversalRepository_Remove_7_should_return_ArgumentNullException()
         {
             using (Context = new TestDbContext().Context)
             {
                 var rep = new UniversalRepository<Country>(Context);
-                var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await rep.RemoveAsync(7));
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.RemoveAsync(7));
 
-                Assert.Equal(typeof(IndexOutOfRangeException), ex.GetType());
+                Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
         }
     }
