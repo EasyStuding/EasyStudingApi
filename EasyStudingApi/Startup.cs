@@ -106,6 +106,10 @@ namespace EasyStudingApi
             services.AddScoped<ISessionController, SessionController>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionRepository, SessionRepository>();
+
+            services.AddScoped<IModeratorController, ModeratorController>();
+            services.AddScoped<IModeratorService, ModeratorService>();
+            services.AddScoped<IModeratorRepository, ModeratorRepository>();
         }
     }
 }
