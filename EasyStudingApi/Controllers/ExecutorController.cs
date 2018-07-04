@@ -23,7 +23,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/executor/GetOrders
-        public async Task<IQueryable<Order>> GetOrders(string education, string country, string city)
+        public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city)
         {
             throw new Exception();
         }

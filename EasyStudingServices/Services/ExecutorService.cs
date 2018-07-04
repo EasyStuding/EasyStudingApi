@@ -33,7 +33,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
-        public async Task<IQueryable<Order>> GetOrders(string education, string country, string city, long currentUserId)
+        public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
             throw new Exception();
         }

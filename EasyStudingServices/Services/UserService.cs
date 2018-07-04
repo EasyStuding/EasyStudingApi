@@ -30,7 +30,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public async Task<IQueryable<User>> GetUsers(string education, string country, string city)
+        public async Task<IQueryable<User>> GetUsers(string education, string country, string region, string city)
         {
             throw new Exception();
         }
@@ -90,7 +90,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public async Task<IQueryable<User>> GetExecutors(string education, string country, string city)
+        public async Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city)
         {
             throw new Exception();
         }

@@ -6,7 +6,7 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IUserController
     {
-        Task<IQueryable<User>> GetUsers(string education, string country, string city);
+        Task<IQueryable<User>> GetUsers(string education, string country, string region, string city);
 
         Task<User> GetUser(long id);
 
@@ -14,7 +14,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<Order> GetOrder(long id);
 
-        Task<IQueryable<User>> GetExecutors(string education, string country, string city);
+        Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city);
 
         Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId);
 

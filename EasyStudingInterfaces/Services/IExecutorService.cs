@@ -6,7 +6,7 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        Task<IQueryable<Order>> GetOrders(string education, string country, string city, long currentUserId);
+        Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId);
 
         Task<Order> GetOrder(long id, long currentUserId);
 

@@ -23,7 +23,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetUsers
-        public async Task<IQueryable<User>> GetUsers(string education, string country, string city)
+        public async Task<IQueryable<User>> GetUsers(string education, string country, string region, string city)
         {
             throw new Exception();
         }
@@ -51,7 +51,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetExecutors
-        public async Task<IQueryable<User>> GetExecutors(string education, string country, string city)
+        public async Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city)
         {
             throw new Exception();
         }
