@@ -24,16 +24,6 @@ namespace EasyStudingUnitTests.TestData
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            if (validateModel.UserId > 1)
-            {
-                return null;
-            }
-
-            if (!validateModel.ValidationCode.Equals("111111"))
-            {
-                return null;
-            }
-
             return new User()
             {
                 Id = 1,
@@ -46,11 +36,6 @@ namespace EasyStudingUnitTests.TestData
 
         public async Task<User> CompleteRegistration(LoginModel loginModel)
         {
-            if (!loginModel.TelephoneNumber.Equals("+375331111111"))
-            {
-                return null;
-            }
-
             return new User()
             {
                 Id = 1,
@@ -64,11 +49,6 @@ namespace EasyStudingUnitTests.TestData
 
         public async Task<User> GetUserById(long currentUserId)
         {
-            if (currentUserId > 1)
-            {
-                return null;
-            }
-
             return new User()
             {
                 Id = 1,
@@ -82,11 +62,6 @@ namespace EasyStudingUnitTests.TestData
 
         public async Task<User> Login(LoginModel loginModel)
         {
-            if (!loginModel.TelephoneNumber.Equals("+375331111111"))
-            {
-                return null;
-            }
-
             return new User()
             {
                 Id = 1,
