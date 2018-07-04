@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
 using EasyStudingModels.Models;
+using System.IO;
+using EasyStudingModels.Extensions;
 
 namespace EasyStudingApi.Controllers
 {
@@ -104,6 +106,26 @@ namespace EasyStudingApi.Controllers
         public async Task<Skill> RemoveSkill(long id)
         {
             throw new Exception();
+        }
+
+        [HttpGet]
+        // /api/moderator/GetLogs
+        public async Task<FileResult> GetLogs(string date)
+        {
+            var path = Path.Combine(
+                           Directory.GetCurrentDirectory(),
+                           "wwwroot", date + "_log.txt");
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+
+            var logs = File(memory, path.GetContentType(), Path.GetFileName(path));
+
+            return logs;
         }
     }
 }

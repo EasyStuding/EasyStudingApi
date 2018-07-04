@@ -24,6 +24,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using EasyStudingApi.Filters;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace EasyStudingApi
 {
@@ -94,6 +96,10 @@ namespace EasyStudingApi
 
         private void RegisterDependencyInjection(IServiceCollection services)
         {
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<EasyStudingContext>(options => options.UseNpgsql(EasyStudingContext.CONNECTION_STRING));

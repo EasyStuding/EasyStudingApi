@@ -18,7 +18,11 @@ namespace EasyStudingServices
                 res += ex.Message;
             }
 
-            File.AppendAllText("log.txt", res);
+            var path = Path.Combine(
+                           Directory.GetCurrentDirectory(),
+                           "wwwroot", DateTime.Now.ToString("dd_MM_yy") + "_log.txt");
+
+            File.AppendAllText(path, res + Environment.NewLine);
         }
     }
 }
