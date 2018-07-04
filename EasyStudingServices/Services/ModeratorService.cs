@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyStudingModels.Extensions;
 
 namespace EasyStudingServices.Services
 {
@@ -26,11 +27,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Banned user.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<User> BanUser(long id)
         {
-            throw new Exception();
+            return await _moderatorRepository.BanUser(id);
         }
 
         /// <summary>
@@ -40,11 +40,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Unbanned user.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<User> RemoveBanOfUser(long id)
         {
-            throw new Exception();
+            return await _moderatorRepository.RemoveBanOfUser(id);
         }
 
         /// <summary>
@@ -54,11 +53,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Closed order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<Order> CloseOrder(long id)
         {
-            throw new Exception();
+            return await _moderatorRepository.CloseOrder(id);
         }
 
         /// <summary>
@@ -70,12 +68,13 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders sorted by city and education.
         /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<IQueryable<Order>> GetApiOrderDetailsModels(string education, string country, string city)
+        public IQueryable<Order> GetOrders(string education, string country, string region, string city)
         {
-            throw new Exception();
+            return _moderatorRepository.GetOrders(education.ConvertToValidModel(),
+                country.ConvertToValidModel(),
+                region.ConvertToValidModel(),
+                city.ConvertToValidModel());
         }
 
         /// <summary>
@@ -85,140 +84,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
-        public async Task<Order> GetApiOrderDetailsModel(long id)
+        public async Task<Order> GetOrder(long id)
         {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Add country.
-        /// </summary>
-        /// <param name="country">Country to add.</param>
-        /// <returns>
-        ///    Added country.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-
-        public async Task<Country> AddCountry(Country country)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Edit country.
-        /// </summary>
-        /// <param name="country">Country to edit.</param>
-        /// <returns>
-        ///    Edited country.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-
-        public async Task<Country> EditCountry(Country country)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Remove country.
-        /// </summary>
-        /// <param name="id">Id of country to remove.</param>
-        /// <returns>
-        ///    Removed country.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-
-        public async Task<Country> RemoveCountry(long id)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Add city.
-        /// </summary>
-        /// <param name="city">City to add.</param>
-        /// <returns>
-        ///    Added city.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-
-        public async Task<City> AddCity(City city)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Edit city.
-        /// </summary>
-        /// <param name="city">City to edit.</param>
-        /// <returns>
-        ///    Edited city.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-
-        public async Task<City> EditCity(City city)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Remove city.
-        /// </summary>
-        /// <param name="id">Id of city to remove.</param>
-        /// <returns>
-        ///    Removed city.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-
-        public async Task<City> RemoveCity(long id)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Add skill.
-        /// </summary>
-        /// <param name="skill">Skill to add.</param>
-        /// <returns>
-        ///    Added skill.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-
-        public async Task<Skill> AddSkill(Skill skill)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Edit skill.
-        /// </summary>
-        /// <param name="skill">Skill to edit.</param>
-        /// <returns>
-        ///    Edited skill.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-
-        public async Task<Skill> EditSkill(Skill skill)
-        {
-            throw new Exception();
-        }
-
-        /// <summary>
-        ///   Remove skill.
-        /// </summary>
-        /// <param name="id">Id of skill to remove.</param>
-        /// <returns>
-        ///    Removed skill.
-        /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-
-        public async Task<Skill> RemoveSkill(long id)
-        {
-            throw new Exception();
+            return await _moderatorRepository.GetOrder(id);
         }
 
     }
