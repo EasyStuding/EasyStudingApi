@@ -80,9 +80,8 @@ namespace EasyStudingRepositories.Repositories
         public async Task<Order> CloseOrder(long id)
         {
             var order = await _orderRepository.GetAsync(id);
-
-            order.IsClosedByCustomer = true;
-            order.IsClosedByExecutor = true;
+            
+            order.IsCompleted = true;
 
             return await _orderRepository.EditAsync(order);
         }
