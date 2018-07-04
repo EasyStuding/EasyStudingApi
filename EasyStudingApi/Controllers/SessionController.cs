@@ -8,11 +8,9 @@ using EasyStudingModels.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 
 namespace EasyStudingApi.Controllers
 {
-    [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/Session/[action]")]
     public class SessionController : Controller, ISessionController
@@ -77,10 +75,8 @@ namespace EasyStudingApi.Controllers
         [Authorize]
         [HttpPost]
         // /api/session/LogOut
-        public async Task<bool> LogOut()
+        public bool LogOut()
         {
-            await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
-
             return true;
         }
 

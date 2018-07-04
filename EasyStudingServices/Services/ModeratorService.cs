@@ -10,7 +10,6 @@ using EasyStudingModels.Extensions;
 
 namespace EasyStudingServices.Services
 {
-    //In this service you don't need currentUserId to check permissons, role of user contains in identity.
     public class ModeratorService: IModeratorService
     {
         private readonly IModeratorRepository _moderatorRepository;

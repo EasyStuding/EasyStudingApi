@@ -14,7 +14,8 @@ namespace EasyStudingServices
         public static void UpdateLogFile(Exception ex)
         {
             var date = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
-            var res = date + " --- " + ex.Message;
+            var methodPath = ex.TargetSite.DeclaringType.FullName;
+            var res = date + " --- " + methodPath + " --- " + ex.Message;
 
             while (ex.InnerException != null)
             {

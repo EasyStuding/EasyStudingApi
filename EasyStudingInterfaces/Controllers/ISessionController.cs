@@ -19,7 +19,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<LoginToken> UpdateToken();
 
-        Task<bool> LogOut();
+        bool LogOut();
 
         //For dev.
         Task<bool> DeleteUserDev(string telNumber);

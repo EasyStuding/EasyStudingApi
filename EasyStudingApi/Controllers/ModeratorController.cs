@@ -65,20 +65,27 @@ namespace EasyStudingApi.Controllers
         // /api/moderator/GetLogs
         public async Task<FileResult> GetLogs(string date)
         {
-            var path = Path.Combine(
-                           Directory.GetCurrentDirectory(),
-                           "wwwroot", date + "_log.txt");
-
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(path, FileMode.Open))
+            try
             {
-                await stream.CopyToAsync(memory);
+                var path = Path.Combine(
+                               Directory.GetCurrentDirectory(),
+                               "wwwroot", date + "_log.txt");
+
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(path, FileMode.Open))
+                {
+                    await stream.CopyToAsync(memory);
+                }
+                memory.Position = 0;
+
+                var logs = File(memory, path.GetContentType(), Path.GetFileName(path));
+
+                return logs;
             }
-            memory.Position = 0;
-
-            var logs = File(memory, path.GetContentType(), Path.GetFileName(path));
-
-            return logs;
+            catch
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }
