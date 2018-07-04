@@ -24,7 +24,7 @@ namespace EasyStudingServices.Services
         /// <summary>
         ///   Start registration by phone number.
         /// </summary>
-        /// <param name="apiUserRegistration">Model of registration user.</param>
+        /// <param name="registrationModel">Model of registration user.</param>
         /// <returns>
         ///    Not validated user registration profile.
         /// </returns>
@@ -45,7 +45,7 @@ namespace EasyStudingServices.Services
         /// <summary>
         ///   Validate validation code of user.
         /// </summary>
-		/// <param name="validationUser">Model of validation user.</param>
+		/// <param name="validateModel">Model of validation user.</param>
         /// <returns>
         ///    Validated user registration profile.
         /// </returns>
@@ -64,7 +64,7 @@ namespace EasyStudingServices.Services
         /// <summary>
         ///   Create InformationModel for user.
         /// </summary>
-        /// <param name="apiRegistrationLogin">Registration of login model.</param>
+        /// <param name="loginModel">Login model.</param>
         /// <returns>
         ///    Connection token to server.
         /// </returns>
@@ -83,8 +83,7 @@ namespace EasyStudingServices.Services
         /// <summary>
         ///   Get connection token to server.
         /// </summary>
-        /// <param name="apiLogin">Login model.</param>
-        /// <param name="isTelephone">Check condition(telephone/login).</param>
+        /// <param name="loginModel">Login model.</param>
         /// <returns>
         ///    Connection token to server.
         /// </returns>
