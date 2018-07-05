@@ -189,9 +189,7 @@ namespace EasyStudingServices.Services
 
             return new LoginToken()
             {
-                Id = user.Id,
-                TelephoneNumber = user.TelephoneNumber,
-                Role = user.Role,
+                User = user,
                 BearerToken = "Bearer " + encodedJwt
             }; 
         }
