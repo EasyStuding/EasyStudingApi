@@ -2,8 +2,6 @@
 using EasyStudingModels.Models;
 using EasyStudingRepositories.DbContext;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,11 +9,22 @@ namespace EasyStudingRepositories.Repositories
 {
     public class ExecutorRepository : IExecutorRepository
     {
+        #region Repositories from db.
+
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<Skill> _skillRepository;
+
+        #endregion
+
         private readonly EasyStudingContext _context;
 
         public ExecutorRepository(EasyStudingContext context)
         {
             _context = context;
+            _userRepository = new UniversalRepository<User>(_context);
+            _orderRepository = new UniversalRepository<Order>(_context);
+            _skillRepository = new UniversalRepository<Skill>(_context);
         }
 
         /// <summary>

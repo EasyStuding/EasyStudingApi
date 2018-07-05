@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EasyStudingModels.Models
+﻿namespace EasyStudingModels.Models
 {
     public class LoginModel: IValidatedEntity
     {

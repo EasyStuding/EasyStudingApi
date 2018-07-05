@@ -1,10 +1,5 @@
-﻿using EasyStudingRepositories.DbContext;
-using EasyStudingServices.Services;
-using EasyStudingModels.Models;
+﻿using EasyStudingServices.Services;
 using EasyStudingUnitTests.TestData;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using Xunit;
 

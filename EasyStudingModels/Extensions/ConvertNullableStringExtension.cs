@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EasyStudingModels.Extensions
+﻿namespace EasyStudingModels.Extensions
 {
     public static class ConvertNullableStringExtension
     {

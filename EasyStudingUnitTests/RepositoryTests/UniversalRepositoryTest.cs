@@ -3,8 +3,6 @@ using EasyStudingRepositories.Repositories;
 using EasyStudingModels.Models;
 using EasyStudingUnitTests.TestData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using Xunit;
 

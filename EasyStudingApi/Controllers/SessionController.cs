@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
 using EasyStudingModels.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using EasyStudingApi.Extensions;
 
 namespace EasyStudingApi.Controllers
 {
@@ -69,7 +66,7 @@ namespace EasyStudingApi.Controllers
         // /api/session/UpdateToken
         public async Task<LoginToken> UpdateToken()
         {
-            return await _service.UpdateToken(long.Parse(User.Claims.FirstOrDefault().Value));
+            return await _service.UpdateToken(User.GetUserId());
         }
 
         [Authorize]

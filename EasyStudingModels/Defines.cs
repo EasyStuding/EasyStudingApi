@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EasyStudingModels
+﻿namespace EasyStudingModels
 {
     public static class Defines
     {

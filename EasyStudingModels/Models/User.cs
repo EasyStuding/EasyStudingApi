@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using static EasyStudingModels.Defines;
 
 namespace EasyStudingModels.Models

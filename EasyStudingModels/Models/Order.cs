@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EasyStudingModels.Models
+﻿namespace EasyStudingModels.Models
 {
     public partial class Order: IEntity<Order>
     {

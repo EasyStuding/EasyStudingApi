@@ -2,9 +2,7 @@
 using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyStudingServices.Services
@@ -42,7 +40,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted user.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<User> GetUser(long id)
         {
@@ -56,7 +53,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
 
         public async Task<IQueryable<Order>> GetOrders(long currentUserId)
         {
@@ -71,8 +67,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer of order != current user.</exception>
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
@@ -103,8 +97,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Files from open source.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When openSource not founded.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">User have not permissions to get files.</exception>
 
         public async Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId)
         {
@@ -119,8 +111,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    File to download.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When file not founded.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">User have not permissions to get file.</exception>
 
         public async Task<FileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId)
         {
@@ -136,7 +126,6 @@ namespace EasyStudingServices.Services
         ///    True - if validation code right, else - false.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When current user not founded.</exception>
 
         public async Task<bool> ValidateEmail(string validationCode, long currentUserId)
         {
@@ -153,7 +142,6 @@ namespace EasyStudingServices.Services
         ///    true - password changed, false - oldpassword incorrect
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
         {
@@ -169,8 +157,6 @@ namespace EasyStudingServices.Services
         ///    Changed model of current user.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
-        /// <exception cref="System.InvalidOperationException">When user id of description != current user id.</exception>
 
         public async Task<User> EditProfile(User user, long currentUserId)
         {
@@ -186,7 +172,6 @@ namespace EasyStudingServices.Services
         ///    Added image.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
         {
@@ -201,8 +186,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed image.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When user or picture not found.</exception>
-        /// <exception cref="System.InvalidOperationException">When user id of photo != current user id.</exception>
 
         public async Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId)
         {
@@ -218,7 +201,6 @@ namespace EasyStudingServices.Services
         ///    Cost of subscription.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<User> BuySubscription(string name, long currentUserId)
         {
@@ -234,7 +216,6 @@ namespace EasyStudingServices.Services
         ///    Added file.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId)
         {
@@ -249,8 +230,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed file.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When user or picture not found.</exception>
-        /// <exception cref="System.InvalidOperationException">When user id of photo != current user id.</exception>
 
         public async Task<FileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
         {
@@ -266,7 +245,6 @@ namespace EasyStudingServices.Services
         ///    Added order.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<Order> AddOrder(Order order, long currentUserId)
         {
@@ -282,7 +260,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Updated order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When one of users or order not found.</exception>
 
         public async Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId)
         {
@@ -297,8 +274,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///   Requested order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">When user not found or not permissions.</exception>
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
@@ -314,8 +289,6 @@ namespace EasyStudingServices.Services
         ///    Added review.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.ArgumentNullException">When user or order not found.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">User not permissions.</exception>
 
         public async Task<Review> AddReview(Review review, long currentUserId)
         {

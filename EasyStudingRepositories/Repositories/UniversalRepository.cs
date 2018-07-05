@@ -1,5 +1,4 @@
 ﻿using EasyStudingInterfaces.Repositories;
-using EasyStudingInterfaces.Services;
 using EasyStudingModels;
 using EasyStudingRepositories.DbContext;
 using Microsoft.EntityFrameworkCore;

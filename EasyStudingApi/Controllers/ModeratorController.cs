@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
@@ -72,10 +70,12 @@ namespace EasyStudingApi.Controllers
                                "wwwroot", date + "_log.txt");
 
                 var memory = new MemoryStream();
+
                 using (var stream = new FileStream(path, FileMode.Open))
                 {
                     await stream.CopyToAsync(memory);
                 }
+
                 memory.Position = 0;
 
                 var logs = File(memory, path.GetContentType(), Path.GetFileName(path));
