@@ -102,7 +102,9 @@ namespace EasyStudingApi
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddDbContext<EasyStudingContext>(options => options.UseNpgsql(EasyStudingContext.CONNECTION_STRING));
+            services.AddDbContext<EasyStudingContext>(options => 
+                options.UseNpgsql(EasyStudingContext.CONNECTION_STRING));
+
             services.AddScoped<ISessionController, SessionController>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionRepository, SessionRepository>();
@@ -110,6 +112,10 @@ namespace EasyStudingApi
             services.AddScoped<IModeratorController, ModeratorController>();
             services.AddScoped<IModeratorService, ModeratorService>();
             services.AddScoped<IModeratorRepository, ModeratorRepository>();
+
+            services.AddScoped<IExecutorController, ExecutorController>();
+            services.AddScoped<IExecutorService, ExecutorService>();
+            services.AddScoped<IExecutorRepository, ExecutorRepository>();
         }
     }
 }
