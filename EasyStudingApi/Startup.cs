@@ -116,6 +116,10 @@ namespace EasyStudingApi
             services.AddScoped<IExecutorController, ExecutorController>();
             services.AddScoped<IExecutorService, ExecutorService>();
             services.AddScoped<IExecutorRepository, ExecutorRepository>();
+
+            services.AddScoped<IUserController, UserController>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
