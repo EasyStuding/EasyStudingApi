@@ -5,6 +5,7 @@
         public long Id { get; set; }
         public long CustomerId { get; set; }
         public long? ExecutorId { get; set; }
+        public bool? InProgress { get; set; } = false;
         public bool? IsClosedByCustomer { get; set; } = false;
         public bool? IsClosedByExecutor { get; set; } = false;
         public bool? IsCompleted { get; set; } = false;
