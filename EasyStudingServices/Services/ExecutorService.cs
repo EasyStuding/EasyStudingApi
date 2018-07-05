@@ -1,7 +1,7 @@
 ﻿using EasyStudingInterfaces.Services;
 using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.Models;
-using System;
+using EasyStudingModels.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,11 +28,14 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders sorted by city and education.
         /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
-            throw new Exception();
+            return await _executorRepository.GetOrders(education.ConvertToValidModel(),
+                country.ConvertToValidModel(),
+                region.ConvertToValidModel(),
+                city.ConvertToValidModel(),
+                currentUserId);
         }
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _executorRepository.GetOrder(id, currentUserId);
         }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            return await GetTheRightsToPerformOrder(id, currentUserId);
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            return await CloseOrder(id, currentUserId);
         }
 
         /// <summary>
@@ -88,7 +91,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Skill> AddSkill(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _executorRepository.AddSkill(id, currentUserId);
         }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Skill> RemoveSkill(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _executorRepository.RemoveSkill(id, currentUserId);
         }
     }
 }
