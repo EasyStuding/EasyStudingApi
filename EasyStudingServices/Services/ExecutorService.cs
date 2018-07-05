@@ -31,7 +31,6 @@ namespace EasyStudingServices.Services
         ///    Orders sorted by city and education.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
@@ -46,8 +45,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">Id of executor != currentUserId or current user not executor.</exception>
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
@@ -62,9 +59,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.InvalidOperationException">When order have executor.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
@@ -79,8 +73,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///   Requested order.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
@@ -95,8 +87,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Added skill.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Skill> AddSkill(long id, long currentUserId)
         {
@@ -111,8 +101,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed skill.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result null.</exception>
-        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Skill> RemoveSkill(long id, long currentUserId)
         {
