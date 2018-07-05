@@ -29,44 +29,45 @@ namespace EasyStudingApi.Filters
                 },
                 {
                     typeof(UnauthorizedAccessException),
-                    new StatusCodeResult(401)
+                    new StatusCodeResult(403)
                 }
             };
 
         public override void OnException(ExceptionContext context)
         {
-            try
-            {
-                context.Result = _exceptionFilter[context.Exception.GetType()];
-            }
-            catch
-            {
-                context.Result = new StatusCodeResult(500);
-            }
-            finally
-            {
-                LogService.UpdateLogFile(context.Exception);
-            }
+            context = GetStatusCodeResult(context);
 
             base.OnException(context);
         }
 
         public override Task OnExceptionAsync(ExceptionContext context)
         {
+            context = GetStatusCodeResult(context);
+
+            return base.OnExceptionAsync(context);
+        }
+
+        private ExceptionContext GetStatusCodeResult(ExceptionContext context)
+        {
             try
             {
-                context.Result = _exceptionFilter[context.Exception.GetType()];
+                context.Result = 
+                    _exceptionFilter[context.Exception.GetType()];
+
+                return context;
             }
             catch
             {
-                context.Result = new StatusCodeResult(500);
+                context.Result = 
+                    new StatusCodeResult(500);
+
+                return context;
             }
             finally
             {
-                LogService.UpdateLogFile(context.Exception);
+                LogService
+                    .UpdateLogFile(context.Exception);
             }
-
-            return base.OnExceptionAsync(context);
         }
     }
 }
