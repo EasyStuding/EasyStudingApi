@@ -63,7 +63,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
-            return await GetTheRightsToPerformOrder(id, currentUserId);
+            return await _executorRepository.GetTheRightsToPerformOrder(id, currentUserId);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
-            return await CloseOrder(id, currentUserId);
+            return await _executorRepository.CloseOrder(id, currentUserId);
         }
 
         /// <summary>
