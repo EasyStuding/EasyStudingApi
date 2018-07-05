@@ -122,7 +122,8 @@ namespace EasyStudingRepositories.Repositories
 
             var order = await _orderRepository.GetAsync(id);
 
-            order.IsClosedByExecutor = order.ExecutorId == currentUserId
+            order.IsClosedByExecutor = (order.ExecutorId == currentUserId
+                && order.InProgress == true)
                 ? true
                 : throw new UnauthorizedAccessException();
 
