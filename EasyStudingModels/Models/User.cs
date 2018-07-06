@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyStudingModels.Extensions;
+using System;
 using static EasyStudingModels.Defines;
 
 namespace EasyStudingModels.Models
@@ -59,7 +60,7 @@ namespace EasyStudingModels.Models
         public bool Validate()
         {
             return Id >= 0
-                && !string.IsNullOrWhiteSpace(TelephoneNumber)
+                && TelephoneNumber.IsValidTelephoneNumber()
                 && RegistrationDate != null
                 && !string.IsNullOrWhiteSpace(Role)
                 && BanExpiresDate != null
@@ -69,7 +70,7 @@ namespace EasyStudingModels.Models
                 && !string.IsNullOrWhiteSpace(FullName)
                 && !string.IsNullOrWhiteSpace(Description)
                 && !string.IsNullOrWhiteSpace(PictureLink)
-                && !string.IsNullOrWhiteSpace(Email)
+                && Email.IsValidEmail()
                 && !string.IsNullOrWhiteSpace(Country)
                 && !string.IsNullOrWhiteSpace(Region)
                 && !string.IsNullOrWhiteSpace(City)

@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels.Models
+﻿using EasyStudingModels.Extensions;
+
+namespace EasyStudingModels.Models
 {
     public class RestorePasswordModel: IValidatedEntity
     {
@@ -10,9 +12,9 @@
 
         public bool Validate()
         {
-            return !string.IsNullOrWhiteSpace(TelephoneNumber)
+            return TelephoneNumber.IsValidTelephoneNumber()
                 && !string.IsNullOrWhiteSpace(ValidationCode)
-                && !string.IsNullOrWhiteSpace(Password);
+                && Password.IsValidPassword();
         }
     }
 }

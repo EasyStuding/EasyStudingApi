@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels.Models
+﻿using EasyStudingModels.Extensions;
+
+namespace EasyStudingModels.Models
 {
     public class LoginModel: IValidatedEntity
     {
@@ -7,8 +9,8 @@
 
         public bool Validate()
         {
-            return !string.IsNullOrWhiteSpace(TelephoneNumber)
-                && !string.IsNullOrWhiteSpace(Password);
+            return TelephoneNumber.IsValidTelephoneNumber()
+                && Password.IsValidPassword();
         }
     }
 }

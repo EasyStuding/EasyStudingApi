@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels.Models
+﻿using EasyStudingModels.Extensions;
+
+namespace EasyStudingModels.Models
 {
     public class UserPassword: IEntity<UserPassword>
     {
@@ -15,7 +17,7 @@
         {
             return Id >= 0
                 && UserId >= 0
-                && !string.IsNullOrWhiteSpace(Password);
+                && Password.IsValidPassword();
         }
     }
 }

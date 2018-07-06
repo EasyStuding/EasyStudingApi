@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels.Models
+﻿using EasyStudingModels.Extensions;
+
+namespace EasyStudingModels.Models
 {
     public class RegistrationModel: IValidatedEntity
     {
@@ -6,7 +8,7 @@
 
         public bool Validate()
         {
-            return !string.IsNullOrWhiteSpace(TelephoneNumber);
+            return TelephoneNumber.IsValidTelephoneNumber();
         }
     }
 }
