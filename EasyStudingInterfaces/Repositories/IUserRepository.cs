@@ -6,7 +6,7 @@ namespace EasyStudingInterfaces.Repositories
 {
     public interface IUserRepository
     {
-        Task<IQueryable<User>> GetUsers(string education, string country, string region, string city);
+        IQueryable<User> GetUsers(string education, string country, string region, string city);
 
         Task<User> GetUser(long id);
 
@@ -14,7 +14,7 @@ namespace EasyStudingInterfaces.Repositories
 
         Task<Order> GetOrder(long id, long currentUserId);
 
-        Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city);
+        IQueryable<User> GetExecutors(string education, string country, string region, string city);
 
         Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId);
 

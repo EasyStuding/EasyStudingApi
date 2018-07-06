@@ -28,9 +28,9 @@ namespace EasyStudingServices.Services
         ///    Users sorted by city and education.
         /// </returns>
 
-        public async Task<IQueryable<User>> GetUsers(string education, string country, string region, string city)
+        public IQueryable<User> GetUsers(string education, string country, string region, string city)
         {
-            return await _userRepository.GetUsers(education.ConvertToValidModel(),
+            return _userRepository.GetUsers(education.ConvertToValidModel(),
                 country.ConvertToValidModel(),
                 region.ConvertToValidModel(),
                 city.ConvertToValidModel());
@@ -86,9 +86,9 @@ namespace EasyStudingServices.Services
         ///    Executors.
         /// </returns>
 
-        public async Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city)
+        public IQueryable<User> GetExecutors(string education, string country, string region, string city)
         {
-            return await _userRepository.GetExecutors(education.ConvertToValidModel(),
+            return _userRepository.GetExecutors(education.ConvertToValidModel(),
                 country.ConvertToValidModel(),
                 region.ConvertToValidModel(),
                 city.ConvertToValidModel());

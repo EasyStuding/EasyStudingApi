@@ -26,7 +26,7 @@ namespace EasyStudingRepositories.Repositories
         ///    Users sorted by city and education.
         /// </returns>
 
-        public async Task<IQueryable<User>> GetUsers(string education, string country, string region, string city)
+        public IQueryable<User> GetUsers(string education, string country, string region, string city)
         {
             throw new Exception();
         }
@@ -82,7 +82,7 @@ namespace EasyStudingRepositories.Repositories
         ///    Executors.
         /// </returns>
 
-        public async Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city)
+        public IQueryable<User> GetExecutors(string education, string country, string region, string city)
         {
             throw new Exception();
         }

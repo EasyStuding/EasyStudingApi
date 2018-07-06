@@ -23,9 +23,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetUsers
-        public async Task<IQueryable<User>> GetUsers(string education, string country, string region, string city)
+        public IQueryable<User> GetUsers(string education, string country, string region, string city)
         {
-            return await _service.GetUsers(education, country, region, city);
+            return _service.GetUsers(education, country, region, city);
         }
 
         [HttpGet]
@@ -51,9 +51,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetExecutors
-        public async Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city)
+        public IQueryable<User> GetExecutors(string education, string country, string region, string city)
         {
-            return await _service.GetExecutors(education, country, region, city);
+            return _service.GetExecutors(education, country, region, city);
         }
 
         [HttpGet]
