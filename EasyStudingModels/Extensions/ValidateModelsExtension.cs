@@ -14,6 +14,12 @@ namespace EasyStudingModels.Extensions
             }
         }
 
+        public static bool IsValidSubscription(this string sub)
+        {
+            return sub.Equals(Defines.Subscription.EXECUTOR) 
+                || sub.Equals(Defines.Subscription.OPEN_SOURSE);
+        }
+
         public static bool IsValidEmail(this string email)
         {
             try
