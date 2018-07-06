@@ -4,6 +4,7 @@ using EasyStudingModels.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyStudingModels.Extensions;
 
 namespace EasyStudingServices.Services
 {
@@ -26,11 +27,13 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Users sorted by city and education.
         /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<IQueryable<User>> GetUsers(string education, string country, string region, string city)
         {
-            throw new Exception();
+            return await _userRepository.GetUsers(education.ConvertToValidModel(),
+                country.ConvertToValidModel(),
+                region.ConvertToValidModel(),
+                city.ConvertToValidModel());
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace EasyStudingServices.Services
 
         public async Task<User> GetUser(long id)
         {
-            throw new Exception();
+            return await _userRepository.GetUser(id);
         }
 
         /// <summary>
@@ -56,7 +59,7 @@ namespace EasyStudingServices.Services
 
         public async Task<IQueryable<Order>> GetOrders(long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.GetOrders(currentUserId);
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.GetOrder(id, currentUserId);
         }
 
         /// <summary>
@@ -82,11 +85,13 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Executors.
         /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
         public async Task<IQueryable<User>> GetExecutors(string education, string country, string region, string city)
         {
-            throw new Exception();
+            return await _userRepository.GetExecutors(education.ConvertToValidModel(),
+                country.ConvertToValidModel(),
+                region.ConvertToValidModel(),
+                city.ConvertToValidModel());
         }
 
         /// <summary>
@@ -100,7 +105,7 @@ namespace EasyStudingServices.Services
 
         public async Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.GetOpenSourceAttachments(ownerOpenSourceId, currentUserId);
         }
 
         /// <summary>
@@ -114,7 +119,7 @@ namespace EasyStudingServices.Services
 
         public async Task<FileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.OpenSourceDownloadFile(fileId, currentUserId);
         }
 
         /// <summary>
@@ -129,7 +134,8 @@ namespace EasyStudingServices.Services
 
         public async Task<bool> ValidateEmail(string validationCode, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.ValidateEmail(validationCode ?? throw new ArgumentException(), 
+                currentUserId);
         }
 
         /// <summary>
@@ -145,7 +151,9 @@ namespace EasyStudingServices.Services
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.ChangePassword(oldPassword ?? throw new ArgumentException(),
+                newPassword.IsValidPassword() ? newPassword : throw new ArgumentException(),
+                currentUserId);
         }
 
         /// <summary>
@@ -160,7 +168,9 @@ namespace EasyStudingServices.Services
 
         public async Task<User> EditProfile(User user, long currentUserId)
         {
-            throw new Exception();
+            user.CheckArgumentException();
+
+            return await _userRepository.EditProfile(user, currentUserId);
         }
 
         /// <summary>
@@ -175,7 +185,9 @@ namespace EasyStudingServices.Services
 
         public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
         {
-            throw new Exception();
+            file.CheckArgumentException();
+
+            return await _userRepository.AddPictureProfile(file, currentUserId);
         }
 
         /// <summary>
@@ -189,7 +201,7 @@ namespace EasyStudingServices.Services
 
         public async Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.RemovePictureProfile(id, currentUserId);
         }
 
         /// <summary>
@@ -204,7 +216,8 @@ namespace EasyStudingServices.Services
 
         public async Task<User> BuySubscription(string name, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.BuySubscription(name.IsValidSubscription() ? name : throw new ArgumentException(),
+                currentUserId);
         }
 
         /// <summary>
@@ -219,7 +232,9 @@ namespace EasyStudingServices.Services
 
         public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId)
         {
-            throw new Exception();
+            file.CheckArgumentException();
+
+            return await _userRepository.AddFileToOpenSource(file, currentUserId);
         }
 
         /// <summary>
@@ -233,7 +248,7 @@ namespace EasyStudingServices.Services
 
         public async Task<FileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.RemoveFileFromOpenSource(id, currentUserId);
         }
 
         /// <summary>
@@ -248,7 +263,9 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> AddOrder(Order order, long currentUserId)
         {
-            throw new Exception();
+            order.CheckArgumentException();
+
+            return await _userRepository.AddOrder(order, currentUserId);
         }
 
         /// <summary>
@@ -263,7 +280,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.StartExecuteOrder(id, executorUserId, currentUserId);
         }
 
         /// <summary>
@@ -277,7 +294,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> RefuseExecutor(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.RefuseExecutor(id, currentUserId);
         }
 
         /// <summary>
@@ -291,7 +308,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            return await _userRepository.CloseOrder(id, currentUserId);
         }
 
         /// <summary>
@@ -306,7 +323,9 @@ namespace EasyStudingServices.Services
 
         public async Task<Review> AddReview(Review review, long currentUserId)
         {
-            throw new Exception();
+            review.CheckArgumentException();
+
+            return await _userRepository.AddReview(review, currentUserId);
         }
     }
 }
