@@ -159,7 +159,7 @@ namespace EasyStudingServices.Services
         /// </summary>
         public async Task<bool> DeleteUserDev(string telNumber)
         {
-            return await _sessionRepository.DeleteUserDev(telNumber);
+            return await _sessionRepository.DeleteUserDev(telNumber ?? throw new ArgumentException());
         }
 
         #region Generate jwt token.
