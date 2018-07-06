@@ -72,7 +72,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/user/ValidateEmail
-        public async Task<bool> ValidateEmail(string validationCode)
+        public async Task<User> ValidateEmail(string validationCode)
         {
             return await _service.ValidateEmail(validationCode, User.GetUserId());
         }
@@ -95,7 +95,15 @@ namespace EasyStudingApi.Controllers
         // /api/user/AddPictureProfile
         public async Task<FileToReturnModel> AddPictureProfile([FromBody]FileToAddModel file)
         {
-            return await _service.AddPictureProfile(file, User.GetUserId());
+            try
+            {
+                return await _service.AddPictureProfile(file, User.GetUserId());
+            }
+
+            catch(System.Exception ex)
+            {
+                throw new System.Exception();
+            }
         }
 
         [HttpDelete]

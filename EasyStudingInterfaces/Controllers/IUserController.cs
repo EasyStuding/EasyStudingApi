@@ -20,7 +20,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<FileToReturnModel> OpenSourceDownloadFile(long fileId);
 
-        Task<bool> ValidateEmail(string validationCode);
+        Task<User> ValidateEmail(string validationCode);
 
         Task<bool> ChangePassword(string oldPassword, string newPassword);
 

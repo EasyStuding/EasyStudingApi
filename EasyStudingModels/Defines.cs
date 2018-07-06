@@ -19,5 +19,12 @@
 
             public const string ADMIN = "admin";
         }
+
+        public static class AttachmentContainerName
+        {
+            public const string USER = "user";
+
+            public const string ORDER = "order";
+        }
     }
 }

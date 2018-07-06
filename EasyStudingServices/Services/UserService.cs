@@ -132,7 +132,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public async Task<bool> ValidateEmail(string validationCode, long currentUserId)
+        public async Task<User> ValidateEmail(string validationCode, long currentUserId)
         {
             return await _userRepository.ValidateEmail(validationCode ?? throw new ArgumentException(), 
                 currentUserId);

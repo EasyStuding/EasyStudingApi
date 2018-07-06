@@ -14,10 +14,18 @@ namespace EasyStudingModels.Extensions
             }
         }
 
+        public static bool IsValidContainerName(this string containerName)
+        {
+            return !string.IsNullOrWhiteSpace(containerName)
+                && (containerName.Equals(Defines.AttachmentContainerName.USER)
+                || containerName.Equals(Defines.AttachmentContainerName.ORDER));
+        }
+
         public static bool IsValidSubscription(this string sub)
         {
-            return sub.Equals(Defines.Subscription.EXECUTOR) 
-                || sub.Equals(Defines.Subscription.OPEN_SOURSE);
+            return !string.IsNullOrWhiteSpace(sub)
+                && (sub.Equals(Defines.Subscription.EXECUTOR) 
+                || sub.Equals(Defines.Subscription.OPEN_SOURSE));
         }
 
         public static bool IsValidEmail(this string email)

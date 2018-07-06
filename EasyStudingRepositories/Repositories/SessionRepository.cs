@@ -1,6 +1,7 @@
 ﻿using EasyStudingInterfaces.Repositories;
 using EasyStudingModels.Models;
 using EasyStudingRepositories.DbContext;
+using EasyStudingRepositories.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,8 +75,8 @@ namespace EasyStudingRepositories.Repositories
             var user = await GetUserById(validateModel.UserId)
                 ?? throw new ArgumentNullException();
 
-            user.TelephoneNumberIsValidated = 
-                ValidateCode(validateModel.ValidationCode, user.TelephoneNumber);
+            user.TelephoneNumberIsValidated =
+                validateModel.ValidationCode.ValidateCode(user.TelephoneNumber);
 
             return await _userRepository.EditAsync(user);
         }
@@ -102,7 +103,7 @@ namespace EasyStudingRepositories.Repositories
             userPassword = await _userPasswordRepository.AddAsync(new UserPassword()
             {
                 UserId = user.Id,
-                Password = HashPassword(loginModel.Password)
+                Password = loginModel.Password.HashPassword()
             });
 
             return user;
@@ -134,7 +135,7 @@ namespace EasyStudingRepositories.Repositories
                 .FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber))
                 ?? throw new ArgumentNullException();
 
-            if (!VerifyHashedPassword(user.Password, loginModel.Password))
+            if (!user.Password.VerifyHashedPassword(loginModel.Password))
             {
                 throw new InvalidOperationException();
             }
@@ -167,21 +168,7 @@ namespace EasyStudingRepositories.Repositories
 
         public string GetValidationCode(string key)
         {
-            var strToRet = "";
-
-            using (MD5 md5Hash = MD5.Create())
-            {
-                var data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(key));
-
-                var strArr = data.Select(b => b.ToString("x2")).Skip(10).Take(3);
-
-                foreach (var ch in strArr)
-                {
-                    strToRet += ch;
-                }
-            }
-
-            return strToRet.ToUpper();
+            return key.GetValidationCode();
         }
 
         /// <summary>
@@ -196,7 +183,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> RestorePassword(RestorePasswordModel restorePasswordModel)
         {
-            if (!ValidateCode(restorePasswordModel.ValidationCode, restorePasswordModel.TelephoneNumber))
+            if (!restorePasswordModel.ValidationCode.ValidateCode(restorePasswordModel.TelephoneNumber))
             {
                 throw new InvalidOperationException();
             }
@@ -207,7 +194,7 @@ namespace EasyStudingRepositories.Repositories
             var password = GetUserPasswordByUserId(user.Id)
                 ?? throw new ArgumentNullException();
 
-            password.Password = HashPassword(restorePasswordModel.Password);
+            password.Password = restorePasswordModel.Password.HashPassword();
 
             var editedPassword = await _userPasswordRepository.EditAsync(password);
 
@@ -237,19 +224,6 @@ namespace EasyStudingRepositories.Repositories
             }
         }
 
-        private bool ValidateCode(string code, string telephone)
-        {
-            for (var i = 0; i <= 3; i++)
-            {
-                if (code.ToUpper().Equals(GetValidationCode(telephone 
-                    + DateTime.Now.AddMinutes(i).ToString("dd/MM/yy HH:mm"))))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private User GetUserByTelephoneNumber(string telephoneNumber)
         {
             return _userRepository
@@ -264,54 +238,6 @@ namespace EasyStudingRepositories.Repositories
                 .GetAll()
                 .FirstOrDefault(up =>
                     up.UserId == id);
-        }
-
-        //Create hash of password.
-        private static string HashPassword(string password)
-        {
-            byte[] salt;
-            byte[] buffer2;
-
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
-            {
-                salt = bytes.Salt;
-                buffer2 = bytes.GetBytes(0x20);
-            }
-
-            byte[] dst = new byte[0x31];
-
-            Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
-            Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
-
-            return Convert.ToBase64String(dst);
-        }
-
-        //Verify password.
-        private static bool VerifyHashedPassword(string hashedPassword, string password)
-        {
-            byte[] buffer4;
-            
-            byte[] src = Convert.FromBase64String(hashedPassword);
-
-            if ((src.Length != 0x31) || (src[0] != 0))
-            {
-                return false;
-            }
-
-            byte[] dst = new byte[0x10];
-
-            Buffer.BlockCopy(src, 1, dst, 0, 0x10);
-
-            byte[] buffer3 = new byte[0x20];
-
-            Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
-
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
-            {
-                buffer4 = bytes.GetBytes(0x20);
-            }
-
-            return buffer3.SequenceEqual(buffer4);
         }
     }
 }
