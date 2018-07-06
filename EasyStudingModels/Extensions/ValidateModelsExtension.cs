@@ -30,7 +30,7 @@ namespace EasyStudingModels.Extensions
         public static bool IsValidTelephoneNumber(this string telNumber)
         {
             //Need to contain 9-16 digits and start with +.
-            const string PATTERN = @"\+\d{9,16}";
+            const string PATTERN = @"\+\d{9,16}$";
 
             return string.IsNullOrWhiteSpace(telNumber)
                 ? false
