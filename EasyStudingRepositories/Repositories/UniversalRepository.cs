@@ -40,8 +40,7 @@ namespace EasyStudingRepositories.Repositories
 
             await _context.SaveChangesAsync();
 
-            return await GetAll().LastOrDefaultAsync()
-                ?? throw new ArgumentNullException();
+            return param;
         }
 
         public async Task<TEntity> EditAsync(TEntity param)
@@ -56,8 +55,7 @@ namespace EasyStudingRepositories.Repositories
 
             await _context.SaveChangesAsync();
 
-            return await GetAsync(param.Id)
-                ?? throw new ArgumentNullException();
+            return entity;
         }
 
         public async Task<TEntity> RemoveAsync(long id)
