@@ -86,14 +86,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpPut]
         // /api/user/EditProfile
-        public async Task<User> EditProfile(User user)
+        public async Task<User> EditProfile([FromBody]User user)
         {
             return await _service.EditProfile(user, User.GetUserId());
         }
 
         [HttpPost]
         // /api/user/AddPictureProfile
-        public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file)
+        public async Task<FileToReturnModel> AddPictureProfile([FromBody]FileToAddModel file)
         {
             return await _service.AddPictureProfile(file, User.GetUserId());
         }
@@ -114,7 +114,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/user/AddFileToOpenSource
-        public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file)
+        public async Task<FileToReturnModel> AddFileToOpenSource([FromBody]FileToAddModel file)
         {
             return await _service.AddFileToOpenSource(file, User.GetUserId());
         }
@@ -128,7 +128,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/user/AddOrder
-        public async Task<Order> AddOrder(Order order)
+        public async Task<Order> AddOrder([FromBody]Order order)
         {
             return await _service.AddOrder(order, User.GetUserId());
         }
@@ -156,7 +156,7 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/user/AddReview
-        public async Task<Review> AddReview(Review review)
+        public async Task<Review> AddReview([FromBody]Review review)
         {
             return await _service.AddReview(review, User.GetUserId());
         }
