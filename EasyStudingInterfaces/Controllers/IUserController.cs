@@ -40,6 +40,8 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<Order> StartExecuteOrder(long id, long executorUserId);
 
+        Task<Order> RefuseExecutor(long id);
+
         Task<Order> CloseOrder(long id);
 
         Task<Review> AddReview(Review review);

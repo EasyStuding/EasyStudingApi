@@ -40,6 +40,8 @@ namespace EasyStudingInterfaces.Repositories
 
         Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId);
 
+        Task<Order> RefuseExecutor(long id, long currentUserId);
+
         Task<Order> CloseOrder(long id, long currentUserId);
 
         Task<Review> AddReview(Review review, long currentUserId);

@@ -141,6 +141,13 @@ namespace EasyStudingApi.Controllers
         }
 
         [HttpPost]
+        // /api/user/RefuseExecutor
+        public async Task<Order> RefuseExecutor(long id)
+        {
+            return await _service.RefuseExecutor(id, User.GetUserId());
+        }
+
+        [HttpPost]
         // /api/user/CloseOrder
         public async Task<Order> CloseOrder(long id)
         {

@@ -39,6 +39,8 @@ namespace EasyStudingInterfaces.Services
         Task<Order> AddOrder(Order order, long currentUserId);
 
         Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId);
+        
+        Task<Order> RefuseExecutor(long id, long currentUserId);
 
         Task<Order> CloseOrder(long id, long currentUserId);
 

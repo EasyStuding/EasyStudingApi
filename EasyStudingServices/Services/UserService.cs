@@ -267,6 +267,20 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
+        ///   Refuse executor to start execute order. 
+        /// </summary>
+        /// <param name="id">Id of order.</param>
+        /// <param name="currentUserId">Id of current user.</param>
+        /// <returns>
+        ///    Updated order.
+        /// </returns>
+
+        public async Task<Order> RefuseExecutor(long id, long currentUserId)
+        {
+            throw new Exception();
+        }
+
+        /// <summary>
         ///   Close execute of order from Executor.
         /// </summary>
         /// <param name="id">Id of order to close.</param>
