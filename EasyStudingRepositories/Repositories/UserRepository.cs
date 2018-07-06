@@ -1,19 +1,35 @@
 ﻿using EasyStudingInterfaces.Repositories;
+using EasyStudingModels;
 using EasyStudingModels.Models;
 using EasyStudingRepositories.DbContext;
+using EasyStudingRepositories.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+using System.Collections.Generic;
+using CG.Web.MegaApiClient;
 
 namespace EasyStudingRepositories.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        #region Repositories from db.
+
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<UserPassword> _userPasswordRepository;
+        #endregion
+
         private readonly EasyStudingContext _context;
 
         public UserRepository(EasyStudingContext context)
         {
             _context = context;
+            _userRepository = new UniversalRepository<User>(_context);
+            _orderRepository = new UniversalRepository<Order>(_context);
+            _userPasswordRepository = new UniversalRepository<UserPassword>(_context);
         }
 
         /// <summary>
@@ -28,7 +44,11 @@ namespace EasyStudingRepositories.Repositories
 
         public IQueryable<User> GetUsers(string education, string country, string region, string city)
         {
-            throw new Exception();
+            return _userRepository.GetAll().Where(u =>
+               u.Education.Contains(education)
+               && u.Country.Contains(country)
+               && u.Region.Contains(region)
+               && u.City.Contains(city));
         }
 
         /// <summary>
@@ -41,7 +61,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> GetUser(long id)
         {
-            throw new Exception();
+            return await _userRepository.GetAsync(id);
         }
 
         /// <summary>
@@ -51,10 +71,15 @@ namespace EasyStudingRepositories.Repositories
         /// <returns>
         ///    Orders.
         /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">When user not found.</exception>
 
         public async Task<IQueryable<Order>> GetOrders(long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId)
+                ?? throw new UnauthorizedAccessException();
+
+            return _orderRepository.GetAll().Where(o => o.CustomerId == user.Id
+            || o.ExecutorId == user.Id);
         }
 
         /// <summary>
@@ -65,11 +90,15 @@ namespace EasyStudingRepositories.Repositories
         /// <returns>
         ///    Order.
         /// </returns>
-        /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer of order != current user.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer/Executor of order != current user.</exception>
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId)
+                ?? throw new UnauthorizedAccessException();
+
+            return _orderRepository.GetAll().FirstOrDefault(o => o.Id == id
+                && (o.CustomerId == user.Id || o.ExecutorId == user.Id));
         }
 
         /// <summary>
@@ -84,7 +113,12 @@ namespace EasyStudingRepositories.Repositories
 
         public IQueryable<User> GetExecutors(string education, string country, string region, string city)
         {
-            throw new Exception();
+            return _userRepository.GetAll().Where(u =>
+               u.Education.Contains(education)
+               && u.Country.Contains(country)
+               && u.Region.Contains(region)
+               && u.City.Contains(city)
+               && u.SubscriptionExecutorExpiresDate > DateTime.Now);
         }
 
         /// <summary>
@@ -99,7 +133,28 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId)
+                ?? throw new UnauthorizedAccessException();
+
+            user = user.SubscriptionOpenSourceExpiresDate > DateTime.Now
+                ? user
+                : throw new UnauthorizedAccessException();
+
+            return _context.Attachment
+                .Join(_context.Users,
+                    a => a.ContainerId,
+                    u => u.Id,
+                    (a, u) => new FileToReturnModel()
+                    {
+                        Id = a.Id,
+                        ContainerId = u.Id,
+                        ContainerName = a.ContainerName,
+                        Name = a.Name,
+                        DownloadLink = a.DownloadLink,
+                        PreviewLink = a.PreviewLink,
+                        Type = a.Type
+                    })
+                 .Where(ftr => ftr.ContainerName.Equals(Defines.AttachmentContainerName.USER));
         }
 
         /// <summary>
@@ -114,7 +169,29 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<FileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId)
+                ?? throw new UnauthorizedAccessException();
+
+            user = user.SubscriptionOpenSourceExpiresDate > DateTime.Now
+                ? user
+                : throw new UnauthorizedAccessException();
+
+            return _context.Attachment
+                .Join(_context.Users,
+                    a => a.ContainerId,
+                    u => u.Id,
+                    (a, u) => new FileToReturnModel()
+                    {
+                        Id = a.Id,
+                        ContainerId = u.Id,
+                        ContainerName = a.ContainerName,
+                        Name = a.Name,
+                        DownloadLink = a.DownloadLink,
+                        PreviewLink = a.PreviewLink,
+                        Type = a.Type
+                    })
+                 .FirstOrDefault(ftr => ftr.ContainerName.Equals(Defines.AttachmentContainerName.USER)
+                    && ftr.Id == fileId);
         }
 
         /// <summary>
@@ -125,10 +202,17 @@ namespace EasyStudingRepositories.Repositories
         /// <returns>
         ///    True - if validation code right, else - false.
         /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">User not found.</exception>
 
-        public async Task<bool> ValidateEmail(string validationCode, long currentUserId)
+        public async Task<User> ValidateEmail(string validationCode, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            user.EmailIsValidated = user.EmailIsValidated == true
+                ? throw new InvalidOperationException()
+                : validationCode.ValidateCode(user.Email);
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -143,7 +227,21 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            var userPassword = _context.UserPasswords.FirstOrDefault(up => up.UserId == user.Id)
+                ?? throw new ArgumentNullException();
+
+            if (!userPassword.Password.VerifyHashedPassword(oldPassword))
+            {
+                throw new InvalidOperationException();
+            }
+
+            userPassword.Password = newPassword.HashPassword();
+
+            userPassword = await _userPasswordRepository.EditAsync(userPassword);
+
+            return true;
         }
 
         /// <summary>
@@ -158,7 +256,11 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> EditProfile(User user, long currentUserId)
         {
-            throw new Exception();
+            user = (await _userRepository.GetAsync(currentUserId)).Id == user.Id
+                ? await _userRepository.EditAsync(user)
+                : throw new UnauthorizedAccessException();
+
+            return user;
         }
 
         /// <summary>
@@ -172,7 +274,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
         {
-            throw new Exception();
+            return FileStorage.UploadFile(file);
         }
 
         /// <summary>
