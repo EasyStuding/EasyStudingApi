@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels
+﻿using System.Collections.Generic;
+
+namespace EasyStudingModels
 {
     public static class Defines
     {
@@ -25,6 +27,12 @@
             public const string USER = "user";
 
             public const string ORDER = "order";
+        }
+
+        public static class Mega
+        {
+            public static Dictionary<string, string> CREDS = 
+                new Dictionary<string, string>() { { "s.a.mokin@list.ru", "DefaultAdmin123!" } };
         }
     }
 }
