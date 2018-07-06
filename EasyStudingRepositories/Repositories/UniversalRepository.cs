@@ -28,7 +28,7 @@ namespace EasyStudingRepositories.Repositories
         public async Task<TEntity> GetAsync(long id)
         {
             return await _dbSet.FirstOrDefaultAsync(e => e.Id == id)
-                ?? throw new ArgumentNullException(); ;
+                ?? throw new ArgumentNullException();
         }
 
         public async Task<TEntity> AddAsync(TEntity param)
@@ -40,7 +40,8 @@ namespace EasyStudingRepositories.Repositories
 
             await _context.SaveChangesAsync();
 
-            return await GetAll().LastOrDefaultAsync();
+            return await GetAll().LastOrDefaultAsync()
+                ?? throw new ArgumentNullException();
         }
 
         public async Task<TEntity> EditAsync(TEntity param)
