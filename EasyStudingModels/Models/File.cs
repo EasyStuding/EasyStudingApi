@@ -36,7 +36,9 @@ namespace EasyStudingModels.Models
 
         public string Type { get; set; }
 
-        public string Ref { get; set; }
+        public string PreviewLink { get; set; }
+
+        public string DownloadLink { get; set; }
 
         public bool Validate()
         {
@@ -45,7 +47,8 @@ namespace EasyStudingModels.Models
                 && ContainerName.IsValidContainerName()
                 && !string.IsNullOrWhiteSpace(Name)
                 && !string.IsNullOrWhiteSpace(Type)
-                && !string.IsNullOrWhiteSpace(Ref);
+                && !string.IsNullOrWhiteSpace(PreviewLink)
+                && !string.IsNullOrWhiteSpace(DownloadLink);
         }
     }
 }

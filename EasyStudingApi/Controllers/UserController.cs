@@ -95,15 +95,7 @@ namespace EasyStudingApi.Controllers
         // /api/user/AddPictureProfile
         public async Task<FileToReturnModel> AddPictureProfile([FromBody]FileToAddModel file)
         {
-            try
-            {
-                return await _service.AddPictureProfile(file, User.GetUserId());
-            }
-
-            catch(System.Exception ex)
-            {
-                throw new System.Exception();
-            }
+            return await _service.AddPictureProfile(file, User.GetUserId());
         }
 
         [HttpDelete]

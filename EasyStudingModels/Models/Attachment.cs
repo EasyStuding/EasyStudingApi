@@ -9,13 +9,15 @@ namespace EasyStudingModels.Models
         public string ContainerName { get; set; } // User or order in defines.
         public string Name { get; set; }
         public string Type { get; set; }
-        public string Link { get; set; }
+        public string PreviewLink { get; set; }
+        public string DownloadLink { get; set; }
 
         public void Edit(Attachment attachment)
         {
             Name = attachment.Name;
             Type = attachment.Type;
-            Link = attachment.Link;
+            PreviewLink = attachment.PreviewLink;
+            DownloadLink = attachment.DownloadLink;
         }
 
         public bool Validate()
@@ -25,7 +27,8 @@ namespace EasyStudingModels.Models
                 && ContainerName.IsValidContainerName()
                 && !string.IsNullOrWhiteSpace(Name)
                 && !string.IsNullOrWhiteSpace(Type)
-                && !string.IsNullOrWhiteSpace(Link);
+                && !string.IsNullOrWhiteSpace(PreviewLink)
+                && !string.IsNullOrWhiteSpace(DownloadLink);
         }
     }
 }
