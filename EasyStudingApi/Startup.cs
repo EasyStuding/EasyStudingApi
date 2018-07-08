@@ -80,6 +80,8 @@ namespace EasyStudingApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseCors("MyPolicy");
@@ -89,10 +91,6 @@ namespace EasyStudingApi
 
         private void RegisterDependencyInjection(IServiceCollection services)
         {
-            services.AddSingleton<IFileProvider>(
-                new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<EasyStudingContext>(options => 
