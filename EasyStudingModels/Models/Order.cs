@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels.Models
+﻿using System.Collections.Generic;
+
+namespace EasyStudingModels.Models
 {
     public partial class Order: IEntity<Order>
     {
@@ -32,5 +34,15 @@
                 && !string.IsNullOrWhiteSpace(Title)
                 && !string.IsNullOrWhiteSpace(Description);
         }
+    }
+
+    public class OrderToAdd : Order
+    {
+        public IEnumerable<FileToAddModel> Attachments { get; set; }
+    }
+
+    public class OrderToReturn : Order
+    {
+        public IEnumerable<FileToReturnModel> Attachments { get; set; }
     }
 }

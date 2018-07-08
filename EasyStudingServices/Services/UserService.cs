@@ -57,7 +57,7 @@ namespace EasyStudingServices.Services
         ///    Orders.
         /// </returns>
 
-        public async Task<IQueryable<Order>> GetOrders(long currentUserId)
+        public async Task<IQueryable<OrderToReturn>> GetOrders(long currentUserId)
         {
             return await _userRepository.GetOrders(currentUserId);
         }
@@ -71,7 +71,7 @@ namespace EasyStudingServices.Services
         ///    Order.
         /// </returns>
 
-        public async Task<Order> GetOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> GetOrder(long id, long currentUserId)
         {
             return await _userRepository.GetOrder(id, currentUserId);
         }
@@ -261,11 +261,11 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public async Task<Order> AddOrder(Order order, long currentUserId)
+        public async Task<OrderToReturn> AddOrder(OrderToAdd order, string currentUrl, long currentUserId)
         {
             order.CheckArgumentException();
 
-            return await _userRepository.AddOrder(order, currentUserId);
+            return await _userRepository.AddOrder(order, currentUrl, currentUserId);
         }
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace EasyStudingServices.Services
         ///    Updated order.
         /// </returns>
 
-        public async Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId)
+        public async Task<OrderToReturn> StartExecuteOrder(long id, long executorUserId, long currentUserId)
         {
             return await _userRepository.StartExecuteOrder(id, executorUserId, currentUserId);
         }
@@ -292,7 +292,7 @@ namespace EasyStudingServices.Services
         ///    Updated order.
         /// </returns>
 
-        public async Task<Order> RefuseExecutor(long id, long currentUserId)
+        public async Task<OrderToReturn> RefuseExecutor(long id, long currentUserId)
         {
             return await _userRepository.RefuseExecutor(id, currentUserId);
         }
@@ -306,7 +306,7 @@ namespace EasyStudingServices.Services
         ///   Requested order.
         /// </returns>
 
-        public async Task<Order> CloseOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> CloseOrder(long id, long currentUserId)
         {
             return await _userRepository.CloseOrder(id, currentUserId);
         }

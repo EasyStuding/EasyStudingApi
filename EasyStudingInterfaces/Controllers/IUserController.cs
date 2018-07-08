@@ -10,9 +10,9 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<User> GetUser(long id);
 
-        Task<IQueryable<Order>> GetOrders();
+        Task<IQueryable<OrderToReturn>> GetOrders();
 
-        Task<Order> GetOrder(long id);
+        Task<OrderToReturn> GetOrder(long id);
 
         IQueryable<User> GetExecutors(string education, string country, string region, string city);
 
@@ -36,13 +36,13 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<FileToReturnModel> RemoveFileFromOpenSource(long id);
 
-        Task<Order> AddOrder(Order order);
+        Task<OrderToReturn> AddOrder(OrderToAdd order);
 
-        Task<Order> StartExecuteOrder(long id, long executorUserId);
+        Task<OrderToReturn> StartExecuteOrder(long id, long executorUserId);
 
-        Task<Order> RefuseExecutor(long id);
+        Task<OrderToReturn> RefuseExecutor(long id);
 
-        Task<Order> CloseOrder(long id);
+        Task<OrderToReturn> CloseOrder(long id);
 
         Task<Review> AddReview(Review review);
     }

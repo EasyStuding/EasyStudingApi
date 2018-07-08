@@ -37,14 +37,14 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetOrders
-        public async Task<IQueryable<Order>> GetOrders()
+        public async Task<IQueryable<OrderToReturn>> GetOrders()
         {
             return await _service.GetOrders(User.GetUserId());
         }
 
         [HttpGet]
         // /api/user/GetOrder
-        public async Task<Order> GetOrder(long id)
+        public async Task<OrderToReturn> GetOrder(long id)
         {
             return await _service.GetOrder(id, User.GetUserId());
         }
@@ -128,28 +128,28 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/user/AddOrder
-        public async Task<Order> AddOrder([FromBody]Order order)
+        public async Task<OrderToReturn> AddOrder([FromBody]OrderToAdd order)
         {
-            return await _service.AddOrder(order, User.GetUserId());
+            return await _service.AddOrder(order, GetCurrentUrl(), User.GetUserId());
         }
 
         [HttpPost]
         // /api/user/StartExecuteOrder
-        public async Task<Order> StartExecuteOrder(long id, long executorUserId)
+        public async Task<OrderToReturn> StartExecuteOrder(long id, long executorUserId)
         {
             return await _service.StartExecuteOrder(id, executorUserId, User.GetUserId());
         }
 
         [HttpPost]
         // /api/user/RefuseExecutor
-        public async Task<Order> RefuseExecutor(long id)
+        public async Task<OrderToReturn> RefuseExecutor(long id)
         {
             return await _service.RefuseExecutor(id, User.GetUserId());
         }
 
         [HttpPost]
         // /api/user/CloseOrder
-        public async Task<Order> CloseOrder(long id)
+        public async Task<OrderToReturn> CloseOrder(long id)
         {
             return await _service.CloseOrder(id, User.GetUserId());
         }

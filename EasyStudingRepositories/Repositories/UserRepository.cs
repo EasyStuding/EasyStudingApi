@@ -6,8 +6,6 @@ using EasyStudingRepositories.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
-using System.Threading;
 using System.Collections.Generic;
 
 namespace EasyStudingRepositories.Repositories
@@ -20,6 +18,7 @@ namespace EasyStudingRepositories.Repositories
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<UserPassword> _userPasswordRepository;
         private readonly IRepository<Attachment> _attachmentRepository;
+        private readonly IRepository<Review> _reviewRepository;
 
         #endregion
 
@@ -32,6 +31,7 @@ namespace EasyStudingRepositories.Repositories
             _orderRepository = new UniversalRepository<Order>(_context);
             _userPasswordRepository = new UniversalRepository<UserPassword>(_context);
             _attachmentRepository = new UniversalRepository<Attachment>(_context);
+            _reviewRepository = new UniversalRepository<Review>(_context);
         }
 
         /// <summary>
@@ -75,13 +75,33 @@ namespace EasyStudingRepositories.Repositories
         /// </returns>
         /// <exception cref="System.UnauthorizedAccessException">When user not found.</exception>
 
-        public async Task<IQueryable<Order>> GetOrders(long currentUserId)
+        public async Task<IQueryable<OrderToReturn>> GetOrders(long currentUserId)
         {
             var user = await _userRepository.GetAsync(currentUserId)
                 ?? throw new UnauthorizedAccessException();
 
-            return _orderRepository.GetAll().Where(o => o.CustomerId == user.Id
-            || o.ExecutorId == user.Id);
+            var orders = _orderRepository
+                .GetAll()
+                .Where(o => o.CustomerId == user.Id || o.ExecutorId == user.Id)
+                .Select(o => new OrderToReturn
+                {
+                    Id = o.Id,
+                    InProgress = o.InProgress,
+                    CustomerId = o.CustomerId,
+                    Description = o.Description,
+                    ExecutorId = o.ExecutorId,
+                    IsClosedByCustomer = o.IsClosedByCustomer,
+                    IsClosedByExecutor = o.IsClosedByExecutor,
+                    IsCompleted = o.IsCompleted,
+                    Title = o.Title
+                });
+
+            foreach (var order in orders)
+            {
+                order.Attachments = GetAttachmentsToOrder(order);
+            }
+
+            return orders;
         }
 
         /// <summary>
@@ -94,13 +114,17 @@ namespace EasyStudingRepositories.Repositories
         /// </returns>
         /// <exception cref="System.UnauthorizedAccessException">When user not found or Customer/Executor of order != current user.</exception>
 
-        public async Task<Order> GetOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> GetOrder(long id, long currentUserId)
         {
             var user = await _userRepository.GetAsync(currentUserId)
                 ?? throw new UnauthorizedAccessException();
 
-            return _orderRepository.GetAll().FirstOrDefault(o => o.Id == id
+            var order = _orderRepository
+                .GetAll()
+                .FirstOrDefault(o => o.Id == id
                 && (o.CustomerId == user.Id || o.ExecutorId == user.Id));
+
+            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
         }
 
         /// <summary>
@@ -135,10 +159,10 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId)
         {
-            var user = await _userRepository.GetAsync(currentUserId)
-                ?? throw new UnauthorizedAccessException();
+            var user = await _userRepository.GetAsync(currentUserId);
 
             user = user.SubscriptionOpenSourceExpiresDate > DateTime.Now
+                || user.Id == ownerOpenSourceId
                 ? user
                 : throw new UnauthorizedAccessException();
 
@@ -401,10 +425,21 @@ namespace EasyStudingRepositories.Repositories
         /// <returns>
         ///    Added order.
         /// </returns>
+        /// <exception cref="InvalidOperationException">When customer id != user id</exception>
 
-        public async Task<Order> AddOrder(Order order, long currentUserId)
+        public async Task<OrderToReturn> AddOrder(OrderToAdd order, string currentUrl, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            order = order.CustomerId == user.Id
+                ? order
+                : throw new InvalidOperationException();
+
+            var attachments = await SaveFiles(order.Attachments, currentUrl, Defines.FileFolders.ORDER_ATTACHMENTS_FOLDER);
+
+            var savedOrder = await _orderRepository.AddAsync(order);
+
+            return ConvertOrderToReturn(savedOrder, attachments);
         }
 
         /// <summary>
@@ -417,9 +452,16 @@ namespace EasyStudingRepositories.Repositories
         ///    Updated order.
         /// </returns>
 
-        public async Task<Order> StartExecuteOrder(long id, long executorUserId, long currentUserId)
+        public async Task<OrderToReturn> StartExecuteOrder(long id, long executorUserId, long currentUserId)
         {
-            throw new Exception();
+            var order = await _orderRepository.GetAsync(id);
+
+            order.InProgress = order.ExecutorId == executorUserId
+                && order.CustomerId == currentUserId;
+
+            order = await _orderRepository.EditAsync(order);
+
+            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
         }
 
         /// <summary>
@@ -431,9 +473,18 @@ namespace EasyStudingRepositories.Repositories
         ///    Updated order.
         /// </returns>
 
-        public async Task<Order> RefuseExecutor(long id, long currentUserId)
+        public async Task<OrderToReturn> RefuseExecutor(long id, long currentUserId)
         {
-            throw new Exception();
+            var order = await _orderRepository.GetAsync(id);
+
+            order.ExecutorId = (order.CustomerId == currentUserId
+                && order.InProgress == false)
+                ? null 
+                : order.ExecutorId;
+
+            order = await _orderRepository.EditAsync(order);
+
+            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
         }
 
         /// <summary>
@@ -446,9 +497,22 @@ namespace EasyStudingRepositories.Repositories
         /// </returns>
         /// <exception cref="System.UnauthorizedAccessException">When user not found or not permissions.</exception>
 
-        public async Task<Order> CloseOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> CloseOrder(long id, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            var order = await _orderRepository.GetAsync(id);
+
+            order.IsClosedByCustomer = order.CustomerId == user.Id
+                ? true
+                : throw new UnauthorizedAccessException();
+
+            order.IsCompleted = order.IsClosedByCustomer == true 
+                && order.IsClosedByExecutor == true;
+
+            order = await _orderRepository.EditAsync(order);
+
+            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
         }
 
         /// <summary>
@@ -463,7 +527,84 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<Review> AddReview(Review review, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            var order = await _orderRepository.GetAsync(review.OrderId);
+
+            order = order.CustomerId == user.Id
+                ? order
+                : throw new UnauthorizedAccessException();
+
+            return await _reviewRepository.AddAsync(review);
         }
+
+        #region Converters and helpers.
+
+        private IEnumerable<FileToReturnModel> GetAttachmentsToOrder(Order order)
+        {
+            return _attachmentRepository
+                    .GetAll()
+                    .Where(a => a.ContainerId == order.Id
+                        && a.ContainerName == Defines.AttachmentContainerName.ORDER)
+                    .Select(a => new FileToReturnModel
+                    {
+                        Id = a.Id,
+                        ContainerId = a.ContainerId,
+                        ContainerName = a.ContainerName,
+                        Link = a.Link,
+                        Name = a.Name,
+                        Type = a.Type
+                    })
+                    .AsEnumerable();
+        }
+
+        private OrderToReturn ConvertOrderToReturn(Order order, IEnumerable<FileToReturnModel> attachments)
+        {
+            return new OrderToReturn
+            {
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                Description = order.Description,
+                ExecutorId = order.ExecutorId,
+                InProgress = order.InProgress,
+                IsClosedByCustomer = order.IsClosedByCustomer,
+                IsClosedByExecutor = order.IsClosedByExecutor,
+                IsCompleted = order.IsCompleted,
+                Title = order.Title,
+                Attachments = attachments
+            };
+        }
+
+        private async Task<IEnumerable<FileToReturnModel>> SaveFiles(IEnumerable<FileToAddModel> files, string currentUrl, string folder)
+        {
+            var listOfAddedFiles = new List<FileToReturnModel>();
+
+            if (files == null
+                || files.Count() == 0)
+            {
+                return null;
+            }
+
+            foreach (var file in files)
+            {
+                listOfAddedFiles.Add(FileStorage.UploadFile(file, currentUrl, folder));
+            }
+
+            foreach (var file in listOfAddedFiles)
+            {
+                await _attachmentRepository.AddAsync(new Attachment()
+                {
+                    ContainerId = file.ContainerId,
+                    ContainerName = Defines.AttachmentContainerName.ORDER,
+                    Link = file.Link,
+                    Name = file.Name,
+                    Type = file.Type
+                });
+            }
+
+            return listOfAddedFiles;
+        }
+
+        #endregion
     }
 }
