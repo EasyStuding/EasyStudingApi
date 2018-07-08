@@ -29,10 +29,32 @@ namespace EasyStudingModels
             public const string ORDER = "order";
         }
 
-        public static class Mega
+        public static class FileFolders
         {
-            public static Dictionary<string, string> CREDS = 
-                new Dictionary<string, string>() { { "s.a.mokin@list.ru", "DefaultAdmin123!" } };
+            public static readonly Dictionary<string, string> FolderPathes =
+                new Dictionary<string, string>()
+                {
+                            {
+                                USER_PICTURES_FOLDER, "wwwroot/uploads/userpictures"
+                            },
+                            {
+                                ORDER_ATTACHMENTS_FOLDER, "wwwroot/uploads/orderattachments"
+                            },
+                            {
+                                OPENSOURCE_ATTACHMENT_FOLDER, "wwwroot/uploads/opensourceattachments"
+                            },
+                            {
+                                LOGS_FOLDER, "wwwroot/logs"
+                            }
+                };
+
+            public const string USER_PICTURES_FOLDER = "userpictures";
+
+            public const string ORDER_ATTACHMENTS_FOLDER = "orderattachments";
+
+            public const string OPENSOURCE_ATTACHMENT_FOLDER = "opensourceattachments";
+
+            public const string LOGS_FOLDER = "logs";
         }
     }
 }

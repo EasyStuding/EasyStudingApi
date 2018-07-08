@@ -67,7 +67,7 @@ namespace EasyStudingApi.Controllers
             {
                 var path = Path.Combine(
                                Directory.GetCurrentDirectory(),
-                               "wwwroot", date + "_log.txt");
+                               Defines.FileFolders.FolderPathes[Defines.FileFolders.LOGS_FOLDER], date + "_log.txt");
 
                 var memory = new MemoryStream();
 

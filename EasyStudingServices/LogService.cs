@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using EasyStudingModels;
 
 namespace EasyStudingServices
 {
@@ -24,7 +25,7 @@ namespace EasyStudingServices
 
             var path = Path.Combine(
                            Directory.GetCurrentDirectory(),
-                           "wwwroot", DateTime.Now.ToString("dd_MM_yy") + "_log.txt");
+                           Defines.FileFolders.FolderPathes[Defines.FileFolders.LOGS_FOLDER], DateTime.Now.ToString("dd_MM_yy") + "_log.txt");
             try
             {
                 if (_notWrittenExceptions.Count > 0)

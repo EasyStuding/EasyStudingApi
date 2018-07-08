@@ -26,9 +26,9 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<User> EditProfile(User user);
 
-        Task<FileToReturnModel> AddPictureProfile(FileToAddModel file);
+        Task<User> AddPictureProfile(FileToAddModel file);
 
-        Task<FileToReturnModel> RemovePictureProfile(long id);
+        Task<User> RemovePictureProfile();
 
         Task<User> BuySubscription(string name);
 

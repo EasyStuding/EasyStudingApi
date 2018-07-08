@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
-using CG.Web.MegaApiClient;
 
 namespace EasyStudingRepositories.Repositories
 {
@@ -20,6 +19,8 @@ namespace EasyStudingRepositories.Repositories
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<UserPassword> _userPasswordRepository;
+        private readonly IRepository<Attachment> _attachmentRepository;
+
         #endregion
 
         private readonly EasyStudingContext _context;
@@ -30,6 +31,7 @@ namespace EasyStudingRepositories.Repositories
             _userRepository = new UniversalRepository<User>(_context);
             _orderRepository = new UniversalRepository<Order>(_context);
             _userPasswordRepository = new UniversalRepository<UserPassword>(_context);
+            _attachmentRepository = new UniversalRepository<Attachment>(_context);
         }
 
         /// <summary>
@@ -150,8 +152,7 @@ namespace EasyStudingRepositories.Repositories
                         ContainerId = u.Id,
                         ContainerName = a.ContainerName,
                         Name = a.Name,
-                        DownloadLink = a.DownloadLink,
-                        PreviewLink = a.PreviewLink,
+                        Link = a.Link,
                         Type = a.Type
                     })
                  .Where(ftr => ftr.ContainerName.Equals(Defines.AttachmentContainerName.USER));
@@ -186,8 +187,7 @@ namespace EasyStudingRepositories.Repositories
                         ContainerId = u.Id,
                         ContainerName = a.ContainerName,
                         Name = a.Name,
-                        DownloadLink = a.DownloadLink,
-                        PreviewLink = a.PreviewLink,
+                        Link = a.Link,
                         Type = a.Type
                     })
                  .FirstOrDefault(ftr => ftr.ContainerName.Equals(Defines.AttachmentContainerName.USER)
@@ -272,9 +272,13 @@ namespace EasyStudingRepositories.Repositories
         ///    Added image.
         /// </returns>
 
-        public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
+        public async Task<User> AddPictureProfile(FileToAddModel file, string currentUrl, long currentUserId)
         {
-            return FileStorage.UploadFile(file);
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            user.PictureLink = FileStorage.UploadFile(file, currentUrl, Defines.FileFolders.USER_PICTURES_FOLDER).Link;
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -285,11 +289,14 @@ namespace EasyStudingRepositories.Repositories
         /// <returns>
         ///    Removed image.
         /// </returns>
-        /// <exception cref="System.UnauthorizedAccessException">When user id of photo != current user id.</exception>
 
-        public async Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId)
+        public async Task<User> RemovePictureProfile(long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            user.PictureLink = null;
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -298,12 +305,31 @@ namespace EasyStudingRepositories.Repositories
         /// <param name="cost">Cost of subscription.</param>
         /// <param name="currentUserId">Id of current user.</param>
         /// <returns>
-        ///    Cost of subscription.
+        ///    User.
         /// </returns>
 
         public async Task<User> BuySubscription(string name, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            switch (name)
+            {
+                case Defines.Subscription.EXECUTOR:
+                    {
+                        user.SubscriptionExecutorExpiresDate = DateTime.Now.AddMonths(Defines.Subscription.COUNT_MONTH);
+                        user = await _userRepository.EditAsync(user);
+                    }
+                    break;
+                case Defines.Subscription.OPEN_SOURSE:
+                    {
+                        user.SubscriptionOpenSourceExpiresDate = DateTime.Now.AddMonths(Defines.Subscription.COUNT_MONTH);
+                        user = await _userRepository.EditAsync(user);
+                    }
+                    break;
+                default: break;
+            }
+
+            return user;
         }
 
         /// <summary>
@@ -315,9 +341,24 @@ namespace EasyStudingRepositories.Repositories
         ///    Added file.
         /// </returns>
 
-        public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId)
+        public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, string currentUrl, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            var savedFile = FileStorage.UploadFile(file, currentUrl, Defines.FileFolders.OPENSOURCE_ATTACHMENT_FOLDER);
+
+            var addedAttachment = await _attachmentRepository.AddAsync(new Attachment()
+            {
+                ContainerId = user.Id,
+                ContainerName = Defines.AttachmentContainerName.USER,
+                Link = savedFile.Link,
+                Name = savedFile.Name,
+                Type = savedFile.Type
+            });
+
+            savedFile.Id = addedAttachment.Id;
+
+            return savedFile;
         }
 
         /// <summary>
@@ -328,11 +369,28 @@ namespace EasyStudingRepositories.Repositories
         /// <returns>
         ///    Removed file.
         /// </returns>
-        /// <exception cref="System.UnauthorizedAccessException">When user id of photo != current user id.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">When user id of file != current user id.</exception>
 
         public async Task<FileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId)
         {
-            throw new Exception();
+            var user = await _userRepository.GetAsync(currentUserId);
+
+            var attachment = await _attachmentRepository.GetAsync(id);
+
+            attachment = attachment.ContainerId == user.Id
+                && attachment.ContainerName == Defines.AttachmentContainerName.USER
+                ? await _attachmentRepository.RemoveAsync(attachment.Id)
+                : throw new UnauthorizedAccessException();
+
+            return new FileToReturnModel
+            {
+                Id = attachment.Id,
+                ContainerId = attachment.ContainerId,
+                ContainerName = attachment.ContainerName,
+                Link = attachment.Link,
+                Name = attachment.Name,
+                Type = attachment.Type
+            };
         }
 
         /// <summary>

@@ -183,11 +183,11 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public async Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId)
+        public async Task<User> AddPictureProfile(FileToAddModel file, string currentUrl, long currentUserId)
         {
             file.CheckArgumentException();
 
-            return await _userRepository.AddPictureProfile(file, currentUserId);
+            return await _userRepository.AddPictureProfile(file, currentUrl, currentUserId);
         }
 
         /// <summary>
@@ -199,9 +199,9 @@ namespace EasyStudingServices.Services
         ///    Removed image.
         /// </returns>
 
-        public async Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId)
+        public async Task<User> RemovePictureProfile(long currentUserId)
         {
-            return await _userRepository.RemovePictureProfile(id, currentUserId);
+            return await _userRepository.RemovePictureProfile(currentUserId);
         }
 
         /// <summary>
@@ -230,11 +230,11 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId)
+        public async Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, string currentUrl, long currentUserId)
         {
             file.CheckArgumentException();
 
-            return await _userRepository.AddFileToOpenSource(file, currentUserId);
+            return await _userRepository.AddFileToOpenSource(file, currentUrl, currentUserId);
         }
 
         /// <summary>

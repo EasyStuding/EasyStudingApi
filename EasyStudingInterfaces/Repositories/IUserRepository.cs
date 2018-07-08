@@ -26,13 +26,13 @@ namespace EasyStudingInterfaces.Repositories
 
         Task<User> EditProfile(User user, long currentUserId);
 
-        Task<FileToReturnModel> AddPictureProfile(FileToAddModel file, long currentUserId);
+        Task<User> AddPictureProfile(FileToAddModel file, string currentUrl, long currentUserId);
 
-        Task<FileToReturnModel> RemovePictureProfile(long id, long currentUserId);
+        Task<User> RemovePictureProfile(long currentUserId);
 
         Task<User> BuySubscription(string name, long currentUserId);
 
-        Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, long currentUserId);
+        Task<FileToReturnModel> AddFileToOpenSource(FileToAddModel file, string currentUrl, long currentUserId);
 
         Task<FileToReturnModel> RemoveFileFromOpenSource(long id, long currentUserId);
 

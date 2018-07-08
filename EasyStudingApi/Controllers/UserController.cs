@@ -93,16 +93,16 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/user/AddPictureProfile
-        public async Task<FileToReturnModel> AddPictureProfile([FromBody]FileToAddModel file)
+        public async Task<User> AddPictureProfile([FromBody]FileToAddModel file)
         {
-            return await _service.AddPictureProfile(file, User.GetUserId());
+            return await _service.AddPictureProfile(file, GetCurrentUrl(), User.GetUserId());
         }
 
         [HttpDelete]
         // /api/user/RemovePictureProfile
-        public async Task<FileToReturnModel> RemovePictureProfile(long id)
+        public async Task<User> RemovePictureProfile()
         {
-            return await _service.RemovePictureProfile(id, User.GetUserId());
+            return await _service.RemovePictureProfile(User.GetUserId());
         }
 
         [HttpPost]
@@ -116,7 +116,7 @@ namespace EasyStudingApi.Controllers
         // /api/user/AddFileToOpenSource
         public async Task<FileToReturnModel> AddFileToOpenSource([FromBody]FileToAddModel file)
         {
-            return await _service.AddFileToOpenSource(file, User.GetUserId());
+            return await _service.AddFileToOpenSource(file, GetCurrentUrl(), User.GetUserId());
         }
 
         [HttpDelete]
@@ -159,6 +159,11 @@ namespace EasyStudingApi.Controllers
         public async Task<Review> AddReview([FromBody]Review review)
         {
             return await _service.AddReview(review, User.GetUserId());
+        }
+
+        private string GetCurrentUrl()
+        {
+            return $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
         }
     }
 }
