@@ -24,31 +24,8 @@ namespace EasyStudingModels.Models
         }
     }
 
-    public class FileToReturnModel : IValidatedEntity
+    public class FileToReturnModel : Attachment
     {
-        public long Id { get; set; }
 
-        public long ContainerId { get; set; }
-
-        public string ContainerName { get; set; }
-
-        public string Name { get; set; }
-
-        public string Type { get; set; }
-
-        public string PreviewLink { get; set; }
-
-        public string DownloadLink { get; set; }
-
-        public bool Validate()
-        {
-            return Id >= 0
-                && ContainerId >= 0
-                && ContainerName.IsValidContainerName()
-                && !string.IsNullOrWhiteSpace(Name)
-                && !string.IsNullOrWhiteSpace(Type)
-                && !string.IsNullOrWhiteSpace(PreviewLink)
-                && !string.IsNullOrWhiteSpace(DownloadLink);
-        }
     }
 }
