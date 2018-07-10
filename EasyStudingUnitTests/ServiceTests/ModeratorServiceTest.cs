@@ -38,7 +38,7 @@ namespace EasyStudingUnitTests.ServiceTests
         }
 
         [Fact(DisplayName = "ModeratorService.GetOrders() should return 5 objects.")]
-        public async void ModeratorService_GetOrders_should_return_5_objects()
+        public void ModeratorService_GetOrders_should_return_5_objects()
         {
             var service = new ModeratorService(new TestModeratorRepository());
 
