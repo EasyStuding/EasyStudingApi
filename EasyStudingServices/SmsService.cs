@@ -7,9 +7,9 @@ namespace EasyStudingServices
 {
     public class SmsService
     {
-        private static readonly string FromNumber = MailService.GetStringFromBase64("KzE1NjEyNTAwNDk1");
-        private static readonly string AccountSID = MailService.GetStringFromBase64("QUM3MTU1MzA5MzE4YTk5N2YxNDg3ZDI0YjVhNWE0MjJhNw==");
-        private static readonly string AuthToken = MailService.GetStringFromBase64("MTRmZWE1NjViZjgwYWY4YTgzODUyOTJiMDEzMGUzNTc=");
+        private static readonly string FromNumber = MailService.GetDecodedString("KzE1NjEyNTAwNDk1");
+        private static readonly string AccountSID = MailService.GetDecodedString("QUM3MTU1MzA5MzE4YTk5N2YxNDg3ZDI0YjVhNWE0MjJhNw==");
+        private static readonly string AuthToken = MailService.GetDecodedString("MTRmZWE1NjViZjgwYWY4YTgzODUyOTJiMDEzMGUzNTc=");
 
         public static void Send(string telephoneNumber, string code)
         {

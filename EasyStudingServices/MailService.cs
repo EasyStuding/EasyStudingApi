@@ -8,8 +8,8 @@ namespace EasyStudingServices
     public class MailService
     {
         private static Tuple<string, string> Creds =
-                    new Tuple<string, string>(GetStringFromBase64("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
-                        GetStringFromBase64("QWRtaW4xMjMh"));
+                    new Tuple<string, string>(GetDecodedString("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
+                        GetDecodedString("QWRtaW4xMjMh"));
 
         public static void Send(string email, string code)
         {
@@ -93,7 +93,7 @@ namespace EasyStudingServices
             }
         }
 
-        public static string GetStringFromBase64(string str)
+        public static string GetDecodedString(string str)
         {
             return Encoding
                 .UTF8
