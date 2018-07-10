@@ -1,4 +1,5 @@
 ﻿using EasyStudingModels;
+using EasyStudingModels.Extensions;
 using EasyStudingModels.Models;
 using System;
 using System.IO;
@@ -27,7 +28,7 @@ namespace EasyStudingRepositories.DbContext
                     + Defines.FileFolders.FolderPathes[folder].Replace("wwwroot", "") + "/"
                     + file.Name).AbsoluteUri,
                 Name = file.Name,
-                Type = file.Type
+                Type = file.Name.GetContentType()
             };
         }
 

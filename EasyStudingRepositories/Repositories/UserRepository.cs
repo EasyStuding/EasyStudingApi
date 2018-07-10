@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using EasyStudingModels.Extensions;
 
 namespace EasyStudingRepositories.Repositories
 {
@@ -410,7 +411,7 @@ namespace EasyStudingRepositories.Repositories
                 ContainerName = Defines.AttachmentContainerName.USER,
                 Link = savedFile.Link,
                 Name = savedFile.Name,
-                Type = savedFile.Type
+                Type = savedFile.Name.GetContentType()
             });
 
             savedFile.Id = addedAttachment.Id;
@@ -631,7 +632,7 @@ namespace EasyStudingRepositories.Repositories
                     ContainerName = Defines.AttachmentContainerName.ORDER,
                     Link = file.Link,
                     Name = file.Name,
-                    Type = file.Type
+                    Type = file.Name.GetContentType()
                 });
             }
 

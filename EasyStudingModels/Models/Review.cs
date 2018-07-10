@@ -8,7 +8,7 @@
         public long OrderId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public decimal? Raiting { get; set; }
+        public decimal? Raiting { get; set; } = 5;
 
         public void Edit(Review review)
         {
@@ -29,7 +29,7 @@
                 && OrderId >= 0
                 && !string.IsNullOrWhiteSpace(Title)
                 && !string.IsNullOrWhiteSpace(Description)
-                && Raiting == null ? true : Raiting >= 0;
+                && (Raiting == null || Raiting >= 0);
         }
     }
 }

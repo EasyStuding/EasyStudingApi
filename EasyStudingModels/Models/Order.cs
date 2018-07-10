@@ -29,7 +29,7 @@ namespace EasyStudingModels.Models
         {
             return Id >= 0
                 && CustomerId >= 0
-                && ExecutorId >= 0
+                && (ExecutorId == null || ExecutorId >= 0)
                 && CustomerId != ExecutorId
                 && !string.IsNullOrWhiteSpace(Title)
                 && !string.IsNullOrWhiteSpace(Description);
