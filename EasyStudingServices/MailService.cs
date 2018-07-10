@@ -7,7 +7,7 @@ namespace EasyStudingServices
 {
     public class MailService
     {
-        private static Tuple<string, string> CREDS =
+        private static Tuple<string, string> Creds =
                     new Tuple<string, string>(GetStringFromBase64("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
                         GetStringFromBase64("QWRtaW4xMjMh"));
 
@@ -19,7 +19,7 @@ namespace EasyStudingServices
                 {
                     using (var SmtpServer = new SmtpClient())
                     {
-                        mail.From = new MailAddress(CREDS.Item1);
+                        mail.From = new MailAddress(Creds.Item1);
 
                         mail.To.Add(email);
 
@@ -40,7 +40,7 @@ namespace EasyStudingServices
                         SmtpServer.UseDefaultCredentials = false;
 
                         SmtpServer.Credentials =
-                            new NetworkCredential(CREDS.Item1, CREDS.Item2);
+                            new NetworkCredential(Creds.Item1, Creds.Item2);
 
                         SmtpServer
                             .Send(mail);
@@ -61,7 +61,7 @@ namespace EasyStudingServices
                 {
                     using (var SmtpServer = new SmtpClient())
                     {
-                        mail.From = new MailAddress(CREDS.Item1);
+                        mail.From = new MailAddress(Creds.Item1);
 
                         mail.To.Add(email);
 
@@ -80,7 +80,7 @@ namespace EasyStudingServices
                         SmtpServer.UseDefaultCredentials = false;
 
                         SmtpServer.Credentials =
-                            new NetworkCredential(CREDS.Item1, CREDS.Item2);
+                            new NetworkCredential(Creds.Item1, Creds.Item2);
 
                         SmtpServer
                             .Send(mail);
@@ -93,7 +93,7 @@ namespace EasyStudingServices
             }
         }
 
-        private static string GetStringFromBase64(string str)
+        public static string GetStringFromBase64(string str)
         {
             return Encoding
                 .UTF8

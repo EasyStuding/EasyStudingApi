@@ -7,20 +7,20 @@ namespace EasyStudingServices
 {
     public class SmsService
     {
-        private const string FROM_NUMBER = "+15612500495";
-        private const string ACCOUNT_SID = "AC7155309318a997f1487d24b5a5a422a7";
-        private const string AUTH_TOKEN = "14fea565bf80af8a8385292b0130e357";
+        private static readonly string FromNumber = MailService.GetStringFromBase64("KzE1NjEyNTAwNDk1");
+        private static readonly string AccountSID = MailService.GetStringFromBase64("QUM3MTU1MzA5MzE4YTk5N2YxNDg3ZDI0YjVhNWE0MjJhNw==");
+        private static readonly string AuthToken = MailService.GetStringFromBase64("MTRmZWE1NjViZjgwYWY4YTgzODUyOTJiMDEzMGUzNTc=");
 
         public static void Send(string telephoneNumber, string code)
         {
             try
             {
-                TwilioClient.Init(ACCOUNT_SID, AUTH_TOKEN);
+                TwilioClient.Init(AccountSID, AuthToken);
 
                 var to = new PhoneNumber(telephoneNumber);
                 var message = MessageResource.Create(
                     to,
-                    from: new PhoneNumber(FROM_NUMBER),
+                    from: new PhoneNumber(FromNumber),
                     body: $"EasyStuding code: {code}. Valid for 3 minutes.");
             }
             catch(Exception ex)
@@ -33,12 +33,12 @@ namespace EasyStudingServices
         {
             try
             {
-                TwilioClient.Init(ACCOUNT_SID, AUTH_TOKEN);
+                TwilioClient.Init(AccountSID, AuthToken);
 
                 var to = new PhoneNumber(telephoneNumber);
                 var message = MessageResource.Create(
                     to,
-                    from: new PhoneNumber(FROM_NUMBER),
+                    from: new PhoneNumber(FromNumber),
                     body: subject + Environment.NewLine + body);
             }
             catch (Exception ex)
