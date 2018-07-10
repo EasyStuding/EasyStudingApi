@@ -72,8 +72,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
-            var user = await GetUserById(validateModel.UserId)
-                ?? throw new ArgumentNullException();
+            var user = await GetUserById(validateModel.UserId);
 
             user.TelephoneNumberIsValidated =
                 validateModel.ValidationCode.ValidateCode(user.TelephoneNumber);
