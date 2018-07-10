@@ -9,9 +9,9 @@ namespace EasyStudingRepositories.Extensions
     {
         public const int VALID_MINUTES = 5;
 
-        public static string GetValidationCode(this string key)
+        public static string GetValidationCode(this string key, int minutes = VALID_MINUTES)
         {
-            key = key + DateTime.Now.AddMinutes(VALID_MINUTES).ToString("dd/MM/yy HH:mm");
+            key = key + DateTime.Now.AddMinutes(minutes).ToString("dd/MM/yy HH:mm");
 
             var strToRet = "";
 
@@ -34,8 +34,7 @@ namespace EasyStudingRepositories.Extensions
         {
             for (var i = 0; i <= VALID_MINUTES; i++)
             {
-                if (code.ToUpper().Equals(GetValidationCode(key
-                    + DateTime.Now.AddMinutes(i).ToString("dd/MM/yy HH:mm"))))
+                if (code.ToUpper().Equals(GetValidationCode(key, i)))
                 {
                     return true;
                 }
