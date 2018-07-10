@@ -280,11 +280,48 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> EditProfile(User user, long currentUserId)
         {
-            user = (await _userRepository.GetAsync(currentUserId)).Id == user.Id
-                ? await _userRepository.EditAsync(user)
+            var editUser = await _userRepository.GetAsync(user.Id);
+
+            editUser = editUser.Id == currentUserId
+                ? user
                 : throw new UnauthorizedAccessException();
 
-            return user;
+            editUser.TelephoneNumberIsValidated = user.TelephoneNumber != editUser.TelephoneNumber
+                ? false
+                : user.TelephoneNumberIsValidated;
+
+            editUser.EmailIsValidated = user.Email != editUser.Email
+                ? false
+                : user.EmailIsValidated;
+
+            return await _userRepository.EditAsync(editUser);
+        }
+
+        /// <summary>
+        /// Validate Email.
+        /// </summary>
+        /// <param name="validateModel">Validate model.</param>
+        /// <returns>User.</returns>
+
+        public async Task<User> ValidateEmail(ValidateModel validateModel)
+        {
+            var user = await _userRepository.GetAsync(validateModel.UserId);
+
+            user.TelephoneNumberIsValidated =
+                validateModel.ValidationCode.ValidateCode(user.Email);
+
+            return await _userRepository.EditAsync(user);
+        }
+
+        /// <summary>
+        /// Get validation code by email.
+        /// </summary>
+        /// <param name="key">Key to get validation code.</param>
+        /// <returns>Generated code.</returns>
+
+        public string GetValidationCode(string key)
+        {
+            return key.GetValidationCode();
         }
 
         /// <summary>
