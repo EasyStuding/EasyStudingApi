@@ -32,6 +32,11 @@ namespace EasyStudingModels.Extensions
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return true;
+                }
+
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
             }
