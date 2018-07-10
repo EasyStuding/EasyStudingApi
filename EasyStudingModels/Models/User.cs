@@ -64,17 +64,9 @@ namespace EasyStudingModels.Models
                 && RegistrationDate != null
                 && !string.IsNullOrWhiteSpace(Role)
                 && BanExpiresDate != null
-                && !string.IsNullOrWhiteSpace(Education)
                 && SubscriptionExecutorExpiresDate != null
                 && SubscriptionOpenSourceExpiresDate != null
-                && !string.IsNullOrWhiteSpace(FullName)
-                && !string.IsNullOrWhiteSpace(Description)
-                && !string.IsNullOrWhiteSpace(PictureLink)
-                && Email.IsValidEmail()
-                && !string.IsNullOrWhiteSpace(Country)
-                && !string.IsNullOrWhiteSpace(Region)
-                && !string.IsNullOrWhiteSpace(City)
-                && Raiting == null ? true : Raiting >= 0;
+                && Email.IsValidEmail();
         }
     }
 }
