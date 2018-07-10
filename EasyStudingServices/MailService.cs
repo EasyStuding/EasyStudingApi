@@ -1,35 +1,63 @@
 ﻿using System;
+using System.Net;
 using System.Net.Mail;
+using System.Text;
 
 namespace EasyStudingServices
 {
     public class MailService
     {
         private static Tuple<string, string> CREDS =
-            new Tuple<string, string>("", "");
+                    new Tuple<string, string>(GetStringFromBase64("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
+                        GetStringFromBase64("QWRtaW4xMjMh"));
 
         public static void Send(string email, string code)
         {
             try
             {
-                var mail = new MailMessage();
-                var SmtpServer = new SmtpClient("smtp.mail.ru");
+                using (var mail = new MailMessage())
+                {
+                    using (var SmtpServer = new SmtpClient())
+                    {
+                        mail.From = new MailAddress(CREDS.Item1);
 
-                mail.From = new MailAddress("easy.studing@bk.ru");
-                mail.To.Add(email);
-                mail.Subject = "Email validation EasyStuding";
-                mail.Body = $"EasyStuding code: {code}. Valid for 3 minutes.";
+                        mail.To.Add(email);
 
-                SmtpServer.Port = 465;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(CREDS.Item1, CREDS.Item2);
-                SmtpServer.EnableSsl = true;
+                        mail.Subject = 
+                            "EasyStuding - Email validation";
 
-                SmtpServer.Send(mail);
+                        mail.Body = 
+                            $"EasyStuding code: {code}. Valid for 3 minutes.";
+
+                        SmtpServer.Host = "smtp.gmail.com";
+
+                        SmtpServer.Port = 587;
+
+                        SmtpServer.EnableSsl = true;
+
+                        SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                        SmtpServer.UseDefaultCredentials = false;
+
+                        SmtpServer.Credentials =
+                            new NetworkCredential(CREDS.Item1, CREDS.Item2);
+
+                        SmtpServer
+                            .Send(mail);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 LogService.UpdateLogFile(ex);
             }
+        }
+
+        private static string GetStringFromBase64(string str)
+        {
+            return Encoding
+                .UTF8
+                .GetString(Convert.FromBase64String(str));
         }
     }
 }
