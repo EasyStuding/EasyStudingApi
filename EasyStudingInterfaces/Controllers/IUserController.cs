@@ -26,7 +26,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<User> ValidateEmail(ValidateModel validateModel);
 
-        bool GetValidationCode(User user);
+        Task<bool> GetValidationCode();
 
         Task<User> AddPictureProfile(FileToAddModel file);
 

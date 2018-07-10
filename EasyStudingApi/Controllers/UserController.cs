@@ -93,9 +93,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetValidationCode
-        public bool GetValidationCode([FromBody]User user)
+        public async Task<bool> GetValidationCode()
         {
-            return _service.GetValidationCode(user);
+            return await _service.GetValidationCode(User.GetUserId());
         }
 
         [HttpPost]

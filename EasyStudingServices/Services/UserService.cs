@@ -183,11 +183,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    True or exception.
         /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
 
-        public bool GetValidationCode(User user)
+        public async Task<bool> GetValidationCode(long currentUserId)
         {
-            user.CheckArgumentException();
+            var user = await _userRepository.GetUser(currentUserId);
 
             MailService.Send(user.Email, _userRepository.GetValidationCode(user.Email));
 

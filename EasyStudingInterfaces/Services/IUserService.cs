@@ -26,7 +26,7 @@ namespace EasyStudingInterfaces.Services
 
         Task<User> ValidateEmail(ValidateModel validateModel, long currentUserId);
 
-        bool GetValidationCode(User user);
+        Task<bool> GetValidationCode(long currentUserId);
 
         Task<User> AddPictureProfile(FileToAddModel file, string currentUrl, long currentUserId);
 

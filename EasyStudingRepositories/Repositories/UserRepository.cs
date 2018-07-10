@@ -259,21 +259,32 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<User> EditProfile(User user, long currentUserId)
         {
-            var editUser = await _userRepository.GetAsync(user.Id);
+            var _user = await _userRepository.GetAsync(user.Id);
 
-            editUser = editUser.Id == currentUserId
-                ? user
+            _user = _user.Id == currentUserId
+                ? _user
                 : throw new UnauthorizedAccessException();
 
-            editUser.TelephoneNumberIsValidated = user.TelephoneNumber != editUser.TelephoneNumber
-                ? false
-                : user.TelephoneNumberIsValidated;
+            user.BanExpiresDate = _user.BanExpiresDate;
+            user.SubscriptionExecutorExpiresDate = _user.SubscriptionExecutorExpiresDate;
+            user.SubscriptionOpenSourceExpiresDate = _user.SubscriptionOpenSourceExpiresDate;
+            user.RegistrationDate = _user.RegistrationDate;
 
-            editUser.EmailIsValidated = user.Email != editUser.Email
-                ? false
-                : user.EmailIsValidated;
+            user.EmailIsValidated = user.Email.Equals(_user.Email)
+                ? _user.EmailIsValidated
+                : false;
 
-            return await _userRepository.EditAsync(editUser);
+            user.TelephoneNumberIsValidated = _user.TelephoneNumber.Equals(_user.TelephoneNumber)
+                ? _user.TelephoneNumberIsValidated
+                : false;
+
+            user.PictureLink = _user.PictureLink;
+            user.Role = _user.Role;
+
+            user.UserIsGaranted = _user.UserIsGaranted;
+            user.Raiting = _user.Raiting;
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -289,7 +300,7 @@ namespace EasyStudingRepositories.Repositories
         {
             var user = await _userRepository.GetAsync(validateModel.UserId);
 
-            user.TelephoneNumberIsValidated = user.Id == currentUserId ?
+            user.EmailIsValidated = user.Id == currentUserId ?
                 validateModel.ValidationCode.ValidateCode(user.Email)
                 : throw new UnauthorizedAccessException();
 
