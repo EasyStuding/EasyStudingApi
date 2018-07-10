@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyStudingRepositories.Extensions;
+using System;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
@@ -21,7 +22,7 @@ namespace EasyStudingServices
                 var message = MessageResource.Create(
                     to,
                     from: new PhoneNumber(FromNumber),
-                    body: $"EasyStuding code: {code}. Valid for 3 minutes.");
+                    body: $"EasyStuding code: {code}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.");
             }
             catch(Exception ex)
             {

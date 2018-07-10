@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyStudingRepositories.Extensions;
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -27,7 +28,7 @@ namespace EasyStudingServices
                             "EasyStuding - Email validation";
 
                         mail.Body = 
-                            $"EasyStuding code: {code}. Valid for 3 minutes.";
+                            $"EasyStuding code: {code}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.";
 
                         SmtpServer.Host = "smtp.gmail.com";
 
