@@ -28,5 +28,23 @@ namespace EasyStudingServices
                 LogService.UpdateLogFile(ex);
             }
         }
+
+        public static void Send(string telephoneNumber, string subject, string body)
+        {
+            try
+            {
+                TwilioClient.Init(ACCOUNT_SID, AUTH_TOKEN);
+
+                var to = new PhoneNumber(telephoneNumber);
+                var message = MessageResource.Create(
+                    to,
+                    from: new PhoneNumber(FROM_NUMBER),
+                    body: subject + Environment.NewLine + body);
+            }
+            catch (Exception ex)
+            {
+                LogService.UpdateLogFile(ex);
+            }
+        }
     }
 }
