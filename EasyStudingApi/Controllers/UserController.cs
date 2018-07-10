@@ -70,13 +70,6 @@ namespace EasyStudingApi.Controllers
             return await _service.OpenSourceDownloadFile(fileId, User.GetUserId());
         }
 
-        [HttpPost]
-        // /api/user/ValidateEmail
-        public async Task<User> ValidateEmail(string validationCode)
-        {
-            return await _service.ValidateEmail(validationCode, User.GetUserId());
-        }
-
         [HttpPut]
         // /api/user/ChangePassword
         public async Task<bool> ChangePassword(string oldPassword, string newPassword)
@@ -89,6 +82,20 @@ namespace EasyStudingApi.Controllers
         public async Task<User> EditProfile([FromBody]User user)
         {
             return await _service.EditProfile(user, User.GetUserId());
+        }
+
+        [HttpPost]
+        // /api/user/ValidateEmail
+        public async Task<User> ValidateEmail([FromBody]ValidateModel validateModel)
+        {
+            return await _service.ValidateEmail(validateModel, User.GetUserId());
+        }
+
+        [HttpGet]
+        // /api/user/GetValidationCode
+        public bool GetValidationCode([FromBody]User user)
+        {
+            return _service.GetValidationCode(user);
         }
 
         [HttpPost]

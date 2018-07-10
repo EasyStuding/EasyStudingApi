@@ -20,11 +20,13 @@ namespace EasyStudingInterfaces.Services
 
         Task<FileToReturnModel> OpenSourceDownloadFile(long fileId, long currentUserId);
 
-        Task<User> ValidateEmail(string validationCode, long currentUserId);
-
         Task<bool> ChangePassword(string oldPassword, string newPassword, long currentUserId);
 
         Task<User> EditProfile(User user, long currentUserId);
+
+        Task<User> ValidateEmail(ValidateModel validateModel, long currentUserId);
+
+        bool GetValidationCode(User user);
 
         Task<User> AddPictureProfile(FileToAddModel file, string currentUrl, long currentUserId);
 

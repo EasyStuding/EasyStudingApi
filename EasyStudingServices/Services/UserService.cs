@@ -123,22 +123,6 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
-        ///   Validate email address. 
-        /// </summary>
-        /// <param name="validationCode">Validation code of email.</param>
-        /// <param name="currentUserId">Id of current user.</param>
-        /// <returns>
-        ///    True - if validation code right, else - false.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-
-        public async Task<User> ValidateEmail(string validationCode, long currentUserId)
-        {
-            return await _userRepository.ValidateEmail(validationCode ?? throw new ArgumentException(), 
-                currentUserId);
-        }
-
-        /// <summary>
         ///   Change password of current user. 
         /// </summary>
         /// <param name="oldPassword">Old password of user.</param>
@@ -171,6 +155,43 @@ namespace EasyStudingServices.Services
             user.CheckArgumentException();
 
             return await _userRepository.EditProfile(user, currentUserId);
+        }
+
+
+        /// <summary>
+        ///   Validate validation code of user.
+        /// </summary>
+        /// <param name="validateModel">Model of validation user.</param>
+        /// <returns>
+        ///    Validated user registration profile.
+        /// </returns>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+
+        public async Task<User> ValidateEmail(ValidateModel validateModel, long currentUserId)
+        {
+            validateModel.CheckArgumentException();
+
+            var userEntity = await _userRepository.ValidateEmail(validateModel, currentUserId);
+
+            return userEntity;
+        }
+
+        /// <summary>
+        ///   Get validation code to email.
+        /// </summary>
+        /// <param name="user">User to validate.</param>
+        /// <returns>
+        ///    True or exception.
+        /// </returns>
+        /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+
+        public bool GetValidationCode(User user)
+        {
+            user.CheckArgumentException();
+
+            MailService.Send(user.Email, _userRepository.GetValidationCode(user.Email));
+
+            return true;
         }
 
         /// <summary>

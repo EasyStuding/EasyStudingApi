@@ -219,27 +219,6 @@ namespace EasyStudingRepositories.Repositories
         }
 
         /// <summary>
-        ///   Validate email address. 
-        /// </summary>
-        /// <param name="validationCode">Validation code of email.</param>
-        /// <param name="currentUserId">Id of current user.</param>
-        /// <returns>
-        ///    True - if validation code right, else - false.
-        /// </returns>
-        /// <exception cref="System.UnauthorizedAccessException">User not found.</exception>
-
-        public async Task<User> ValidateEmail(string validationCode, long currentUserId)
-        {
-            var user = await _userRepository.GetAsync(currentUserId);
-
-            user.EmailIsValidated = user.EmailIsValidated == true
-                ? throw new InvalidOperationException()
-                : validationCode.ValidateCode(user.Email);
-
-            return await _userRepository.EditAsync(user);
-        }
-
-        /// <summary>
         ///   Change password of current user. 
         /// </summary>
         /// <param name="oldPassword">Old password of user.</param>
@@ -298,26 +277,32 @@ namespace EasyStudingRepositories.Repositories
         }
 
         /// <summary>
-        /// Validate Email.
+        ///     Validate Email.
         /// </summary>
         /// <param name="validateModel">Validate model.</param>
-        /// <returns>User.</returns>
+        /// <returns>
+        ///     User.
+        /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">When user id of description != current user id.</exception>
 
-        public async Task<User> ValidateEmail(ValidateModel validateModel)
+        public async Task<User> ValidateEmail(ValidateModel validateModel, long currentUserId)
         {
             var user = await _userRepository.GetAsync(validateModel.UserId);
 
-            user.TelephoneNumberIsValidated =
-                validateModel.ValidationCode.ValidateCode(user.Email);
+            user.TelephoneNumberIsValidated = user.Id == currentUserId ?
+                validateModel.ValidationCode.ValidateCode(user.Email)
+                : throw new UnauthorizedAccessException();
 
             return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
-        /// Get validation code by email.
+        ///     Get validation code by email.
         /// </summary>
         /// <param name="key">Key to get validation code.</param>
-        /// <returns>Generated code.</returns>
+        /// <returns>
+        ///     Generated code.
+        /// </returns>
 
         public string GetValidationCode(string key)
         {
