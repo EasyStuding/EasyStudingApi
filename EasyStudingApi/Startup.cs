@@ -17,8 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using EasyStudingApi.Filters;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
+using EasyStudingModels.Models;
 
 namespace EasyStudingApi
 {
@@ -93,6 +92,18 @@ namespace EasyStudingApi
 
         private void RegisterDependencyInjection(IServiceCollection services)
         {
+            services.AddScoped<IRepository<Attachment>, UniversalRepository<Attachment>>();
+            services.AddScoped<IRepository<City>, UniversalRepository<City>>();
+            services.AddScoped<IRepository<Country>, UniversalRepository<Country>>();
+            services.AddScoped<IRepository<Order>, UniversalRepository<Order>>();
+            services.AddScoped<IRepository<OrderSkill>, UniversalRepository<OrderSkill>>();
+            services.AddScoped<IRepository<Region>, UniversalRepository<Region>>();
+            services.AddScoped<IRepository<Review>, UniversalRepository<Review>>();
+            services.AddScoped<IRepository<Skill>, UniversalRepository<Skill>>();
+            services.AddScoped<IRepository<User>, UniversalRepository<User>>();
+            services.AddScoped<IRepository<UserSkill>, UniversalRepository<UserSkill>>();
+            services.AddScoped<IRepository<UserPassword>, UniversalRepository<UserPassword>>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<EasyStudingContext>(options => 
@@ -113,6 +124,9 @@ namespace EasyStudingApi
             services.AddScoped<IUserController, UserController>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<ILocationController, LocationController>();
+            services.AddScoped<ILocationService, LocationService>();
         }
 
         private void BuildAppSettingsProvider()
