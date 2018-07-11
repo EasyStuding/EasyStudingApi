@@ -33,7 +33,8 @@ namespace EasyStudingRepositories.Extensions
         {
             for (var i = 0; i <= VALID_MINUTES; i++)
             {
-                if (code.ToUpper().Equals(GetValidationCode(key, i)))
+                if (code.Equals(GetValidationCode(key, i),
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
