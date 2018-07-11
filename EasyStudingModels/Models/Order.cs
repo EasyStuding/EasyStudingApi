@@ -13,6 +13,7 @@ namespace EasyStudingModels.Models
         public bool? IsCompleted { get; set; } = false;
         public string Title { get; set; }
         public string Description { get; set; }
+        public decimal Cost { get; set; }
 
         public void Edit(Order order)
         {
@@ -23,6 +24,7 @@ namespace EasyStudingModels.Models
             IsCompleted = order.IsCompleted;
             Title = order.Title;
             Description = order.Description;
+            Cost = order.Cost;
         }
 
         public bool Validate()
@@ -32,7 +34,8 @@ namespace EasyStudingModels.Models
                 && (ExecutorId == null || ExecutorId >= 0)
                 && CustomerId != ExecutorId
                 && !string.IsNullOrWhiteSpace(Title)
-                && !string.IsNullOrWhiteSpace(Description);
+                && !string.IsNullOrWhiteSpace(Description)
+                && Cost >= 0;
         }
     }
 

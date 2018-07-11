@@ -56,7 +56,8 @@ create table "Orders"
 	"IsClosedByExecutor" boolean default false not null,
 	"IsCompleted" boolean default false not null,
 	"Title" text not null,
-	"Description" text not null
+	"Description" text not null,
+	"Cost" money not null
 );
 
 create table "Reviews"
