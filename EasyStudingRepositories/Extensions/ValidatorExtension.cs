@@ -17,14 +17,13 @@ namespace EasyStudingRepositories.Extensions
 
             using (MD5 md5Hash = MD5.Create())
             {
-                var data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(key));
-
-                var strArr = data.Select(b => b.ToString("x2")).Skip(10).Take(3);
-
-                foreach (var ch in strArr)
-                {
-                    strToRet += ch;
-                }
+                strToRet = string.Join(
+                    "", md5Hash
+                        .ComputeHash(Encoding.UTF8.GetBytes(key))
+                        .Select(b => b.ToString("x2"))
+                        .Skip(10)
+                        .Take(3)
+                    );
             }
 
             return strToRet.ToUpper();
