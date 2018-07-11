@@ -1,16 +1,16 @@
-﻿using EasyStudingRepositories.Extensions;
+﻿using EasyStudingModels;
+using EasyStudingRepositories.Extensions;
 using System;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 namespace EasyStudingServices
 {
     public class MailService
     {
         private static Tuple<string, string> Creds =
-                    new Tuple<string, string>(GetDecodedString("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
-                        GetDecodedString("QWRtaW4xMjMh"));
+                    new Tuple<string, string>(Defines.GetDecodedString("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
+                        Defines.GetDecodedString("QWRtaW4xMjMh"));
 
         public static void Send(string email, string code)
         {
@@ -92,13 +92,6 @@ namespace EasyStudingServices
             {
                 LogService.UpdateLogFile(ex);
             }
-        }
-
-        public static string GetDecodedString(string str)
-        {
-            return Encoding
-                .UTF8
-                .GetString(Convert.FromBase64String(str));
         }
     }
 }
