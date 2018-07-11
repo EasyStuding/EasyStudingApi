@@ -8,10 +8,6 @@ namespace EasyStudingServices
 {
     public class MailService
     {
-        private static Tuple<string, string> Creds =
-                    new Tuple<string, string>(Defines.GetDecodedString("YXBpLmVhc3kuc3R1ZGluZ0BnbWFpbC5jb20="),
-                        Defines.GetDecodedString("QWRtaW4xMjMh"));
-
         public static void Send(string email, string code)
         {
             try
@@ -20,7 +16,7 @@ namespace EasyStudingServices
                 {
                     using (var SmtpServer = new SmtpClient())
                     {
-                        mail.From = new MailAddress(Creds.Item1);
+                        mail.From = new MailAddress(AppSettings.GMailLogin);
 
                         mail.To.Add(email);
 
@@ -41,7 +37,7 @@ namespace EasyStudingServices
                         SmtpServer.UseDefaultCredentials = false;
 
                         SmtpServer.Credentials =
-                            new NetworkCredential(Creds.Item1, Creds.Item2);
+                            new NetworkCredential(AppSettings.GMailLogin, AppSettings.GMailPassword);
 
                         SmtpServer
                             .Send(mail);
@@ -62,7 +58,7 @@ namespace EasyStudingServices
                 {
                     using (var SmtpServer = new SmtpClient())
                     {
-                        mail.From = new MailAddress(Creds.Item1);
+                        mail.From = new MailAddress(AppSettings.GMailLogin);
 
                         mail.To.Add(email);
 
@@ -81,7 +77,7 @@ namespace EasyStudingServices
                         SmtpServer.UseDefaultCredentials = false;
 
                         SmtpServer.Credentials =
-                            new NetworkCredential(Creds.Item1, Creds.Item2);
+                            new NetworkCredential(AppSettings.GMailLogin, AppSettings.GMailPassword);
 
                         SmtpServer
                             .Send(mail);

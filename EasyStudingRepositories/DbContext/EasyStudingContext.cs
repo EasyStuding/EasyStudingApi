@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using EasyStudingModels.Models;
-using static EasyStudingModels.Defines.DBCreds;
+using EasyStudingModels;
 
 namespace EasyStudingRepositories.DbContext
 {
     public partial class EasyStudingContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public static readonly string CONNECTION_STRING = 
-            $"Host={HOST};Port={PORT};Database={DATABASE};Username={USERNAME};Password={PASSWORD}";
-
         public EasyStudingContext()
         {
         }
@@ -34,7 +31,7 @@ namespace EasyStudingRepositories.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql(CONNECTION_STRING);
+                optionsBuilder.UseNpgsql(AppSettings.DBConnectionString);
             }
         }
     }

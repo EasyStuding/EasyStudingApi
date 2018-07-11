@@ -9,20 +9,16 @@ namespace EasyStudingServices
 {
     public class SmsService
     {
-        private static readonly string FromNumber = Defines.GetDecodedString("KzE1NjEyNTAwNDk1");
-        private static readonly string AccountSID = Defines.GetDecodedString("QUM3MTU1MzA5MzE4YTk5N2YxNDg3ZDI0YjVhNWE0MjJhNw==");
-        private static readonly string AuthToken = Defines.GetDecodedString("MTRmZWE1NjViZjgwYWY4YTgzODUyOTJiMDEzMGUzNTc=");
-
         public static void Send(string telephoneNumber, string code)
         {
             try
             {
-                TwilioClient.Init(AccountSID, AuthToken);
+                TwilioClient.Init(AppSettings.TwilioAccountSID, AppSettings.TwilioAuthToken);
 
                 var to = new PhoneNumber(telephoneNumber);
                 var message = MessageResource.Create(
                     to,
-                    from: new PhoneNumber(FromNumber),
+                    from: new PhoneNumber(AppSettings.TwilioFromNumber),
                     body: $"EasyStuding code: {code}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.");
             }
             catch(Exception ex)
@@ -35,12 +31,12 @@ namespace EasyStudingServices
         {
             try
             {
-                TwilioClient.Init(AccountSID, AuthToken);
+                TwilioClient.Init(AppSettings.TwilioAccountSID, AppSettings.TwilioAuthToken);
 
                 var to = new PhoneNumber(telephoneNumber);
                 var message = MessageResource.Create(
                     to,
-                    from: new PhoneNumber(FromNumber),
+                    from: new PhoneNumber(AppSettings.TwilioFromNumber),
                     body: subject + Environment.NewLine + body);
             }
             catch (Exception ex)

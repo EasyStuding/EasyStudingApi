@@ -68,6 +68,8 @@ namespace EasyStudingApi
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
             });
+            
+            BuildAppSettingsProvider();
 
             RegisterDependencyInjection(services);
         }
@@ -94,7 +96,7 @@ namespace EasyStudingApi
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<EasyStudingContext>(options => 
-                options.UseNpgsql(EasyStudingContext.CONNECTION_STRING));
+                options.UseNpgsql(AppSettings.DBConnectionString));
 
             services.AddScoped<ISessionController, SessionController>();
             services.AddScoped<ISessionService, SessionService>();
@@ -111,6 +113,24 @@ namespace EasyStudingApi
             services.AddScoped<IUserController, UserController>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+        }
+
+        private void BuildAppSettingsProvider()
+        {
+            AppSettings.DBConnectionString = 
+                Defines.GetDecodedString(Configuration["AppSettings:DBConnectionString"]);
+
+            AppSettings.GMailLogin = 
+                Defines.GetDecodedString(Configuration["AppSettings:GMailLogin"]);
+            AppSettings.GMailPassword = 
+                Defines.GetDecodedString(Configuration["AppSettings:GMailPassword"]);
+
+            AppSettings.TwilioFromNumber = 
+                Defines.GetDecodedString(Configuration["AppSettings:TwilioFromNumber"]);
+            AppSettings.TwilioAccountSID =
+                Defines.GetDecodedString(Configuration["AppSettings:TwilioAccountSID"]);
+            AppSettings.TwilioAuthToken = 
+                Defines.GetDecodedString(Configuration["AppSettings:TwilioAuthToken"]);
         }
     }
 }
