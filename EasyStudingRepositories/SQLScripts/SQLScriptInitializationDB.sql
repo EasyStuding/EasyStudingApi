@@ -137,7 +137,7 @@ INSERT INTO "Users"("TelephoneNumber",
 	 , '2118-06-26 00:00:00+03'
 	 , 'Admin'
 	 , 'https://sites.google.com/site/conosceretelegram/_/rsrc/1461101123056/utenti-gruppi-supergruppi-canali-e-bot/supergruppi-disegno.jpg'
-	 , 'easy_studing_api_support@gmail.com'
+	 , 'api.easy.studing@gmail.com'
 	 , true
 	 , true
 	 , 5);
@@ -145,3 +145,22 @@ INSERT INTO "Users"("TelephoneNumber",
 INSERT INTO "UserPasswords"("UserId",
 				    "Password") VALUES
     (1, 'ABZdDHl9EXtrdNeD0+M0yQwhfwMWKCGgKsouM9K300u6RaNW2wCeReAJt01sg6vQZw==');
+
+INSERT INTO "Skills"("Name") VALUES('Экономика');
+INSERT INTO "Skills"("Name") VALUES('Базы данных');
+INSERT INTO "Skills"("Name") VALUES('ВЕБ Программирование');
+INSERT INTO "Skills"("Name") VALUES('Математика');
+INSERT INTO "Skills"("Name") VALUES('Физика');
+INSERT INTO "Skills"("Name") VALUES('Английский');
+INSERT INTO "Skills"("Name") VALUES('Химия');
+INSERT INTO "Skills"("Name") VALUES('Анатомия');
+INSERT INTO "Skills"("Name") VALUES('Русский язык');
+INSERT INTO "Skills"("Name") VALUES('Беларусский язык');
+INSERT INTO "Skills"("Name") VALUES('Черчение');
+INSERT INTO "Skills"("Name") VALUES('Разработка игр');
+INSERT INTO "Skills"("Name") VALUES('Ботаника');
+INSERT INTO "Skills"("Name") VALUES('Зоология');
+INSERT INTO "Skills"("Name") VALUES('Электроприборы');
+INSERT INTO "Skills"("Name") VALUES('Обществознание');
+INSERT INTO "Skills"("Name") VALUES('История');
+INSERT INTO "Skills"("Name") VALUES('География');
