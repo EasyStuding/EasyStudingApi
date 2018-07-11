@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Text;
+using System.Collections.Generic;
 
 namespace EasyStudingModels
 {
@@ -56,5 +58,32 @@ namespace EasyStudingModels
 
             public const string LOGS_FOLDER = "logs";
         }
+
+        public static class DBCreds
+        {
+            public static readonly string HOST =
+                GetDecodedString("ZHVtYm8uZGIuZWxlcGhhbnRzcWwuY29t");
+
+            public static readonly string PORT = 
+                GetDecodedString("NTQzMg==");
+
+            public static readonly string DATABASE = 
+                GetDecodedString("a3dmZWhucG4=");
+
+            public static readonly string USERNAME = 
+                GetDecodedString("a3dmZWhucG4=");
+
+            public static readonly string PASSWORD = 
+                GetDecodedString("OFJDX0NCR29faFRmckMwWERQT2xKQnFDbVFQYk00b2k=");
+        }
+
+        #region Get decoded string from base64 format.
+        public static string GetDecodedString(string str)
+        {
+            return Encoding
+                .UTF8
+                .GetString(Convert.FromBase64String(str));
+        }
+        #endregion
     }
 }
