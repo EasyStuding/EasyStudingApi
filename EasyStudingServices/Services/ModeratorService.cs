@@ -17,6 +17,19 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
+        ///   Grant moderator rights to user.
+        /// </summary>
+        /// <param name="id">Id of user to grant rights of moderator.</param>
+        /// <returns>
+        ///    User.
+        /// </returns>
+
+        public async Task<User> GrantModeratorRights(long userId)
+        {
+            return await _moderatorRepository.GrantModeratorRights(userId);
+        }
+
+        /// <summary>
         ///   Restrict access to data.
         /// </summary>
         /// <param name="id">Id of user to ban.</param>

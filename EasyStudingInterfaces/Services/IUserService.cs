@@ -6,6 +6,10 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IUserService
     {
+        IQueryable<Skill> GetSkills();
+
+        Task<Skill> GetSkill(long id);
+
         IQueryable<User> GetUsers(string education, string country, string region, string city);
 
         Task<User> GetUser(long id);

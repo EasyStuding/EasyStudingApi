@@ -20,6 +20,7 @@ namespace EasyStudingRepositories.Repositories
         private readonly IRepository<UserPassword> _userPasswordRepository;
         private readonly IRepository<Attachment> _attachmentRepository;
         private readonly IRepository<Review> _reviewRepository;
+        private readonly IRepository<Skill> _skillRepository;
 
         #endregion
 
@@ -33,6 +34,32 @@ namespace EasyStudingRepositories.Repositories
             _userPasswordRepository = new UniversalRepository<UserPassword>(_context);
             _attachmentRepository = new UniversalRepository<Attachment>(_context);
             _reviewRepository = new UniversalRepository<Review>(_context);
+            _skillRepository = new UniversalRepository<Skill>(_context);
+        }
+
+        /// <summary>
+        ///   Get skills. 
+        /// </summary>
+        /// <returns>
+        ///    Skills.
+        /// </returns>
+
+        public IQueryable<Skill> GetSkills()
+        {
+            return _skillRepository.GetAll();
+        }
+
+        /// <summary>
+        ///   Get skill. 
+        /// </summary>
+        /// <param name="id">Id of skill.</param>
+        /// <returns>
+        ///    Skill.
+        /// </returns>
+
+        public async Task<Skill> GetSkill(long id)
+        {
+            return await _skillRepository.GetAsync(id);
         }
 
         /// <summary>

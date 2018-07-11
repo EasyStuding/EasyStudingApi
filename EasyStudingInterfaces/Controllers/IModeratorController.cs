@@ -7,6 +7,8 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IModeratorController
     {
+        Task<User> GrantModeratorRights(long userId);
+
         Task<User> BanUser(long id);
 
         Task<User> RemoveBanOfUser(long id);

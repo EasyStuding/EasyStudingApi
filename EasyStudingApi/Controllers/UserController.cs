@@ -22,6 +22,20 @@ namespace EasyStudingApi.Controllers
         }
 
         [HttpGet]
+        // /api/user/GetSkills
+        public IQueryable<Skill> GetSkills()
+        {
+            return _service.GetSkills();
+        }
+
+        [HttpGet]
+        // /api/user/GetSkill
+        public async Task<Skill> GetSkill(long id)
+        {
+            return await _service.GetSkill(id);
+        }
+
+        [HttpGet]
         // /api/user/GetUsers
         public IQueryable<User> GetUsers(string education, string country, string region, string city)
         {

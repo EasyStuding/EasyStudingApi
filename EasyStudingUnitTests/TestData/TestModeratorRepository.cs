@@ -8,6 +8,19 @@ namespace EasyStudingUnitTests.TestData
 {
     public class TestModeratorRepository: IModeratorRepository
     {
+        public async Task<User> GrantModeratorRights(long userId)
+        {
+            return new User()
+            {
+                Id = 1,
+                TelephoneNumber = "+375331111111",
+                RegistrationDate = DateTime.Now,
+                Role = "moderator",
+                TelephoneNumberIsValidated = false,
+                BanExpiresDate = DateTime.Now.AddMonths(3)
+            };
+        }
+
         public async Task<User> BanUser(long id)
         {
             return new User()

@@ -24,6 +24,14 @@ namespace EasyStudingApi.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = Defines.Roles.ADMIN)]
+        [HttpPut]
+        // /api/moderator/Get
+        public async Task<User> GrantModeratorRights(long userId)
+        {
+            return await _service.GrantModeratorRights(userId);
+        }
+
         [HttpPost]
         // /api/moderator/BanUser
         public async Task<User> BanUser(long id)

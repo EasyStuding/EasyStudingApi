@@ -8,6 +8,27 @@ namespace EasyStudingUnitTests.TestData
 {
     public class TestUserRepository: IUserRepository
     {
+        public IQueryable<Skill> GetSkills()
+        {
+            return new[]
+            {
+                new Skill(),
+                new Skill(),
+                new Skill(),
+                new Skill(),
+                new Skill()
+            }.AsQueryable();
+        }
+
+        public async Task<Skill> GetSkill(long id)
+        {
+            return new Skill
+            {
+                Id = 1,
+                Name = "Экономика"
+            };
+        }
+
         public IQueryable<User> GetUsers(string education, string country, string region, string city)
         {
             return new[]

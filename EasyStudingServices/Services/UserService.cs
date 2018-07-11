@@ -19,6 +19,31 @@ namespace EasyStudingServices.Services
         }
 
         /// <summary>
+        ///   Get skills. 
+        /// </summary>
+        /// <returns>
+        ///    Skills.
+        /// </returns>
+
+        public IQueryable<Skill> GetSkills()
+        {
+            return _userRepository.GetSkills();
+        }
+
+        /// <summary>
+        ///   Get skill. 
+        /// </summary>
+        /// <param name="id">Id of skill.</param>
+        /// <returns>
+        ///    Skill.
+        /// </returns>
+
+        public async Task<Skill> GetSkill(long id)
+        {
+            return await _userRepository.GetSkill(id);
+        }
+
+        /// <summary>
         ///   Get users, classified by education and city. 
         /// </summary>
         /// <param name="education">Education of user.</param>
