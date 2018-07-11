@@ -14,53 +14,53 @@ namespace EasyStudingApi.Controllers
     [Authorize]
     public class ExecutorController : Controller, IExecutorController
     {
-        private readonly IExecutorService Service;
+        private readonly IExecutorService _service;
 
         public ExecutorController(IExecutorService service)
         {
-            Service = service;
+            _service = service;
         }
 
         [HttpGet]
         // /api/executor/GetOrders
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city)
         {
-            return await Service.GetOrders(education, country, region, city, User.GetUserId());
+            return await _service.GetOrders(education, country, region, city, User.GetUserId());
         }
 
         [HttpGet]
         // /api/executor/GetOrder
         public async Task<Order> GetOrder(long id)
         {
-            return await Service.GetOrder(id, User.GetUserId());
+            return await _service.GetOrder(id, User.GetUserId());
         }
 
         [HttpGet]
         // /api/executor/GetTheRightsToPerformOrder
         public async Task<Order> GetTheRightsToPerformOrder(long id)
         {
-            return await Service.GetTheRightsToPerformOrder(id, User.GetUserId());
+            return await _service.GetTheRightsToPerformOrder(id, User.GetUserId());
         }
 
         [HttpPost]
         // /api/executor/CloseOrder
         public async Task<Order> CloseOrder(long id)
         {
-            return await Service.CloseOrder(id, User.GetUserId());
+            return await _service.CloseOrder(id, User.GetUserId());
         }
 
         [HttpPost]
         // /api/executor/AddSkill
         public async Task<Skill> AddSkill(long id)
         {
-            return await Service.AddSkill(id, User.GetUserId());
+            return await _service.AddSkill(id, User.GetUserId());
         }
 
         [HttpDelete]
         // /api/executor/RemoveSkill
         public async Task<Skill> RemoveSkill(long id)
         {
-            return await Service.RemoveSkill(id, User.GetUserId());
+            return await _service.RemoveSkill(id, User.GetUserId());
         }
     }
 }
