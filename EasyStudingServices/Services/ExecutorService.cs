@@ -4,6 +4,8 @@ using EasyStudingModels.Models;
 using EasyStudingModels.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyStudingRepositories.Extensions;
+using System;
 
 namespace EasyStudingServices.Services
 {
@@ -11,10 +13,24 @@ namespace EasyStudingServices.Services
     public class ExecutorService: IExecutorService
     {
         private readonly IExecutorRepository _executorRepository;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<Skill> _skillRepository;
+        private readonly IRepository<UserSkill> _userSkillRepository;
 
-        public ExecutorService(IExecutorRepository executorRepository)
+        public ExecutorService(
+            IExecutorRepository executorRepository,
+            IRepository<User> userRepository,
+            IRepository<Order> orderRepository,
+            IRepository<Skill> skillRepository,
+            IRepository<UserSkill> userSkillRepository
+            )
         {
             _executorRepository = executorRepository;
+            _userRepository = userRepository;
+            _orderRepository = orderRepository;
+            _skillRepository = skillRepository;
+            _userSkillRepository = userSkillRepository;
         }
 
         /// <summary>
@@ -31,11 +47,25 @@ namespace EasyStudingServices.Services
 
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
-            return await _executorRepository.GetOrders(education.ConvertToValidModel(),
-                country.ConvertToValidModel(),
-                region.ConvertToValidModel(),
-                city.ConvertToValidModel(),
-                currentUserId);
+            //return await _executorRepository.GetOrders(education.ConvertToValidModel(),
+            //    country.ConvertToValidModel(),
+            //    region.ConvertToValidModel(),
+            //    city.ConvertToValidModel(),
+            //    currentUserId);
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+
+            var users = _userRepository.GetAll().Where(u =>
+                u.Education.Contains(education.ConvertToValidModel())
+                && u.Country.Contains(country.ConvertToValidModel())
+                && u.Region.Contains(region.ConvertToValidModel())
+                && u.City.Contains(city.ConvertToValidModel()))
+                ?? throw new ArgumentNullException();
+
+            return _orderRepository.GetAll().Where(o =>
+                o.ExecutorId == null
+                && users.Any(u =>
+                    u.Id == o.CustomerId))
+                ?? throw new ArgumentNullException();
         }
 
         /// <summary>
@@ -49,7 +79,9 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
-            return await _executorRepository.GetOrder(id, currentUserId);
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+
+            return await _orderRepository.GetAsync(id);
         }
 
         /// <summary>
@@ -63,7 +95,16 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
-            return await _executorRepository.GetTheRightsToPerformOrder(id, currentUserId);
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+
+            var order = await _orderRepository.GetAsync(id);
+
+            order.ExecutorId = (order.ExecutorId == null
+                && order.InProgress == false)
+                ? currentUserId
+                : throw new InvalidOperationException();
+
+            return await _orderRepository.EditAsync(order);
         }
 
         /// <summary>
@@ -77,18 +118,24 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
-            return await _executorRepository.CloseOrder(id, currentUserId);
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+
+            var order = await _orderRepository.GetAsync(id);
+
+            order.IsClosedByExecutor = (order.ExecutorId == currentUserId
+                && order.InProgress == true)
+                ? true
+                : throw new UnauthorizedAccessException();
+
+            order.IsCompleted = order.IsClosedByCustomer == true
+                ? true
+                : false;
+
+            return await _orderRepository.EditAsync(order);
         }
 
-        /// <summary>
-        ///   Add skill to executor profile.
-        /// </summary>
-        /// <param name="id">Id of skill what executor want to add.</param>
-        /// <param name="currentUserId">Id of user who request data.</param>
-        /// <returns>
-        ///    Added skill.
-        /// </returns>
 
+        
         public async Task<Skill> AddSkill(long id, long currentUserId)
         {
             return await _executorRepository.AddSkill(id, currentUserId);
