@@ -5,9 +5,11 @@ namespace EasyStudingModels
 {
     public class AuthOptions
     {
-        private const string _key = "lkjohn98324mcvbu/';ly!af./23468241bsdf!@enfqife2053631.,,dfas;d@!"; //Encryption key.
+        //Encryption key.
+        private const string _key = "lkjohn98324mcvbu/';ly!af./23468241bsdf!@enfqife2053631.,,dfas;d@!";
 
-        public const int LIFE_TIME = 40320; //The lifetime of the token is 4 weeks (in minutes).
+        //The lifetime of the token is 4 weeks (in minutes).
+        public const int LIFE_TIME = 40320; 
 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {

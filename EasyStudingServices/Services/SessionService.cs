@@ -9,17 +9,30 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using EasyStudingModels;
 using Microsoft.IdentityModel.Tokens;
+using EasyStudingServices.Extensions;
+using System.Linq;
+using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingServices.Services
 {
     public class SessionService : ISessionService
     {
-        private readonly ISessionRepository _sessionRepository;
+        #region Initialize repositories.
 
-        public SessionService(ISessionRepository sessionRepository)
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserPassword> _userPasswordRepository;
+        private readonly EasyStudingContext _context;
+
+        public SessionService(IRepository<User> userRepository,
+            IRepository<UserPassword> userPasswordRepository,
+            EasyStudingContext context)
         {
-            _sessionRepository = sessionRepository;
+            _userRepository = userRepository;
+            _userPasswordRepository = userPasswordRepository;
+            _context = context;
         }
+
+        #endregion
 
         /// <summary>
         ///   Start registration by phone number.
@@ -29,14 +42,33 @@ namespace EasyStudingServices.Services
         ///    Not validated user registration profile.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+        /// <exception cref="System.InvalidOperationException">When the user is registered.</exception>
 
         public async Task<User> StartRegistration(RegistrationModel registrationModel)
         {
             registrationModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.StartRegistration(registrationModel);
+            var containsUser = GetUserByTelephoneNumber(registrationModel.TelephoneNumber);
 
-            SmsService.Send(userEntity.TelephoneNumber, _sessionRepository.GetValidationCode(userEntity.TelephoneNumber));
+            if (containsUser == null)
+            {
+                return await _userRepository.AddAsync(new User
+                {
+                    TelephoneNumber = registrationModel.TelephoneNumber
+                });
+            }
+
+            var passwordOfUser = GetUserPasswordByUserId(containsUser.Id) == null
+                ? new UserPassword()
+                : throw new InvalidOperationException();
+
+            var userEntity = await _userRepository.EditAsync(new User()
+            {
+                Id = containsUser.Id,
+                TelephoneNumber = containsUser.TelephoneNumber
+            });
+
+            SmsService.Send(userEntity.TelephoneNumber);
 
             return userEntity;
         }
@@ -49,15 +81,21 @@ namespace EasyStudingServices.Services
         ///    Validated user registration profile.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public async Task<User> ValidateRegistration(ValidateModel validateModel)
         {
             validateModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.ValidateRegistration(validateModel)
-                ?? throw new ArgumentNullException();
+            var user = await _userRepository
+                .GetAsync(validateModel.UserId);
 
-            return userEntity;
+            user.TelephoneNumberIsValidated =
+                validateModel
+                .ValidationCode
+                .ValidateCode(user.TelephoneNumber);
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -68,15 +106,27 @@ namespace EasyStudingServices.Services
         ///    Connection token to server.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When user registred.</exception>
 
         public async Task<LoginToken> CompleteRegistration(LoginModel loginModel)
         {
             loginModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.CompleteRegistration(loginModel) 
+            var user = GetUserByTelephoneNumber(loginModel.TelephoneNumber)
                 ?? throw new ArgumentNullException();
 
-            return GetToken(userEntity);
+            var userPassword = GetUserPasswordByUserId(user.Id) == null
+                ? new UserPassword()
+                : throw new InvalidOperationException();
+
+            userPassword = await _userPasswordRepository.AddAsync(new UserPassword()
+            {
+                UserId = user.Id,
+                Password = loginModel.Password.HashPassword()
+            });
+
+            return GetToken(user);
         }
 
         /// <summary>
@@ -87,15 +137,33 @@ namespace EasyStudingServices.Services
         ///    Connection token to server.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When passwords not the same.</exception>
 
         public async Task<LoginToken> Login(LoginModel loginModel)
         {
             loginModel.CheckArgumentException();
 
-            var userEntity = await _sessionRepository.Login(loginModel)
+            var user = _userRepository
+                .GetAll()
+                .Join(_context.UserPasswords,
+                    u => u.Id,
+                    up => up.UserId,
+                    (u, up) => new
+                    {
+                        u.Id,
+                        u.TelephoneNumber,
+                        up.Password
+                    })
+                .FirstOrDefault(u => u.TelephoneNumber.Equals(loginModel.TelephoneNumber))
                 ?? throw new ArgumentNullException();
 
-            return GetToken(userEntity);
+            if (!user.Password.VerifyHashedPassword(loginModel.Password))
+            {
+                throw new InvalidOperationException();
+            }
+
+            return GetToken(await _userRepository.GetAsync(user.Id));
         }
 
         /// <summary>
@@ -106,12 +174,13 @@ namespace EasyStudingServices.Services
         ///    True or exception.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found.</exception>
 
         public bool GetValidationCode(RegistrationModel registrationModel)
         {
             registrationModel.CheckArgumentException();
 
-            SmsService.Send(registrationModel.TelephoneNumber, _sessionRepository.GetValidationCode(registrationModel.TelephoneNumber));
+            SmsService.Send(registrationModel.TelephoneNumber);
 
             return true;
         }
@@ -124,12 +193,27 @@ namespace EasyStudingServices.Services
         ///    Connection token to server.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
+        /// <exception cref="System.ArgumentNullException">When user not found or not registraited.</exception>
+        /// <exception cref="System.InvalidOperationException">When validation code not the same.</exception>
 
         public async Task<LoginToken> RestorePassword(RestorePasswordModel restorePasswordModel)
         {
             restorePasswordModel.CheckArgumentException();
 
-            var user = await _sessionRepository.RestorePassword(restorePasswordModel);
+            if (!restorePasswordModel.ValidationCode.ValidateCode(restorePasswordModel.TelephoneNumber))
+            {
+                throw new InvalidOperationException();
+            }
+
+            var user = GetUserByTelephoneNumber(restorePasswordModel.TelephoneNumber)
+                ?? throw new ArgumentNullException();
+
+            var password = GetUserPasswordByUserId(user.Id)
+                ?? throw new ArgumentNullException();
+
+            password.Password = restorePasswordModel.Password.HashPassword();
+
+            var editedPassword = await _userPasswordRepository.EditAsync(password);
 
             return GetToken(user);
         }
@@ -144,10 +228,7 @@ namespace EasyStudingServices.Services
 
         public async Task<LoginToken> UpdateToken(long currentUserId)
         {
-            var userEntity = await _sessionRepository.GetUserById(currentUserId)
-                ?? throw new ArgumentNullException();
-
-            return GetToken(userEntity);
+            return GetToken(await _userRepository.GetAsync(currentUserId));
         }
 
 
@@ -155,12 +236,30 @@ namespace EasyStudingServices.Services
         ///   For dev.
         ///   Delete in production.
         /// </summary>
+
         public async Task<bool> DeleteUserDev(string telNumber)
         {
-            return await _sessionRepository.DeleteUserDev(telNumber ?? throw new ArgumentException());
+            try
+            {
+                var user = GetUserByTelephoneNumber(telNumber)
+                    ?? throw new ArgumentNullException();
+
+                var password = GetUserPasswordByUserId(user.Id)
+                    ?? throw new ArgumentNullException();
+
+                var deletedPassword = await _userPasswordRepository.RemoveAsync(password.Id);
+
+                var deletedUser = await _userRepository.RemoveAsync(user.Id);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        #region Generate jwt token.
+        #region Helpers.
 
         private LoginToken GetToken(User user)
         {            
@@ -189,7 +288,23 @@ namespace EasyStudingServices.Services
             {
                 User = user,
                 BearerToken = "Bearer " + encodedJwt
-            }; 
+            };
+        }
+
+        private User GetUserByTelephoneNumber(string telephoneNumber)
+        {
+            return _userRepository
+                .GetAll()
+                .FirstOrDefault(u =>
+                    u.TelephoneNumber.Equals(telephoneNumber));
+        }
+
+        private UserPassword GetUserPasswordByUserId(long id)
+        {
+            return _userPasswordRepository
+                .GetAll()
+                .FirstOrDefault(up =>
+                    up.UserId == id);
         }
 
         #endregion

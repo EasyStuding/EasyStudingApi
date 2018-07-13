@@ -1,14 +1,14 @@
 ﻿using EasyStudingModels;
-using EasyStudingRepositories.Extensions;
+using EasyStudingServices.Extensions;
 using System;
 using System.Net;
 using System.Net.Mail;
 
-namespace EasyStudingServices
+namespace EasyStudingServices.Services
 {
     public class MailService
     {
-        public static void Send(string email, string code)
+        public static void Send(string email)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace EasyStudingServices
                             "EasyStuding - Email validation";
 
                         mail.Body = 
-                            $"EasyStuding code: {code}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.";
+                            $"EasyStuding code: {email.GetValidationCode()}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.";
 
                         SmtpServer.Host = "smtp.gmail.com";
 

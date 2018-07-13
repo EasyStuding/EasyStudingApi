@@ -48,6 +48,8 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Banned user.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
+        /// <exception cref="System.InvalidOperationException">When user moderator or admin.</exception>
 
         public async Task<User> BanUser(long id)
         {
@@ -68,6 +70,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Unbanned user.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
         public async Task<User> RemoveBanOfUser(long id)
         {
@@ -85,6 +88,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Closed order.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
         public async Task<Order> CloseOrder(long id)
         {
@@ -104,6 +108,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders sorted by city and education.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
         public IQueryable<Order> GetOrders(string education, string country, string region, string city)
         {
@@ -128,6 +133,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted order.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
         public async Task<Order> GetOrder(long id)
         {

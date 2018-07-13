@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace EasyStudingRepositories.Extensions
+namespace EasyStudingServices.Extensions
 {
     public static class UserExtension
     {

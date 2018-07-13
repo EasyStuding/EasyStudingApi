@@ -4,12 +4,13 @@ using EasyStudingModels.Models;
 using EasyStudingModels.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
-using EasyStudingRepositories.Extensions;
+using EasyStudingServices.Extensions;
 using System;
 
 namespace EasyStudingServices.Services
 {
-    //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
+    //currentUserId - current user, who send request. 
+    //In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
         #region Initialize repositories.
@@ -45,6 +46,8 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders sorted by city and education.
         /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
+        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
@@ -72,6 +75,7 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted order.
         /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
         public async Task<Order> GetOrder(long id, long currentUserId)
         {
@@ -88,6 +92,9 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Requsted order.
         /// </returns>
+        /// <exception cref="System.InvalidOperationException">When order have executor.</exception>
+        /// <exception cref="System.UnauthorizedAccessException">Id of executor != currentUserId 
+        /// or current user not executor.</exception>
 
         public async Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
@@ -111,6 +118,8 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///   Requested order.
         /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">Current user not executor 
+        /// or executor of order not current user.</exception>
 
         public async Task<Order> CloseOrder(long id, long currentUserId)
         {
@@ -130,8 +139,16 @@ namespace EasyStudingServices.Services
             return await _orderRepository.EditAsync(order);
         }
 
+        /// <summary>
+        ///   Add skill to executor profile.
+        /// </summary>
+        /// <param name="id">Id of skill what executor want to add.</param>
+        /// <param name="currentUserId">Id of user who request data.</param>
+        /// <returns>
+        ///    Added skill.
+        /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
-        
         public async Task<Skill> AddSkill(long id, long currentUserId)
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
@@ -155,6 +172,8 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Removed skill.
         /// </returns>
+        /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
+        /// <exception cref="System.ArgumentNullException">Result not found.</exception>
 
         public async Task<Skill> RemoveSkill(long id, long currentUserId)
         {

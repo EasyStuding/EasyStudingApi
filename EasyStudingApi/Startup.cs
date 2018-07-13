@@ -106,27 +106,22 @@ namespace EasyStudingApi
             services.AddScoped<IRepository<UserSkill>, UniversalRepository<UserSkill>>();
             services.AddScoped<IRepository<UserPassword>, UniversalRepository<UserPassword>>();
 
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<IModeratorService, ModeratorService>();
+            services.AddScoped<IExecutorService, ExecutorService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILocationService, LocationService>();
+
+            services.AddScoped<ISessionController, SessionController>();
+            services.AddScoped<IModeratorController, ModeratorController>();
+            services.AddScoped<IExecutorController, ExecutorController>();
+            services.AddScoped<IUserController, UserController>();
+            services.AddScoped<ILocationController, LocationController>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<EasyStudingContext>(options => 
                 options.UseNpgsql(AppSettings.DBConnectionString));
-
-            services.AddScoped<ISessionController, SessionController>();
-            services.AddScoped<ISessionService, SessionService>();
-            services.AddScoped<ISessionRepository, SessionRepository>();
-
-            services.AddScoped<IModeratorController, ModeratorController>();
-            services.AddScoped<IModeratorService, ModeratorService>();
-
-            services.AddScoped<IExecutorController, ExecutorController>();
-            services.AddScoped<IExecutorService, ExecutorService>();
-
-            services.AddScoped<IUserController, UserController>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddScoped<ILocationController, LocationController>();
-            services.AddScoped<ILocationService, LocationService>();
         }
 
         private void BuildAppSettingsProvider()

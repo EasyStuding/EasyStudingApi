@@ -1,15 +1,15 @@
 ﻿using EasyStudingModels;
-using EasyStudingRepositories.Extensions;
+using EasyStudingServices.Extensions;
 using System;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
-namespace EasyStudingServices
+namespace EasyStudingServices.Services
 {
     public class SmsService
     {
-        public static void Send(string telephoneNumber, string code)
+        public static void Send(string telephoneNumber)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace EasyStudingServices
                 var message = MessageResource.Create(
                     to,
                     from: new PhoneNumber(AppSettings.TwilioFromNumber),
-                    body: $"EasyStuding code: {code}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.");
+                    body: $"EasyStuding code: {telephoneNumber.GetValidationCode()}. Valid for {ValidatorExtension.VALID_MINUTES} minutes.");
             }
             catch(Exception ex)
             {
@@ -27,7 +27,7 @@ namespace EasyStudingServices
             }
         }
 
-        public static void Send(string telephoneNumber, string subject, string body)
+        public static void Send(string telephoneNumber, string body)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace EasyStudingServices
                 var message = MessageResource.Create(
                     to,
                     from: new PhoneNumber(AppSettings.TwilioFromNumber),
-                    body: subject + Environment.NewLine + body);
+                    body: body);
             }
             catch (Exception ex)
             {
