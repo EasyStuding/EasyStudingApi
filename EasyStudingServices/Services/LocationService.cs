@@ -10,13 +10,12 @@ namespace EasyStudingServices.Services
 {
     public class LocationService : ILocationService
     {
-        #region Repositories from db.
+        #region Initialize repositories.
 
         private readonly IRepository<Country> _countryRepository;
         private readonly IRepository<Region> _regionRepository;
         private readonly IRepository<City> _cityRepository;
 
-        #endregion
 
         public LocationService(IRepository<Country> countryRepository,
             IRepository<Region> regionRepository,
@@ -26,6 +25,9 @@ namespace EasyStudingServices.Services
             _regionRepository = regionRepository;
             _cityRepository = cityRepository;
         }
+
+
+        #endregion
 
         public IQueryable<Country> GetCountries()
         {

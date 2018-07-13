@@ -12,6 +12,8 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
+        #region Initialize repositories.
+
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Skill> _skillRepository;
@@ -30,6 +32,8 @@ namespace EasyStudingServices.Services
             _userSkillRepository = userSkillRepository;
         }
 
+        #endregion
+
         /// <summary>
         ///   Get orders, classified by CustomerEducation and CustomerCity. 
         ///   If orders have executor, then not return them.
@@ -44,7 +48,7 @@ namespace EasyStudingServices.Services
 
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
-            //(await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
             var users = _userRepository.GetAll().Where(u =>
                 u.Education.Contains(education.ConvertToValidModel())

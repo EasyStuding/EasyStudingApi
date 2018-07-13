@@ -11,6 +11,8 @@ namespace EasyStudingServices.Services
 {
     public class ModeratorService: IModeratorService
     {
+        #region Initialize repositories.
+
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Order> _orderRepository;
 
@@ -19,6 +21,8 @@ namespace EasyStudingServices.Services
             _userRepository = userRepository;
             _orderRepository = orderRepository;
         }
+
+        #endregion
 
         /// <summary>
         ///   Grant moderator rights to user.
