@@ -117,11 +117,9 @@ namespace EasyStudingApi
 
             services.AddScoped<IModeratorController, ModeratorController>();
             services.AddScoped<IModeratorService, ModeratorService>();
-            services.AddScoped<IModeratorRepository, ModeratorRepository>();
 
             services.AddScoped<IExecutorController, ExecutorController>();
             services.AddScoped<IExecutorService, ExecutorService>();
-            services.AddScoped<IExecutorRepository, ExecutorRepository>();
 
             services.AddScoped<IUserController, UserController>();
             services.AddScoped<IUserService, UserService>();
