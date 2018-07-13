@@ -10,7 +10,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "ModeratorService.BanUser(1) should return object with id 1.")]
         public async void ModeratorService_BanUser_1_should_return_object_1()
         {
-            var service = new ModeratorService(new TestModeratorRepository());
+            var service = new ModeratorService(new TestUserRepository(), new TestOrderRepository());
 
             var result = await service.BanUser(1);
 
@@ -20,7 +20,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "ModeratorService.RemoveBanOfUser(1) should return object with id 1.")]
         public async void ModeratorService_RemoveBanOfUser_1_should_return_object_1()
         {
-            var service = new ModeratorService(new TestModeratorRepository());
+            var service = new ModeratorService(new TestUserRepository(), new TestOrderRepository());
 
             var result = await service.RemoveBanOfUser(1);
 
@@ -30,7 +30,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "ModeratorService.CloseOrder(1) should return object with id 1.")]
         public async void ModeratorService_CloseOrder_1_should_return_object_1()
         {
-            var service = new ModeratorService(new TestModeratorRepository());
+            var service = new ModeratorService(new TestUserRepository(), new TestOrderRepository());
 
             var result = await service.CloseOrder(1);
 
@@ -40,7 +40,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "ModeratorService.GetOrders() should return 5 objects.")]
         public void ModeratorService_GetOrders_should_return_5_objects()
         {
-            var service = new ModeratorService(new TestModeratorRepository());
+            var service = new ModeratorService(new TestUserRepository(), new TestOrderRepository());
 
             var result = service.GetOrders(null, null, null, null);
 
@@ -50,7 +50,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "ModeratorService.GetOrder(1) should return object with id 1.")]
         public async void ModeratorService_GetOrder_1_should_return_object_1()
         {
-            var service = new ModeratorService(new TestModeratorRepository());
+            var service = new ModeratorService(new TestUserRepository(), new TestOrderRepository());
 
             var result = await service.GetOrder(1);
 

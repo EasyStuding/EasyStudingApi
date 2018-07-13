@@ -13,7 +13,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetUsers() should return 5 objects.")]
         public void UserService_GetUsers_should_return_5_objects()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = service.GetUsers(null, null, null, null);
 
@@ -23,7 +23,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetUser(1) should return object with id 1.")]
         public async void UserService_GetUser_1_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.GetUser(1);
 
@@ -33,7 +33,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetOrders(1) should return 5 objects.")]
         public async void UserService_GetOrders_1_should_return_5_objects()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.GetOrders(1);
 
@@ -43,7 +43,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetOrder(1, 1) should return object with id 1.")]
         public async void UserService_GetOrder_1_1_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.GetOrder(1, 1);
 
@@ -53,7 +53,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetExecutors() should return 5 objects.")]
         public void UserService_GetExecutors_should_return_5_objects()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = service.GetExecutors(null, null, null, null);
 
@@ -63,7 +63,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetOpenSourceAttachments(1, 1) should return 5 objects.")]
         public async void UserService_GetOpenSourceAttachments_1_1_should_return_5_objects()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.GetOpenSourceAttachments(1, 1);
 
@@ -73,7 +73,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.OpenSourceDownloadFile(1, 1) should return object with id 1.")]
         public async void UserService_OpenSourceDownloadFile_1_1_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.OpenSourceDownloadFile(1, 1);
 
@@ -83,7 +83,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.ChangePassword(valid, valid, 1) should return true.")]
         public async void UserService_ChangePassword_valid_should_return_true()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             Assert.True(await service.ChangePassword("HelloWorld123!", "Hello123!", 1));
         }
@@ -91,7 +91,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.ChangePassword(valid, invalid, 1) should return ArgumentException.")]
         public async void UserService_ChangePassword_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
             
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.ChangePassword("HelloWorld123!", "helloworld", 1));
 
@@ -101,7 +101,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.EditProfile(valid, 1) should return object with id 1.")]
         public async void UserService_EditProfile_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.EditProfile(new User
             {
@@ -132,7 +132,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.EditProfile(invalid, 1) should return ArgumentException.")]
         public async void UserService_EditProfile_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.EditProfile(new User
             {
@@ -145,7 +145,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.ValidateEmail(valid, 1) should return object with id 1.")]
         public async void UserService_ValidateEmail_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.ValidateEmail(new ValidateModel
             {
@@ -159,7 +159,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.ValidateEmail(invalid, 1) should return ArgumentException.")]
         public async void UserService_ValidateEmail_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.ValidateEmail(new ValidateModel
             {
@@ -173,7 +173,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.GetValidationCode(1) should return true.")]
         public async void UserService_GetValidationCode_1_should_return_true()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.GetValidationCode(1);
 
@@ -183,7 +183,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddPictureProfile(valid) should return object with id 1.")]
         public async void UserService_AddPictureProfile_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.AddPictureProfile(new FileToAddModel
             {
@@ -200,7 +200,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddPictureProfile(invalid) should return ArgumentException.")]
         public async void UserService_AddPictureProfile_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.AddPictureProfile(new FileToAddModel(), "url", 1));
 
@@ -210,7 +210,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.RemovePictureProfile(1) should return object with id 1.")]
         public async void UserService_RemovePictureProfile_1_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.RemovePictureProfile(1);
 
@@ -220,7 +220,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.BuySubscription(valid, 1) should return object with id 1.")]
         public async void UserService_BuySubscription_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.BuySubscription(Defines.Subscription.EXECUTOR, 1);
 
@@ -230,7 +230,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.BuySubscription(invalid, 1) should return ArgumentException.")]
         public async void UserService_BuySubscription_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.BuySubscription("example", 1));
 
@@ -240,7 +240,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddFileToOpenSource(valid) should return object with id 1.")]
         public async void UserService_AddFileToOpenSource_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.AddFileToOpenSource(new FileToAddModel
             {
@@ -257,7 +257,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddFileToOpenSource(invalid) should return ArgumentException.")]
         public async void UserService_AddFileToOpenSource_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.AddFileToOpenSource(new FileToAddModel(), "url", 1));
 
@@ -267,7 +267,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.RemoveFileFromOpenSource(valid) should return object with id 1.")]
         public async void UserService_RemoveFileFromOpenSource_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.RemoveFileFromOpenSource(1, 1);
 
@@ -277,7 +277,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddOrder(valid) should return object with id 1.")]
         public async void UserService_AddOrder_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.AddOrder(new OrderToAdd
             {
@@ -295,7 +295,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddOrder(invalid) should return ArgumentException.")]
         public async void UserService_AddOrder_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.AddOrder(new OrderToAdd() { CustomerId = -1 }, "url", 1));
 
@@ -305,7 +305,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.StartExecuteOrder(valid) should return object with id 1.")]
         public async void UserService_StartExecuteOrder_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.StartExecuteOrder(1, 2, 1);
 
@@ -315,7 +315,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.RefuseExecutor(valid) should return object with id 1.")]
         public async void UserService_RefuseExecutor_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.RefuseExecutor(1, 1);
 
@@ -325,7 +325,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.CloseOrder(valid) should return object with id 1.")]
         public async void UserService_CloseOrder_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.CloseOrder(1, 1);
 
@@ -335,7 +335,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddReview(valid) should return object with id 1.")]
         public async void UserService_AddReview_valid_should_return_object_1()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await service.AddReview(new Review()
             {
@@ -352,7 +352,7 @@ namespace EasyStudingUnitTests.ServiceTests
         [Fact(DisplayName = "UserService.AddReview(invalid) should return ArgumentException.")]
         public async void UserService_AddReview_invalid_should_return_ArgumentException()
         {
-            var service = new UserService(new TestUserRepository());
+            var service = new UserService(new TestUserAppRepository());
 
             var result = await Assert.ThrowsAsync<ArgumentException>(async () => await service.AddReview(new Review()
             {

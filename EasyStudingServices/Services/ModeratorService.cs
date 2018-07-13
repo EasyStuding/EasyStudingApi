@@ -4,16 +4,20 @@ using EasyStudingModels.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyStudingModels.Extensions;
+using EasyStudingModels;
+using System;
 
 namespace EasyStudingServices.Services
 {
     public class ModeratorService: IModeratorService
     {
-        private readonly IModeratorRepository _moderatorRepository;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Order> _orderRepository;
 
-        public ModeratorService(IModeratorRepository moderatorRepository)
+        public ModeratorService(IRepository<User> userRepository, IRepository<Order> orderRepository)
         {
-            _moderatorRepository = moderatorRepository;
+            _userRepository = userRepository;
+            _orderRepository = orderRepository;
         }
 
         /// <summary>
@@ -26,7 +30,11 @@ namespace EasyStudingServices.Services
 
         public async Task<User> GrantModeratorRights(long userId)
         {
-            return await _moderatorRepository.GrantModeratorRights(userId);
+            var user = await _userRepository.GetAsync(userId);
+
+            user.Role = Defines.Roles.MODERATOR;
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -39,7 +47,14 @@ namespace EasyStudingServices.Services
 
         public async Task<User> BanUser(long id)
         {
-            return await _moderatorRepository.BanUser(id);
+            var user = await _userRepository.GetAsync(id);
+
+            user.BanExpiresDate = user.Role.Equals(Defines.Roles.ADMIN)
+                || user.Role.Equals(Defines.Roles.MODERATOR)
+                ? throw new InvalidOperationException()
+                : DateTime.Now.AddMonths(3);
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -52,7 +67,11 @@ namespace EasyStudingServices.Services
 
         public async Task<User> RemoveBanOfUser(long id)
         {
-            return await _moderatorRepository.RemoveBanOfUser(id);
+            var user = await _userRepository.GetAsync(id);
+
+            user.BanExpiresDate = DateTime.Now;
+
+            return await _userRepository.EditAsync(user);
         }
 
         /// <summary>
@@ -65,7 +84,11 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> CloseOrder(long id)
         {
-            return await _moderatorRepository.CloseOrder(id);
+            var order = await _orderRepository.GetAsync(id);
+
+            order.IsCompleted = true;
+
+            return await _orderRepository.EditAsync(order);
         }
 
         /// <summary>
@@ -80,10 +103,18 @@ namespace EasyStudingServices.Services
 
         public IQueryable<Order> GetOrders(string education, string country, string region, string city)
         {
-            return _moderatorRepository.GetOrders(education.ConvertToValidModel(),
-                country.ConvertToValidModel(),
-                region.ConvertToValidModel(),
-                city.ConvertToValidModel());
+            var users = _userRepository.GetAll().Where(u =>
+                  u.Education.Contains(education.ConvertToValidModel())
+                  && u.Country.Contains(country.ConvertToValidModel())
+                  && u.Region.Contains(region.ConvertToValidModel())
+                  && u.City.Contains(city.ConvertToValidModel()))
+                  ?? throw new ArgumentNullException();
+
+            return _orderRepository.GetAll().Where(o =>
+                users.Any(u =>
+                    u.Id == o.CustomerId
+                    || u.Id == o.ExecutorId))
+                ?? throw new ArgumentNullException();   
         }
 
         /// <summary>
@@ -96,7 +127,7 @@ namespace EasyStudingServices.Services
 
         public async Task<Order> GetOrder(long id)
         {
-            return await _moderatorRepository.GetOrder(id);
+            return await _orderRepository.GetAsync(id);
         }
 
     }

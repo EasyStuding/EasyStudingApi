@@ -12,21 +12,18 @@ namespace EasyStudingServices.Services
     //currentUserId - current user, who send request. In this service you need currentUserId to check permissons and create/close orders, role of user not contains in identity.
     public class ExecutorService: IExecutorService
     {
-        private readonly IExecutorRepository _executorRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Skill> _skillRepository;
         private readonly IRepository<UserSkill> _userSkillRepository;
 
         public ExecutorService(
-            IExecutorRepository executorRepository,
             IRepository<User> userRepository,
             IRepository<Order> orderRepository,
             IRepository<Skill> skillRepository,
             IRepository<UserSkill> userSkillRepository
             )
         {
-            _executorRepository = executorRepository;
             _userRepository = userRepository;
             _orderRepository = orderRepository;
             _skillRepository = skillRepository;
@@ -47,12 +44,7 @@ namespace EasyStudingServices.Services
 
         public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
-            //return await _executorRepository.GetOrders(education.ConvertToValidModel(),
-            //    country.ConvertToValidModel(),
-            //    region.ConvertToValidModel(),
-            //    city.ConvertToValidModel(),
-            //    currentUserId);
-            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+            //(await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
             var users = _userRepository.GetAll().Where(u =>
                 u.Education.Contains(education.ConvertToValidModel())
@@ -62,7 +54,7 @@ namespace EasyStudingServices.Services
                 ?? throw new ArgumentNullException();
 
             return _orderRepository.GetAll().Where(o =>
-                o.ExecutorId == null
+                o.ExecutorId != null
                 && users.Any(u =>
                     u.Id == o.CustomerId))
                 ?? throw new ArgumentNullException();
@@ -138,7 +130,17 @@ namespace EasyStudingServices.Services
         
         public async Task<Skill> AddSkill(long id, long currentUserId)
         {
-            return await _executorRepository.AddSkill(id, currentUserId);
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+
+            var skill = await _skillRepository.GetAsync(id);
+
+            await _userSkillRepository.AddAsync(new UserSkill()
+            {
+                SkillId = skill.Id,
+                UserId = currentUserId
+            });
+
+            return skill;
         }
 
         /// <summary>
@@ -152,7 +154,19 @@ namespace EasyStudingServices.Services
 
         public async Task<Skill> RemoveSkill(long id, long currentUserId)
         {
-            return await _executorRepository.RemoveSkill(id, currentUserId);
+            (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
+
+            var skill = await _skillRepository.GetAsync(id);
+
+            var userSkill = _userSkillRepository
+                .GetAll()
+                .FirstOrDefault(us => us.SkillId == skill.Id
+                    && us.UserId == currentUserId)
+                ?? throw new ArgumentNullException();
+
+            await _userSkillRepository.RemoveAsync(userSkill.Id);
+
+            return skill;
         }
     }
 }
