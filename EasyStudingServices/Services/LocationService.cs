@@ -1,8 +1,6 @@
 ﻿using EasyStudingInterfaces.Repositories;
 using EasyStudingInterfaces.Services;
 using EasyStudingModels.Models;
-using EasyStudingRepositories.DbContext;
-using EasyStudingRepositories.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
 

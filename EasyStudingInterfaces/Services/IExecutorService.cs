@@ -6,13 +6,13 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IExecutorService
     {
-        Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId);
+        Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city, long currentUserId);
 
-        Task<Order> GetOrder(long id, long currentUserId);
+        Task<OrderToReturn> GetOrder(long id, long currentUserId);
 
-        Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId);
+        Task<OrderToReturn> GetTheRightsToPerformOrder(long id, long currentUserId);
 
-        Task<Order> CloseOrder(long id, long currentUserId);
+        Task<OrderToReturn> CloseOrder(long id, long currentUserId);
 
         Task<Skill> AddSkill(long id, long currentUserId);
 

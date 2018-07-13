@@ -1,5 +1,6 @@
 ﻿using EasyStudingModels.Extensions;
 using System;
+using System.Collections.Generic;
 using static EasyStudingModels.Defines;
 
 namespace EasyStudingModels.Models
@@ -31,6 +32,8 @@ namespace EasyStudingModels.Models
         public DateTime? BanExpiresDate { get; set; } = DateTime.Now;
         public DateTime? SubscriptionExecutorExpiresDate { get; set; } = DateTime.Now;
         public DateTime? SubscriptionOpenSourceExpiresDate { get; set; } = DateTime.Now;
+
+        public IEnumerable<Skill> Skills { get; set; }
 
         public void Edit(User user)
         {

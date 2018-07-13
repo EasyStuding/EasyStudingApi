@@ -42,10 +42,14 @@ namespace EasyStudingModels.Models
     public class OrderToAdd : Order
     {
         public IEnumerable<FileToAddModel> Attachments { get; set; }
+
+        public IEnumerable<Skill> Skills { get; set; }
     }
 
     public class OrderToReturn : Order
     {
         public IEnumerable<FileToReturnModel> Attachments { get; set; }
+
+        public IEnumerable<Skill> Skills { get; set; }
     }
 }

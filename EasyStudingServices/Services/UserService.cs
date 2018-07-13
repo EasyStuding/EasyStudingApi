@@ -23,6 +23,7 @@ namespace EasyStudingServices.Services
         private readonly IRepository<Attachment> _attachmentRepository;
         private readonly IRepository<Review> _reviewRepository;
         private readonly IRepository<Skill> _skillRepository;
+        private readonly IRepository<OrderSkill> _orderSkillRepository;
 
         private readonly EasyStudingContext _context;
 
@@ -32,6 +33,7 @@ namespace EasyStudingServices.Services
             IRepository<Attachment> attachmentRepository,
             IRepository<Review> reviewRepository,
             IRepository<Skill> skillRepository,
+            IRepository<OrderSkill> orderSkillRepository,
             EasyStudingContext context)
         {
             _userRepository = userRepository;
@@ -40,6 +42,8 @@ namespace EasyStudingServices.Services
             _attachmentRepository = attachmentRepository;
             _reviewRepository = reviewRepository;
             _skillRepository = skillRepository;
+            _orderRepository = orderRepository;
+            _context = context;
         }
 
         #endregion
@@ -133,7 +137,7 @@ namespace EasyStudingServices.Services
 
             foreach (var order in orders)
             {
-                order.Attachments = GetAttachmentsToOrder(order);
+                order.Attachments = order.GetAttachmentsToOrder(_attachmentRepository);
             }
 
             return orders;
@@ -159,7 +163,8 @@ namespace EasyStudingServices.Services
                 .FirstOrDefault(o => o.Id == id
                 && (o.CustomerId == user.Id || o.ExecutorId == user.Id));
 
-            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
+            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_context));
         }
 
         /// <summary>
@@ -201,7 +206,7 @@ namespace EasyStudingServices.Services
                 ? user
                 : throw new UnauthorizedAccessException();
 
-            return _context.Attachment
+            return _context.Attachments
                 .Join(_context.Users,
                     a => a.ContainerId,
                     u => u.Id,
@@ -236,7 +241,7 @@ namespace EasyStudingServices.Services
                 ? user
                 : throw new UnauthorizedAccessException();
 
-            return _context.Attachment
+            return _context.Attachments
                 .Join(_context.Users,
                     a => a.ContainerId,
                     u => u.Id,
@@ -538,7 +543,21 @@ namespace EasyStudingServices.Services
 
             var savedOrder = await _orderRepository.AddAsync(order);
 
-            return ConvertOrderToReturn(savedOrder, attachments);
+            var skills = new List<Skill>();
+
+            if (order.Skills != null)
+            {
+                foreach (var skill in order.Skills)
+                {
+                    await _orderSkillRepository.AddAsync(new OrderSkill
+                    {
+                        OrderId = order.Id,
+                        SkillId = skill.Id
+                    });
+                }
+            }
+
+            return savedOrder.ConvertOrderToReturn(attachments, skills);
         }
 
         /// <summary>
@@ -560,7 +579,8 @@ namespace EasyStudingServices.Services
 
             order = await _orderRepository.EditAsync(order);
 
-            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
+            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_context));
         }
 
         /// <summary>
@@ -583,7 +603,8 @@ namespace EasyStudingServices.Services
 
             order = await _orderRepository.EditAsync(order);
 
-            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
+            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_context));
         }
 
         /// <summary>
@@ -611,7 +632,8 @@ namespace EasyStudingServices.Services
 
             order = await _orderRepository.EditAsync(order);
 
-            return ConvertOrderToReturn(order, GetAttachmentsToOrder(order));
+            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_context));
         }
 
         /// <summary>
@@ -641,41 +663,6 @@ namespace EasyStudingServices.Services
         }
 
         #region Helpers.
-
-        private IEnumerable<FileToReturnModel> GetAttachmentsToOrder(Order order)
-        {
-            return _attachmentRepository
-                    .GetAll()
-                    .Where(a => a.ContainerId == order.Id
-                        && a.ContainerName == Defines.AttachmentContainerName.ORDER)
-                    .Select(a => new FileToReturnModel
-                    {
-                        Id = a.Id,
-                        ContainerId = a.ContainerId,
-                        ContainerName = a.ContainerName,
-                        Link = a.Link,
-                        Name = a.Name,
-                        Type = a.Type
-                    })
-                    .AsEnumerable();
-        }
-
-        private OrderToReturn ConvertOrderToReturn(Order order, IEnumerable<FileToReturnModel> attachments)
-        {
-            return new OrderToReturn
-            {
-                Id = order.Id,
-                CustomerId = order.CustomerId,
-                Description = order.Description,
-                ExecutorId = order.ExecutorId,
-                InProgress = order.InProgress,
-                IsClosedByCustomer = order.IsClosedByCustomer,
-                IsClosedByExecutor = order.IsClosedByExecutor,
-                IsCompleted = order.IsCompleted,
-                Title = order.Title,
-                Attachments = attachments
-            };
-        }
 
         private async Task<IEnumerable<FileToReturnModel>> SaveFiles(IEnumerable<FileToAddModel> files, string currentUrl, string folder)
         {
