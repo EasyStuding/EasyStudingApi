@@ -34,5 +34,24 @@ namespace EasyStudingRepositories.DbContext
                 optionsBuilder.UseNpgsql(AppSettings.DBConnectionString);
             }
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Skill>(entity =>
+            {
+                entity.ToTable("Skills");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id")
+                    .UseNpgsqlIdentityByDefaultColumn();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("Name");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("Id");
+            });
+        }
     }
 }

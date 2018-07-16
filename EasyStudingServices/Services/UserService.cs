@@ -89,7 +89,8 @@ namespace EasyStudingServices.Services
                u.Education.Contains(education.ConvertToValidModel())
                && u.Country.Contains(country.ConvertToValidModel())
                && u.Region.Contains(region.ConvertToValidModel())
-               && u.City.Contains(city.ConvertToValidModel()))
+               && u.City.Contains(city.ConvertToValidModel())
+               && u.TelephoneNumberIsValidated == true)
                .ToList()
                .Select(u => u.GetSkillsToUser(_context))
                .AsQueryable();
@@ -186,7 +187,8 @@ namespace EasyStudingServices.Services
                && u.Country.Contains(country.ConvertToValidModel())
                && u.Region.Contains(region.ConvertToValidModel())
                && u.City.Contains(city.ConvertToValidModel())
-               && u.SubscriptionExecutorExpiresDate > DateTime.Now)
+               && u.SubscriptionExecutorExpiresDate > DateTime.Now
+               && u.TelephoneNumberIsValidated == true)
                .ToList()
                .Select(u => u.GetSkillsToUser(_context))
                .AsQueryable();

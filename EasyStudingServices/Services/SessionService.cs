@@ -126,6 +126,14 @@ namespace EasyStudingServices.Services
                 Password = loginModel.Password.HashPassword()
             });
 
+            user.SubscriptionExecutorExpiresDate = 
+                DateTime.Now.AddMonths(Defines.Subscription.COUNT_MONTH);
+
+            user.SubscriptionOpenSourceExpiresDate =
+                DateTime.Now.AddMonths(Defines.Subscription.COUNT_MONTH);
+
+            user = await _userRepository.EditAsync(user);
+
             return GetToken(user);
         }
 

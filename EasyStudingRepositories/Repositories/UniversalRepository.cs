@@ -27,7 +27,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<TEntity> GetAsync(long id)
         {
-            return await _dbSet.FirstOrDefaultAsync(e => e.Id == id)
+            return await _dbSet.FindAsync(id)
                 ?? throw new ArgumentNullException();
         }
 
@@ -48,8 +48,7 @@ namespace EasyStudingRepositories.Repositories
             param = param
                 ?? throw new ArgumentNullException();
 
-            var entity = await GetAsync(param.Id)
-                ?? throw new ArgumentNullException();
+            var entity = await GetAsync(param.Id);
 
             entity.Edit(param);
 
@@ -60,8 +59,7 @@ namespace EasyStudingRepositories.Repositories
 
         public async Task<TEntity> RemoveAsync(long id)
         {
-            var entity = await GetAsync(id)
-                ?? throw new ArgumentNullException();
+            var entity = await GetAsync(id);
 
             _dbSet.Remove(entity);
 
