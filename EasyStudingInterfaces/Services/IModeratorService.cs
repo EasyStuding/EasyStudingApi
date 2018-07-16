@@ -14,7 +14,7 @@ namespace EasyStudingInterfaces.Services
 
         Task<OrderToReturn> CloseOrder(long id);
 
-        IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city);
+        IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city, string skills);
 
         Task<OrderToReturn> GetOrder(long id);
     }

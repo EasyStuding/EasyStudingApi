@@ -34,13 +34,9 @@ namespace EasyStudingRepositories.DbContext
 
         public static Stream GetFileStream(string fileLink, string folder)
         {
-            var uri = new Uri(fileLink);
-
             return File.OpenRead(Path.Combine(Directory.GetCurrentDirectory(),
                 Defines.FileFolders.FolderPathes[folder],
-                uri.IsFile ?
-                Path.GetFileName(uri.LocalPath)
-                : throw new ArgumentNullException()));
+                Path.GetFileName(fileLink)));
         }
     }
 }

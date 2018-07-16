@@ -6,7 +6,7 @@ namespace EasyStudingInterfaces.Controllers
 {
     public interface IExecutorController
     {
-        Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city);
+        Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city, string skills);
 
         Task<OrderToReturn> GetOrder(long id);
 

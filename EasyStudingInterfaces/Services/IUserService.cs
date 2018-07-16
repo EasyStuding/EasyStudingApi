@@ -10,7 +10,7 @@ namespace EasyStudingInterfaces.Services
 
         Task<Skill> GetSkill(long id);
 
-        IQueryable<User> GetUsers(string education, string country, string region, string city);
+        IQueryable<User> GetUsers(string education, string country, string region, string city, string skills);
 
         Task<User> GetUser(long id);
 
@@ -18,7 +18,7 @@ namespace EasyStudingInterfaces.Services
 
         Task<OrderToReturn> GetOrder(long id, long currentUserId);
 
-        IQueryable<User> GetExecutors(string education, string country, string region, string city);
+        IQueryable<User> GetExecutors(string education, string country, string region, string city, string skills);
 
         Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId, long currentUserId);
 

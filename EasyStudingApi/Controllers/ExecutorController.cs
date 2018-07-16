@@ -23,9 +23,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/executor/GetOrders
-        public async Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city)
+        public async Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city, string skills)
         {
-            return await _service.GetOrders(education, country, region, city, User.GetUserId());
+            return await _service.GetOrders(education, country, region, city, skills, User.GetUserId());
         }
 
         [HttpGet]

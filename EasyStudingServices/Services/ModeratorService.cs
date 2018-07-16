@@ -62,12 +62,14 @@ namespace EasyStudingServices.Services
 
         public async Task<User> BanUser(long id)
         {
+            const int monthToBan = 3;
+
             var user = await _userRepository.GetAsync(id);
 
             user.BanExpiresDate = user.Role.Equals(Defines.Roles.ADMIN)
                 || user.Role.Equals(Defines.Roles.MODERATOR)
                 ? throw new InvalidOperationException()
-                : DateTime.Now.AddMonths(3);
+                : DateTime.Now.AddMonths(monthToBan);
 
             return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
         }
@@ -119,7 +121,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
-        public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city)
+        public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city, string skills)
         {
             var users = _userRepository.GetAll().Where(u =>
                   u.Education.Contains(education.ConvertToValidModel())

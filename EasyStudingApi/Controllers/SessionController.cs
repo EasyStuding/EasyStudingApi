@@ -47,9 +47,9 @@ namespace EasyStudingApi.Controllers
             return await _service.Login(loginModel);
         }
 
-        [HttpGet]
-        // /api/session/GetValidationCode
-        public bool GetValidationCode([FromBody]RegistrationModel registrationModel)
+        [HttpPost]
+        // /api/session/GenerateValidationCode
+        public bool GenerateValidationCode([FromBody]RegistrationModel registrationModel)
         {
             return _service.GetValidationCode(registrationModel);
         }

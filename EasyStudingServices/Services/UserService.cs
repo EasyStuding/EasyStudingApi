@@ -83,7 +83,7 @@ namespace EasyStudingServices.Services
         ///    Users sorted by city and education.
         /// </returns>
 
-        public IQueryable<User> GetUsers(string education, string country, string region, string city)
+        public IQueryable<User> GetUsers(string education, string country, string region, string city, string skills)
         {
             return _userRepository.GetAll().Where(u =>
                u.Education.Contains(education.ConvertToValidModel())
@@ -180,7 +180,7 @@ namespace EasyStudingServices.Services
         ///    Executors.
         /// </returns>
 
-        public IQueryable<User> GetExecutors(string education, string country, string region, string city)
+        public IQueryable<User> GetExecutors(string education, string country, string region, string city, string skills)
         {
             return _userRepository.GetAll().Where(u =>
                u.Education.Contains(education.ConvertToValidModel())

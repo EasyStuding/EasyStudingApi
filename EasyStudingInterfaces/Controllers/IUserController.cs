@@ -1,4 +1,5 @@
 ﻿using EasyStudingModels.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<Skill> GetSkill(long id);
 
-        IQueryable<User> GetUsers(string education, string country, string region, string city);
+        IQueryable<User> GetUsers(string education, string country, string region, string city, string skills);
 
         Task<User> GetUser(long id);
 
@@ -18,11 +19,11 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<OrderToReturn> GetOrder(long id);
 
-        IQueryable<User> GetExecutors(string education, string country, string region, string city);
+        IQueryable<User> GetExecutors(string education, string country, string region, string city, string skills);
 
         Task<IQueryable<FileToReturnModel>> GetOpenSourceAttachments(long ownerOpenSourceId);
 
-        Task<FileToReturnModel> OpenSourceDownloadFile(long fileId);
+        Task<FileResult> OpenSourceDownloadFile(long fileId);
 
         Task<bool> ChangePassword(string oldPassword, string newPassword);
 
@@ -30,7 +31,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<User> ValidateEmail(ValidateModel validateModel);
 
-        Task<bool> GetValidationCode();
+        Task<bool> GenerateValidationCode();
 
         Task<User> AddPictureProfile(FileToAddModel file);
 

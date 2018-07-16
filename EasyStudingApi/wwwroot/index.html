@@ -1,11 +1,904 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE HTML "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>EasyStuding</title>
- </head>
- <body style = "text-align: center">
-  <h1>EasyStudingApi Documentation</h1>
-  <a href="" style="font-size: 25px">Examples</a>
- </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>EasyStuding</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="shortcut icon" href="https://pp.userapi.com/c844417/v844417151/7618e/M2-RlJWBrPY.jpg">
+</head>
+<body style="padding:0px">
+
+    <div class="navbar-fixed">
+        <nav>
+            <a href="#" class="brand-logo right"><img src="https://pp.userapi.com/c844417/v844417151/7618e/M2-RlJWBrPY.jpg" style="width:50px; margin-top:5px" /></a>
+            <a href="#" class="brand-logo center">Documentation</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#session">Session</a></li>
+                <li><a href="#user">User</a></li>
+                <li><a href="#executor">Executor</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#moderator">Modearator</a></li>
+                <li><a href="#models">Models</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div style="padding: 25px">
+        <h4>Session controller <img id="session" src="https://cdn.onlinewebfonts.com/svg/img_262535.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:table" id="session_table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Permitions</th>
+                    <th>Request</th>
+                    <th>Path</th>
+                    <th>Parameters</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Занести пользователя в базу данных и получить код валидации</td>
+                    <td>Allow anonymous</td>
+                    <td>POST</td>
+                    <td>/api/session/StartRegistration</td>
+                    <td>[FromBody] <a style="color:green" href="#RegistrationModel">RegistrationModel</a></td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Пройти валидацию телефона по отправленному коду</td>
+                    <td>Allow anonymous</td>
+                    <td>POST</td>
+                    <td>/api/session/ValidateRegistration</td>
+                    <td>[FromBody] <a style="color:green" href="#ValidateModel">ValidateModel</a></td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Закончить регистрацию пользователя, установив пароль (FREETRIAL 3 МЕСЯЦА)</td>
+                    <td>Allow anonymous</td>
+                    <td>POST</td>
+                    <td>/api/session/CompleteRegistration</td>
+                    <td>[FromBody] <a style="color:green" href="#LoginModel">LoginModel</a></td>
+                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                </tr>
+                <tr>
+                    <td>Войти в систему по номеру телефона и паролю</td>
+                    <td>Allow anonymous</td>
+                    <td>POST</td>
+                    <td>/api/session/Login</td>
+                    <td>[FromBody] <a style="color:green" href="#LoginModel">LoginModel</a></td>
+                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                </tr>
+                <tr>
+                    <td>Получить код валидации на восстановление пароля/повторно отправить код</td>
+                    <td>Allow anonymous</td>
+                    <td>POST</td>
+                    <td>/api/session/GenerateValidationCode</td>
+                    <td>[FromBody] <a style="color:green" href="#RegistrationModel">RegistrationModel</a></td>
+                    <td><a style="color:blue">bool</a></td>
+                </tr>
+                <tr>
+                    <td>Восстановление пароля</td>
+                    <td>Allow anonymous</td>
+                    <td>POST</td>
+                    <td>/api/session/RestorePassword</td>
+                    <td>[FromBody] <a style="color:green" href="#RestorePasswordModel">RestorePasswordModel</a></td>
+                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                </tr>
+                <tr>
+                    <td>Обновить токен</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/session/UpdateToken</td>
+                    <td>---</td>
+                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                </tr>
+                <tr>
+                    <td>Выйти из аккаунта (НА КЛИЕНТЕ НЕОБХОДИМО УДАЛИТЬ ТОКЕН)</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/session/LogOut</td>
+                    <td>---</td>
+                    <td><a style="color:blue">bool</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div style="padding: 25px">
+        <h4>User controller <img id="user_c" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:none" id="user_table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Permitions</th>
+                    <th>Request</th>
+                    <th>Path</th>
+                    <th>Parameters</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Получить список всех навыков</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetSkills</td>
+                    <td>---</td>
+                    <td><a style="color:green" href="#Skill">Skill</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить навык по ID</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetSkill</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#Skill">Skill</a></td>
+                </tr>
+                <tr>
+                    <td>Получить список всех пользователей</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetUsers</td>
+                    <td>
+                        education : <a style="color:blue">string</a>;
+                        country : <a style="color:blue">string</a>;
+                        region : <a style="color:blue">string</a>;
+                        city : <a style="color:blue">string</a>;
+                        skills : <a style="color:blue">string</a>;
+                    </td>
+                    <td><a style="color:green" href="#User">User</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить пользователя по ID</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetUser</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Получить все заказы пользователя</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetOrders</td>
+                    <td>---</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить заказ пользователя по ID</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetOrder</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Получить список всех исполнителей</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetExecutors</td>
+                    <td>
+                        education : <a style="color:blue">string</a>;
+                        country : <a style="color:blue">string</a>;
+                        region : <a style="color:blue">string</a>;
+                        city : <a style="color:blue">string</a>;
+                        skills : <a style="color:blue">string</a>;
+                    </td>
+                    <td><a style="color:green" href="#User">User</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить OpenSource файлы по ID владельца OpenSource</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/GetOpenSourceAttachments</td>
+                    <td>ownerOpenSourceId : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#FileToReturnModel">FileToReturnModel</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Скачать файл из OpenSource по его ID</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/user/OpenSourceDownloadFile</td>
+                    <td>fileId : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#FileResult">FileResult</a></td>
+                </tr>
+                <tr>
+                    <td>Изменить пароль</td>
+                    <td>User</td>
+                    <td>PUT</td>
+                    <td>/api/user/ChangePassword</td>
+                    <td>
+                        oldPassword : <a style="color:blue">string</a>;
+                        newPassword : <a style="color:blue">string</a>
+                    </td>
+                    <td><a style="color:blue">bool</a></td>
+                </tr>
+                <tr>
+                    <td>Изменить данные профиля</td>
+                    <td>User</td>
+                    <td>PUT</td>
+                    <td>/api/user/EditProfile</td>
+                    <td>[FromBody] <a style="color:green" href="#User">User</a></td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Пройти валидацию email по отправленному коду</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/ValidateEmail</td>
+                    <td>[FromBody] <a style="color:green" href="#ValidateModel">ValidateModel</a></td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Получить код валидации на email</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/GenerateValidationCode</td>
+                    <td>---</td>
+                    <td><a style="color:blue">bool</a></td>
+                </tr>
+                <tr>
+                    <td>Добавить картинку профиля</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/AddPictureProfile</td>
+                    <td>[FromBody] <a style="color:green" href="#FileToAddModel">FileToAddModel</a></td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Удалить картинку профиля</td>
+                    <td>User</td>
+                    <td>DELETE</td>
+                    <td>/api/user/RemovePictureProfile</td>
+                    <td>---</td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Купить подписку</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/BuySubscription</td>
+                    <td>name : <a style="color:blue">string</a> ("open source subscription" || "executor subscription")</td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Добавить файл в OpenSource</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/AddFileToOpenSource</td>
+                    <td>[FromBody] <a style="color:green" href="#FileToAddModel">FileToAddModel</a></td>
+                    <td><a style="color:green" href="#FileToReturnModel">FileToReturnModel</a></td>
+                </tr>
+                <tr>
+                    <td>Удалить файл из OpenSource</td>
+                    <td>User</td>
+                    <td>DELETE</td>
+                    <td>/api/user/RemoveFileFromOpenSource</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#FileToReturnModel">FileToReturnModel</a></td>
+                </tr>
+                <tr>
+                    <td>Добавить заказ</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/AddOrder</td>
+                    <td>[FromBody] <a style="color:green" href="#OrderToAdd">OrderToAdd</a></td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Принять предложение исполнителя на выполнение</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/StartExecuteOrder</td>
+                    <td>
+                        id : <a style="color:blue">long</a> (номер заказа);
+                        executorUserId : <a style="color:blue">long</a>;
+                    </td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Отказать исполнителю в предложении на выполнение</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/RefuseExecutor</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа);</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Закрыть заказ со стороны заказчика</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/CloseOrder</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа);</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Оставить отзыв</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/AddReview</td>
+                    <td>[FromBody] <a style="color:green" href="#Review">Review</a></td>
+                    <td><a style="color:green" href="#Review">Review</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div style="padding: 25px">
+        <h4>Executor controller <img id="executor" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:none" id="executor_table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Permitions</th>
+                    <th>Request</th>
+                    <th>Path</th>
+                    <th>Parameters</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Получить все заказы, доступные для выполнения</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/executor/GetOrders</td>
+                    <td>
+                        education : <a style="color:blue">string</a>;
+                        country : <a style="color:blue">string</a>;
+                        region : <a style="color:blue">string</a>;
+                        city : <a style="color:blue">string</a>;
+                        skills : <a style="color:blue">string</a>;
+                    </td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить заказ по ID</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/executor/GetOrder</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа)</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Запрос на получение прав выполнения заказа</td>
+                    <td>User</td>
+                    <td>GET</td>
+                    <td>/api/executor/GetTheRightsToPerformOrder</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа)</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Закрыть заказ со стороны исполнителя</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/executor/CloseOrder</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа)</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Добавить навык в профиль пользователя</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/executor/AddSkill</td>
+                    <td>id : <a style="color:blue">long</a> (номер навыка)</td>
+                    <td><a style="color:green" href="#Skill">Skill</a></td>
+                </tr>
+                <tr>
+                    <td>Удалить навык из профиля пользователя</td>
+                    <td>User</td>
+                    <td>DELETE</td>
+                    <td>/api/executor/RemoveSkill</td>
+                    <td>id : <a style="color:blue">long</a> (номер навыка)</td>
+                    <td><a style="color:green" href="#Skill">Skill</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div style="padding: 25px">
+        <h4>Location controller <img id="location" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:none" id="location_table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Permitions</th>
+                    <th>Request</th>
+                    <th>Path</th>
+                    <th>Parameters</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Получить список стран</td>
+                    <td>Allow anonymous</td>
+                    <td>GET</td>
+                    <td>/api/location/GetCountries</td>
+                    <td>---</td>
+                    <td><a style="color:green" href="#Country">Country</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить список регионов</td>
+                    <td>Allow anonymous</td>
+                    <td>GET</td>
+                    <td>/api/location/GetRegions</td>
+                    <td>countryId : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#Region">Region</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить список городов</td>
+                    <td>Allow anonymous</td>
+                    <td>GET</td>
+                    <td>/api/location/GetCities</td>
+                    <td>regionId : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#City">City</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить страну по ID</td>
+                    <td>Allow anonymous</td>
+                    <td>GET</td>
+                    <td>/api/location/GetCountry</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#Country">Country</a></td>
+                </tr>
+                <tr>
+                    <td>Получить регион по ID</td>
+                    <td>Allow anonymous</td>
+                    <td>GET</td>
+                    <td>/api/location/GetRegion</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#Region">Region</a></td>
+                </tr>
+                <tr>
+                    <td>Получить город по ID</td>
+                    <td>Allow anonymous</td>
+                    <td>GET</td>
+                    <td>/api/location/GetCity</td>
+                    <td>id : <a style="color:blue">long</a></td>
+                    <td><a style="color:green" href="#City">City</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div style="padding: 25px">
+        <h4>Moderator controller <img id="moderator" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:none" id="moderator_table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Permitions</th>
+                    <th>Request</th>
+                    <th>Path</th>
+                    <th>Parameters</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Дать права модератора пользователю</td>
+                    <td>Admin</td>
+                    <td>PUT</td>
+                    <td>/api/moderator/GrantModeratorRights</td>
+                    <td>userId: <a style="color:blue">long</a> (номер пользователя)</td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Выдать бан пользователю на 3 месяца</td>
+                    <td>Moderator</td>
+                    <td>POST</td>
+                    <td>/api/moderator/BanUser</td>
+                    <td>id: <a style="color:blue">long</a> (номер пользователя)</td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Снять бан пользователя</td>
+                    <td>Moderator</td>
+                    <td>DELETE</td>
+                    <td>/api/moderator/RemoveBanOfUser</td>
+                    <td>id: <a style="color:blue">long</a> (номер пользователя)</td>
+                    <td><a style="color:green" href="#User">User</a></td>
+                </tr>
+                <tr>
+                    <td>Закрыть заказ</td>
+                    <td>Moderator</td>
+                    <td>POST</td>
+                    <td>/api/moderator/CloseOrder</td>
+                    <td>id: <a style="color:blue">long</a> (номер заказа)</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Получить все заказы</td>
+                    <td>Moderator</td>
+                    <td>GET</td>
+                    <td>/api/moderator/GetOrders</td>
+                    <td>
+                        education : <a style="color:blue">string</a>;
+                        country : <a style="color:blue">string</a>;
+                        region : <a style="color:blue">string</a>;
+                        city : <a style="color:blue">string</a>;
+                        skills : <a style="color:blue">string</a>;
+                    </td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a>[]</td>
+                </tr>
+                <tr>
+                    <td>Получить заказ по ID</td>
+                    <td>Moderator</td>
+                    <td>GET</td>
+                    <td>/api/moderator/GetOrder</td>
+                    <td>id: <a style="color:blue">long</a> (номер заказа)</td>
+                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                </tr>
+                <tr>
+                    <td>Получить логи по дате</td>
+                    <td>Moderator</td>
+                    <td>GET</td>
+                    <td>/api/moderator/GetLogs</td>
+                    <td>date: <a style="color:blue">string</a> (dd_MM_yy - 31_01_18)</td>
+                    <td><a style="color:green" href="#FileResult">FileResult</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div style="padding: 25px">
+        <h4>Models <img id="models" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:table" id="models_table">
+            <thead>
+                <tr>
+                    <th>Model name</th>
+                    <th>Parameters</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><a style="color:green" href="#Country" id="Country">Country</a></td>
+                    <td>
+                        id: <a style="color:blue">long</a><br />
+                        name: <a style="color:blue">string</a><br />
+                        creationDate: <a style="color:green" href="#DateTime">DateTime</a><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#Region" id="Region">Region</a></td>
+                    <td>
+                        id: <a style="color:blue">long</a><br />
+                        countryId: <a style="color:blue">long</a><br />
+                        name: <a style="color:blue">string</a><br />
+                        creationDate: <a style="color:green" href="#DateTime">DateTime</a><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#City" id="City">City</a></td>
+                    <td>
+                        id: <a style="color:blue">long</a><br />
+                        regionId: <a style="color:blue">long</a><br />
+                        name: <a style="color:blue">string</a><br />
+                        creationDate: <a style="color:green" href="#DateTime">DateTime</a><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#FileToAddModel" id="FileToAddModel">FileToAddModel</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a><br />
+                        containerId : <a style="color:blue">long</a> (user/order id)<br />
+                        containerName : <a style="color:blue">string</a> (user/order)<br />
+                        name : <a style="color:blue">string</a> <br />
+                        type : <a style="color:blue">string</a> <br />
+                        data : <a style="color:blue">string</a> (Base64)<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#FileToReturnModel" id="FileToReturnModel">FileToReturnModel</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a><br />
+                        containerId : <a style="color:blue">long</a> (user/order id)<br />
+                        containerName : <a style="color:blue">string</a> (user/order)<br />
+                        name : <a style="color:blue">string</a> <br />
+                        type : <a style="color:blue">string</a> <br />
+                        link : <a style="color:blue">string</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#LoginModel" id="LoginModel">LoginModel</a></td>
+                    <td>
+                        telephoneNumber : <a style="color:blue">string</a> <br />
+                        password : <a style="color:blue">string</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#LoginToken" id="LoginToken">LoginToken</a></td>
+                    <td>
+                        user : <a style="color:green" href="#User">User</a> <br />
+                        bearerToken : <a style="color:blue">string</a> (valid 4 weeks)<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#OrderToAdd" id="OrderToAdd">OrderToAdd</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a><br />
+                        customerId : <a style="color:blue">long</a><br />
+                        executorId : <a style="color:blue">long</a><br />
+                        inProgress : <a style="color:blue">bool</a><br />
+                        isClosedByCustomer : <a style="color:blue">bool</a><br />
+                        isClosedByExecutor : <a style="color:blue">bool</a><br />
+                        isCompleted : <a style="color:blue">bool</a><br />
+                        title : <a style="color:blue">string</a><br />
+                        description : <a style="color:blue">string</a><br />
+                        cost : <a style="color:blue">decimal</a><br />
+                        attachments : <a style="color:green" href="#FileToAddModel">FileToAddModel</a>[]<br />
+                        skills : <a style="color:green" href="#Skill">Skill</a>[]<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#OrderToReturn" id="OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a><br />
+                        customerId : <a style="color:blue">long</a><br />
+                        executorId : <a style="color:blue">long</a><br />
+                        inProgress : <a style="color:blue">bool</a><br />
+                        isClosedByCustomer : <a style="color:blue">bool</a><br />
+                        isClosedByExecutor : <a style="color:blue">bool</a><br />
+                        isCompleted : <a style="color:blue">bool</a><br />
+                        title : <a style="color:blue">string</a><br />
+                        description : <a style="color:blue">string</a><br />
+                        cost : <a style="color:blue">decimal</a><br />
+                        attachments : <a style="color:green" href="#FileToReturnModel">FileToReturnModel</a>[]<br />
+                        skills : <a style="color:green" href="#Skill">Skill</a>[]<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#RegistrationModel" id="RegistrationModel">RegistrationModel</a></td>
+                    <td>
+                        telephoneNumber : <a style="color:blue">string</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#RestorePasswordModel" id="RestorePasswordModel">RestorePasswordModel</a></td>
+                    <td>
+                        telephoneNumber : <a style="color:blue">string</a> <br />
+                        validationCode : <a style="color:blue">string</a> <br />
+                        password : <a style="color:blue">string</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#Review" id="Review">Review</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a><br />
+                        reviewOwnerId : <a style="color:blue">long</a><br />
+                        reviewRecipientId : <a style="color:blue">long</a><br />
+                        orderId : <a style="color:blue">long</a><br />
+                        title : <a style="color:blue">string</a><br />
+                        description : <a style="color:blue">string</a><br />
+                        raiting : <a style="color:blue">decimal</a><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#Skill" id="Skill">Skill</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a> <br />
+                        name : <a style="color:blue">string</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#User" id="User">User</a></td>
+                    <td>
+                        id : <a style="color:blue">long</a> <br />
+                        telephoneNumber : <a style="color:blue">string</a> <br />
+                        telephoneNumberIsValidated : <a style="color:blue">bool</a><br />
+                        email : <a style="color:blue">string</a> <br />
+                        emailIsValidated : <a style="color:blue">bool</a><br />
+                        fullName : <a style="color:blue">string</a> <br />
+                        description : <a style="color:blue">string</a> <br />
+                        pictureLink : <a style="color:blue">string</a> <br />
+                        role : <a style="color:blue">string</a><br />
+                        country : <a style="color:blue">string</a> <br />
+                        region : <a style="color:blue">string</a> <br />
+                        city : <a style="color:blue">string</a> <br />
+                        education : <a style="color:blue">string</a> <br />
+                        userIsGaranted : <a style="color:blue">bool</a><br />
+                        raiting : <a style="color:blue">decimal</a><br />
+                        registrationDate : <a style="color:green" href="#DateTime">DateTime</a><br />
+                        banExpiresDate : <a style="color:green" href="#DateTime">DateTime</a><br />
+                        subscriptionExecutorExpiresDate : <a style="color:green" href="#DateTime">DateTime</a><br />
+                        subscriptionOpenSourceExpiresDate : <a style="color:green" href="#DateTime">DateTime</a><br />
+                        skills : <a style="color:green" href="#Skill">Skill</a>[]<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#ValidateModel" id="ValidateModel">ValidateModel</a></td>
+                    <td>
+                        userId : <a style="color:blue">long</a> <br />
+                        validationCode : <a style="color:blue">string</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#DateTime" id="DateTime">DateTime</a></td>
+                    <td>
+                        C# data type.
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#FileResult" id="FileResult">FileResult</a></td>
+                    <td>
+                        Media type to download.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="center">
+                    <h6 class="white-text">
+                        User support email: api.easy.studing@gmail.com
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright center">
+            <div class="container" id="footer_copyright">
+            </div>
+        </div>
+    </footer>
+
+    <div id="scroller" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script>
+        var linkExpand = "https://png.icons8.com/ios/1600/expand-filled.png";
+        var linkCurtail = "https://cdn.onlinewebfonts.com/svg/img_262535.png";
+        var sessionCounter = 0;
+        var userCounter = 0;
+        var locationCounter = 0;
+        var moderatorCounter = 0;
+        var executorCounter = 0;
+        var modelsCounter = 0;
+
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            //the 205 is a fixed header offset
+                            scrollTop: target.offset().top - 205
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $("#session").click(() => {
+            sessionCounter++;
+            if (sessionCounter % 2 != 0) {
+                $("#session").prop("src", linkExpand);
+                $("#session_table").css("display", "none");
+                return;
+            }
+            $("#session").prop("src", linkCurtail);
+            $("#session_table").css("display", "table");
+        });
+
+        $("#user_c").click(() => {
+            userCounter++;
+            if (userCounter % 2 == 0) {
+                $("#user_c").prop("src", linkExpand);
+                $("#user_table").css("display", "none");
+                return;
+            }
+            $("#user_c").prop("src", linkCurtail);
+            $("#user_table").css("display", "table");
+        });
+
+        $("#location").click(() => {
+            locationCounter++;
+            if (locationCounter % 2 == 0) {
+                $("#location").prop("src", linkExpand);
+                $("#location_table").css("display", "none");
+                return;
+            }
+            $("#location").prop("src", linkCurtail);
+            $("#location_table").css("display", "table");
+        });
+
+        $("#moderator").click(() => {
+            moderatorCounter++;
+            if (moderatorCounter % 2 == 0) {
+                $("#moderator").prop("src", linkExpand);
+                $("#moderator_table").css("display", "none");
+                return;
+            }
+            $("#moderator").prop("src", linkCurtail);
+            $("#moderator_table").css("display", "table");
+        });
+
+        $("#executor").click(() => {
+            executorCounter++;
+            if (executorCounter % 2 == 0) {
+                $("#executor").prop("src", linkExpand);
+                $("#executor_table").css("display", "none");
+                return;
+            }
+            $("#executor").prop("src", linkCurtail);
+            $("#executor_table").css("display", "table");
+        });
+
+        $("#models").click(() => {
+            modelsCounter++;
+            if (modelsCounter % 2 != 0) {
+                $("#models").prop("src", linkExpand);
+                $("#models_table").css("display", "none");
+                return;
+            }
+            $("#models").prop("src", linkCurtail);
+            $("#models_table").css("display", "table");
+        });
+
+        $("#footer_copyright").text("©" + (new Date).getFullYear() + " EasyStuding");
+    </script>
+
+    <style>
+        #scroller {
+            position: fixed;
+            /** позиция кнопки scroll to top **/
+            bottom: 30px;
+            right: 30px;
+            /** картинка кнопки наверх**/
+            background: transparent url(http://sitear.ru/uploads/lessons/sozdaem-knopku-naverh-scroll-to-top-na-jquery/demo/arrow.png);
+            filter: grayscale(100%);
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            /** скрываем кнопку в начале **/
+            display: none;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 0) {
+                    $('#scroller').fadeIn();
+                } else {
+                    $('#scroller').fadeOut();
+                }
+            });
+            $('#scroller').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 400);
+                return false;
+            });
+        });
+    </script>
+</body>
 </html>

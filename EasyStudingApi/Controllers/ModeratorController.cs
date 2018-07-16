@@ -9,6 +9,7 @@ using System.IO;
 using EasyStudingModels.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using EasyStudingModels;
+using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingApi.Controllers
 {
@@ -26,7 +27,7 @@ namespace EasyStudingApi.Controllers
 
         [Authorize(Roles = Defines.Roles.ADMIN)]
         [HttpPut]
-        // /api/moderator/Get
+        // /api/moderator/GrantModeratorRights
         public async Task<User> GrantModeratorRights(long userId)
         {
             return await _service.GrantModeratorRights(userId);
@@ -55,9 +56,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/moderator/GetOrders
-        public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city)
+        public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city, string skills)
         {
-            return _service.GetOrders(education, country, region, city);
+            return _service.GetOrders(education, country, region, city, skills);
         }
 
         [HttpGet]
@@ -79,16 +80,14 @@ namespace EasyStudingApi.Controllers
 
                 var memory = new MemoryStream();
 
-                using (var stream = new FileStream(path, FileMode.Open))
+                using (var stream = FileStorage.GetFileStream(path, Defines.FileFolders.LOGS_FOLDER))
                 {
                     await stream.CopyToAsync(memory);
                 }
 
                 memory.Position = 0;
 
-                var logs = File(memory, path.GetContentType(), Path.GetFileName(path));
-
-                return logs;
+                return File(memory, path.GetContentType(), Path.GetFileName(path));
             }
             catch
             {

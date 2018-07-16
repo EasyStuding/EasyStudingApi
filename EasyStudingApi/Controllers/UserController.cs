@@ -6,6 +6,10 @@ using EasyStudingInterfaces.Services;
 using EasyStudingModels.Models;
 using Microsoft.AspNetCore.Authorization;
 using EasyStudingApi.Extensions;
+using EasyStudingModels;
+using System.IO;
+using EasyStudingRepositories.DbContext;
+using System;
 
 namespace EasyStudingApi.Controllers
 {
@@ -37,9 +41,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetUsers
-        public IQueryable<User> GetUsers(string education, string country, string region, string city)
+        public IQueryable<User> GetUsers(string education, string country, string region, string city, string skills)
         {
-            return _service.GetUsers(education, country, region, city);
+            return _service.GetUsers(education, country, region, city, skills);
         }
 
         [HttpGet]
@@ -65,9 +69,9 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/GetExecutors
-        public IQueryable<User> GetExecutors(string education, string country, string region, string city)
+        public IQueryable<User> GetExecutors(string education, string country, string region, string city, string skills)
         {
-            return _service.GetExecutors(education, country, region, city);
+            return _service.GetExecutors(education, country, region, city, skills);
         }
 
         [HttpGet]
@@ -79,9 +83,27 @@ namespace EasyStudingApi.Controllers
 
         [HttpGet]
         // /api/user/OpenSourceDownloadFile
-        public async Task<FileToReturnModel> OpenSourceDownloadFile(long fileId)
+        public async Task<FileResult> OpenSourceDownloadFile(long fileId)
         {
-            return await _service.OpenSourceDownloadFile(fileId, User.GetUserId());
+            try
+            {
+                var file = await _service.OpenSourceDownloadFile(fileId, User.GetUserId());
+
+                var memory = new MemoryStream();
+
+                using (var stream = FileStorage.GetFileStream(file.Link, Defines.FileFolders.OPENSOURCE_ATTACHMENT_FOLDER))
+                {
+                    await stream.CopyToAsync(memory);
+                }
+
+                memory.Position = 0;
+
+                return File(memory, file.Type, file.Name);
+            }
+            catch
+            {
+                throw new ArgumentNullException();
+            }
         }
 
         [HttpPut]
@@ -105,9 +127,9 @@ namespace EasyStudingApi.Controllers
             return await _service.ValidateEmail(validateModel, User.GetUserId());
         }
 
-        [HttpGet]
-        // /api/user/GetValidationCode
-        public async Task<bool> GetValidationCode()
+        [HttpPost]
+        // /api/user/GenerateValidationCode
+        public async Task<bool> GenerateValidationCode()
         {
             return await _service.GetValidationCode(User.GetUserId());
         }

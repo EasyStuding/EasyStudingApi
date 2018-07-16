@@ -13,7 +13,7 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<LoginToken> Login(LoginModel loginModel);
 
-        bool GetValidationCode(RegistrationModel registrationModel);
+        bool GenerateValidationCode(RegistrationModel registrationModel);
 
         Task<LoginToken> RestorePassword(RestorePasswordModel restorePasswordModel);
 

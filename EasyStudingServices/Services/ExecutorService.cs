@@ -56,7 +56,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
         /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
-        public async Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city, long currentUserId)
+        public async Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city, string skills, long currentUserId)
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
