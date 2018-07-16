@@ -89,7 +89,10 @@ namespace EasyStudingServices.Services
                u.Education.Contains(education.ConvertToValidModel())
                && u.Country.Contains(country.ConvertToValidModel())
                && u.Region.Contains(region.ConvertToValidModel())
-               && u.City.Contains(city.ConvertToValidModel()));
+               && u.City.Contains(city.ConvertToValidModel()))
+               .ToList()
+               .Select(u => u.GetSkillsToUser(_context))
+               .AsQueryable();
         }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace EasyStudingServices.Services
 
         public async Task<User> GetUser(long id)
         {
-            return await _userRepository.GetAsync(id);
+            return (await _userRepository.GetAsync(id)).GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -133,14 +136,13 @@ namespace EasyStudingServices.Services
                     IsClosedByExecutor = o.IsClosedByExecutor,
                     IsCompleted = o.IsCompleted,
                     Title = o.Title
-                });
+                })
+                .ToList()
+                .Select(o =>
+                    o.ConvertOrderToReturn(o.GetAttachmentsToOrder(_attachmentRepository),
+                    o.GetSkillsToOrder(_context)));
 
-            foreach (var order in orders)
-            {
-                order.Attachments = order.GetAttachmentsToOrder(_attachmentRepository);
-            }
-
-            return orders;
+            return orders.AsQueryable();
         }
 
         /// <summary>
@@ -184,7 +186,10 @@ namespace EasyStudingServices.Services
                && u.Country.Contains(country.ConvertToValidModel())
                && u.Region.Contains(region.ConvertToValidModel())
                && u.City.Contains(city.ConvertToValidModel())
-               && u.SubscriptionExecutorExpiresDate > DateTime.Now);
+               && u.SubscriptionExecutorExpiresDate > DateTime.Now)
+               .ToList()
+               .Select(u => u.GetSkillsToUser(_context))
+               .AsQueryable();
         }
 
         /// <summary>
@@ -337,7 +342,8 @@ namespace EasyStudingServices.Services
             user.UserIsGaranted = _user.UserIsGaranted;
             user.Raiting = _user.Raiting;
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user))
+                .GetSkillsToUser(_context);
         }
 
 
@@ -361,7 +367,8 @@ namespace EasyStudingServices.Services
                 validateModel.ValidationCode.ValidateCode(user.Email)
                 : throw new UnauthorizedAccessException();
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user))
+                .GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -399,7 +406,8 @@ namespace EasyStudingServices.Services
 
             user.PictureLink = FileStorage.UploadFile(file, currentUrl, Defines.FileFolders.USER_PICTURES_FOLDER).Link;
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user))
+                .GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -417,7 +425,8 @@ namespace EasyStudingServices.Services
 
             user.PictureLink = null;
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user))
+                .GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -451,7 +460,7 @@ namespace EasyStudingServices.Services
                 default: break;
             }
 
-            return user;
+            return user.GetSkillsToUser(_context);
         }
 
         /// <summary>

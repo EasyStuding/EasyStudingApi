@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using EasyStudingModels.Extensions;
 using EasyStudingModels;
 using System;
+using EasyStudingServices.Extensions;
+using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingServices.Services
 {
@@ -15,11 +17,18 @@ namespace EasyStudingServices.Services
 
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<Attachment> _attachmentRepository;
+        private readonly EasyStudingContext _context;
 
-        public ModeratorService(IRepository<User> userRepository, IRepository<Order> orderRepository)
+        public ModeratorService(IRepository<User> userRepository, 
+            IRepository<Order> orderRepository,
+            IRepository<Attachment> attachmentRepository,
+            EasyStudingContext context)
         {
             _userRepository = userRepository;
             _orderRepository = orderRepository;
+            _attachmentRepository = attachmentRepository;
+            _context = context;
         }
 
         #endregion
@@ -38,7 +47,7 @@ namespace EasyStudingServices.Services
 
             user.Role = Defines.Roles.MODERATOR;
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -60,7 +69,7 @@ namespace EasyStudingServices.Services
                 ? throw new InvalidOperationException()
                 : DateTime.Now.AddMonths(3);
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -78,7 +87,7 @@ namespace EasyStudingServices.Services
 
             user.BanExpiresDate = DateTime.Now;
 
-            return await _userRepository.EditAsync(user);
+            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
         }
 
         /// <summary>
@@ -90,13 +99,13 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
-        public async Task<Order> CloseOrder(long id)
+        public async Task<OrderToReturn> CloseOrder(long id)
         {
             var order = await _orderRepository.GetAsync(id);
 
             order.IsCompleted = true;
 
-            return await _orderRepository.EditAsync(order);
+            return ConvertOrder(await _orderRepository.EditAsync(order));
         }
 
         /// <summary>
@@ -110,7 +119,7 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
-        public IQueryable<Order> GetOrders(string education, string country, string region, string city)
+        public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city)
         {
             var users = _userRepository.GetAll().Where(u =>
                   u.Education.Contains(education.ConvertToValidModel())
@@ -123,7 +132,9 @@ namespace EasyStudingServices.Services
                 users.Any(u =>
                     u.Id == o.CustomerId
                     || u.Id == o.ExecutorId))
-                ?? throw new ArgumentNullException();   
+                .ToList()
+                .Select(o => ConvertOrder(o))
+                .AsQueryable();   
         }
 
         /// <summary>
@@ -135,9 +146,16 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
-        public async Task<Order> GetOrder(long id)
+        public async Task<OrderToReturn> GetOrder(long id)
         {
-            return await _orderRepository.GetAsync(id);
+            return ConvertOrder(await _orderRepository.GetAsync(id));
+        }
+
+        private OrderToReturn ConvertOrder(Order order)
+        {
+            return order
+                .ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_context));
         }
 
     }

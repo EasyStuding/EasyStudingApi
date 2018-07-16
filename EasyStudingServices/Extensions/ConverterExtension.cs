@@ -61,10 +61,10 @@ namespace EasyStudingServices.Extensions
             };
         }
 
-        public static IEnumerable<Skill> GetSkillsToUser(this User user,
+        public static User GetSkillsToUser(this User user,
             EasyStudingContext context)
         {
-            return context.UserSkills
+            user.Skills = context.UserSkills
                 .Where(us => us.UserId == user.Id)
                 .Join(
                     context.Skills,
@@ -72,12 +72,6 @@ namespace EasyStudingServices.Extensions
                     s => s.Id,
                     (us, s) => s
                 );
-        }
-
-        public static User ConvertUserToreturn(this User user,
-            IEnumerable<Skill> skills)
-        {
-            user.Skills = skills;
 
             return user;
         }

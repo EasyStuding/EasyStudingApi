@@ -13,11 +13,11 @@ namespace EasyStudingInterfaces.Controllers
 
         Task<User> RemoveBanOfUser(long id);
 
-        Task<Order> CloseOrder(long id);
+        Task<OrderToReturn> CloseOrder(long id);
 
-        IQueryable<Order> GetOrders(string education, string country, string region, string city);
+        IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city);
 
-        Task<Order> GetOrder(long id);
+        Task<OrderToReturn> GetOrder(long id);
 
         Task<FileResult> GetLogs(string date);
     }

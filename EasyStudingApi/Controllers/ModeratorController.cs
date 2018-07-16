@@ -48,21 +48,21 @@ namespace EasyStudingApi.Controllers
 
         [HttpPost]
         // /api/moderator/CloseOrder
-        public async Task<Order> CloseOrder(long id)
+        public async Task<OrderToReturn> CloseOrder(long id)
         {
             return await _service.CloseOrder(id);
         }
 
         [HttpGet]
         // /api/moderator/GetOrders
-        public IQueryable<Order> GetOrders(string education, string country, string region, string city)
+        public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city)
         {
             return _service.GetOrders(education, country, region, city);
         }
 
         [HttpGet]
         // /api/moderator/GetOrder
-        public async Task<Order> GetOrder(long id)
+        public async Task<OrderToReturn> GetOrder(long id)
         {
             return await _service.GetOrder(id);
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyStudingServices.Extensions;
 using System;
+using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingServices.Services
 {
@@ -19,18 +20,24 @@ namespace EasyStudingServices.Services
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Skill> _skillRepository;
         private readonly IRepository<UserSkill> _userSkillRepository;
+        private readonly IRepository<Attachment> _attachmentRepository;
+        private readonly EasyStudingContext _context;
 
         public ExecutorService(
             IRepository<User> userRepository,
             IRepository<Order> orderRepository,
             IRepository<Skill> skillRepository,
-            IRepository<UserSkill> userSkillRepository
+            IRepository<UserSkill> userSkillRepository,
+            IRepository<Attachment> attachmentRepository,
+            EasyStudingContext context
             )
         {
             _userRepository = userRepository;
             _orderRepository = orderRepository;
             _skillRepository = skillRepository;
             _userSkillRepository = userSkillRepository;
+            _attachmentRepository = attachmentRepository;
+            _context = context;
         }
 
         #endregion
@@ -49,7 +56,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
         /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
-        public async Task<IQueryable<Order>> GetOrders(string education, string country, string region, string city, long currentUserId)
+        public async Task<IQueryable<OrderToReturn>> GetOrders(string education, string country, string region, string city, long currentUserId)
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
@@ -64,7 +71,9 @@ namespace EasyStudingServices.Services
                 o.ExecutorId != null
                 && users.Any(u =>
                     u.Id == o.CustomerId))
-                ?? throw new ArgumentNullException();
+                .ToArray()
+                .Select(o => ConvertOrder(o))
+                .AsQueryable();
         }
 
         /// <summary>
@@ -77,11 +86,11 @@ namespace EasyStudingServices.Services
         /// </returns>
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor.</exception>
 
-        public async Task<Order> GetOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> GetOrder(long id, long currentUserId)
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
-            return await _orderRepository.GetAsync(id);
+            return ConvertOrder(await _orderRepository.GetAsync(id));
         }
 
         /// <summary>
@@ -96,7 +105,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.UnauthorizedAccessException">Id of executor != currentUserId 
         /// or current user not executor.</exception>
 
-        public async Task<Order> GetTheRightsToPerformOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> GetTheRightsToPerformOrder(long id, long currentUserId)
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
@@ -107,7 +116,7 @@ namespace EasyStudingServices.Services
                 ? currentUserId
                 : throw new InvalidOperationException();
 
-            return await _orderRepository.EditAsync(order);
+            return ConvertOrder(await _orderRepository.EditAsync(order));
         }
 
         /// <summary>
@@ -121,7 +130,7 @@ namespace EasyStudingServices.Services
         /// <exception cref="System.UnauthorizedAccessException">Current user not executor 
         /// or executor of order not current user.</exception>
 
-        public async Task<Order> CloseOrder(long id, long currentUserId)
+        public async Task<OrderToReturn> CloseOrder(long id, long currentUserId)
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
@@ -136,7 +145,7 @@ namespace EasyStudingServices.Services
                 ? true
                 : false;
 
-            return await _orderRepository.EditAsync(order);
+            return ConvertOrder(await _orderRepository.EditAsync(order));
         }
 
         /// <summary>
@@ -190,6 +199,13 @@ namespace EasyStudingServices.Services
             await _userSkillRepository.RemoveAsync(userSkill.Id);
 
             return skill;
+        }
+
+        private OrderToReturn ConvertOrder(Order order)
+        {
+            return order
+                .ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_context));
         }
     }
 }
