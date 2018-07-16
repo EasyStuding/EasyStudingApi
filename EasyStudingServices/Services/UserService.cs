@@ -93,6 +93,7 @@ namespace EasyStudingServices.Services
                && u.TelephoneNumberIsValidated == true)
                .ToList()
                .Select(u => u.GetSkillsToUser(_context))
+               .Where(u => u.Skills.Any(s => skills.Contains(s.Name)))
                .AsQueryable();
         }
 
@@ -191,6 +192,7 @@ namespace EasyStudingServices.Services
                && u.TelephoneNumberIsValidated == true)
                .ToList()
                .Select(u => u.GetSkillsToUser(_context))
+               .Where(u => u.Skills.Any(s => skills.Contains(s.Name)))
                .AsQueryable();
         }
 

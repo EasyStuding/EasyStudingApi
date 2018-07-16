@@ -73,6 +73,7 @@ namespace EasyStudingServices.Services
                     u.Id == o.CustomerId))
                 .ToArray()
                 .Select(o => ConvertOrder(o))
+                .Where(o => o.Skills.Any(s => skills.Contains(s.Name)))
                 .AsQueryable();
         }
 

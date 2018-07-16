@@ -136,6 +136,7 @@ namespace EasyStudingServices.Services
                     || u.Id == o.ExecutorId))
                 .ToList()
                 .Select(o => ConvertOrder(o))
+                .Where(o => o.Skills.Any(s => skills.Contains(s.Name)))
                 .AsQueryable();   
         }
 
