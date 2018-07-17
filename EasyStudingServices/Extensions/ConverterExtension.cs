@@ -19,7 +19,8 @@ namespace EasyStudingServices.Extensions
                     os => os.SkillId,
                     s => s.Id,
                     (os, s) => s
-                );
+                )
+                .ToList();
         }
 
         public static IEnumerable<FileToReturnModel> GetAttachmentsToOrder(this Order order
@@ -38,7 +39,7 @@ namespace EasyStudingServices.Extensions
                         Name = a.Name,
                         Type = a.Type
                     })
-                    .AsEnumerable();
+                    .ToList();
         }
 
         public static OrderToReturn ConvertOrderToReturn(this Order order
@@ -72,7 +73,8 @@ namespace EasyStudingServices.Extensions
                     us => us.SkillId,
                     s => s.Id,
                     (us, s) => s
-                );
+                )
+                .ToList();
 
             return user;
         }

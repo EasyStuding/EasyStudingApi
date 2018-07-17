@@ -132,20 +132,23 @@ namespace EasyStudingServices.Services
 
         public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city, string skills)
         {
+            var skillsArr = skills?.Split(',');
+
             var users = _userRepository.GetAll().Where(u =>
-                  u.Education.Contains(education.ConvertToValidModel())
-                  && u.Country.Contains(country.ConvertToValidModel())
-                  && u.Region.Contains(region.ConvertToValidModel())
-                  && u.City.Contains(city.ConvertToValidModel()));
+               (string.IsNullOrWhiteSpace(education) || education.Contains(u.Education))
+               && (string.IsNullOrWhiteSpace(country) || country.Equals(u.Country))
+               && (string.IsNullOrWhiteSpace(region) || region.Equals(u.Region))
+               && (string.IsNullOrWhiteSpace(city) || city.Equals(u.City))
+               && u.TelephoneNumberIsValidated == true);
 
             return _orderRepository.GetAll().Where(o =>
                 users.Any(u =>
                     u.Id == o.CustomerId
                     || u.Id == o.ExecutorId))
-                .ToList()
+                .ToArray()
                 .Select(o => ConvertOrder(o))
-                .Where(o => o.Skills.Any(s => skills.Contains(s.Name)))
-                .AsQueryable();   
+                .Where(u => string.IsNullOrWhiteSpace(skills) ? true : u.Skills.Select(s => s.Name).Intersect(skillsArr).Any())
+                .AsQueryable(); 
         }
 
         /// <summary>

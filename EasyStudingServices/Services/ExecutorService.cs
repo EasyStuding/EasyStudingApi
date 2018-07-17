@@ -58,19 +58,22 @@ namespace EasyStudingServices.Services
         {
             (await _userRepository.GetAsync(currentUserId)).CheckExecutorSubscription();
 
+            var skillsArr = skills?.Split(',');
+
             var users = _userRepository.GetAll().Where(u =>
-                u.Education.Contains(education.ConvertToValidModel())
-                && u.Country.Contains(country.ConvertToValidModel())
-                && u.Region.Contains(region.ConvertToValidModel())
-                && u.City.Contains(city.ConvertToValidModel()));
+               (string.IsNullOrWhiteSpace(education) || education.Contains(u.Education))
+               && (string.IsNullOrWhiteSpace(country) || country.Equals(u.Country))
+               && (string.IsNullOrWhiteSpace(region) || region.Equals(u.Region))
+               && (string.IsNullOrWhiteSpace(city) || city.Equals(u.City))
+               && u.TelephoneNumberIsValidated == true);
 
             return _orderRepository.GetAll().Where(o =>
-                o.ExecutorId != null
+                o.ExecutorId == null
                 && users.Any(u =>
                     u.Id == o.CustomerId))
                 .ToArray()
                 .Select(o => ConvertOrder(o))
-                .Where(o => o.Skills.Any(s => skills.Contains(s.Name)))
+                .Where(u => string.IsNullOrWhiteSpace(skills) ? true : u.Skills.Select(s => s.Name).Intersect(skillsArr).Any())
                 .AsQueryable();
         }
 

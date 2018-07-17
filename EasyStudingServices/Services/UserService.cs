@@ -43,6 +43,7 @@ namespace EasyStudingServices.Services
             _skillRepository = skillRepository;
             _orderRepository = orderRepository;
             _userSkillRepository = userSkillRepository;
+            _orderSkillRepository = orderSkillRepository;
         }
 
         #endregion
@@ -84,15 +85,17 @@ namespace EasyStudingServices.Services
 
         public IQueryable<User> GetUsers(string education, string country, string region, string city, string skills)
         {
+            var skillsArr = skills?.Split(',');
+
             return _userRepository.GetAll().Where(u =>
-               u.Education.Contains(education.ConvertToValidModel())
-               && u.Country.Contains(country.ConvertToValidModel())
-               && u.Region.Contains(region.ConvertToValidModel())
-               && u.City.Contains(city.ConvertToValidModel())
+               (string.IsNullOrWhiteSpace(education) || education.Contains(u.Education))
+               && (string.IsNullOrWhiteSpace(country) || country.Equals(u.Country))
+               && (string.IsNullOrWhiteSpace(region) || region.Equals(u.Region))
+               && (string.IsNullOrWhiteSpace(city) || city.Equals(u.City))
                && u.TelephoneNumberIsValidated == true)
                .ToList()
                .Select(u => u.GetSkillsToUser(_userSkillRepository, _skillRepository))
-               .Where(u => u.Skills.Any(s => skills.Contains(s.Name)))
+               .Where(u => string.IsNullOrWhiteSpace(skills) ? true : u.Skills.Select(s => s.Name).Intersect(skillsArr).Any())
                .AsQueryable();
         }
 
@@ -121,27 +124,12 @@ namespace EasyStudingServices.Services
         {
             var user = await _userRepository.GetAsync(currentUserId);
 
-            var orders = _orderRepository
+            return _orderRepository
                 .GetAll()
                 .Where(o => o.CustomerId == user.Id || o.ExecutorId == user.Id)
-                .Select(o => new OrderToReturn
-                {
-                    Id = o.Id,
-                    InProgress = o.InProgress,
-                    CustomerId = o.CustomerId,
-                    Description = o.Description,
-                    ExecutorId = o.ExecutorId,
-                    IsClosedByCustomer = o.IsClosedByCustomer,
-                    IsClosedByExecutor = o.IsClosedByExecutor,
-                    IsCompleted = o.IsCompleted,
-                    Title = o.Title
-                })
                 .ToList()
-                .Select(o =>
-                    o.ConvertOrderToReturn(o.GetAttachmentsToOrder(_attachmentRepository),
-                    o.GetSkillsToOrder(_orderSkillRepository, _skillRepository)));
-
-            return orders.AsQueryable();
+                .Select(o => ConvertOrder(o))
+                .AsQueryable();
         }
 
         /// <summary>
@@ -159,13 +147,10 @@ namespace EasyStudingServices.Services
             var user = await _userRepository.GetAsync(currentUserId)
                 ?? throw new UnauthorizedAccessException();
 
-            var order = _orderRepository
+            return ConvertOrder(_orderRepository
                 .GetAll()
                 .FirstOrDefault(o => o.Id == id
-                && (o.CustomerId == user.Id || o.ExecutorId == user.Id));
-
-            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
+                && (o.CustomerId == user.Id || o.ExecutorId == user.Id)));
         }
 
         /// <summary>
@@ -180,17 +165,8 @@ namespace EasyStudingServices.Services
 
         public IQueryable<User> GetExecutors(string education, string country, string region, string city, string skills)
         {
-            return _userRepository.GetAll().Where(u =>
-               u.Education.Contains(education.ConvertToValidModel())
-               && u.Country.Contains(country.ConvertToValidModel())
-               && u.Region.Contains(region.ConvertToValidModel())
-               && u.City.Contains(city.ConvertToValidModel())
-               && u.SubscriptionExecutorExpiresDate > DateTime.Now
-               && u.TelephoneNumberIsValidated == true)
-               .ToList()
-               .Select(u => u.GetSkillsToUser(_userSkillRepository, _skillRepository))
-               .Where(u => u.Skills.Any(s => skills.Contains(s.Name)))
-               .AsQueryable();
+            return GetUsers(education, country, region, city, skills)
+                .Where(u => u.SubscriptionExecutorExpiresDate > DateTime.Now);
         }
 
         /// <summary>
@@ -742,6 +718,13 @@ namespace EasyStudingServices.Services
             }
 
             return listOfAddedFiles;
+        }
+
+        private OrderToReturn ConvertOrder(Order order)
+        {
+            return order
+                .ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
 
         #endregion
