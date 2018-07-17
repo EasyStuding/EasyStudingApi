@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using EasyStudingModels;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyStudingInterfaces.Repositories
 {
     public interface IRepository<T>
+        where T : class, IEntity<T>
     {
-        IQueryable<T> GetAll();
+        DbSet<T> GetAll();
 
         Task<T> GetAsync(long id);
 

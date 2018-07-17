@@ -11,7 +11,6 @@ using EasyStudingModels;
 using Microsoft.IdentityModel.Tokens;
 using EasyStudingServices.Extensions;
 using System.Linq;
-using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingServices.Services
 {
@@ -21,15 +20,12 @@ namespace EasyStudingServices.Services
 
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<UserPassword> _userPasswordRepository;
-        private readonly EasyStudingContext _context;
 
         public SessionService(IRepository<User> userRepository,
-            IRepository<UserPassword> userPasswordRepository,
-            EasyStudingContext context)
+            IRepository<UserPassword> userPasswordRepository)
         {
             _userRepository = userRepository;
             _userPasswordRepository = userPasswordRepository;
-            _context = context;
         }
 
         #endregion
@@ -152,9 +148,8 @@ namespace EasyStudingServices.Services
         {
             loginModel.CheckArgumentException();
 
-            var user = _userRepository
-                .GetAll()
-                .Join(_context.UserPasswords,
+            var user = _userRepository.GetAll()
+                .Join(_userPasswordRepository.GetAll(),
                     u => u.Id,
                     up => up.UserId,
                     (u, up) => new

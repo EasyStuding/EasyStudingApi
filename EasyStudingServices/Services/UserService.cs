@@ -24,8 +24,7 @@ namespace EasyStudingServices.Services
         private readonly IRepository<Review> _reviewRepository;
         private readonly IRepository<Skill> _skillRepository;
         private readonly IRepository<OrderSkill> _orderSkillRepository;
-
-        private readonly EasyStudingContext _context;
+        private readonly IRepository<UserSkill> _userSkillRepository;
 
         public UserService(IRepository<User> userRepository,
             IRepository<Order> orderRepository,
@@ -34,7 +33,7 @@ namespace EasyStudingServices.Services
             IRepository<Review> reviewRepository,
             IRepository<Skill> skillRepository,
             IRepository<OrderSkill> orderSkillRepository,
-            EasyStudingContext context)
+            IRepository<UserSkill> userSkillRepository)
         {
             _userRepository = userRepository;
             _orderRepository = orderRepository;
@@ -43,7 +42,7 @@ namespace EasyStudingServices.Services
             _reviewRepository = reviewRepository;
             _skillRepository = skillRepository;
             _orderRepository = orderRepository;
-            _context = context;
+            _userSkillRepository = userSkillRepository;
         }
 
         #endregion
@@ -92,7 +91,7 @@ namespace EasyStudingServices.Services
                && u.City.Contains(city.ConvertToValidModel())
                && u.TelephoneNumberIsValidated == true)
                .ToList()
-               .Select(u => u.GetSkillsToUser(_context))
+               .Select(u => u.GetSkillsToUser(_userSkillRepository, _skillRepository))
                .Where(u => u.Skills.Any(s => skills.Contains(s.Name)))
                .AsQueryable();
         }
@@ -107,7 +106,7 @@ namespace EasyStudingServices.Services
 
         public async Task<User> GetUser(long id)
         {
-            return (await _userRepository.GetAsync(id)).GetSkillsToUser(_context);
+            return (await _userRepository.GetAsync(id)).GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -140,7 +139,7 @@ namespace EasyStudingServices.Services
                 .ToList()
                 .Select(o =>
                     o.ConvertOrderToReturn(o.GetAttachmentsToOrder(_attachmentRepository),
-                    o.GetSkillsToOrder(_context)));
+                    o.GetSkillsToOrder(_orderSkillRepository, _skillRepository)));
 
             return orders.AsQueryable();
         }
@@ -166,7 +165,7 @@ namespace EasyStudingServices.Services
                 && (o.CustomerId == user.Id || o.ExecutorId == user.Id));
 
             return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_context));
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
 
         /// <summary>
@@ -189,7 +188,7 @@ namespace EasyStudingServices.Services
                && u.SubscriptionExecutorExpiresDate > DateTime.Now
                && u.TelephoneNumberIsValidated == true)
                .ToList()
-               .Select(u => u.GetSkillsToUser(_context))
+               .Select(u => u.GetSkillsToUser(_userSkillRepository, _skillRepository))
                .Where(u => u.Skills.Any(s => skills.Contains(s.Name)))
                .AsQueryable();
         }
@@ -213,8 +212,8 @@ namespace EasyStudingServices.Services
                 ? user
                 : throw new UnauthorizedAccessException();
 
-            return _context.Attachments
-                .Join(_context.Users,
+            return _attachmentRepository.GetAll()
+                .Join(_userRepository.GetAll(),
                     a => a.ContainerId,
                     u => u.Id,
                     (a, u) => new FileToReturnModel()
@@ -248,8 +247,8 @@ namespace EasyStudingServices.Services
                 ? user
                 : throw new UnauthorizedAccessException();
 
-            return _context.Attachments
-                .Join(_context.Users,
+            return _attachmentRepository.GetAll()
+                .Join(_userRepository.GetAll(),
                     a => a.ContainerId,
                     u => u.Id,
                     (a, u) => new FileToReturnModel()
@@ -345,7 +344,7 @@ namespace EasyStudingServices.Services
             user.Raiting = _user.Raiting;
 
             return (await _userRepository.EditAsync(user))
-                .GetSkillsToUser(_context);
+                .GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
 
@@ -370,7 +369,7 @@ namespace EasyStudingServices.Services
                 : throw new UnauthorizedAccessException();
 
             return (await _userRepository.EditAsync(user))
-                .GetSkillsToUser(_context);
+                .GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -409,7 +408,7 @@ namespace EasyStudingServices.Services
             user.PictureLink = FileStorage.UploadFile(file, currentUrl, Defines.FileFolders.USER_PICTURES_FOLDER).Link;
 
             return (await _userRepository.EditAsync(user))
-                .GetSkillsToUser(_context);
+                .GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -428,7 +427,7 @@ namespace EasyStudingServices.Services
             user.PictureLink = null;
 
             return (await _userRepository.EditAsync(user))
-                .GetSkillsToUser(_context);
+                .GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -462,7 +461,7 @@ namespace EasyStudingServices.Services
                 default: break;
             }
 
-            return user.GetSkillsToUser(_context);
+            return user.GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -591,7 +590,7 @@ namespace EasyStudingServices.Services
             order = await _orderRepository.EditAsync(order);
 
             return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_context));
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
 
         /// <summary>
@@ -615,7 +614,7 @@ namespace EasyStudingServices.Services
             order = await _orderRepository.EditAsync(order);
 
             return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_context));
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
 
         /// <summary>
@@ -644,7 +643,7 @@ namespace EasyStudingServices.Services
             order = await _orderRepository.EditAsync(order);
 
             return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_context));
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
 
         /// <summary>

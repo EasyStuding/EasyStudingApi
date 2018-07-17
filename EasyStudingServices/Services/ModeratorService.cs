@@ -7,7 +7,6 @@ using EasyStudingModels.Extensions;
 using EasyStudingModels;
 using System;
 using EasyStudingServices.Extensions;
-using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingServices.Services
 {
@@ -18,17 +17,23 @@ namespace EasyStudingServices.Services
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Attachment> _attachmentRepository;
-        private readonly EasyStudingContext _context;
+        private readonly IRepository<Skill> _skillRepository;
+        private readonly IRepository<UserSkill> _userSkillRepository;
+        private readonly IRepository<OrderSkill> _orderSkillRepository;
 
         public ModeratorService(IRepository<User> userRepository, 
             IRepository<Order> orderRepository,
             IRepository<Attachment> attachmentRepository,
-            EasyStudingContext context)
+            IRepository<Skill> skillRepository,
+            IRepository<UserSkill> userSkillRepository,
+            IRepository<OrderSkill> orderSkillRepository)
         {
             _userRepository = userRepository;
             _orderRepository = orderRepository;
             _attachmentRepository = attachmentRepository;
-            _context = context;
+            _userSkillRepository = userSkillRepository;
+            _skillRepository = skillRepository;
+            _orderSkillRepository = orderSkillRepository;
         }
 
         #endregion
@@ -52,7 +57,7 @@ namespace EasyStudingServices.Services
                     ? Defines.Roles.USER
                     : throw new ArgumentException();
 
-            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
+            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace EasyStudingServices.Services
                 ? throw new InvalidOperationException()
                 : DateTime.Now.AddMonths(monthToBan);
 
-            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
+            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -94,7 +99,7 @@ namespace EasyStudingServices.Services
 
             user.BanExpiresDate = DateTime.Now;
 
-            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
+            return (await _userRepository.EditAsync(user)).GetSkillsToUser(_userSkillRepository, _skillRepository);
         }
 
         /// <summary>
@@ -161,7 +166,7 @@ namespace EasyStudingServices.Services
         {
             return order
                 .ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_context));
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
 
     }

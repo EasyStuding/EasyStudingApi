@@ -1,7 +1,6 @@
 ﻿using EasyStudingInterfaces.Repositories;
 using EasyStudingModels;
 using EasyStudingModels.Models;
-using EasyStudingRepositories.DbContext;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,12 +9,13 @@ namespace EasyStudingServices.Extensions
     public static class ConverterExtension
     {
         public static IEnumerable<Skill> GetSkillsToOrder(this Order order
-            , EasyStudingContext context)
+            , IRepository<OrderSkill> orderSkillRepository
+            , IRepository<Skill> skillReposittory)
         {
-            return context.OrderSkills
+            return orderSkillRepository.GetAll()
                 .Where(os => os.OrderId == order.Id)
                 .Join(
-                    context.Skills,
+                    skillReposittory.GetAll(),
                     os => os.SkillId,
                     s => s.Id,
                     (os, s) => s
@@ -62,12 +62,13 @@ namespace EasyStudingServices.Extensions
         }
 
         public static User GetSkillsToUser(this User user,
-            EasyStudingContext context)
+            IRepository<UserSkill> userSkillRepository,
+            IRepository<Skill> skillReposittory)
         {
-            user.Skills = context.UserSkills
+            user.Skills = userSkillRepository.GetAll()
                 .Where(us => us.UserId == user.Id)
                 .Join(
-                    context.Skills,
+                    skillReposittory.GetAll(),
                     us => us.SkillId,
                     s => s.Id,
                     (us, s) => s

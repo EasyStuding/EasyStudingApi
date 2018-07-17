@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyStudingServices.Extensions;
 using System;
-using EasyStudingRepositories.DbContext;
 
 namespace EasyStudingServices.Services
 {
@@ -20,24 +19,24 @@ namespace EasyStudingServices.Services
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Skill> _skillRepository;
         private readonly IRepository<UserSkill> _userSkillRepository;
+        private readonly IRepository<OrderSkill> _orderSkillRepository;
         private readonly IRepository<Attachment> _attachmentRepository;
-        private readonly EasyStudingContext _context;
 
         public ExecutorService(
             IRepository<User> userRepository,
             IRepository<Order> orderRepository,
             IRepository<Skill> skillRepository,
             IRepository<UserSkill> userSkillRepository,
-            IRepository<Attachment> attachmentRepository,
-            EasyStudingContext context
+            IRepository<OrderSkill> orderSkillRepository,
+            IRepository<Attachment> attachmentRepository
             )
         {
             _userRepository = userRepository;
             _orderRepository = orderRepository;
             _skillRepository = skillRepository;
             _userSkillRepository = userSkillRepository;
+            _orderSkillRepository = orderSkillRepository;
             _attachmentRepository = attachmentRepository;
-            _context = context;
         }
 
         #endregion
@@ -204,7 +203,7 @@ namespace EasyStudingServices.Services
         {
             return order
                 .ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
-                order.GetSkillsToOrder(_context));
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
         }
     }
 }
