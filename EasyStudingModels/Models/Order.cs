@@ -14,6 +14,8 @@ namespace EasyStudingModels.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public decimal Cost { get; set; }
+        public long ViewCount { get; set; }
+        public long RequestCount { get; set; }
 
         public void Edit(Order order)
         {
@@ -25,6 +27,8 @@ namespace EasyStudingModels.Models
             Title = order.Title;
             Description = order.Description;
             Cost = order.Cost;
+            ViewCount = order.ViewCount;
+            RequestCount = order.RequestCount;
         }
 
         public bool Validate()
@@ -35,7 +39,9 @@ namespace EasyStudingModels.Models
                 && CustomerId != ExecutorId
                 && !string.IsNullOrWhiteSpace(Title)
                 && !string.IsNullOrWhiteSpace(Description)
-                && Cost >= 0;
+                && Cost >= 0
+                && ViewCount >= 0
+                && RequestCount >= 0;
         }
     }
 

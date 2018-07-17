@@ -471,16 +471,28 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Оставить отзыв</td>
+                    <td>Добавить просмотр к заказку</td>
                     <td>User</td>
                     <td>POST</td>
-                    <td>/api/user/AddReview</td>
-                    <td>[FromBody] <a style="color:green" href="#Review">Review</a></td>
+                    <td>/api/user/AddOrderView</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа);</td>
                     <td>
-                        <a style="color:green" href="#Review">Review</a> <br />
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
                         <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#403">403</a> <br />
-                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Добавить отклик к заказку</td>
+                    <td>User</td>
+                    <td>POST</td>
+                    <td>/api/user/AddOrderRequest</td>
+                    <td>id : <a style="color:blue">long</a> (номер заказа);</td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
                         <a style="color:green" href="#500">500</a> <br />
                     </td>
                 </tr>
@@ -914,6 +926,8 @@
                         title : <a style="color:blue">string</a><br />
                         description : <a style="color:blue">string</a><br />
                         cost : <a style="color:blue">decimal</a><br />
+                        viewCount : <a style="color:blue">long</a><br />
+                        requestCount : <a style="color:blue">long</a><br />
                         attachments : <a style="color:green" href="#FileToAddModel">FileToAddModel</a>[]<br />
                         skills : <a style="color:green" href="#Skill">Skill</a>[]<br />
                     </td>
@@ -931,6 +945,8 @@
                         title : <a style="color:blue">string</a><br />
                         description : <a style="color:blue">string</a><br />
                         cost : <a style="color:blue">decimal</a><br />
+                        viewCount : <a style="color:blue">long</a><br />
+                        requestCount : <a style="color:blue">long</a><br />
                         attachments : <a style="color:green" href="#FileToReturnModel">FileToReturnModel</a>[]<br />
                         skills : <a style="color:green" href="#Skill">Skill</a>[]<br />
                     </td>

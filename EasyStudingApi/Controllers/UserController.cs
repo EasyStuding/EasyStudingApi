@@ -204,6 +204,20 @@ namespace EasyStudingApi.Controllers
             return await _service.AddReview(review, User.GetUserId());
         }
 
+        [HttpPost]
+        // /api/user/AddOrderView
+        public async Task<OrderToReturn> AddOrderView(long id)
+        {
+            return await _service.AddOrderView(id);
+        }
+
+        [HttpPost]
+        // /api/user/AddOrderRequest
+        public async Task<OrderToReturn> AddOrderRequest(long id)
+        {
+            return await _service.AddOrderRequest(id);
+        }
+
         private string GetCurrentUrl()
         {
             return $"{Request.Scheme}://{Request.Host}{Request.PathBase}";

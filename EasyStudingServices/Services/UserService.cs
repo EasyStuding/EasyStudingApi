@@ -672,6 +672,46 @@ namespace EasyStudingServices.Services
             return await _reviewRepository.AddAsync(review);
         }
 
+        /// <summary>
+        ///   Add view to order. 
+        /// </summary>
+        /// <param name="id">Order id.</param>
+        /// <returns>
+        ///    Edited order.
+        /// </returns>
+
+        public async Task<OrderToReturn> AddOrderView(long id)
+        {
+            var order = await _orderRepository.GetAsync(id);
+
+            order.ViewCount++;
+
+            order = await _orderRepository.EditAsync(order);
+
+            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
+        }
+
+        /// <summary>
+        ///   Add request to order. 
+        /// </summary>
+        /// <param name="id">Order id.</param>
+        /// <returns>
+        ///    Edited order.
+        /// </returns>
+
+        public async Task<OrderToReturn> AddOrderRequest(long id)
+        {
+            var order = await _orderRepository.GetAsync(id);
+
+            order.RequestCount++;
+
+            order = await _orderRepository.EditAsync(order);
+
+            return order.ConvertOrderToReturn(order.GetAttachmentsToOrder(_attachmentRepository),
+                order.GetSkillsToOrder(_orderSkillRepository, _skillRepository));
+        }
+
         #region Helpers.
 
         private async Task<IEnumerable<FileToReturnModel>> SaveFiles(IEnumerable<FileToAddModel> files, string currentUrl, string folder)

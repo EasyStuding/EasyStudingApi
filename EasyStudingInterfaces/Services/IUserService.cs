@@ -51,5 +51,9 @@ namespace EasyStudingInterfaces.Services
         Task<OrderToReturn> CloseOrder(long id, long currentUserId);
 
         Task<Review> AddReview(Review review, long currentUserId);
+
+        Task<OrderToReturn> AddOrderView(long id);
+
+        Task<OrderToReturn> AddOrderRequest(long id);
     }
 }

@@ -57,7 +57,9 @@ create table "Orders"
 	"IsCompleted" boolean default false not null,
 	"Title" text not null,
 	"Description" text not null,
-	"Cost" money not null
+	"Cost" money not null,
+	"ViewCount" bigserial not null,
+	"RequestCount" bigserial not null
 );
 
 create table "Reviews"
