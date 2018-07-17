@@ -20,7 +20,7 @@ namespace EasyStudingRepositories.Repositories
             _dbSet = _context.Set<TEntity>();
         }
 
-        public DbSet<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
             return _dbSet;
         }
