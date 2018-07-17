@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using EasyStudingInterfaces.Controllers;
 using EasyStudingInterfaces.Services;
 using EasyStudingModels.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EasyStudingApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Location/[action]")]
+    [Authorize]
     public class LocationController : Controller, ILocationController
     {
         private readonly ILocationService _service;

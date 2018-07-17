@@ -117,12 +117,10 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders.
         /// </returns>
-        /// <exception cref="System.UnauthorizedAccessException">When user not found.</exception>
 
         public async Task<IQueryable<OrderToReturn>> GetOrders(long currentUserId)
         {
-            var user = await _userRepository.GetAsync(currentUserId)
-                ?? throw new UnauthorizedAccessException();
+            var user = await _userRepository.GetAsync(currentUserId);
 
             var orders = _orderRepository
                 .GetAll()
@@ -540,7 +538,7 @@ namespace EasyStudingServices.Services
         ///    Added order.
         /// </returns>
         /// <exception cref="System.ArgumentException">When one of params invalid.</exception>
-        /// <exception cref="InvalidOperationException">When customer id != user id</exception>
+        /// <exception cref="UnauthorizedAccessException">When customer id != user id</exception>
 
         public async Task<OrderToReturn> AddOrder(OrderToAdd order, string currentUrl, long currentUserId)
         {
@@ -550,7 +548,7 @@ namespace EasyStudingServices.Services
 
             order = order.CustomerId == user.Id
                 ? order
-                : throw new InvalidOperationException();
+                : throw new UnauthorizedAccessException();
 
             var attachments = await SaveFiles(order.Attachments, currentUrl, Defines.FileFolders.ORDER_ATTACHMENTS_FOLDER);
 

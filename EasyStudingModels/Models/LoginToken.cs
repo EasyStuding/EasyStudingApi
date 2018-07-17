@@ -1,4 +1,6 @@
-﻿namespace EasyStudingModels.Models
+﻿using System;
+
+namespace EasyStudingModels.Models
 {
     public class LoginToken : IValidatedEntity
     {
@@ -6,10 +8,13 @@
 
         public string BearerToken { get; set; }
 
+        public DateTime DateExpires { get; set; }
+
         public bool Validate()
         {
             return User.Validate()
-                && !string.IsNullOrWhiteSpace(BearerToken);
+                && !string.IsNullOrWhiteSpace(BearerToken)
+                && DateExpires != null;
         }
     }
 }

@@ -282,11 +282,12 @@ namespace EasyStudingServices.Services
                 ClaimsIdentity.DefaultRoleClaimType);
 
             var now = DateTime.UtcNow;
+            var expires = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFE_TIME));
 
             var jwt = new JwtSecurityToken(
                     notBefore: now,
                     claims: claimsIdentity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFE_TIME)),
+                    expires: expires,
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
                     );
 
@@ -295,7 +296,8 @@ namespace EasyStudingServices.Services
             return new LoginToken()
             {
                 User = user,
-                BearerToken = "Bearer " + encodedJwt
+                BearerToken = "Bearer " + encodedJwt,
+                DateExpires = expires
             };
         }
 
