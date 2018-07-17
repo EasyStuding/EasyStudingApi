@@ -28,9 +28,9 @@ namespace EasyStudingApi.Controllers
         [Authorize(Roles = Defines.Roles.ADMIN)]
         [HttpPut]
         // /api/moderator/GrantModeratorRights
-        public async Task<User> GrantModeratorRights(long userId)
+        public async Task<User> GrantRights(long userId, string permisions)
         {
-            return await _service.GrantModeratorRights(userId);
+            return await _service.GrantRights(userId, permisions);
         }
 
         [HttpPost]

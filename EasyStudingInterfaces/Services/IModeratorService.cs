@@ -6,7 +6,7 @@ namespace EasyStudingInterfaces.Services
 {
     public interface IModeratorService
     {
-        Task<User> GrantModeratorRights(long userId);
+        Task<User> GrantRights(long userId, string permisions);
 
         Task<User> BanUser(long id);
 

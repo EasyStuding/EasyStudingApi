@@ -40,12 +40,17 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    User.
         /// </returns>
+        /// <exception cref="System.ArgumentException">Invalid params.</exception>
 
-        public async Task<User> GrantModeratorRights(long userId)
+        public async Task<User> GrantRights(long userId, string permisions)
         {
             var user = await _userRepository.GetAsync(userId);
-
-            user.Role = Defines.Roles.MODERATOR;
+            
+            user.Role = permisions.Equals(Defines.Roles.MODERATOR, StringComparison.OrdinalIgnoreCase)
+                    ? Defines.Roles.MODERATOR
+                    : permisions.Equals(Defines.Roles.USER, StringComparison.OrdinalIgnoreCase)
+                    ? Defines.Roles.USER
+                    : throw new ArgumentException();
 
             return (await _userRepository.EditAsync(user)).GetSkillsToUser(_context);
         }
