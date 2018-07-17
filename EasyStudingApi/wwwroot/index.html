@@ -10,7 +10,7 @@
 
     <div class="navbar-fixed">
         <nav>
-            <a href="#" class="brand-logo right"><img src="https://pp.userapi.com/c844417/v844417151/7618e/M2-RlJWBrPY.jpg" style="width:50px; margin-top:5px" /></a>
+            <a href="#SUPPORT" class="brand-logo right"><img src="https://pp.userapi.com/c844417/v844417151/7618e/M2-RlJWBrPY.jpg" style="width:50px; margin-top:5px" title="SUPPORT"/></a>
             <a href="#" class="brand-logo center">Documentation</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="#session">Session</a></li>
@@ -19,6 +19,7 @@
                 <li><a href="#location">Location</a></li>
                 <li><a href="#moderator">Modearator</a></li>
                 <li><a href="#models">Models</a></li>
+                <li><a href="#exceptions">Exceptions</a></li>
             </ul>
         </nav>
     </div>
@@ -44,7 +45,12 @@
                     <td>POST</td>
                     <td>/api/session/StartRegistration</td>
                     <td>[FromBody] <a style="color:green" href="#RegistrationModel">RegistrationModel</a></td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#400" title="User is registered.">400</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Пройти валидацию телефона по отправленному коду</td>
@@ -52,7 +58,12 @@
                     <td>POST</td>
                     <td>/api/session/ValidateRegistration</td>
                     <td>[FromBody] <a style="color:green" href="#ValidateModel">ValidateModel</a></td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Закончить регистрацию пользователя, установив пароль (FREETRIAL 3 МЕСЯЦА)</td>
@@ -60,7 +71,13 @@
                     <td>POST</td>
                     <td>/api/session/CompleteRegistration</td>
                     <td>[FromBody] <a style="color:green" href="#LoginModel">LoginModel</a></td>
-                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                    <td>
+                        <a style="color:green" href="#LoginToken">LoginToken</a> <br />
+                        <a style="color:green" href="#400" title="User is registered.">400</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Войти в систему по номеру телефона и паролю</td>
@@ -68,7 +85,13 @@
                     <td>POST</td>
                     <td>/api/session/Login</td>
                     <td>[FromBody] <a style="color:green" href="#LoginModel">LoginModel</a></td>
-                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                    <td>
+                        <a style="color:green" href="#LoginToken">LoginToken</a> <br />
+                        <a style="color:green" href="#400" title="Incorrect password.">400</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить код валидации на восстановление пароля/повторно отправить код</td>
@@ -76,7 +99,12 @@
                     <td>POST</td>
                     <td>/api/session/GenerateValidationCode</td>
                     <td>[FromBody] <a style="color:green" href="#RegistrationModel">RegistrationModel</a></td>
-                    <td><a style="color:blue">bool</a></td>
+                    <td>
+                        <a style="color:blue">bool</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Восстановление пароля</td>
@@ -84,7 +112,13 @@
                     <td>POST</td>
                     <td>/api/session/RestorePassword</td>
                     <td>[FromBody] <a style="color:green" href="#RestorePasswordModel">RestorePasswordModel</a></td>
-                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                    <td>
+                        <a style="color:green" href="#LoginToken">LoginToken</a> <br />
+                        <a style="color:green" href="#400" title="Incorrect validation code.">400</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Обновить токен</td>
@@ -92,7 +126,11 @@
                     <td>POST</td>
                     <td>/api/session/UpdateToken</td>
                     <td>---</td>
-                    <td><a style="color:green" href="#LoginToken">LoginToken</a></td>
+                    <td>
+                        <a style="color:green" href="#LoginToken">LoginToken</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Выйти из аккаунта (НА КЛИЕНТЕ НЕОБХОДИМО УДАЛИТЬ ТОКЕН)</td>
@@ -100,7 +138,11 @@
                     <td>POST</td>
                     <td>/api/session/LogOut</td>
                     <td>---</td>
-                    <td><a style="color:blue">bool</a></td>
+                    <td>
+                        <a style="color:blue">bool</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -129,7 +171,11 @@
                     <td>GET</td>
                     <td>/api/user/GetSkills</td>
                     <td>---</td>
-                    <td><a style="color:green" href="#Skill">Skill</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#Skill">Skill</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить навык по ID</td>
@@ -137,7 +183,12 @@
                     <td>GET</td>
                     <td>/api/user/GetSkill</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#Skill">Skill</a></td>
+                    <td>
+                        <a style="color:green" href="#Skill">Skill</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить список всех пользователей</td>
@@ -145,13 +196,17 @@
                     <td>GET</td>
                     <td>/api/user/GetUsers</td>
                     <td>
-                        education : <a style="color:blue">string</a>;
-                        country : <a style="color:blue">string</a>;
-                        region : <a style="color:blue">string</a>;
-                        city : <a style="color:blue">string</a>;
-                        skills : <a style="color:blue">string</a>;
+                        education : <a style="color:blue">string</a>; <br />
+                        country : <a style="color:blue">string</a>; <br />
+                        region : <a style="color:blue">string</a>; <br />
+                        city : <a style="color:blue">string</a>; <br />
+                        skills : <a style="color:blue">string</a> (separated by commas); <br />
                     </td>
-                    <td><a style="color:green" href="#User">User</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#User">User</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить пользователя по ID</td>
@@ -159,7 +214,12 @@
                     <td>GET</td>
                     <td>/api/user/GetUser</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить все заказы пользователя</td>
@@ -167,7 +227,11 @@
                     <td>GET</td>
                     <td>/api/user/GetOrders</td>
                     <td>---</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить заказ пользователя по ID</td>
@@ -175,7 +239,13 @@
                     <td>GET</td>
                     <td>/api/user/GetOrder</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить список всех исполнителей</td>
@@ -183,13 +253,17 @@
                     <td>GET</td>
                     <td>/api/user/GetExecutors</td>
                     <td>
-                        education : <a style="color:blue">string</a>;
-                        country : <a style="color:blue">string</a>;
-                        region : <a style="color:blue">string</a>;
-                        city : <a style="color:blue">string</a>;
-                        skills : <a style="color:blue">string</a>;
+                        education : <a style="color:blue">string</a>; <br />
+                        country : <a style="color:blue">string</a>; <br />
+                        region : <a style="color:blue">string</a>; <br />
+                        city : <a style="color:blue">string</a>; <br />
+                        skills : <a style="color:blue">string</a> (separated by commas); <br />
                     </td>
-                    <td><a style="color:green" href="#User">User</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#User">User</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить OpenSource файлы по ID владельца OpenSource</td>
@@ -197,7 +271,12 @@
                     <td>GET</td>
                     <td>/api/user/GetOpenSourceAttachments</td>
                     <td>ownerOpenSourceId : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#FileToReturnModel">FileToReturnModel</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#FileToReturnModel">FileToReturnModel</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Скачать файл из OpenSource по его ID</td>
@@ -205,7 +284,13 @@
                     <td>GET</td>
                     <td>/api/user/OpenSourceDownloadFile</td>
                     <td>fileId : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#FileResult">FileResult</a></td>
+                    <td>
+                        <a style="color:green" href="#FileResult">FileResult</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Изменить пароль</td>
@@ -213,10 +298,16 @@
                     <td>PUT</td>
                     <td>/api/user/ChangePassword</td>
                     <td>
-                        oldPassword : <a style="color:blue">string</a>;
-                        newPassword : <a style="color:blue">string</a>
+                        oldPassword : <a style="color:blue">string</a>; <br />
+                        newPassword : <a style="color:blue">string</a>; <br />
                     </td>
-                    <td><a style="color:blue">bool</a></td>
+                    <td>
+                        <a style="color:blue">bool</a> <br />
+                        <a style="color:green" href="#400" title="Incorrect old password.">400</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Изменить данные профиля</td>
@@ -224,7 +315,14 @@
                     <td>PUT</td>
                     <td>/api/user/EditProfile</td>
                     <td>[FromBody] <a style="color:green" href="#User">User</a></td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Пройти валидацию email по отправленному коду</td>
@@ -232,7 +330,14 @@
                     <td>POST</td>
                     <td>/api/user/ValidateEmail</td>
                     <td>[FromBody] <a style="color:green" href="#ValidateModel">ValidateModel</a></td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить код валидации на email</td>
@@ -240,7 +345,11 @@
                     <td>POST</td>
                     <td>/api/user/GenerateValidationCode</td>
                     <td>---</td>
-                    <td><a style="color:blue">bool</a></td>
+                    <td>
+                        <a style="color:blue">bool</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Добавить картинку профиля</td>
@@ -248,7 +357,12 @@
                     <td>POST</td>
                     <td>/api/user/AddPictureProfile</td>
                     <td>[FromBody] <a style="color:green" href="#FileToAddModel">FileToAddModel</a></td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Удалить картинку профиля</td>
@@ -256,15 +370,24 @@
                     <td>DELETE</td>
                     <td>/api/user/RemovePictureProfile</td>
                     <td>---</td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Купить подписку</td>
                     <td>User</td>
                     <td>POST</td>
                     <td>/api/user/BuySubscription</td>
-                    <td>name : <a style="color:blue">string</a> ("open source subscription" || "executor subscription")</td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>name : <a style="color:blue">string</a> <br /> ("open source subscription" || "executor subscription")</td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Добавить файл в OpenSource</td>
@@ -272,7 +395,12 @@
                     <td>POST</td>
                     <td>/api/user/AddFileToOpenSource</td>
                     <td>[FromBody] <a style="color:green" href="#FileToAddModel">FileToAddModel</a></td>
-                    <td><a style="color:green" href="#FileToReturnModel">FileToReturnModel</a></td>
+                    <td>
+                        <a style="color:green" href="#FileToReturnModel">FileToReturnModel</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Удалить файл из OpenSource</td>
@@ -280,7 +408,13 @@
                     <td>DELETE</td>
                     <td>/api/user/RemoveFileFromOpenSource</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#FileToReturnModel">FileToReturnModel</a></td>
+                    <td>
+                        <a style="color:green" href="#FileToReturnModel">FileToReturnModel</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Добавить заказ</td>
@@ -288,7 +422,13 @@
                     <td>POST</td>
                     <td>/api/user/AddOrder</td>
                     <td>[FromBody] <a style="color:green" href="#OrderToAdd">OrderToAdd</a></td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Принять предложение исполнителя на выполнение</td>
@@ -296,10 +436,14 @@
                     <td>POST</td>
                     <td>/api/user/StartExecuteOrder</td>
                     <td>
-                        id : <a style="color:blue">long</a> (номер заказа);
-                        executorUserId : <a style="color:blue">long</a>;
+                        id : <a style="color:blue">long</a> (номер заказа); <br />
+                        executorUserId : <a style="color:blue">long</a>; <br />
                     </td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Отказать исполнителю в предложении на выполнение</td>
@@ -307,7 +451,11 @@
                     <td>POST</td>
                     <td>/api/user/RefuseExecutor</td>
                     <td>id : <a style="color:blue">long</a> (номер заказа);</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Закрыть заказ со стороны заказчика</td>
@@ -315,7 +463,12 @@
                     <td>POST</td>
                     <td>/api/user/CloseOrder</td>
                     <td>id : <a style="color:blue">long</a> (номер заказа);</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Оставить отзыв</td>
@@ -323,7 +476,13 @@
                     <td>POST</td>
                     <td>/api/user/AddReview</td>
                     <td>[FromBody] <a style="color:green" href="#Review">Review</a></td>
-                    <td><a style="color:green" href="#Review">Review</a></td>
+                    <td>
+                        <a style="color:green" href="#Review">Review</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -352,13 +511,18 @@
                     <td>GET</td>
                     <td>/api/executor/GetOrders</td>
                     <td>
-                        education : <a style="color:blue">string</a>;
-                        country : <a style="color:blue">string</a>;
-                        region : <a style="color:blue">string</a>;
-                        city : <a style="color:blue">string</a>;
-                        skills : <a style="color:blue">string</a>;
+                        education : <a style="color:blue">string</a>; <br />
+                        country : <a style="color:blue">string</a>; <br />
+                        region : <a style="color:blue">string</a>; <br />
+                        city : <a style="color:blue">string</a>; <br />
+                        skills : <a style="color:blue">string</a> (separated by commas); <br />
                     </td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить заказ по ID</td>
@@ -366,7 +530,13 @@
                     <td>GET</td>
                     <td>/api/executor/GetOrder</td>
                     <td>id : <a style="color:blue">long</a> (номер заказа)</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Запрос на получение прав выполнения заказа</td>
@@ -374,7 +544,14 @@
                     <td>GET</td>
                     <td>/api/executor/GetTheRightsToPerformOrder</td>
                     <td>id : <a style="color:blue">long</a> (номер заказа)</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#400" title="Order have executor.">400</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Закрыть заказ со стороны исполнителя</td>
@@ -382,7 +559,13 @@
                     <td>POST</td>
                     <td>/api/executor/CloseOrder</td>
                     <td>id : <a style="color:blue">long</a> (номер заказа)</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Добавить навык в профиль пользователя</td>
@@ -390,7 +573,13 @@
                     <td>POST</td>
                     <td>/api/executor/AddSkill</td>
                     <td>id : <a style="color:blue">long</a> (номер навыка)</td>
-                    <td><a style="color:green" href="#Skill">Skill</a></td>
+                    <td>
+                        <a style="color:green" href="#Skill">Skill</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Удалить навык из профиля пользователя</td>
@@ -398,7 +587,13 @@
                     <td>DELETE</td>
                     <td>/api/executor/RemoveSkill</td>
                     <td>id : <a style="color:blue">long</a> (номер навыка)</td>
-                    <td><a style="color:green" href="#Skill">Skill</a></td>
+                    <td>
+                        <a style="color:green" href="#Skill">Skill</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -423,51 +618,78 @@
             <tbody>
                 <tr>
                     <td>Получить список стран</td>
-                    <td>Allow anonymous</td>
+                    <td>User</td>
                     <td>GET</td>
                     <td>/api/location/GetCountries</td>
                     <td>---</td>
-                    <td><a style="color:green" href="#Country">Country</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#Country">Country</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить список регионов</td>
-                    <td>Allow anonymous</td>
+                    <td>User</td>
                     <td>GET</td>
                     <td>/api/location/GetRegions</td>
                     <td>countryId : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#Region">Region</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#Region">Region</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить список городов</td>
-                    <td>Allow anonymous</td>
+                    <td>User</td>
                     <td>GET</td>
                     <td>/api/location/GetCities</td>
                     <td>regionId : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#City">City</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#City">City</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить страну по ID</td>
-                    <td>Allow anonymous</td>
+                    <td>User</td>
                     <td>GET</td>
                     <td>/api/location/GetCountry</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#Country">Country</a></td>
+                    <td>
+                        <a style="color:green" href="#Country">Country</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить регион по ID</td>
-                    <td>Allow anonymous</td>
+                    <td>User</td>
                     <td>GET</td>
                     <td>/api/location/GetRegion</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#Region">Region</a></td>
+                    <td>
+                        <a style="color:green" href="#Region">Region</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить город по ID</td>
-                    <td>Allow anonymous</td>
+                    <td>User</td>
                     <td>GET</td>
                     <td>/api/location/GetCity</td>
                     <td>id : <a style="color:blue">long</a></td>
-                    <td><a style="color:green" href="#City">City</a></td>
+                    <td>
+                        <a style="color:green" href="#City">City</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -495,8 +717,18 @@
                     <td>Admin</td>
                     <td>PUT</td>
                     <td>/api/moderator/GrantModeratorRights</td>
-                    <td>userId: <a style="color:blue">long</a> (номер пользователя)</td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        userId: <a style="color:blue">long</a> (номер пользователя) <br />
+                        permisions: <a style="color:blue">string</a> ("user" || "moderator") <br />
+                    </td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Выдать бан пользователю на 3 месяца</td>
@@ -504,7 +736,14 @@
                     <td>POST</td>
                     <td>/api/moderator/BanUser</td>
                     <td>id: <a style="color:blue">long</a> (номер пользователя)</td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#400" title="The user you want to ban is a moderator or administrator.">400</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Снять бан пользователя</td>
@@ -512,7 +751,13 @@
                     <td>DELETE</td>
                     <td>/api/moderator/RemoveBanOfUser</td>
                     <td>id: <a style="color:blue">long</a> (номер пользователя)</td>
-                    <td><a style="color:green" href="#User">User</a></td>
+                    <td>
+                        <a style="color:green" href="#User">User</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Закрыть заказ</td>
@@ -520,7 +765,13 @@
                     <td>POST</td>
                     <td>/api/moderator/CloseOrder</td>
                     <td>id: <a style="color:blue">long</a> (номер заказа)</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить все заказы</td>
@@ -528,13 +779,18 @@
                     <td>GET</td>
                     <td>/api/moderator/GetOrders</td>
                     <td>
-                        education : <a style="color:blue">string</a>;
-                        country : <a style="color:blue">string</a>;
-                        region : <a style="color:blue">string</a>;
-                        city : <a style="color:blue">string</a>;
-                        skills : <a style="color:blue">string</a>;
+                        education : <a style="color:blue">string</a>; <br />
+                        country : <a style="color:blue">string</a>; <br />
+                        region : <a style="color:blue">string</a>; <br />
+                        city : <a style="color:blue">string</a>; <br />
+                        skills : <a style="color:blue">string</a> (separated by commas); <br />
                     </td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a>[]</td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a>[] <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить заказ по ID</td>
@@ -542,7 +798,13 @@
                     <td>GET</td>
                     <td>/api/moderator/GetOrder</td>
                     <td>id: <a style="color:blue">long</a> (номер заказа)</td>
-                    <td><a style="color:green" href="#OrderToReturn">OrderToReturn</a></td>
+                    <td>
+                        <a style="color:green" href="#OrderToReturn">OrderToReturn</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
                 <tr>
                     <td>Получить логи по дате</td>
@@ -550,7 +812,14 @@
                     <td>GET</td>
                     <td>/api/moderator/GetLogs</td>
                     <td>date: <a style="color:blue">string</a> (dd_MM_yy - 31_01_18)</td>
-                    <td><a style="color:green" href="#FileResult">FileResult</a></td>
+                    <td>
+                        <a style="color:green" href="#FileResult">FileResult</a> <br />
+                        <a style="color:green" href="#401">401</a> <br />
+                        <a style="color:green" href="#403">403</a> <br />
+                        <a style="color:green" href="#404">404</a> <br />
+                        <a style="color:green" href="#422">422</a> <br />
+                        <a style="color:green" href="#500">500</a> <br />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -628,7 +897,8 @@
                     <td><a style="color:green" href="#LoginToken" id="LoginToken">LoginToken</a></td>
                     <td>
                         user : <a style="color:green" href="#User">User</a> <br />
-                        bearerToken : <a style="color:blue">string</a> (valid 4 weeks)<br />
+                        bearerToken : <a style="color:blue">string</a> <br />
+                        dateExpires : <a style="color:green" href="#DateTime">DateTime</a> <br />
                     </td>
                 </tr>
                 <tr>
@@ -746,11 +1016,75 @@
         </table>
     </div>
 
+    <hr>
+
+    <div style="padding: 25px">
+        <h4>Exceptions <img id="exceptions" src="https://cdn.onlinewebfonts.com/svg/img_262535.png" style="width:25px; cursor:pointer;" /></h4>
+        <table style="display:table" id="exceptions_table">
+            <thead>
+                <tr>
+                    <th>Exception</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><a style="color:green" href="#400" id="400">400</a></td>
+                    <td>
+                        <b>Bad Request.</b> <br />
+                        Невозможно произвести операцию. <br />
+                        Данные уже существуют на сервере или некорректны. <br />
+                        Для подробности возникновения ошибки наведите на ошибку в RESPONSE метода. <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#401" id="401">401</a></td>
+                    <td>
+                        <b>Unauthorized.</b> <br />
+                        Ошибка авторизации. <br />
+                        Проверьте токен доступа. <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#403" id="403">403</a></td>
+                    <td>
+                        <b>Forbidden.</b> <br />
+                        Ошибка доступа. <br />
+                        Пользователь не имеет прав доступа к этим данным. <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#404" id="404">404</a></td>
+                    <td>
+                        <b>Not Found.</b> <br />
+                        Запрашиваемые данные не найдены. <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#422" id="422">422</a></td>
+                    <td>
+                        <b>Unprocessable Entity.</b> <br />
+                        Переданные параметры не проходят валидацию. <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td><a style="color:green" href="#500" id="500">500</a></td>
+                    <td>
+                        <b>Internal Server Error.</b> <br />
+                        Ошибка сервера, что-то пошло не так при выполнении операции. <br />
+                        Напишите в USER SUPPORT о своей проблеме. <br />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <footer class="page-footer">
         <div class="container">
             <div class="row">
                 <div class="center">
-                    <h6 class="white-text">
+                    <h6 class="white-text" id="SUPPORT">
                         User support email: api.easy.studing@gmail.com
                     </h6>
                 </div>
@@ -770,12 +1104,15 @@
     <script>
         var linkExpand = "https://png.icons8.com/ios/1600/expand-filled.png";
         var linkCurtail = "https://cdn.onlinewebfonts.com/svg/img_262535.png";
+
+        var lastPosition = 0;
         var sessionCounter = 0;
         var userCounter = 0;
         var locationCounter = 0;
         var moderatorCounter = 0;
         var executorCounter = 0;
         var modelsCounter = 0;
+        var exceptionsCounter = 0;
 
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
@@ -791,6 +1128,7 @@
                             //the 205 is a fixed header offset
                             scrollTop: target.offset().top - 205
                         }, 1000);
+                        lastPosition = $(document).scrollTop();
                         return false;
                     }
                 }
@@ -863,6 +1201,17 @@
             $("#models_table").css("display", "table");
         });
 
+        $("#exceptions").click(() => {
+            exceptionsCounter++;
+            if (exceptionsCounter % 2 != 0) {
+                $("#exceptions").prop("src", linkExpand);
+                $("#exceptions_table").css("display", "none");
+                return;
+            }
+            $("#exceptions").prop("src", linkCurtail);
+            $("#exceptions_table").css("display", "table");
+        });
+
         $("#footer_copyright").text("©" + (new Date).getFullYear() + " EasyStuding");
     </script>
 
@@ -894,8 +1243,9 @@
             });
             $('#scroller').click(function () {
                 $('body,html').animate({
-                    scrollTop: 0
+                    scrollTop: lastPosition
                 }, 400);
+                lastPosition = 0;
                 return false;
             });
         });

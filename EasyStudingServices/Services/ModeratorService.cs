@@ -124,7 +124,6 @@ namespace EasyStudingServices.Services
         /// <returns>
         ///    Orders sorted by city and education.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">When result not found.</exception>
 
         public IQueryable<OrderToReturn> GetOrders(string education, string country, string region, string city, string skills)
         {
@@ -132,8 +131,7 @@ namespace EasyStudingServices.Services
                   u.Education.Contains(education.ConvertToValidModel())
                   && u.Country.Contains(country.ConvertToValidModel())
                   && u.Region.Contains(region.ConvertToValidModel())
-                  && u.City.Contains(city.ConvertToValidModel()))
-                  ?? throw new ArgumentNullException();
+                  && u.City.Contains(city.ConvertToValidModel()));
 
             return _orderRepository.GetAll().Where(o =>
                 users.Any(u =>
