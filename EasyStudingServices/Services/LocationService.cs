@@ -27,30 +27,77 @@ namespace EasyStudingServices.Services
 
         #endregion
 
+        /// <summary>
+        ///   Get all countries.
+        /// </summary>
+        /// <returns>
+        ///    Countries.
+        /// </returns>
+
         public IQueryable<Country> GetCountries()
         {
             return _countryRepository.GetAll();
         }
+
+        /// <summary>
+        ///   Get all regions by country id.
+        /// </summary>
+        /// <param name="countryId">Id of country.</param>
+        /// <returns>
+        ///    Regions.
+        /// </returns>
 
         public IQueryable<Region> GetRegions(long countryId)
         {
             return _regionRepository.GetAll().Where(r => r.CountryId == countryId);
         }
 
+        /// <summary>
+        ///   Get all cities by region id.
+        /// </summary>
+        /// <param name="regionId">Id of region.</param>
+        /// <returns>
+        ///    Cities.
+        /// </returns>
+
         public IQueryable<City> GetCities(long regionId)
         {
             return _cityRepository.GetAll().Where(c => c.RegionId == regionId);
         }
+
+        /// <summary>
+        ///   Get Country by id.
+        /// </summary>
+        /// <param name="id">Id of entity.</param>
+        /// <returns>
+        ///    Country.
+        /// </returns>
 
         public async Task<Country> GetCountry(long id)
         {
             return await _countryRepository.GetAsync(id);
         }
 
+        /// <summary>
+        ///   Get Region by id.
+        /// </summary>
+        /// <param name="id">Id of entity.</param>
+        /// <returns>
+        ///    Region.
+        /// </returns>
+
         public async Task<Region> GetRegion(long id)
         {
             return await _regionRepository.GetAsync(id);
         }
+
+        /// <summary>
+        ///   Get City by id.
+        /// </summary>
+        /// <param name="id">Id of entity.</param>
+        /// <returns>
+        ///    City.
+        /// </returns>
 
         public async Task<City> GetCity(long id)
         {
