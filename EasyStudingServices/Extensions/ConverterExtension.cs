@@ -57,6 +57,9 @@ namespace EasyStudingServices.Extensions
                 IsClosedByExecutor = order.IsClosedByExecutor,
                 IsCompleted = order.IsCompleted,
                 Title = order.Title,
+                Cost = order.Cost,
+                RequestCount = order.RequestCount,
+                ViewCount = order.ViewCount,
                 Attachments = attachments,
                 Skills = skills
             };
