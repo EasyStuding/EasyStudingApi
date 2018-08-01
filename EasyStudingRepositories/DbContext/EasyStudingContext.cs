@@ -16,11 +16,8 @@ namespace EasyStudingRepositories.DbContext
         }
 
         public virtual DbSet<Attachment> Attachments { get; set; }
-        public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderSkill> OrderSkills { get; set; }
-        public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<User> Users { get; set; }

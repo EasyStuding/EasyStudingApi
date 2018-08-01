@@ -22,16 +22,16 @@ namespace EasyStudingUnitTests.TestData
 
 		private void CreateTestDataInDatabase()
 		{
-            CreateCountries();
+            CreateSkills();
         }
 
-        private void CreateCountries()
+        private void CreateSkills()
         {
-            Context.Countries.Add(new Country() { Id = 1, Name = "USA", CreationDate = DateTime.Now });
-            Context.Countries.Add(new Country() { Id = 2, Name = "Belarus", CreationDate = DateTime.Now });
-            Context.Countries.Add(new Country() { Id = 3, Name = "Russia", CreationDate = DateTime.Now });
-            Context.Countries.Add(new Country() { Id = 4, Name = "China", CreationDate = DateTime.Now });
-            Context.Countries.Add(new Country() { Id = 5, Name = "UK", CreationDate = DateTime.Now });
+            Context.Skills.Add(new Skill() { Id = 1, Name = "USA" });
+            Context.Skills.Add(new Skill() { Id = 2, Name = "Belarus" });
+            Context.Skills.Add(new Skill() { Id = 3, Name = "Russia" });
+            Context.Skills.Add(new Skill() { Id = 4, Name = "China" });
+            Context.Skills.Add(new Skill() { Id = 5, Name = "UK" });
 
             Context.SaveChanges();
         }

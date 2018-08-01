@@ -18,7 +18,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
+                var rep = new UniversalRepository<Skill>(Context);
                 var result = rep.GetAll();
 
                 Assert.Equal(5, result.Count());
@@ -30,7 +30,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
+                var rep = new UniversalRepository<Skill>(Context);
                 var result = await rep.GetAsync(1);
 
                 Assert.Equal(1, result.Id);
@@ -42,8 +42,8 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
-                var model = await rep.AddAsync(new Country() { Id = 6 });
+                var rep = new UniversalRepository<Skill>(Context);
+                var model = await rep.AddAsync(new Skill() { Id = 6 });
 
                 Assert.Equal(6, model.Id);
             }
@@ -54,7 +54,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
+                var rep = new UniversalRepository<Skill>(Context);
                 var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.AddAsync(null));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
@@ -66,8 +66,8 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
-                var model = await rep.EditAsync(new Country() { Id = 5 });
+                var rep = new UniversalRepository<Skill>(Context);
+                var model = await rep.EditAsync(new Skill() { Id = 5 });
 
                 Assert.Equal(5, model.Id);
             }
@@ -78,7 +78,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
+                var rep = new UniversalRepository<Skill>(Context);
                 var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.EditAsync(null));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
@@ -90,8 +90,8 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
-                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.EditAsync(new Country() { Id = 7 }));
+                var rep = new UniversalRepository<Skill>(Context);
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.EditAsync(new Skill() { Id = 7 }));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());
             }
@@ -102,7 +102,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
+                var rep = new UniversalRepository<Skill>(Context);
                 var model = await rep.RemoveAsync(5);
 
                 Assert.Equal(5, model.Id);
@@ -114,7 +114,7 @@ namespace EasyStudingUnitTests.RepositoryTests
         {
             using (Context = new TestDbContext().Context)
             {
-                var rep = new UniversalRepository<Country>(Context);
+                var rep = new UniversalRepository<Skill>(Context);
                 var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await rep.RemoveAsync(7));
 
                 Assert.Equal(typeof(ArgumentNullException), ex.GetType());

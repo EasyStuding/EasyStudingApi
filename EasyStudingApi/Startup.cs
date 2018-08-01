@@ -95,11 +95,8 @@ namespace EasyStudingApi
         private void RegisterDependencyInjection(IServiceCollection services)
         {
             services.AddScoped<IRepository<Attachment>, UniversalRepository<Attachment>>();
-            services.AddScoped<IRepository<City>, UniversalRepository<City>>();
-            services.AddScoped<IRepository<Country>, UniversalRepository<Country>>();
             services.AddScoped<IRepository<Order>, UniversalRepository<Order>>();
             services.AddScoped<IRepository<OrderSkill>, UniversalRepository<OrderSkill>>();
-            services.AddScoped<IRepository<Region>, UniversalRepository<Region>>();
             services.AddScoped<IRepository<Review>, UniversalRepository<Review>>();
             services.AddScoped<IRepository<Skill>, UniversalRepository<Skill>>();
             services.AddScoped<IRepository<User>, UniversalRepository<User>>();
@@ -110,13 +107,11 @@ namespace EasyStudingApi
             services.AddScoped<IModeratorService, ModeratorService>();
             services.AddScoped<IExecutorService, ExecutorService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ILocationService, LocationService>();
 
             services.AddScoped<ISessionController, SessionController>();
             services.AddScoped<IModeratorController, ModeratorController>();
             services.AddScoped<IExecutorController, ExecutorController>();
             services.AddScoped<IUserController, UserController>();
-            services.AddScoped<ILocationController, LocationController>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

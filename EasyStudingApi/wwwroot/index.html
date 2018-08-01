@@ -614,102 +614,6 @@
     <hr>
 
     <div style="padding: 25px">
-        <h4>Location controller <img id="location" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
-        <table style="display:none" id="location_table">
-            <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>Permitions</th>
-                    <th>Request</th>
-                    <th>Path</th>
-                    <th>Parameters</th>
-                    <th>Response</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Получить список стран</td>
-                    <td>User</td>
-                    <td>GET</td>
-                    <td>/api/location/GetCountries</td>
-                    <td>---</td>
-                    <td>
-                        <a style="color:green" href="#Country">Country</a>[] <br />
-                        <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#500">500</a> <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Получить список регионов</td>
-                    <td>User</td>
-                    <td>GET</td>
-                    <td>/api/location/GetRegions</td>
-                    <td>countryId : <a style="color:blue">long</a></td>
-                    <td>
-                        <a style="color:green" href="#Region">Region</a>[] <br />
-                        <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#500">500</a> <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Получить список городов</td>
-                    <td>User</td>
-                    <td>GET</td>
-                    <td>/api/location/GetCities</td>
-                    <td>regionId : <a style="color:blue">long</a></td>
-                    <td>
-                        <a style="color:green" href="#City">City</a>[] <br />
-                        <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#500">500</a> <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Получить страну по ID</td>
-                    <td>User</td>
-                    <td>GET</td>
-                    <td>/api/location/GetCountry</td>
-                    <td>id : <a style="color:blue">long</a></td>
-                    <td>
-                        <a style="color:green" href="#Country">Country</a> <br />
-                        <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#404">404</a> <br />
-                        <a style="color:green" href="#500">500</a> <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Получить регион по ID</td>
-                    <td>User</td>
-                    <td>GET</td>
-                    <td>/api/location/GetRegion</td>
-                    <td>id : <a style="color:blue">long</a></td>
-                    <td>
-                        <a style="color:green" href="#Region">Region</a> <br />
-                        <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#404">404</a> <br />
-                        <a style="color:green" href="#500">500</a> <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Получить город по ID</td>
-                    <td>User</td>
-                    <td>GET</td>
-                    <td>/api/location/GetCity</td>
-                    <td>id : <a style="color:blue">long</a></td>
-                    <td>
-                        <a style="color:green" href="#City">City</a> <br />
-                        <a style="color:green" href="#401">401</a> <br />
-                        <a style="color:green" href="#404">404</a> <br />
-                        <a style="color:green" href="#500">500</a> <br />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <hr>
-
-    <div style="padding: 25px">
         <h4>Moderator controller <img id="moderator" src="https://png.icons8.com/ios/1600/expand-filled.png" style="width:25px; cursor:pointer;" /></h4>
         <table style="display:none" id="moderator_table">
             <thead>
@@ -850,32 +754,6 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td><a style="color:green" href="#Country" id="Country">Country</a></td>
-                    <td>
-                        id: <a style="color:blue">long</a><br />
-                        name: <a style="color:blue">string</a><br />
-                        creationDate: <a style="color:green" href="#DateTime">DateTime</a><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td><a style="color:green" href="#Region" id="Region">Region</a></td>
-                    <td>
-                        id: <a style="color:blue">long</a><br />
-                        countryId: <a style="color:blue">long</a><br />
-                        name: <a style="color:blue">string</a><br />
-                        creationDate: <a style="color:green" href="#DateTime">DateTime</a><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td><a style="color:green" href="#City" id="City">City</a></td>
-                    <td>
-                        id: <a style="color:blue">long</a><br />
-                        regionId: <a style="color:blue">long</a><br />
-                        name: <a style="color:blue">string</a><br />
-                        creationDate: <a style="color:green" href="#DateTime">DateTime</a><br />
-                    </td>
-                </tr>
                 <tr>
                     <td><a style="color:green" href="#FileToAddModel" id="FileToAddModel">FileToAddModel</a></td>
                     <td>
