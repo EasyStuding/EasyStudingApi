@@ -10,6 +10,8 @@ namespace EasyStudingServices.Services
     {
         private static readonly List<string> _notWrittenExceptions
             = new List<string>();
+        
+        private static object _lock = new object();
 
         public static void UpdateLogFile(Exception ex)
         {
@@ -26,22 +28,25 @@ namespace EasyStudingServices.Services
             var path = Path.Combine(
                            Directory.GetCurrentDirectory(),
                            Defines.FileFolders.FolderPathes[Defines.FileFolders.LOGS_FOLDER], DateTime.Now.ToString("dd_MM_yy") + "_log.txt");
-            try
+            lock (_lock)
             {
-                if (_notWrittenExceptions.Count > 0)
+                try
                 {
-                    while (_notWrittenExceptions.Count > 0)
+                    if (_notWrittenExceptions.Count > 0)
                     {
-                        File.AppendAllText(path, _notWrittenExceptions.Last() + Environment.NewLine);
-                        _notWrittenExceptions.Remove(_notWrittenExceptions.Last());
+                        while (_notWrittenExceptions.Count > 0)
+                        {
+                            File.AppendAllText(path, _notWrittenExceptions.Last() + Environment.NewLine);
+                            _notWrittenExceptions.Remove(_notWrittenExceptions.Last());
+                        }
                     }
-                }
 
-                File.AppendAllText(path, res + Environment.NewLine);
-            }
-            catch
-            {
-                _notWrittenExceptions.Add(res + Environment.NewLine);
+                    File.AppendAllText(path, res + Environment.NewLine);
+                }
+                catch
+                {
+                    _notWrittenExceptions.Add(res + Environment.NewLine);
+                }
             }
         }
     }
